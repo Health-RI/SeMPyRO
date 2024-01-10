@@ -1,0 +1,2 @@
+# HRIPydanticModels
+pydantic data models
