@@ -1,0 +1,295 @@
+{
+  "$comment": "version: ga4gh-beacon-individual-v2.0.0",
+  "$defs": {
+    "Disease": {
+      "properties": {
+        "diseaseCode": {
+          "title": "Diseasecode",
+          "type": "string"
+        },
+        "ageOfOnset": {
+          "$ref": "#/$defs/TimeElement"
+        }
+      },
+      "required": [
+        "diseaseCode",
+        "ageOfOnset"
+      ],
+      "title": "Disease",
+      "type": "object"
+    },
+    "Ethnicity": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "description": "Definition of an identifier in the CURIE `prefix:local-part` format which is the default type of e.g. ontology term `id` values (used e.g. for filters or external identifiers).",
+          "examples": [
+            "ga4gh:GA.01234abcde",
+            "DUO:0000004",
+            "orcid:0000-0003-3463-0775",
+            "PMID:15254584"
+          ],
+          "pattern": "^\\w[^:]+:.+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "default": null,
+          "description": "The text that describes the term. By default it could be the preferred text of the term, but is it acceptable to customize it for a clearer description and understanding of the term in an specific context.",
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "Ethnicity",
+      "type": "object"
+    },
+    "Exposure": {
+      "properties": {},
+      "title": "Exposure",
+      "type": "object"
+    },
+    "GeographicLocation": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "description": "Definition of an identifier in the CURIE `prefix:local-part` format which is the default type of e.g. ontology term `id` values (used e.g. for filters or external identifiers).",
+          "examples": [
+            "ga4gh:GA.01234abcde",
+            "DUO:0000004",
+            "orcid:0000-0003-3463-0775",
+            "PMID:15254584"
+          ],
+          "pattern": "^\\w[^:]+:.+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "default": null,
+          "description": "The text that describes the term. By default it could be the preferred text of the term, but is it acceptable to customize it for a clearer description and understanding of the term in an specific context.",
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "GeographicLocation",
+      "type": "object"
+    },
+    "Info": {
+      "properties": {},
+      "title": "Info",
+      "type": "object"
+    },
+    "KaryotypicSex": {
+      "properties": {},
+      "title": "KaryotypicSex",
+      "type": "object"
+    },
+    "Measurement": {
+      "properties": {},
+      "title": "Measurement",
+      "type": "object"
+    },
+    "Pedigree": {
+      "properties": {},
+      "title": "Pedigree",
+      "type": "object"
+    },
+    "PhenotypicFeature": {
+      "properties": {},
+      "title": "PhenotypicFeature",
+      "type": "object"
+    },
+    "Procedure": {
+      "properties": {},
+      "title": "Procedure",
+      "type": "object"
+    },
+    "Sex": {
+      "enum": [
+        "NCIT:C16576",
+        "NCIT:C20197",
+        "NCIT:C1799"
+      ],
+      "title": "Sex",
+      "type": "string"
+    },
+    "TimeElement": {
+      "properties": {},
+      "title": "TimeElement",
+      "type": "object"
+    },
+    "Treatment": {
+      "properties": {},
+      "title": "Treatment",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "diseases": {
+      "default": null,
+      "description": "List of disease(s) been diagnosed to the individual, defined by disease ontology ID(s), age of onset, stage and the presenceof family history.",
+      "items": {
+        "$ref": "#/$defs/Disease"
+      },
+      "title": "Diseases",
+      "type": "array"
+    },
+    "ethnicity": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Ethnicity"
+        }
+      ],
+      "default": null,
+      "description": "Ethnic background of the individual. Value from NCIT Race (NCIT:C17049) ontology term descendants, e.g. NCIT:C126531 (Latin American). A geographicancestral origin category that is assigned to a population group based mainly on physical characteristics that are thought to be distinct and inherent. [ NCI ] ",
+      "examples": [
+        {
+          "id": "NCIT:C42331",
+          "label": "African"
+        },
+        {
+          "id": "NCIT:C41260",
+          "label": "Asian"
+        },
+        {
+          "id": "NCIT:C126535",
+          "label": "Australian"
+        },
+        {
+          "id": "NCIT:C43851",
+          "label": "European"
+        },
+        {
+          "id": "NCIT:C77812",
+          "label": "North American"
+        },
+        {
+          "id": "NCIT:C126531",
+          "label": "Latin American"
+        },
+        {
+          "id": "NCIT:C104495",
+          "label": "Other race"
+        }
+      ]
+    },
+    "exposures": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/Exposure"
+      },
+      "title": "Exposures",
+      "type": "array"
+    },
+    "geographicOrigin": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/GeographicLocation"
+        }
+      ],
+      "default": null,
+      "description": "Individual's country or region of origin (birthplace or residence place regardless of ethnic origin). Value from GAZ Geographic Location ontology.",
+      "examples": [
+        {
+          "id": "GAZ:00002955",
+          "label": "Slovenia"
+        },
+        {
+          "id": "GAZ:00002459",
+          "label": "United States of America"
+        },
+        {
+          "id": "GAZ:00316959",
+          "label": "Municipality of El Masnou"
+        },
+        {
+          "id": "GAZ:00000460",
+          "label": "Eurasia"
+        }
+      ]
+    },
+    "id": {
+      "description": "Individual identifier (internal ID).",
+      "title": "Id",
+      "type": "string"
+    },
+    "info": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Info"
+        }
+      ],
+      "default": null
+    },
+    "interventionsOrProcedures": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/Procedure"
+      },
+      "title": "Interventionsorprocedures",
+      "type": "array"
+    },
+    "karyotypicSex": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/KaryotypicSex"
+        }
+      ],
+      "default": null,
+      "description": "The chromosomal sex of an individual represented from a selection of options."
+    },
+    "measures": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/Measurement"
+      },
+      "title": "Measures",
+      "type": "array"
+    },
+    "pedigrees": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/Pedigree"
+      },
+      "title": "Pedigrees",
+      "type": "array"
+    },
+    "phenotypicFeatures": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/PhenotypicFeature"
+      },
+      "title": "Phenotypicfeatures",
+      "type": "array"
+    },
+    "sex": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Sex"
+        }
+      ],
+      "description": "Sex of the individual. Value from NCIT General Qualifier (NCIT:C27993): 'unknown' (not assessed or not available) (NCIT:C17998), 'female' (NCIT:C16576), or 'male', (NCIT:C20197)."
+    },
+    "treatments": {
+      "default": null,
+      "items": {
+        "$ref": "#/$defs/Treatment"
+      },
+      "title": "Treatments",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "sex"
+  ],
+  "title": "Individual",
+  "type": "object"
+}
