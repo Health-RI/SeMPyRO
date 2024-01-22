@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hrimodeling"
+version = "0.1.0"
+description = ""
+authors = ["anastasianayden <anastasia.nayden@health-ri.nl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rdflib = "^7.0.0"
+pydantic = "^2.5.2"
+ruamel-yaml = "^0.18.5"
+notebook = "^7.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
