@@ -1,12 +1,8 @@
-import typing
-from abc import ABCMeta
 import logging
-from pydantic import BaseModel, ConfigDict, Field, EmailStr
-from rdflib import DCAT, DCTERMS, Dataset
+from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional, Union, ClassVar, Type, Dict, Any
 from pydantic import (BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator,
                       model_validator)
-from pydantic.functional_validators import AfterValidator
 from rdflib import BNode, Graph, Namespace, URIRef, Literal
 from rdflib.namespace import DCAT, DCTERMS, RDF, XSD, RDFS, TIME, DefinedNamespace
 from typing_extensions import Annotated
@@ -30,6 +26,10 @@ logger = logging.getLogger("__name__")
 
 
 class TimePosition(RDFModel):
+    """
+    A temporal position described using either a (nominal) value from an ordinal reference system,
+    or a (numeric) value in a temporal coordinate system.
+    """
     model_config = ConfigDict(title=TIME.TimePosition)
     nominalPosition: str = Field(default=None,
                                  description="The (nominal) value indicating temporal position in an ordinal reference "
@@ -69,6 +69,10 @@ class DayOfWeek(Enum):
 
 
 class Greg(DefinedNamespace):
+    """
+    OWL-Time Gregorian Calendar
+    Generated from: https://www.w3.org/ns/time/gregorian#
+    """
     January: URIRef
     February: URIRef
     March: URIRef
@@ -95,9 +99,9 @@ class MonthOfYear(Enum):
     July = Greg.July
     August = Greg.August
     September = Greg.September
-    October: Greg.October
-    November: Greg.November
-    December: Greg.December
+    October = Greg.October
+    November = Greg.November
+    December = Greg.December
 
 
 class GeneralDateTimeDescription(RDFModel):
