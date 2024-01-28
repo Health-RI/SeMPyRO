@@ -1,8 +1,8 @@
 import logging
 from pydantic import BaseModel, ConfigDict
 from pydantic.fields import PydanticUndefined
-from typing import Union, Type
-from rdflib import BNode, Graph, URIRef, Literal
+from typing import Union, Type, Any
+from rdflib import BNode, Graph, URIRef, Literal, XSD
 from rdflib.namespace import RDF, RDFS
 
 RDF_KEY = "rdf_term"
@@ -52,18 +52,14 @@ class RDFModel(BaseModel):
                       subject: Union[URIRef, BNode],
                       node_predicate: URIRef,
                       node_type: URIRef) -> Graph:
-        rdf_field_types = {"literal": Literal, "uri": URIRef, "rdfs_literal": RDFS.Literal}
         node_to_add = BNode()
         graph.add((subject, node_predicate, node_to_add))
         graph.add((node_to_add, RDF.type, node_type))
         for field, value in iter(self):
             if value:
                 rdf_predicate = self.model_fields[field].json_schema_extra[RDF_KEY]
-                type_key = self.model_fields[field].json_schema_extra.get(RDF_TYPE_KEY)
-                rdf_type = rdf_field_types.get(type_key, type_key)
+                rdf_type = self.model_fields[field].json_schema_extra.get(RDF_TYPE_KEY)
                 if issubclass(type(value), (BaseModel, RDFModel)):
-                    # if rdf_type is None:
-                    #     raise RDFModelError(f"rdf_type is not specified for {type(value)} model")
                     value.to_graph_node(graph=graph,
                                         subject=node_to_add,
                                         node_predicate=rdf_predicate,
@@ -72,9 +68,25 @@ class RDFModel(BaseModel):
                     if rdf_type is None:
                         logger.warning(f"No {RDF_TYPE_KEY} provided in schema, that may cause errors")
                     else:
-                        value = rdf_type(value)
+                        value = self._convert_to_rdf_type(rdf_type, value)
                     graph.add((node_to_add, rdf_predicate, value))
         return graph
+
+    @staticmethod
+    def _convert_to_rdf_type(rdf_type: str, value: Any) -> Union[URIRef, Literal]:
+        if rdf_type.startswith("xsd:"):
+            xsd_attribute = getattr(XSD, rdf_type.split(":")[-1])
+            return Literal(value, datatype=xsd_attribute)
+        match rdf_type:
+            case "literal":
+                return Literal(value)
+            case "uri":
+                return URIRef(str(value))
+            case "rdfs_literal":
+                return Literal(value) #todo usecase
+            case _:
+                raise RDFModelError(f"{rdf_type} does not match any of allowed types.\n"
+                                    f"Expected types: 'literal', 'uri' or one of XDS types formatted `xsd:<type>`")
 
     @classmethod
     def annotate_model(cls):

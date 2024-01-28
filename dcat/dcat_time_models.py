@@ -3,8 +3,9 @@ from abc import ABCMeta
 import logging
 from pydantic import BaseModel, ConfigDict, Field, EmailStr
 from rdflib import DCAT, DCTERMS, Dataset
-from typing import List, Optional, Union, ClassVar, Type, Dict
-from pydantic import BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator
+from typing import List, Optional, Union, ClassVar, Type, Dict, Any
+from pydantic import (BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator,
+                      model_validator)
 from pydantic.functional_validators import AfterValidator
 from rdflib import BNode, Graph, Namespace, URIRef, Literal
 from rdflib.namespace import DCAT, DCTERMS, RDF, XSD, RDFS, TIME, DefinedNamespace
@@ -21,9 +22,6 @@ from enum import Enum
 
 from datetime import date, datetime, time
 
-from dcat.DCATv3 import DCATv3
-
-VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
@@ -37,35 +35,27 @@ class TimePosition(RDFModel):
                                  description="The (nominal) value indicating temporal position in an ordinal reference "
                                              "system",
                                  rdf_term=TIME.nominalPosition,
-                                 rdf_type="literal")  # xsd:string
+                                 rdf_type="xsd:string")
     numericPosition: float = Field(default=None,
                                    description="The (numeric) value indicating position within a temporal coordinate "
                                                "system",
                                    rdf_term=TIME.numericPosition,
-                                   rdf_type="literal"
-                                   )  # xsd: decimal
-    hasTRS: AnyHttpUrl = Field(default=None,
-                               description="The temporal reference system used by a temporal position or extent "
+                                   rdf_type="xsd:decimal"
+                                   )
+    hasTRS: AnyHttpUrl = Field(description="The temporal reference system used by a temporal position or extent "
                                            "description",
                                rdf_term=TIME.hasTRS,
                                rdf_type="uri"
                                )
 
-    # EXAMPLE 26: Temporal coverage for a geologic dataset
-    # ex: ds850 a dcat: Dataset;
-    #   dcterms: temporal[a dcterms: PeriodOfTime, time: ProperInterval;
-    #       time: hasBeginning[a time: Instant;
-    #           time: inTimePosition[a time: TimePosition;
-    #               time: hasTRS <http://resource.geosciml.org/classifier/cgi/geologicage/ma>;
-    #               time: numericPosition "541.0"^^xsd:decimal;];
-    # ];
-    #       time: hasEnd[a time: Instant;
-    #           time: inTimePosition[a time: TimePosition;
-    #               time: hasTRS <http://resource.geosciml.org/classifier/cgi/geologicage/ma>;
-    #               time: numericPosition "251.902"^^xsd:decimal;
-    # ];
-    # ];
-    # ].
+    @model_validator(mode="before")
+    @classmethod
+    def validate(cls, data: Dict) -> Dict[str, Any]:
+        if data.get("nominalPosition") and data.get("numericPosition"):
+            raise ValueError("Expected only one, either `nominalPosition` or `numericPosition`, both were provided")
+        elif data.get("nominalPosition") is None and data.get("numericPosition") is None:
+            raise ValueError("Either `nominalPosition` or `numericPosition` should be provided")
+        return data
 
 
 class DayOfWeek(Enum):
@@ -109,24 +99,20 @@ class MonthOfYear(Enum):
     November: Greg.November
     December: Greg.December
 
-# MonthOfYear = Field(default=None, d)
-
 
 class GeneralDateTimeDescription(RDFModel):
     model_config = ConfigDict(title=TIME.GeneralDateTimeDescription)
     timeZone: AnyHttpUrl = Field(default=None,
                                  description="The time zone for clock elements in the temporal position",
-                                 max_items=1,
                                  rdf_term=TIME.TimeZone,
                                  rdf_type="uri")
-    unitType: str = Field(description="The temporal unit which provides the precision of a date-time value or scale "
-                                      "of a temporal extent",
-                          rdf_term=TIME.TemporalUnit,
-                          rdf_type="uri")
+    unitType: AnyHttpUrl = Field(description="The temporal unit which provides the precision of a date-time value or "
+                                             "scale of a temporal extent",
+                                 rdf_term=TIME.TemporalUnit,
+                                 rdf_type="uri")
     hasTRS: AnyHttpUrl = Field(default=None,
                                description="The temporal reference system used by a temporal position or extent "
                                            "description",
-                               max_items=1,
                                rdf_term=TIME.hasTRS,
                                rdf_type="uri"
                                )
