@@ -1,4 +1,6 @@
 import logging
+import typing
+
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional, Union, ClassVar, Type, Dict, Any
 from pydantic import (BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator,
@@ -10,7 +12,6 @@ from pydantic.fields import PydanticUndefined
 
 from dcat.rdf_model import RDFModel, RDFModelError
 
-
 import ruamel.yaml
 import json
 
@@ -21,6 +22,8 @@ from datetime import date, datetime, time
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
+
+GREG_URL = "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
 
 logger = logging.getLogger("__name__")
 
@@ -105,6 +108,9 @@ class MonthOfYear(Enum):
 
 
 class GeneralDateTimeDescription(RDFModel):
+    """
+    Description of date and time structured with separate values for the various elements of a calendar-clock system
+    """
     model_config = ConfigDict(title=TIME.GeneralDateTimeDescription)
     timeZone: AnyHttpUrl = Field(default=None,
                                  description="The time zone for clock elements in the temporal position",
@@ -124,61 +130,53 @@ class GeneralDateTimeDescription(RDFModel):
                       description="Year position in a calendar-clock system. The range of this property is not "
                                   "specified, so can be replaced by any specific representation of a calendar year "
                                   "from any calendar.",
-                      max_items=1,
                       rdf_term=TIME.year,
                       rdf_type=XSD.gYear)
     month: str = Field(default=None,
                        description="Month position in a calendar-clock system. The range of this property is not "
                                    "specified, so can be replaced by any specific representation of a calendar month "
                                    "from any calendar.",
-                       max_items=1,
                        rdf_term=TIME.month,
                        rdf_type=XSD.gMonth)
     day: str = Field(default=None,
                      description="Day position in a calendar-clock system. The range of this property is not "
                                  "specified, so can be replaced by any specific representation of a calendar day from "
                                  "any calendar.",
-                     max_items=1,
                      rdf_term=TIME.day,
                      rdf_type=XSD.gDay)
     hour: int = Field(default=None,
                       description="Hour position in a calendar-clock system",
-                      le=23, ge=0, max_items=1, rdf_term=TIME.hour, rdf_type=XSD.negativeInteger)
+                      ge=0,
+                      rdf_term=TIME.hour,
+                      rdf_type=XSD.nonNegativeInteger)
     minute: int = Field(default=None,
                         description="Minute position in a calendar-clock system",
-                        le=59,
                         ge=0,
-                        max_items=1,
                         rdf_term=TIME.minute,
-                        rdf_type=XSD.negativeInteger)
-    second: int = Field(default=None,
-                        description="Second position in a calendar-clock system.",
-                        le=59,
-                        ge=0,
-                        max_items=1,
-                        rdf_term=TIME.second,
-                        rdf_type=XSD.decimal)
+                        rdf_type=XSD.nonNegativeInteger)
+    second: float = Field(default=None,
+                          description="Second position in a calendar-clock system.",
+                          rdf_term=TIME.second,
+                          rdf_type=XSD.decimal)
     week: int = Field(default=None,
                       description="Week number within the year.",
-                      ge=1,
-                      max_items=1,
+                      ge=0,
                       rdf_term=TIME.week,
-                      rdf_type=XSD.negativeInteger)
+                      rdf_type=XSD.nonNegativeInteger)
     dayOfYear: int = Field(default=None,
                            description="The number of the day within the year",
-                           ge=1,
-                           max_items=1,
+                           ge=0,
                            rdf_term=TIME.dayOfYear,
-                           rdf_type=XSD.negativeInteger)
-    dayOfWeek: DayOfWeek = Field(default=None,
-                                 description="The day of week, whose value is a member of the class time:DayOfWeek",
-                                 rdf_term=TIME.dayOfWeek, rdf_type="uri")
-    monthOfYear: MonthOfYear = Field(default=None,
-                                     description="The month of the year, whose value is a member of the class "
-                                                 "time:MonthOfYear",
-                                     max_items=1,
-                                     rdf_term=TIME.monthOfYear,
-                                     rdf_type="uri")
+                           rdf_type=XSD.nonNegativeInteger)
+    dayOfWeek: AnyHttpUrl = Field(default=None,
+                                  description="The day of week, whose value is a member of the class time:DayOfWeek",
+                                  rdf_term=TIME.dayOfWeek,
+                                  rdf_type="uri")
+    monthOfYear: AnyHttpUrl = Field(default=None,
+                                    description="The month of the year, whose value is a member of the class "
+                                                "time:MonthOfYear",
+                                    rdf_term=TIME.monthOfYear,
+                                    rdf_type="uri")
 
 
 class DateTimeDescription(GeneralDateTimeDescription):
@@ -188,17 +186,77 @@ class DateTimeDescription(GeneralDateTimeDescription):
     restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.
     """
 
-    # hasTRS: typing.Literal["http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"] = "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-    hasTRS: str = "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
+    hasTRS: typing.Literal[GREG_URL] = Field(default=GREG_URL,
+                                             description="The temporal reference system used by a temporal position or "
+                                                         "extent description",
+                                             rdf_term=TIME.hasTRS,
+                                             rdf_type="uri")
 
-    @field_validator("hasTRS")
-    @classmethod
-    def check_gregorian(cls, value: str) -> str:
-        if value == "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian":
-            return value
-        else:
-            raise ValueError("hasTRS should be Gregorian (http://www.opengis.net/def/uom/ISO-8601/0/Gregorian), "
-                             "otherwise use GeneralDateTimeDescription")
+    year: str = Field(default=None,
+                      description="Year position in a calendar-clock system. The range of this property is not "
+                                  "specified, so can be replaced by any specific representation of a calendar year "
+                                  "from any calendar.",
+                      pattern="-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                      rdf_term=TIME.year,
+                      rdf_type=XSD.gYear)
+    month: str = Field(default=None,
+                       description="Month position in a calendar-clock system. The range of this property is not "
+                                   "specified, so can be replaced by any specific representation of a calendar month "
+                                   "from any calendar.",
+                       pattern="--(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                       rdf_term=TIME.month,
+                       rdf_type=XSD.gMonth)
+    day: str = Field(default=None,
+                     description="Day position in a calendar-clock system. The range of this property is not "
+                                 "specified, so can be replaced by any specific representation of a calendar day from "
+                                 "any calendar.",
+                     pattern="---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                     rdf_term=TIME.day,
+                     rdf_type=XSD.gDay)
+
+    hour: int = Field(default=None,
+                      description="Hour position in a calendar-clock system",
+                      le=23,
+                      ge=0,
+                      rdf_term=TIME.hour,
+                      rdf_type=XSD.nonNegativeInteger)
+    minute: int = Field(default=None,
+                        description="Minute position in a calendar-clock system",
+                        le=59,
+                        ge=0,
+                        rdf_term=TIME.minute,
+                        rdf_type=XSD.nonNegativeInteger)
+    second: float = Field(default=None,
+                          description="Second position in a calendar-clock system.",
+                          ge=0,
+                          lt=60,
+                          rdf_term=TIME.second,
+                          rdf_type=XSD.decimal)
+    week: int = Field(default=None,
+                      description="Week number within the year.",
+                      le=53,
+                      ge=1,
+                      rdf_term=TIME.week,
+                      rdf_type=XSD.nonNegativeInteger)
+    dayOfYear: int = Field(default=None,
+                           description="The number of the day within the year",
+                           ge=1,
+                           le=366,
+                           rdf_term=TIME.dayOfYear,
+                           rdf_type=XSD.nonNegativeInteger)
+    dayOfWeek: DayOfWeek = Field(default=None,
+                                 description="The day of week, whose value is a member of the class time:DayOfWeek",
+                                 rdf_term=TIME.dayOfWeek,
+                                 rdf_type="uri")
+    monthOfYear: MonthOfYear = Field(default=None,
+                                     description="The month of the year, whose value is a member of the class "
+                                                 "time:MonthOfYear",
+                                     rdf_term=TIME.monthOfYear,
+                                     rdf_type="uri")
+
+    # Some combinations of properties are redundant. For example, within a specified :year if :dayOfYear is provided 
+    # then :day and :month can be computed, and vice versa. Individual values SHOULD be consistent with each other and 
+    # the calendar, indicated through the value of the :hasTRS property.
 
 
 class TimeInstant(RDFModel):
@@ -241,8 +299,6 @@ class TimeInstant(RDFModel):
                                                    rdf_term=TIME.inDateTime,
                                                    rdf_type=TIME.GeneralDateTimeDescription
                                                    )
-
-    #     graph.add((date_node, RDF.type, TIME.Instant))
 
 
 class Temporal(RDFModel):
