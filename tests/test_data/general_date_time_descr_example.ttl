@@ -7,7 +7,7 @@
 
 
 ex: ex:AbbyBirthdayHebrew [ a time:GeneralDateTimeDescription ;
-            time:TemporalUnit time:unitDay ;
+            time:unitType time:unitDay ;
             time:day "---01"^^xsd:gDay ;
             time:hasTRS <http://dbpedia.org/resource/Hebrew_calendar> ;
             time:month "--03"^^xsd:gMonth ;

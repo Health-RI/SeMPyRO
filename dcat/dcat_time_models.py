@@ -114,11 +114,11 @@ class GeneralDateTimeDescription(RDFModel):
     model_config = ConfigDict(title=TIME.GeneralDateTimeDescription)
     timeZone: AnyHttpUrl = Field(default=None,
                                  description="The time zone for clock elements in the temporal position",
-                                 rdf_term=TIME.TimeZone,
+                                 rdf_term=TIME.timeZone,
                                  rdf_type="uri")
     unitType: AnyHttpUrl = Field(description="The temporal unit which provides the precision of a date-time value or "
                                              "scale of a temporal extent",
-                                 rdf_term=TIME.TemporalUnit,
+                                 rdf_term=TIME.unitType,
                                  rdf_type="uri")
     hasTRS: AnyHttpUrl = Field(description="The temporal reference system used by a temporal position or extent "
                                            "description",
@@ -255,8 +255,15 @@ class DateTimeDescription(GeneralDateTimeDescription):
 
     @field_validator("dayOfWeek", "monthOfYear", mode='before')
     @classmethod
-    def force_uriref(cls, value: str) -> URIRef:
-        return URIRef(value)
+    def force_uriref(cls, value: [str, DayOfWeek, MonthOfYear]) -> URIRef:
+        """
+        In case data is provided as json URIRef references are strings, they are converted to URIRef before
+         type/values checks on model instantiation
+        """
+        if isinstance(value, str):
+            return URIRef(value)
+        else:
+            return value
 
     # Some combinations of properties are redundant. For example, within a specified :year if :dayOfYear is provided 
     # then :day and :month can be computed, and vice versa. Individual values SHOULD be consistent with each other and 
