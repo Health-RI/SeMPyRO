@@ -1,0 +1,12 @@
+{
+  "day": "---23",
+  "dayOfWeek": "http://www.w3.org/2006/time#Wednesday",
+  "dayOfYear": "143",
+  "hour": "8",
+  "minute": "20",
+  "month": "--05",
+  "monthOfYear": "http://www.w3.org/ns/time/gregorian#May",
+  "timeZone": "https://www.timeanddate.com/time/zones/awst", 
+  "unitType": "http://www.w3.org/2006/time#unitMinute",
+  "year": "2001"
+}

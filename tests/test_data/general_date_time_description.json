@@ -1,0 +1,8 @@
+{
+  "day": "---01",
+  "hasTRS": "http://dbpedia.org/resource/Hebrew_calendar",
+  "month": "--03",
+  "monthOfYear": "https://dbpedia.org/page/Sivan",
+  "year": "5761",
+  "unitType": "http://www.w3.org/2006/time#unitDay"
+}
