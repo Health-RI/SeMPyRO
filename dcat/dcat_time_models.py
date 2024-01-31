@@ -1,6 +1,7 @@
 import logging
 import typing
 
+from pathlib import Path
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional, Union, ClassVar, Type, Dict, Any
 from pydantic import (BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator,
@@ -19,13 +20,12 @@ from enum import Enum
 
 from datetime import date, datetime, time
 
+logger = logging.getLogger("__name__")
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
 
 GREG_URL = "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-
-logger = logging.getLogger("__name__")
 
 
 class TimePosition(RDFModel):
@@ -253,7 +253,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                                      rdf_term=TIME.monthOfYear,
                                      rdf_type="uri")
 
-    @field_validator("dayOfWeek", "monthOfYear", mode='before')
+    @field_validator("dayOfWeek", "monthOfYear", mode="before")
     @classmethod
     def force_uriref(cls, value: [str, DayOfWeek, MonthOfYear]) -> URIRef:
         """
@@ -271,38 +271,44 @@ class DateTimeDescription(GeneralDateTimeDescription):
 
 
 class TimeInstant(RDFModel):
+    """A temporal entity with zero extent or duration"""
     model_config = ConfigDict(title=TIME.Instant)
 
     inXSDDate: date = Field(default=None,
                             description="Position of an instant, expressed using xsd:date",
                             rdf_term=TIME.inXSDDate,
-                            rdf_type="literal"
-                            )  # todo xsd format?
+                            rdf_type="xsd:date"
+                            )
     inXSDDateTime: NaiveDatetime = Field(default=None,
                                          description="(deprecated) Position of an instant, expressed using "
                                                      "xsd:dateTime",
+                                         deprecated=True,
                                          rdf_term=TIME.inXSDDateTime,
-                                         rdf_type="literal")
+                                         rdf_type="xsd:dateTime")
     inXSDDateTimeStamp: AwareDatetime = Field(default=None,
                                               description="Position of an instant, expressed using xsd:dateTimeStamp, "
                                                           "in which the time-zone field is mandatory",
                                               rdf_term=TIME.inXSDDateTimeStamp,
-                                              rdf_type="literal"
+                                              rdf_type="xsd:dateTimeStamp"
                                               )
     inXSDgYear: str = Field(default=None,
                             description="Position of an instant, expressed using xsd:gYear",
+                            pattern="-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
                             rdf_term=TIME.inXSDgYear,
-                            rdf_type="literal"
+                            rdf_type="xsd:gYear"
                             )
     inXSDgYearMonth: str = Field(default=None,
                                  description="Position of an instant, expressed using xsd:gYearMonth",
+                                 pattern="-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
+                                         "[0-5][0-9]|14:00))?",
                                  rdf_term=TIME.inXSDgYearMonth,
-                                 rdf_type="literal"
+                                 rdf_type="xsd:gYearMonth"
                                  )
     inTimePosition: TimePosition = Field(default=None,
                                          description="Position of an instant, expressed as a temporal coordinate or "
                                                      "nominal val",
-                                         rdf_term=TIME.inTimePosition  # todo inTimePosition
+                                         rdf_term=TIME.inTimePosition,
+                                         rdf_type=TIME.TimePosition
                                          )
     inDateTime: GeneralDateTimeDescription = Field(default=None,
                                                    description="Position of an instant, expressed using a structured "
@@ -310,6 +316,22 @@ class TimeInstant(RDFModel):
                                                    rdf_term=TIME.inDateTime,
                                                    rdf_type=TIME.GeneralDateTimeDescription
                                                    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def warn_deprecated(cls, data: Dict) -> Dict[str, Any]:
+        if data.get("inXSDDateTime"):
+            logger.warning("'inXSDDateTime' is deprecated, consider using `inXSDDateTimeStamp` instead")
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate(cls, data: Dict) -> Dict[str, Any]:
+        if len(data) > 1:
+            raise ValueError("'inXSDDate', 'inXSDDateTime' (deprecated), 'inXSDDateTimeStamp', 'inXSDgYear', "
+                             "'inXSDgYearMonth', 'inTimePosition', and 'inDateTime' are alternative ways to describe "
+                             "the temporal position of an Instant, only one should be provided")
+        return data
 
 
 class PeriodOfTime(RDFModel):
@@ -335,7 +357,7 @@ class PeriodOfTime(RDFModel):
                              rdf_term=TIME.hasEnd,
                              rdf_type=TIME.Instant)
 
-    @field_validator("start_date", "end_date", mode='before')
+    @field_validator("start_date", "end_date", mode="before")
     @classmethod
     def force_literal_field(cls, value: [str, LiteralField]) -> LiteralField:
         """
@@ -358,21 +380,10 @@ class PeriodOfTime(RDFModel):
         return data
 
 
-# EXAMPLE 23: Temporal coverage as closed interval
-# ex:ds257 a dcat:Dataset ;
-#   dcterms:temporal [ a dcterms:PeriodOfTime ;
-#     dcat:startDate "2016-03-04"^^xsd:date ;
-#     dcat:endDate   "2018-08-05"^^xsd:date ;
-#   ] .
-# EXAMPLE 24: Temporal coverage as closed interval, using time:ProperInterval
-# The following dataset specification is equivalent to the one in Example 23, but it uses [OWL-TIME]:
-# 
-# ex:ds348 a dcat:Dataset ;
-#   dcterms:temporal [ a dcterms:PeriodOfTime , time:ProperInterval ;
-#     time:hasBeginning [ a time:Instant ;
-#       time:inXSDDate "2016-03-04"^^xsd:date ;
-#     ] ;
-#     time:hasEnd [ a time:Instant ;
-#       time:inXSDDate "2018-08-05"^^xsd:date ;
-#     ] ;
-#   ] .
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    models = ["TimePosition", "GeneralDateTimeDescription", "DateTimeDescription", "TimeInstant", "PeriodOfTime"]
+    for model_name in models:
+        with open(Path(json_models_folder, f"{model_name}.json"), "w") as schema_file:
+            model_schema = globals()[model_name].model_json_schema()
+            json.dump(model_schema, schema_file, indent=2)

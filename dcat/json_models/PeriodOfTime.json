@@ -157,22 +157,24 @@
     },
     "TimeInstant": {
       "additionalProperties": false,
+      "description": "A temporal entity with zero extent or duration",
       "properties": {
         "inXSDDate": {
           "default": null,
           "description": "Position of an instant, expressed using xsd:date",
           "format": "date",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDate",
-          "rdf_type": "literal",
+          "rdf_type": "xsd:date",
           "title": "Inxsddate",
           "type": "string"
         },
         "inXSDDateTime": {
           "default": null,
+          "deprecated": true,
           "description": "(deprecated) Position of an instant, expressed using xsd:dateTime",
           "format": "date-time",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTime",
-          "rdf_type": "literal",
+          "rdf_type": "xsd:dateTime",
           "title": "Inxsddatetime",
           "type": "string"
         },
@@ -181,23 +183,25 @@
           "description": "Position of an instant, expressed using xsd:dateTimeStamp, in which the time-zone field is mandatory",
           "format": "date-time",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTimeStamp",
-          "rdf_type": "literal",
+          "rdf_type": "xsd:dateTimeStamp",
           "title": "Inxsddatetimestamp",
           "type": "string"
         },
         "inXSDgYear": {
           "default": null,
           "description": "Position of an instant, expressed using xsd:gYear",
+          "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
           "rdf_term": "http://www.w3.org/2006/time#inXSDgYear",
-          "rdf_type": "literal",
+          "rdf_type": "xsd:gYear",
           "title": "Inxsdgyear",
           "type": "string"
         },
         "inXSDgYearMonth": {
           "default": null,
           "description": "Position of an instant, expressed using xsd:gYearMonth",
+          "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
           "rdf_term": "http://www.w3.org/2006/time#inXSDgYearMonth",
-          "rdf_type": "literal",
+          "rdf_type": "xsd:gYearMonth",
           "title": "Inxsdgyearmonth",
           "type": "string"
         },
@@ -209,7 +213,8 @@
           ],
           "default": null,
           "description": "Position of an instant, expressed as a temporal coordinate or nominal val",
-          "rdf_term": "http://www.w3.org/2006/time#inTimePosition"
+          "rdf_term": "http://www.w3.org/2006/time#inTimePosition",
+          "rdf_type": "http://www.w3.org/2006/time#TimePosition"
         },
         "inDateTime": {
           "allOf": [

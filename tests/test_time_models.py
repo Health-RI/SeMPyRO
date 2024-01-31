@@ -231,3 +231,58 @@ def test_period_of_time_ex24():
                                  node_predicate=DCTERMS.temporal,
                                  node_type=[DCTERMS.PeriodOfTime, TIME.ProperInterval])
     assert to_isomorphic(expected_graph) == to_isomorphic(actual_graph)
+
+
+def test_period_of_time_ex26():
+    """Test PeriodOfTime and TimeInstant serialization to a graph node"""
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "example_26.ttl"))
+    time_position_start = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
+                                       numericPosition=541.0)
+    time_position_end = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
+                                     numericPosition=251.902)
+    start_time_instant = TimeInstant(inTimePosition=time_position_start)
+    end_time_instant = TimeInstant(inTimePosition=time_position_end)
+    period_of_time = PeriodOfTime(beginning=start_time_instant, end=end_time_instant)
+    actual_graph = Graph()
+    subject = EX.ds850
+    actual_graph.bind("ex", EX)
+    actual_graph.add((subject, RDF.type, DCAT.Dataset))
+    period_of_time.to_graph_node(graph=actual_graph,
+                                 subject=subject,
+                                 node_predicate=DCTERMS.temporal,
+                                 node_type=[DCTERMS.PeriodOfTime, TIME.ProperInterval])
+    assert to_isomorphic(expected_graph) == to_isomorphic(actual_graph)
+
+
+@pytest.mark.parametrize("data", (
+        {"inXSDDate": "2023-08-08"},
+        {"inXSDDateTimeStamp": "2023-08-08T15:32:00Z"},
+        {"inXSDgYear": "1990"},
+        {"inXSDgYearMonth": "2008-08+03:09"},
+        {"inXSDgYearMonth": "2008-08Z"},
+        {"inTimePosition": {"hasTRS": "http://resource.geosciml.org/classifier/cgi/geologicage/ma",
+                            "numericPosition": 541.0}},
+        {"inDateTime": {
+            "day": "---23",
+            "dayOfWeek": "http://www.w3.org/2006/time#Wednesday",
+            "dayOfYear": "143",
+            "hour": "8",
+            "minute": "20",
+            "hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
+            "month": "--05",
+            "monthOfYear": "http://www.w3.org/ns/time/gregorian#May",
+            "timeZone": "https://www.timeanddate.com/time/zones/awst",
+            "unitType": "http://www.w3.org/2006/time#unitMinute",
+            "year": "2001"
+        }
+        }
+))
+def test_time_instant(data):
+    assert TimeInstant.model_validate_json(json.dumps(data))
+
+
+def test_time_instant_validation():
+    with pytest.raises(ValidationError):
+        data = {"inXSDDate": "2023-08-08",
+                "inXSDDateTimeStamp": "2023-08-08T15:32:00Z"}
+        assert TimeInstant.model_validate_json(json.dumps(data))
