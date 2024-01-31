@@ -10,7 +10,7 @@ from rdflib.namespace import DCAT, DCTERMS, RDF, XSD, RDFS, TIME, DefinedNamespa
 from typing_extensions import Annotated
 from pydantic.fields import PydanticUndefined
 
-from dcat.rdf_model import RDFModel, RDFModelError
+from dcat.rdf_model import RDFModel, RDFModelError, LiteralField
 
 import ruamel.yaml
 import json
@@ -314,27 +314,48 @@ class TimeInstant(RDFModel):
 
 class PeriodOfTime(RDFModel):
     model_config = ConfigDict(title=DCTERMS.PeriodOfTime)
-    """An interval of time that is named or defined by its start and end"""
-    start_date: str = Field(default=None,
-                            description="The start of the period",
-                            rdf_term=DCAT.startDate,
-                            rdf_type="literal")  # todo type?
-    end_date: str = Field(default=None,
-                          description="The end of the period",
-                          rdf_term=DCAT.endDate,
-                          rdf_type="literal")  # todo type?
+    """
+    An interval of time that is named or defined by its start and end,
+    https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time
+    """
+    start_date: LiteralField = Field(default=None,
+                                     description="The start of the period",
+                                     rdf_term=DCAT.startDate,
+                                     rdf_type="rdfs_literal")
+    end_date: LiteralField = Field(default=None,
+                                   description="The end of the period",
+                                   rdf_term=DCAT.endDate,
+                                   rdf_type="rdfs_literal")
     beginning: TimeInstant = Field(default=None,
                                    description="Beginning of a period or interval",
-                                   rdf_term=TIME.Instant,
-                                   # rdf_term=TIME.hasBeginning,
-                                   rdf_type="rdfs_literal")
+                                   rdf_term=TIME.hasBeginning,
+                                   rdf_type=TIME.Instant)
     end: TimeInstant = Field(default=None,
                              description="End of a period or interval",
-                             # rdf_term=TIME.hasEnd,
-                             rdf_term=TIME.Instant,
-                             rdf_type="rdfs_literal")
-    
-    #     graph.add((date_node, RDF.type, DCTERMS.PeriodOfTime))
+                             rdf_term=TIME.hasEnd,
+                             rdf_type=TIME.Instant)
+
+    @field_validator("start_date", "end_date", mode='before')
+    @classmethod
+    def force_literal_field(cls, value: [str, LiteralField]) -> LiteralField:
+        """
+        In case value is provided as a string, convert to LiteralField object with none as datatype and language
+        """
+        if isinstance(value, str):
+            return LiteralField(value=value)
+        else:
+            return value
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate(cls, data: Dict) -> Dict[str, Any]:
+        if (data.get("start_date") and
+            (data.get("beginning") or data.get("end"))
+        ) or (data.get("end_date") and (data.get("end") or data.get("beginning"))):
+            raise ValueError("The start and end of the interval SHOULD be given by using properties dcat:startDate "
+                             "or time:hasBeginning, and dcat:endDate or time:hasEnd, respectively, see "
+                             "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time.")
+        return data
 
 
 # EXAMPLE 23: Temporal coverage as closed interval

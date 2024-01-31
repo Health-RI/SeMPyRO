@@ -1,7 +1,7 @@
 import logging
 from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
 from pydantic.fields import PydanticUndefined
-from typing import Union, Type, Any, Dict
+from typing import Union, Type, Any, Dict, List
 from rdflib import BNode, Graph, URIRef, Literal, XSD
 from rdflib.namespace import RDF
 
@@ -103,10 +103,13 @@ class RDFModel(BaseModel):
                       graph: Graph,
                       subject: Union[URIRef, BNode],
                       node_predicate: URIRef,
-                      node_type: URIRef) -> Graph:
+                      node_type: Union[URIRef, List[URIRef]]) -> Graph:
         node_to_add = BNode()
         graph.add((subject, node_predicate, node_to_add))
-        graph.add((node_to_add, RDF.type, node_type))
+        if isinstance(node_type, URIRef):
+            node_type = [node_type]
+        for n_type in node_type:
+            graph.add((node_to_add, RDF.type, n_type))
         self._add_fields_to_graph(graph=graph, node_to_add=node_to_add)
         return graph
 

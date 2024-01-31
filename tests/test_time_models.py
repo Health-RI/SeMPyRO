@@ -4,7 +4,9 @@ import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError
-from dcat.dcat_time_models import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime,  DateTimeDescription, Greg, DayOfWeek
+from dcat.dcat_time_models import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime, \
+    DateTimeDescription, Greg, DayOfWeek
+from dcat.rdf_model import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
 from rdflib.compare import to_isomorphic
 
@@ -39,7 +41,7 @@ def test_time_position(input_file):
      "numericPosition": 541.0,
      "nominalPosition": "Trias"},
     {"numericPosition": 541.0}
-                                  ])
+])
 def test_time_position_validation(data):
     with pytest.raises(ValidationError):
         TimePosition(**data)
@@ -123,3 +125,109 @@ def test_date_time_descr_serialize():
                       node_type=TIME.DateTimeDescription)
     expected = Graph().parse(Path(TEST_DATA_DIRECTORY, "date_time_description.ttl"))
     assert to_isomorphic(expected) == to_isomorphic(graph)
+
+
+@pytest.mark.parametrize("data",
+                         (
+                                 # start and stop dates as strings
+                                 {
+                                     "start_date": "2016-03-04",
+                                     "end_date": "2018-08-05"
+                                 },
+                                 # start and stop dates as LiteralField
+                                 {
+                                     "start_date": {
+                                         "value": "2016-03-04",
+                                         "datatype": "xsd:date"
+                                     },
+                                     "end_date": {
+                                         "value": "2018-08-05",
+                                         "datatype": "xsd:date"
+                                     }
+                                 },
+                                 # open intervals defined with start and stop dates
+                                 {
+                                     "end_date": "2016-03-04"
+                                 },
+                                 {
+                                     "start_date": {
+                                         "value": "2016",
+                                         "datatype": "xsd:gYear"
+                                     }
+                                 },
+                                 # beginning and end to define an interval
+                                 {
+                                     "beginning": {
+                                         "inXSDgYear": "1914"
+                                     },
+                                     "end": {
+                                         "inXSDgYear": "1939"
+                                     }
+                                 },
+                                 # beginning open interval
+                                 {
+                                     "beginning": {
+                                         "inXSDDate": "2016-03-04"
+                                     }
+                                 }
+                         ))
+def test_period_of_time(data):
+    assert PeriodOfTime.model_validate_json(json.dumps(data))
+
+
+@pytest.mark.parametrize("data",
+                         ({
+                              "start_date": "2016-03-04",
+                              "beginning": {
+                                  "inXSDDate": "2016-03-04"
+                              }
+                          },
+                          {
+                              "start_date": "2016-03-04",
+                              "end": {
+                                  "inXSDgYear": "1939"
+                              }
+                          },
+                          {
+                              "end_date": {
+                                  "value": "2018-08-05",
+                                  "datatype": "xsd:date"
+                              },
+                              "end": {
+                                  "inXSDgYear": "1939"}
+                          }
+                         )
+                         )
+def test_period_of_time_validation(data):
+    with pytest.raises(ValidationError):
+        PeriodOfTime.model_validate_json(json.dumps(data))
+
+
+def test_period_of_time_ex23():
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "period_of_time_ex23.ttl"))
+    period_of_time = PeriodOfTime(start_date=LiteralField(value="2016-03-04", datatype="xsd:date"),
+                                  end_date=LiteralField(value="2018-08-05", datatype="xsd:date"))
+    actual_graph = Graph()
+    subject = EX.ds257
+    actual_graph.bind("ex", EX)
+    actual_graph.add((subject, RDF.type, DCAT.Dataset))
+    period_of_time.to_graph_node(graph=actual_graph,
+                                 subject=subject,
+                                 node_predicate=DCTERMS.temporal,
+                                 node_type=DCTERMS.PeriodOfTime)
+    assert to_isomorphic(expected_graph) == to_isomorphic(actual_graph)
+
+
+def test_period_of_time_ex24():
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "period_of_time_ex24.ttl"))
+    period_of_time = PeriodOfTime(beginning=TimeInstant(inXSDDate="2016-03-04"),
+                                  end=TimeInstant(inXSDDate="2018-08-05"))
+    actual_graph = Graph()
+    subject = EX.ds348
+    actual_graph.bind("ex", EX)
+    actual_graph.add((subject, RDF.type, DCAT.Dataset))
+    period_of_time.to_graph_node(graph=actual_graph,
+                                 subject=subject,
+                                 node_predicate=DCTERMS.temporal,
+                                 node_type=[DCTERMS.PeriodOfTime, TIME.ProperInterval])
+    assert to_isomorphic(expected_graph) == to_isomorphic(actual_graph)
