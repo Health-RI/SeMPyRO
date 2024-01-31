@@ -312,8 +312,8 @@ class TimeInstant(RDFModel):
                                                    )
 
 
-class Temporal(RDFModel):
-    model_config = ConfigDict(title=DCTERMS.temporal)
+class PeriodOfTime(RDFModel):
+    model_config = ConfigDict(title=DCTERMS.PeriodOfTime)
     """An interval of time that is named or defined by its start and end"""
     start_date: str = Field(default=None,
                             description="The start of the period",

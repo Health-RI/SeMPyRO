@@ -4,13 +4,27 @@ import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError
-from dcat.dcat_time_models import TimePosition, GeneralDateTimeDescription, DateTimeDescription, Greg, DayOfWeek
-from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef
+from dcat.dcat_time_models import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime,  DateTimeDescription, Greg, DayOfWeek
+from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
 from rdflib.compare import to_isomorphic
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
 
 EX = Namespace("http://www.example.com/")
+
+
+@pytest.mark.parametrize("model_name", ["TimePosition",
+                                        "GeneralDateTimeDescription",
+                                        "DateTimeDescription",
+                                        "TimeInstant",
+                                        "PeriodOfTime"])
+def test_time_models(model_name):
+    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json"), "r") as model_file:
+        model_json = json.load(model_file)
+    instance = globals()[model_name]
+    actual_schema = instance.model_json_schema()
+    assert json.dumps(model_json) == json.dumps(actual_schema)
 
 
 @pytest.mark.parametrize("input_file", ["time_position_nominal.json", "time_position_numeric.json"])
@@ -31,19 +45,37 @@ def test_time_position_validation(data):
         TimePosition(**data)
 
 
-# def test_time_position_to_graph():
-#     time_position_start = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
-#                                        numericPosition=541.0)
-#     time_position_end = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
-#                                      numericPosition=251.902)
-#     graph = Graph()
-#     subject = EX.ds850
-#     graph.bind("ex", EX)
-#     graph.add((subject, RDF.type, DCAT.Dataset))
-#     graph.add((subject, DCTERMS.temporal, DCTERMS.PeriodOfTime))
-#     graph.add((DCTERMS.PeriodOfTime, ))
-#     time_position_start.to_graph_node(graph, subject, DCTERMS.temporal,
-#                            node_type=DCTERMS.PeriodOfTime)
+def test_time_position_to_graph():
+    """Test TimePosition serialization to a graph node """
+    time_position_start = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
+                                       numericPosition=541.0)
+    time_position_end = TimePosition(hasTRS="http://resource.geosciml.org/classifier/cgi/geologicage/ma",
+                                     numericPosition=251.902)
+    graph = Graph()
+    subject = EX.ds850
+    graph.bind("ex", EX)
+    graph.add((subject, RDF.type, DCAT.Dataset))
+    temporal_node = BNode()
+    graph.add((subject, DCTERMS.temporal, temporal_node))
+    graph.add((temporal_node, RDF.type, DCTERMS.PeriodOfTime))
+    graph.add((temporal_node, RDF.type, TIME.ProperInterval))
+    start_time_instant_node = BNode()
+    graph.add((temporal_node, TIME.hasBeginning, start_time_instant_node))
+    graph.add((start_time_instant_node, RDF.type, TIME.Instant))
+    time_position_start.to_graph_node(graph=graph,
+                                      subject=start_time_instant_node,
+                                      node_predicate=TIME.inTimePosition,
+                                      node_type=TIME.TimePosition)
+    end_time_instant_node = BNode()
+    graph.add((temporal_node, TIME.hasEnd, end_time_instant_node))
+    graph.add((end_time_instant_node, RDF.type, TIME.Instant))
+    time_position_end.to_graph_node(graph=graph,
+                                    subject=end_time_instant_node,
+                                    node_predicate=TIME.inTimePosition,
+                                    node_type=TIME.TimePosition)
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "example_26.ttl"))
+    assert to_isomorphic(expected_graph) == to_isomorphic(graph)
+
 
 def test_general_date_time_descr():
     with open(Path(TEST_DATA_DIRECTORY, "general_date_time_description.json"), "r") as test_data_file:
@@ -58,7 +90,6 @@ def test_general_date_time_descr_serialize():
     graph.bind("ex", EX)
     graph.bind("dbr", dbr)
     graph.bind("time", TIME)
-    #todo bind namepace if not bound
     obj.to_graph_node(graph=graph,
                       subject=URIRef(EX),
                       node_predicate=EX.AbbyBirthdayHebrew,
