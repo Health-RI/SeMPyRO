@@ -185,6 +185,8 @@ class DateTimeDescription(GeneralDateTimeDescription):
     restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.
     """
 
+    model_config = ConfigDict(title=TIME.DateTimeDescription)
+
     hasTRS: typing.Literal[GREG_URL] = Field(default=GREG_URL,
                                              description="The temporal reference system used by a temporal position or "
                                                          "extent description",
