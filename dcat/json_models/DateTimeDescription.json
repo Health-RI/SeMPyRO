@@ -165,6 +165,6 @@
   "required": [
     "unitType"
   ],
-  "title": "http://www.w3.org/2006/time#GeneralDateTimeDescription",
+  "title": "http://www.w3.org/2006/time#DateTimeDescription",
   "type": "object"
 }

@@ -1,24 +1,15 @@
-import logging
-import typing
-
-from pathlib import Path
-from pydantic import BaseModel, ConfigDict, Field
-from typing import List, Optional, Union, ClassVar, Type, Dict, Any
-from pydantic import (BaseModel, Field, validator, AwareDatetime, NaiveDatetime, AnyHttpUrl, field_validator,
-                      model_validator)
-from rdflib import BNode, Graph, Namespace, URIRef, Literal
-from rdflib.namespace import DCAT, DCTERMS, RDF, XSD, RDFS, TIME, DefinedNamespace
-from typing_extensions import Annotated
-from pydantic.fields import PydanticUndefined
-
-from dcat.rdf_model import RDFModel, RDFModelError, LiteralField
-
-import ruamel.yaml
-import json
-
+from datetime import date
 from enum import Enum
+import json
+import logging
+from pathlib import Path
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
+from rdflib import Namespace, URIRef
+from rdflib.namespace import DCAT, DCTERMS, TIME, DefinedNamespace
+import typing
+from typing import Dict, Any, Union
 
-from datetime import date, datetime, time
+from dcat.rdf_model import RDFModel, LiteralField
 
 logger = logging.getLogger("__name__")
 
@@ -257,7 +248,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
 
     @field_validator("dayOfWeek", "monthOfYear", mode="before")
     @classmethod
-    def force_uriref(cls, value: [str, DayOfWeek, MonthOfYear]) -> URIRef:
+    def force_uriref(cls, value: Union[str, DayOfWeek, MonthOfYear]) -> URIRef:
         """
         In case data is provided as json URIRef references are strings, they are converted to URIRef before
          type/values checks on model instantiation
@@ -361,7 +352,7 @@ class PeriodOfTime(RDFModel):
 
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
-    def force_literal_field(cls, value: [str, LiteralField]) -> LiteralField:
+    def force_literal_field(cls, value: Union[str, LiteralField]) -> LiteralField:
         """
         In case value is provided as a string, convert to LiteralField object with none as datatype and language
         """
