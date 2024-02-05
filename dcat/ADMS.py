@@ -36,3 +36,13 @@ class ADMS(DefinedNamespace):
     Identifier: URIRef  # This is based on the UN/CEFACT Identifier class.
 
     _NS = Namespace("http://www.w3.org/ns/adms#")
+
+
+class ADMSStatus(DefinedNamespace):
+    """"""
+    Completed: URIRef
+    Deprecated: URIRef
+    UnderDevelopment: URIRef
+    Withdrawn: URIRef
+
+    _NS = Namespace("http://purl.org/adms/status/")
