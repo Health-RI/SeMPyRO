@@ -29,7 +29,7 @@ class ADMS(DefinedNamespace):
     translation: URIRef  # Links Assets that are translations of each other.
     versionNotes: URIRef  # A description of changes between this version and the previous version of the Asset.
 
-    # http://www.w3.org/2002/07/owl#Class>
+    # http://www.w3.org/2002/07/owl#Class
     Asset: URIRef  # An abstract entity that reflects the intellectual content of the asset and represents those characteristics of the asset that are independent of its physical embodiment. This abstract entity combines the FRBR entities work (a distinct intellectual or artistic creation) and expression (the intellectual or artistic realization of a work)
     AssetDistribution: URIRef  # A particular physical embodiment of an Asset, which is an example of the FRBR entity manifestation (the physical embodiment of an expression of a work).
     AssetRepository: URIRef  # A system or service that provides facilities for storage and maintenance of descriptions of Assets and Asset Distributions, and functionality that allows users to search and access these descriptions. An Asset Repository will typically contain descriptions of several Assets and related Asset Distributions.

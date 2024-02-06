@@ -4,17 +4,16 @@ import re
 
 from datetime import date
 from enum import Enum
-from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator, model_serializer, AwareDatetime, \
+from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator, AwareDatetime, \
     NaiveDatetime
-from typing import List, Optional, Union, Any
-from rdflib import BNode, Graph, Namespace, URIRef, Literal
-from rdflib.namespace import DCAT, DCTERMS, RDF, XSD, RDFS, TIME, FOAF, PROV, ODRL2
-from typing_extensions import Annotated
+from typing import List, Union, Any
+from rdflib import Namespace, URIRef
+from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV, ODRL2
 from pydantic.networks import validate_email
 
 from dcat.rdf_model import RDFModel, LiteralField
-from dcat.ADMS import ADMS, ADMSStatus
-from dcat.DCATv3 import DCATv3
+from namespaces.ADMS import ADMS, ADMSStatus
+from namespaces.DCATv3 import DCATv3
 
 logger = logging.getLogger("__name__")
 
