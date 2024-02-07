@@ -1,82 +1,17 @@
 from typing import List, Union, Any
-from pydantic import Field, AnyHttpUrl
-from rdflib import Namespace, URIRef
-from rdflib.namespace import DCAT, DCTERMS, DefinedNamespace, PROV
+from pydantic import Field, AnyHttpUrl, ConfigDict
+from rdflib.namespace import DCAT, DCTERMS, DefinedNamespace, PROV, XSD
 
 from dcat.dcat_resource import DCATResource, LiteralField
 from dcat.dcat_time_models import PeriodOfTime
-from dcat.rdf_model import RDFModel
+from dcat.dataset_series import DatasetSeries
+from dcat.spatial import Location
+from dcat.prov_classes import Activity
 
 from enum import Enum
 
 from namespaces.DCATv3 import DCATv3
-from namespaces.LOCN import LOCN
-
-
-class DatasetSeries(DCATResource):
-    pass
-
-
-class Geometry(RDFModel):
-    pass
-
-
-# Implementations shall allow the properties geo:dimension, geo:coordinateDimension, geo:spatialDimension, geo:hasSpatialResolution, geo:hasMetricSpatialResolution, geo:hasSpatialAccuracy, geo:hasMetricSpatialAccuracy, geo:isEmpty, geo:isSimple and geo:hasSerialization to be used in SPARQL graph patterns.
-# https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geogeometry
-# https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl#
-
-
-class Activity(RDFModel):
-    pass
-
-
-class Location(RDFModel):
-    geometry: Union[LiteralField, Geometry] = Field(
-        default=None,
-        description="Associates a spatial thing [SDW-BP] with a corresponding geometry.",
-        rdf_term=LOCN.geometry,
-        rdf_type="geosparql:wktLiteral"
-    )  # todo datatype
-    bounding_box: Any = Field(
-        default=None,
-        description="The geographic bounding box of a spatial thing [SDW-BP].",
-        rdf_term=DCAT.bbox,
-        rdf_type="rdf_literal"
-    )
-    centroid: Any = Field(default=None,
-                          description="The geographic center (centroid) of a spatial thing [SDW-BP].",
-                          rdf_term=DCAT.centroid,
-                          rdf_type="rdf_literal"
-                          )
-
-
-class FREQ(DefinedNamespace):
-    """
-    The Collection Description Frequency Namespace
-    modified on 2013-05-10
-
-    Generated based on https://www.dublincore.org/specifications/dublin-core/collection-description/frequency/freq.rdf
-    """
-
-    triennial: URIRef  # The event occurs every three years.
-    biennial: URIRef  # The event occurs every two years.
-    annual: URIRef  # The event occurs once a year.
-    semiannual: URIRef  # The event occurs twice a year.
-    threeTimesAYear: URIRef  # # The event occurs three times a year.
-    quarterly: URIRef  # The event occurs every three months.
-    bimonthly: URIRef  # The event occurs every two months.
-    monthly: URIRef  # The event occurs once a month.
-    semimonthly: URIRef  # The event occurs twice a month.
-    biweekly: URIRef  # The event occurs every two weeks.
-    threeTimesAMonth: URIRef  # The event occurs three times a month.
-    weekly: URIRef  # The event occurs once a week.
-    semiweekly: URIRef  # The event occurs twice a week.
-    threeTimesAWeek: URIRef  # The event occurs three times a week.
-    daily: URIRef  # The event occurs once a day.
-    continuous: URIRef  # The event repeats without interruption.
-    irregular: URIRef  # The event occurs at uneven intervals.
-
-    _NS = Namespace("http://purl.org/cld/freq/")
+from namespaces.FREQ import FREQ
 
 
 class Frequency(Enum):
@@ -100,6 +35,8 @@ class Frequency(Enum):
 
 
 class DCATDataset(DCATResource):
+    model_config = ConfigDict(title=DCAT.Dataset)
+
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset.",
@@ -118,7 +55,7 @@ class DCATDataset(DCATResource):
         rfd_term=DCTERMS.accrualPeriodicity,
         rdf_type="uri"
     )
-    in_series: List[AnyHttpUrl] = Field(
+    in_series: List[AnyHttpUrl, DatasetSeries] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
         rdf_term=DCATv3.inSeries,

@@ -4,7 +4,7 @@ from rdflib import URIRef
 
 class LOCN(DefinedNamespace):
     """
-    Location Namespace
+    ISA Location Core Vocabulary Namespace
     Generated based on https://semiceu.github.io/Core-Location-Vocabulary/releases/w3c/locn.ttl
     on 06-02-2024
     """
