@@ -43,15 +43,19 @@ class GeoSPARQL(DefinedNamespace):
     rcc8ec: URIRef  # States that the subject SpatialObject spatially meets the object SpatialObject. DE-9IM: FFTFTTTTT
     rcc8eq: URIRef  # States that the subject SpatialObject spatially equals the object SpatialObject. DE-9IM: TFFFTFFFT
     rcc8ntpp: URIRef  # States that the subject SpatialObject is spatially inside the object SpatialObject. DE-9IM: TFFTFFTTT
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
-    # : URIRef  # 
+    rcc8ntppi: URIRef  # States that the subject SpatialObject spatially contains the object SpatialObject. DE-9IM: TTTFFTFFT
+    rcc8po: URIRef  # States that the subject SpatialObject spatially overlaps the object SpatialObject. DE-9IM: TTTTTTTTT
+    rcc8tpp: URIRef  # States that the subject SpatialObject is spatially covered by the object SpatialObject. DE-9IM: TFFTTFTTT
+    rcc8tppi: URIRef  # States that the subject SpatialObject spatially covers the object SpatialObject. DE-9IM: TTTFTTFFT
+    sfContains: URIRef  # States that the subject SpatialObject spatially contains the object SpatialObject. DE-9IM: T*****FF*
+    sfCrosses: URIRef  # States that the subject SpatialObject spatially crosses the object SpatialObject. DE-9IM: T*T******
+    sfDisjoint: URIRef  # States that the subject SpatialObject is spatially disjoint from the object SpatialObject. DE-9IM: FF*FF****
+    sfEquals: URIRef  # States that the subject SpatialObject spatially equals the object SpatialObject. DE-9IM: TFFFTFFFT
+    sfIntersects: URIRef  # States that the subject SpatialObject is not spatially disjoint from the object SpatialObject. DE-9IM: T******** ^ *T******* ^ ***T***** ^ ****T****
+    sfOverlaps: URIRef  # States that the subject SpatialObject spatially overlaps the object SpatialObject. DE-9IM: T*T***T**
+    sfTouches: URIRef  # States that the subject SpatialObject spatially touches the object SpatialObject. DE-9IM: FT******* ^ F**T***** ^ F***T****
+    sfWithin: URIRef  # States that the subject SpatialObject is spatially within the object SpatialObject. DE-9IM: T*F**F***
+    hasSize: URIRef  # Subproperties of this property are used to indicate the size of a Spatial Object as a measurement or estimate of one or more dimensions of the Spatial Object's spatial presence.
 
     # http://www.w3.org/2002/07/owl#DatatypeProperty
     asGML: URIRef  # The GML serialization of a Geometry
