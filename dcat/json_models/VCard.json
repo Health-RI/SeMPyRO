@@ -32,6 +32,7 @@
   "$ontology": "https://www.w3.org/TR/vcard-rdf/",
   "$prefix": "v",
   "additionalProperties": false,
+  "description": "The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types\nof vCards (Individual, Organization, Location, Group)",
   "properties": {
     "hasEmail": {
       "default": null,

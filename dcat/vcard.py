@@ -16,14 +16,19 @@ VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
 
 class VCard(RDFModel):
-    model_config = ConfigDict(title=VCARD.VCard,
+    """
+    The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types
+    of vCards (Individual, Organization, Location, Group)
+    """
+    model_config = ConfigDict(
+        title=VCARD.VCard,
                               json_schema_extra={
                                   "$ontology": "https://www.w3.org/TR/vcard-rdf/",
                                   "$namespace": VCARD,
+                                  "$IRI": VCARD.VCard,
                                   "$prefix": "v"
                               }
                               )
-    # todo bind namespace at serialization
 
     hasEmail: List[AnyUrl] = Field(default=None,
                                    description="The email address as a mailto URI",

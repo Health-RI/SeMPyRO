@@ -106,6 +106,7 @@ class RDFModel(BaseModel):
                       node_type: Union[URIRef, List[URIRef]]) -> Graph:
         node_to_add = BNode()
         graph.add((subject, node_predicate, node_to_add))
+        graph = self._check_and_add_namespaces(graph)
         if isinstance(node_type, URIRef):
             node_type = [node_type]
         for n_type in node_type:
@@ -114,9 +115,16 @@ class RDFModel(BaseModel):
         return graph
 
     def to_graph(self, subject):
-        graph = Graph()
+        graph = Graph(bind_namespaces="rdflib")
         graph.add((subject, RDF.type, URIRef(self.model_config["title"])))
+        graph = self._check_and_add_namespaces(graph)
         self._add_fields_to_graph(graph=graph, node_to_add=subject)
+        return graph
+
+    def _check_and_add_namespaces(self, graph):
+        if self.model_config["json_schema_extra"]["$namespace"] not in [x[1] for x in graph.namespaces()]:
+            graph.bind(self.model_config["json_schema_extra"]["$prefix"],
+                       self.model_config["json_schema_extra"]["$namespace"])
         return graph
 
     def _add_fields_to_graph(self, graph, node_to_add):
