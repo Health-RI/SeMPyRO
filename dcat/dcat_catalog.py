@@ -47,4 +47,11 @@ class DCATCatalog(DCATDataset):
                     "(e.g., datasets and services).",
         rdf_term=DCAT.themeTaxonomy,
         rdf_type="uri"
-    ) #todo: ConceptScheme in DCAT-AP?
+    )
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    with open(Path(json_models_folder, "DCATCatalog.json"), "w") as schema_file:
+        model_schema = DCATCatalog.model_json_schema()
+        json.dump(model_schema, schema_file, indent=2)

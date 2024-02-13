@@ -124,21 +124,24 @@ class RDFModel(BaseModel):
             if value:
                 rdf_predicate = self.model_fields[field].json_schema_extra[RDF_KEY]
                 rdf_type = self.model_fields[field].json_schema_extra.get(RDF_TYPE_KEY)
-                if issubclass(type(value), RDFModel):
-                    value.to_graph_node(graph=graph,
-                                        subject=node_to_add,
-                                        node_predicate=rdf_predicate,
-                                        node_type=value.model_config["title"])
-                elif issubclass(type(value), LiteralField):
-                    value.flatten_to_literal(graph=graph,
-                                             subject=node_to_add,
-                                             node_predicate=rdf_predicate)
-                else:
-                    if rdf_type is None:
-                        logger.warning(f"No {RDF_TYPE_KEY} provided in schema, that may cause errors")
+                if not isinstance(value, List):
+                    value = [value]
+                for item in value:
+                    if issubclass(type(item), RDFModel):
+                        item.to_graph_node(graph=graph,
+                                           subject=node_to_add,
+                                           node_predicate=rdf_predicate,
+                                           node_type=item.model_config["title"])
+                    elif issubclass(type(item), LiteralField):
+                        item.flatten_to_literal(graph=graph,
+                                                subject=node_to_add,
+                                                node_predicate=rdf_predicate)
                     else:
-                        value = self._convert_to_rdf_type(rdf_type, value)
-                    graph.add((node_to_add, rdf_predicate, value))
+                        if rdf_type is None:
+                            logger.warning(f"No {RDF_TYPE_KEY} provided in schema, that may cause errors")
+                        else:
+                            item = self._convert_to_rdf_type(rdf_type, item)
+                        graph.add((node_to_add, rdf_predicate, item))
 
     @staticmethod
     def _convert_to_rdf_type(rdf_type: str, value: Any) -> Union[URIRef, Literal]:

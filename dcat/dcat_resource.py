@@ -1,23 +1,22 @@
 from abc import ABCMeta
 import logging
-import re
 
 from datetime import date
 from enum import Enum
-from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator, AwareDatetime, \
+import json
+from pathlib import Path
+from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
     NaiveDatetime
 from typing import List, Union, Any
-from rdflib import Namespace, URIRef
-from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV, ODRL2
-from pydantic.networks import validate_email
+from rdflib.namespace import DCAT, DCTERMS, PROV, ODRL2
 
 from dcat.rdf_model import RDFModel, LiteralField
+from dcat.policy import ODRLPolicy
 from namespaces.ADMS import ADMS, ADMSStatus
 from namespaces.DCATv3 import DCATv3
+from vcard import VCard, Agent
 
 logger = logging.getLogger("__name__")
-
-VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
 
 class Status(Enum):
@@ -25,69 +24,6 @@ class Status(Enum):
     Deprecated = ADMSStatus.Deprecated
     UnderDevelopment = ADMSStatus.UnderDevelopment
     Withdrawn = ADMSStatus.Withdrawn
-
-
-class VCard(RDFModel):
-    model_config = ConfigDict(title=VCARD)
-    # todo bind namespace at serialization
-
-    hasEmail: AnyUrl = Field(default=None,
-                             description="The email address as a mailto URI",
-                             rdf_term=VCARD.hasEmail,
-                             rdf_type="uri"
-                             )
-    full_name: str = Field(default=None,
-                           description="The full name of the object (as a single string). This is the only mandatory "
-                                       "property.",
-                           rdf_term=VCARD.fn,
-                           rdf_type="rdfs_literal"
-                           )
-    hasUID: AnyHttpUrl = Field(description="A unique identifier for the object",
-                               rdf_term=VCARD.hasUID,
-                               rdf_type="uri"
-                               )
-
-    @field_validator("hasEmail", mode="before")
-    @classmethod
-    def _validate_email(cls, value: Union[str, AnyUrl]) -> AnyUrl:
-        """
-        Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
-        """
-        mail_part = value
-        if value.startswith("mailto:"):
-            mail_part = re.split(":|\//", value)[-1]
-        mail_part = validate_email(mail_part)[1]
-        return AnyUrl(f"mailto://{mail_part}")
-
-
-class Agent(RDFModel):
-    model_config = ConfigDict(title=FOAF.Agent)
-    name: List[Union[str, LiteralField]] = Field(description="A name of the agent",
-                                                 min_items=1,
-                                                 rdf_term=FOAF.name,
-                                                 rdf_type="rdfs_literal"
-                                                 )
-    identifier: Union[str, LiteralField] = Field(description="A unique identifier of the agent.",
-                                                 rdf_term=DCTERMS.identifier,
-                                                 rdf_type="rdfs_literal")
-
-
-class ODRLPolicy(RDFModel):
-    model_config = ConfigDict(title=ODRL2.Policy)
-    conflict: Any = Field(default=None)
-    permission: Any = Field(default=None)
-    prohibition: Any = Field(default=None)
-    inheritFrom: Any = Field(default=None)
-    profile: Any = Field(default=None)
-    obligation: Any = Field(default=None)
-    uid: Any = Field(default=None)
-    relation: Any = Field(default=None)
-    target: Any = Field(default=None)
-    function: Any = Field(default=None)
-    action: Any = Field(default=None)
-    constraint: Any = Field(default=None)
-    assignee: Any = Field(default=None)
-    assigner: Any = Field(default=None)
 
 
 class AccessRights(Enum):
@@ -135,11 +71,12 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                                    description="An ODRL conformant policy expressing the rights associated with the "
                                                "resource.",
                                    rdf_term=ODRL2.hasPolicy,
-                                   rdf_type=ODRLPolicy
+                                   rdf_type="uri"
                                    )
-    identifier: Union[str, LiteralField] = Field(description="A unique identifier of the resource being described or cataloged.",
-                                                 rdf_term=DCTERMS.identifier,
-                                                 rdf_type="rdfs_literal")
+    identifier: Union[str, LiteralField] = Field(
+        description="A unique identifier of the resource being described or cataloged.",
+        rdf_term=DCTERMS.identifier,
+        rdf_type="rdfs_literal")
     is_referenced_by: AnyHttpUrl = Field(default=None,
                                          description="A related resource, such as a publication, that references, "
                                                      "cites, or otherwise points to the cataloged resource.",
@@ -202,11 +139,11 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                                                                     rdf_type="rdfs_literal")
     # todo date to literal: rdfs:Literal encoded using the relevant ISO 8601 Date and Time compliant string [DATETIME] 
     #  and typed using the appropriate XML Schema datatype [XMLSCHEMA11-2] (xsd:gYear, xsd:gYearMonth, xsd:date, or xsd:dateTime).
-    theme: List[URIRef] = Field(default=None,
-                                description="A main category of the resource. A resource can have multiple themes.",
-                                alias="category",
-                                rdf_term=DCAT.theme,
-                                rdf_type="uri")
+    theme: List[AnyHttpUrl] = Field(default=None,
+                                    description="A main category of the resource. A resource can have multiple themes.",
+                                    alias="category",
+                                    rdf_term=DCAT.theme,
+                                    rdf_type="uri")
     title: List[LiteralField] = Field(description="A name given to the resource.",
                                       rdf_term=DCTERMS.title,
                                       rdf_type="rdfs_literal"
@@ -306,6 +243,13 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                 new_list.append(item)
         return new_list
 
-    @classmethod
-    def to_graph(cls):
-        pass
+    # @classmethod
+    # def to_graph(cls):
+    #     pass
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    with open(Path(json_models_folder, "DCATResource.json"), "w") as schema_file:
+        model_schema = DCATResource.model_json_schema()
+        json.dump(model_schema, schema_file, indent=2)

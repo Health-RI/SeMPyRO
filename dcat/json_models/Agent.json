@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "LiteralField": {
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "properties": {
+        "datatype": {
+          "default": null,
+          "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
+          "title": "Datatype",
+          "type": "string"
+        },
+        "language": {
+          "default": null,
+          "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+          "title": "Language",
+          "type": "string"
+        },
+        "value": {
+          "description": "Field value",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "LiteralField",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "A name of the agent",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
+      },
+      "minItems": 1,
+      "rdf_term": "http://xmlns.com/foaf/0.1/name",
+      "rdf_type": "rdfs_literal",
+      "title": "Name",
+      "type": "array"
+    },
+    "identifier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
+      "description": "A unique identifier of the agent.",
+      "rdf_term": "http://purl.org/dc/terms/identifier",
+      "rdf_type": "rdfs_literal",
+      "title": "Identifier"
+    }
+  },
+  "required": [
+    "name",
+    "identifier"
+  ],
+  "title": "http://xmlns.com/foaf/0.1/Agent",
+  "type": "object"
+}
