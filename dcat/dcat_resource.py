@@ -58,7 +58,6 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                                                            rdf_term=DCTERMS.creator,
                                                            rdf_type="uri")
     description: List[LiteralField] = Field(description="A free-text account of the resource.",
-                                            min_items=1,
                                             rdf_term=DCTERMS.description,
                                             rdf_type="literal"
                                             )

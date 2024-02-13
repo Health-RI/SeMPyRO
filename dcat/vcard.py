@@ -65,7 +65,6 @@ class Agent(RDFModel):
     model_config = ConfigDict(title=FOAF.Agent)
 
     name: List[Union[str, LiteralField]] = Field(description="A name of the agent",
-                                                 min_items=1,
                                                  rdf_term=FOAF.name,
                                                  rdf_type="rdfs_literal"
                                                  )

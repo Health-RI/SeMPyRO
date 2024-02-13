@@ -20,8 +20,7 @@ class DatasetSeries(DCATResource):
         rdf_type="uri"
     )
     endpoint_url: List[Union[AnyHttpUrl, DCATResource]] = Field(
-        description="The root location or primary endpoint of the service (a Web-resolvable IRI).", 
-        min_items=1,
+        description="The root location or primary endpoint of the service (a Web-resolvable IRI).",
         rdf_term=DCAT.endpointURL,
         rdf_type="uri"
     )
