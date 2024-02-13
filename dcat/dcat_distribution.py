@@ -3,9 +3,26 @@ from datetime import date
 from typing import List, Union, Any
 from pathlib import Path
 from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime
-from rdflib.namespace import DCAT, FOAF, DCTERMS, ODRL2
+from rdflib.namespace import DCAT, FOAF, DCTERMS, ODRL2, Namespace
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.dcat_resource import ODRLPolicy
+
+SPDX = Namespace("http://spdx.org/rdf/terms#")
+
+
+class Checksum(RDFModel):
+    model_config = ConfigDict(title=SPDX.Checksum)
+
+    algorithm: AnyHttpUrl = Field(
+        description="The algorithm used to produce the subject Checksum.",
+        rdf_term=SPDX.algorithm,
+        rdf_type="uri"
+                           )
+    checksum_value: Union[str, LiteralField] = Field(
+        description="A lower case hexadecimal encoded digest value produced using a specific algorithm.",
+        rdf_term=SPDX.checksumValue,
+        rdf_type="xsd:hexBinary"
+    )
 
 
 class DCATDistribution(RDFModel):
@@ -132,9 +149,10 @@ class DCATDistribution(RDFModel):
         rdf_term=DCAT.packageFormat,
         rdf_type="uri"
     )
-    # checksum: Any = Field(
-    #     default=None,
-    #     description="The checksum property provides a mechanism that can be used to verify that the contents of "
-    #                 "a file or package have not changed [SPDX]."
-    #     rdf_term=spdx:checksum
-    # )
+    checksum: Any = Field(
+        default=None,
+        description="The checksum property provides a mechanism that can be used to verify that the contents of "
+                    "a file or package have not changed [SPDX].",
+        rdf_term=SPDX.checksum,
+        rdf_type="uri"
+    )
