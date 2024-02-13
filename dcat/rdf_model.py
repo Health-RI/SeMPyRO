@@ -116,7 +116,7 @@ class RDFModel(BaseModel):
     def to_graph(self, subject):
         graph = Graph()
         graph.add((subject, RDF.type, URIRef(self.model_config["title"])))
-        self._add_fields_to_graph(graph=graph, node_to_add=self.model_config["title"])
+        self._add_fields_to_graph(graph=graph, node_to_add=subject)
         return graph
 
     def _add_fields_to_graph(self, graph, node_to_add):

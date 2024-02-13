@@ -42,7 +42,6 @@
           }
         ]
       },
-      "minItems": 1,
       "rdf_term": "http://xmlns.com/foaf/0.1/name",
       "rdf_type": "rdfs_literal",
       "title": "Name",

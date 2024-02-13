@@ -55,3 +55,10 @@ def test_vcard_serialization():
     actual_graph = film_director.to_graph(URIRef("http:example.com/Emir_Kusturica"))
     expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "vCard.ttl"))
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
+
+
+def test_agent():
+    person = Agent(name=["Jorrit H. Poelen"], identifier="https://dcat.example.org/PoelenJorritHID")
+    actual_graph = person.to_graph(subject=URIRef("https://dcat.example.org/PoelenJorritHID"))
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "agent.ttl"))
+    assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
