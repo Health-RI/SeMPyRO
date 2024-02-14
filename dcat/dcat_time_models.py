@@ -409,7 +409,7 @@ class PeriodOfTime(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models", "time")
     models = ["TimePosition", "GeneralDateTimeDescription", "DateTimeDescription", "TimeInstant", "PeriodOfTime"]
     for model_name in models:
         model = globals()[model_name]
