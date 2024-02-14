@@ -1,6 +1,7 @@
-from pydantic import AnyHttpUrl, ConfigDict, Field
+from pathlib import Path
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib import DCAT, DCTERMS
-from typing import Any, AnyStr, Union
+from typing import Union
 
 from dcat.rdf_model import RDFModel, LiteralField
 
@@ -11,10 +12,15 @@ from namespaces.LOCN import LOCN
 class Geometry(RDFModel):
     """
     Geometry class for GeoSPARQL Geometry specification
-    https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geogeometry
-    https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl#
     """
-    model_config = ConfigDict(title=GeoSPARQL.Geometry)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://docs.ogc.org/is/22-047r1/22-047r1.html",
+                                  "$namespace": str(GeoSPARQL),
+                                  "$IRI": GeoSPARQL.Geometry,
+                                  "$prefix": "geo"
+                              }
+                              )
 
     dimension: int = Field(
         default=None,
@@ -50,7 +56,7 @@ class Geometry(RDFModel):
         rdf_term=GeoSPARQL.hasMetricSpatialResolution,
         rdf_type="xsd:double"
     )
-    hasSpatialAccuracy: Any = Field(
+    hasSpatialAccuracy: AnyHttpUrl = Field(
         default=None,
         description="The positional accuracy of the coordinates of a Geometry",
         rdf_term=GeoSPARQL.hasSpatialAccuracy,
@@ -85,23 +91,54 @@ class Geometry(RDFModel):
 
 
 class Location(RDFModel):
-    model_config = ConfigDict(title=DCTERMS.Location)
+    """A spatial region or named place."""
+    model_config = ConfigDict(title=DCTERMS.Location,
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCTERMS),
+                                  "$IRI": DCTERMS.Location,
+                                  "$prefix": "dcterms"
+                              }
+                              )
 
-    geometry: Union[LiteralField, Geometry, Any] = Field(
+    geometry: Union[LiteralField, Geometry] = Field(
         default=None,
         description="Associates a spatial thing [SDW-BP] with a corresponding geometry.",
         rdf_term=LOCN.geometry,
         rdf_type="geosparql:wktLiteral"
-    )  # todo datatype
-    bounding_box: Union[LiteralField, AnyStr] = Field(
+    )
+    bounding_box: Union[LiteralField, str] = Field(
         default=None,
         description="The geographic bounding box of a spatial thing [SDW-BP].",
+        alias="bbox",
         rdf_term=DCAT.bbox,
         rdf_type="rdf_literal"
     )
-    centroid: Any = Field(
+    centroid: LiteralField = Field(
         default=None,
         description="The geographic center (centroid) of a spatial thing [SDW-BP].",
         rdf_term=DCAT.centroid,
-        rdf_type="rdf_literal"
+        rdf_type="geosparql:wktLiteral"
     )
+
+    @field_validator("geometry", "centroid", mode="before")
+    @classmethod
+    def force_literal_field(cls, value: Union[str, LiteralField]) -> LiteralField:
+        """
+        In case value is provided as a string, convert to LiteralField object with geosparql:wktLiteral as datatype
+        """
+        if isinstance(value, str):
+            return LiteralField(value=value, datatype="geosparql:wktLiteral")
+        else:
+            return value
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models", "geo")
+    models = ["Geometry", "Location"]
+    for model_name in models:
+        model = globals()[model_name]
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.json"),
+                                  file_format="json")
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.yaml"),
+                                  file_format="yaml")

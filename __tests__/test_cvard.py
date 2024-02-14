@@ -6,7 +6,7 @@ from pathlib import Path
 from pydantic_core import ValidationError, Url
 from dcat.vcard import VCard, Agent, VCARD
 from dcat.rdf_model import LiteralField
-from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
+from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
 from rdflib.compare import to_isomorphic
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
