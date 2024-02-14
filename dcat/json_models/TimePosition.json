@@ -1,4 +1,8 @@
 {
+  "$IRI": "http://www.w3.org/2006/time#TimePosition",
+  "$namespace": "http://www.w3.org/2006/time#",
+  "$ontology": "https://www.w3.org/TR/owl-time/",
+  "$prefix": "time",
   "additionalProperties": false,
   "description": "A temporal position described using either a (nominal) value from an ordinal reference system,\nor a (numeric) value in a temporal coordinate system.",
   "properties": {
@@ -31,6 +35,6 @@
   "required": [
     "hasTRS"
   ],
-  "title": "http://www.w3.org/2006/time#TimePosition",
+  "title": "TimePosition",
   "type": "object"
 }

@@ -1,4 +1,5 @@
 {
+  "$IRI": "http://www.w3.org/2006/time#DateTimeDescription",
   "$defs": {
     "DayOfWeek": {
       "enum": [
@@ -32,6 +33,9 @@
       "type": "string"
     }
   },
+  "$namespace": "http://www.w3.org/2006/time#",
+  "$ontology": "https://www.w3.org/TR/owl-time/",
+  "$prefix": "time",
   "additionalProperties": false,
   "description": "Description of date and time structured with separate values for the various elements of a calendar-clock system.\nThe temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties\nrestricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.",
   "properties": {
@@ -165,6 +169,6 @@
   "required": [
     "unitType"
   ],
-  "title": "http://www.w3.org/2006/time#DateTimeDescription",
+  "title": "DateTimeDescription",
   "type": "object"
 }

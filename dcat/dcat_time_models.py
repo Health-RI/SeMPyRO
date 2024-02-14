@@ -24,7 +24,14 @@ class TimePosition(RDFModel):
     A temporal position described using either a (nominal) value from an ordinal reference system,
     or a (numeric) value in a temporal coordinate system.
     """
-    model_config = ConfigDict(title=TIME.TimePosition)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/owl-time/",
+                                  "$namespace": str(TIME),
+                                  "$IRI": TIME.TimePosition,
+                                  "$prefix": "time"
+                              }
+                              )
     nominalPosition: str = Field(default=None,
                                  description="The (nominal) value indicating temporal position in an ordinal reference "
                                              "system",
@@ -102,7 +109,14 @@ class GeneralDateTimeDescription(RDFModel):
     """
     Description of date and time structured with separate values for the various elements of a calendar-clock system
     """
-    model_config = ConfigDict(title=TIME.GeneralDateTimeDescription)
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/owl-time/",
+            "$namespace": str(TIME),
+            "$IRI": TIME.GeneralDateTimeDescription,
+            "$prefix": "time"
+        }
+                              )
     timeZone: AnyHttpUrl = Field(default=None,
                                  description="The time zone for clock elements in the temporal position",
                                  rdf_term=TIME.timeZone,
@@ -176,7 +190,14 @@ class DateTimeDescription(GeneralDateTimeDescription):
     restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.
     """
 
-    model_config = ConfigDict(title=TIME.DateTimeDescription)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/owl-time/",
+                                  "$namespace": str(TIME),
+                                  "$IRI": TIME.DateTimeDescription,
+                                  "$prefix": "time"
+                              }
+                              )
 
     hasTRS: typing.Literal[GREG_URL] = Field(default=GREG_URL,
                                              description="The temporal reference system used by a temporal position or "
@@ -265,7 +286,14 @@ class DateTimeDescription(GeneralDateTimeDescription):
 
 class TimeInstant(RDFModel):
     """A temporal entity with zero extent or duration"""
-    model_config = ConfigDict(title=TIME.Instant)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/owl-time/",
+                                  "$namespace": str(TIME),
+                                  "$IRI": TIME.Instant,
+                                  "$prefix": "time"
+                              }
+                              )
 
     inXSDDate: date = Field(default=None,
                             description="Position of an instant, expressed using xsd:date",
@@ -328,7 +356,14 @@ class TimeInstant(RDFModel):
 
 
 class PeriodOfTime(RDFModel):
-    model_config = ConfigDict(title=DCTERMS.PeriodOfTime)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time",
+                                  "$namespace": str(DCTERMS),
+                                  "$IRI": DCTERMS.PeriodOfTime,
+                                  "$prefix": "dcterms"
+                              }
+                              )
     """
     An interval of time that is named or defined by its start and end,
     https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time
@@ -377,6 +412,8 @@ if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
     models = ["TimePosition", "GeneralDateTimeDescription", "DateTimeDescription", "TimeInstant", "PeriodOfTime"]
     for model_name in models:
-        with open(Path(json_models_folder, f"{model_name}.json"), "w") as schema_file:
-            model_schema = globals()[model_name].model_json_schema()
-            json.dump(model_schema, schema_file, indent=2)
+        model = globals()[model_name]
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.json"),
+                                  file_format="json")
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.yaml"),
+                                  file_format="yaml")

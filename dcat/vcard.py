@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator
 from typing import List, Union
-from rdflib import Namespace, URIRef
+from rdflib import Namespace
 from rdflib.namespace import DCTERMS, FOAF
 from pydantic.networks import validate_email
 
@@ -21,10 +21,9 @@ class VCard(RDFModel):
     of vCards (Individual, Organization, Location, Group)
     """
     model_config = ConfigDict(
-        title=VCARD.VCard,
                               json_schema_extra={
                                   "$ontology": "https://www.w3.org/TR/vcard-rdf/",
-                                  "$namespace": VCARD,
+                                  "$namespace": str(VCARD),
                                   "$IRI": VCARD.VCard,
                                   "$prefix": "v"
                               }
@@ -67,7 +66,14 @@ class VCard(RDFModel):
 
 
 class Agent(RDFModel):
-    model_config = ConfigDict(title=FOAF.Agent)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "http://xmlns.com/foaf/spec/",
+                                  "$namespace": str(FOAF),
+                                  "$IRI": FOAF.Agent,
+                                  "$prefix": "foaf"
+                              }
+                              )
 
     name: List[Union[str, LiteralField]] = Field(description="A name of the agent",
                                                  rdf_term=FOAF.name,
@@ -82,6 +88,8 @@ if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
     models = ["VCard", "Agent"]
     for model_name in models:
-        with open(Path(json_models_folder, f"{model_name}.json"), "w") as schema_file:
-            model_schema = globals()[model_name].model_json_schema()
-            json.dump(model_schema, schema_file, indent=2)
+        model = globals()[model_name]
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.json"),
+                                  file_format="json")
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.yaml"),
+                                  file_format="yaml")

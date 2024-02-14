@@ -1,4 +1,8 @@
 {
+  "$IRI": "http://www.w3.org/2006/time#GeneralDateTimeDescription",
+  "$namespace": "http://www.w3.org/2006/time#",
+  "$ontology": "https://www.w3.org/TR/owl-time/",
+  "$prefix": "time",
   "additionalProperties": false,
   "description": "Description of date and time structured with separate values for the various elements of a calendar-clock system",
   "properties": {
@@ -123,6 +127,6 @@
     "unitType",
     "hasTRS"
   ],
-  "title": "http://www.w3.org/2006/time#GeneralDateTimeDescription",
+  "title": "GeneralDateTimeDescription",
   "type": "object"
 }

@@ -1,0 +1,125 @@
+$IRI: http://www.w3.org/2006/time#GeneralDateTimeDescription
+$namespace: http://www.w3.org/2006/time#
+$ontology: https://www.w3.org/TR/owl-time/
+$prefix: time
+additionalProperties: false
+description: Description of date and time structured with separate values for the
+  various elements of a calendar-clock system
+properties:
+  timeZone:
+    default:
+    description: The time zone for clock elements in the temporal position
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#timeZone
+    rdf_type: uri
+    title: Timezone
+    type: string
+  unitType:
+    description: The temporal unit which provides the precision of a date-time value
+      or scale of a temporal extent
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#unitType
+    rdf_type: uri
+    title: Unittype
+    type: string
+  hasTRS:
+    description: The temporal reference system used by a temporal position or extent
+      description
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#hasTRS
+    rdf_type: uri
+    title: Hastrs
+    type: string
+  year:
+    default:
+    description: Year position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      year from any calendar.
+    rdf_term: http://www.w3.org/2006/time#year
+    rdf_type: xsd:gYear
+    title: Year
+    type: string
+  month:
+    default:
+    description: Month position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      month from any calendar.
+    rdf_term: http://www.w3.org/2006/time#month
+    rdf_type: xsd:gMonth
+    title: Month
+    type: string
+  day:
+    default:
+    description: Day position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      day from any calendar.
+    rdf_term: http://www.w3.org/2006/time#day
+    rdf_type: xsd:gDay
+    title: Day
+    type: string
+  hour:
+    default:
+    description: Hour position in a calendar-clock system
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#hour
+    rdf_type: xsd:nonNegativeInteger
+    title: Hour
+    type: integer
+  minute:
+    default:
+    description: Minute position in a calendar-clock system
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#minute
+    rdf_type: xsd:nonNegativeInteger
+    title: Minute
+    type: integer
+  second:
+    default:
+    description: Second position in a calendar-clock system.
+    rdf_term: http://www.w3.org/2006/time#second
+    rdf_type: xsd:decimal
+    title: Second
+    type: number
+  week:
+    default:
+    description: Week number within the year.
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#week
+    rdf_type: xsd:nonNegativeInteger
+    title: Week
+    type: integer
+  dayOfYear:
+    default:
+    description: The number of the day within the year
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#dayOfYear
+    rdf_type: xsd:nonNegativeInteger
+    title: Dayofyear
+    type: integer
+  dayOfWeek:
+    default:
+    description: The day of week, whose value is a member of the class time:DayOfWeek
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#dayOfWeek
+    rdf_type: uri
+    title: Dayofweek
+    type: string
+  monthOfYear:
+    default:
+    description: The month of the year, whose value is a member of the class time:MonthOfYear
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#monthOfYear
+    rdf_type: uri
+    title: Monthofyear
+    type: string
+required:
+- unitType
+- hasTRS
+title: GeneralDateTimeDescription
+type: object
+$defs: {}

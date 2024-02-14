@@ -1,9 +1,14 @@
+import json
+from json import JSONDecodeError
 import logging
+from pathlib import Path
 from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
 from pydantic.fields import PydanticUndefined
 from typing import Union, Type, Any, Dict, List
+from typing import Literal as typing_Literal
 from rdflib import BNode, Graph, URIRef, Literal, XSD
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, DefinedNamespaceMeta
+import ruamel.yaml
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
@@ -116,7 +121,7 @@ class RDFModel(BaseModel):
 
     def to_graph(self, subject):
         graph = Graph(bind_namespaces="rdflib")
-        graph.add((subject, RDF.type, URIRef(self.model_config["title"])))
+        graph.add((subject, RDF.type, URIRef(self.model_config["json_schema_extra"]["$IRI"])))
         graph = self._check_and_add_namespaces(graph)
         self._add_fields_to_graph(graph=graph, node_to_add=subject)
         return graph
@@ -139,7 +144,7 @@ class RDFModel(BaseModel):
                         item.to_graph_node(graph=graph,
                                            subject=node_to_add,
                                            node_predicate=rdf_predicate,
-                                           node_type=item.model_config["title"])
+                                           node_type=item.model_config["json_schema_extra"]["$IRI"])
                     elif issubclass(type(item), LiteralField):
                         item.flatten_to_literal(graph=graph,
                                                 subject=node_to_add,
@@ -171,3 +176,38 @@ class RDFModel(BaseModel):
     def annotate_model(cls):
         fields_definitions = ModelAnnotationUtil(cls)
         return fields_definitions
+
+    @classmethod
+    def save_schema_to_file(cls, path: Union[str, Path], file_format: typing_Literal["json", "yaml", "yml"] = None):
+        if file_format is None:
+            logger.warning("No format provided, assuming json")
+            file_format = "json"
+        elif file_format == "yml":
+            file_format = "yaml"
+        elif file_format not in ["yaml", "json"]:
+            raise TypeError(f"Incorrect file format {file_format}, either 'json' or 'yaml expected")
+        try:
+            model_schema = cls.model_json_schema()
+            saving_function = getattr(cls, f"_save_to_{file_format}")
+            saving_function(path=path, model_schema=model_schema)
+        except (FileNotFoundError, TypeError, AttributeError) as e:
+            logger.error(f"Following error occurred while saving model to file: {e}")
+
+    @classmethod
+    def _save_to_json(cls, path: Union[str, Path], model_schema: Dict):
+        with open(path, "w") as schema_file:
+            json.dump(model_schema, schema_file, indent=2)
+
+    @classmethod
+    def _save_to_yaml(cls, path: Union[str, Path], model_schema: Dict):
+        yaml = ruamel.yaml.YAML()
+        with open(path, "w") as schema_yaml:
+            model_schema = {key: (str(value) if isinstance(value, (URIRef, DefinedNamespaceMeta)) else value) for
+                            key, value in model_schema.items()}
+            new_defs = {}
+            for def_model_name, def_model_json in (model_schema.get("$defs") or {}).items():
+                new_model_json = {k: (str(v) if isinstance(v, (URIRef, DefinedNamespaceMeta)) else v) for
+                                  k, v in def_model_json.items()}
+                new_defs[def_model_name] = new_model_json
+            model_schema["$defs"] = new_defs
+            yaml.dump(model_schema, schema_yaml)

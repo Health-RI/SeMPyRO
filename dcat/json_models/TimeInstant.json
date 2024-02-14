@@ -1,6 +1,11 @@
 {
+  "$IRI": "http://www.w3.org/2006/time#Instant",
   "$defs": {
     "GeneralDateTimeDescription": {
+      "$IRI": "http://www.w3.org/2006/time#GeneralDateTimeDescription",
+      "$namespace": "http://www.w3.org/2006/time#",
+      "$ontology": "https://www.w3.org/TR/owl-time/",
+      "$prefix": "time",
       "additionalProperties": false,
       "description": "Description of date and time structured with separate values for the various elements of a calendar-clock system",
       "properties": {
@@ -125,10 +130,14 @@
         "unitType",
         "hasTRS"
       ],
-      "title": "http://www.w3.org/2006/time#GeneralDateTimeDescription",
+      "title": "GeneralDateTimeDescription",
       "type": "object"
     },
     "TimePosition": {
+      "$IRI": "http://www.w3.org/2006/time#TimePosition",
+      "$namespace": "http://www.w3.org/2006/time#",
+      "$ontology": "https://www.w3.org/TR/owl-time/",
+      "$prefix": "time",
       "additionalProperties": false,
       "description": "A temporal position described using either a (nominal) value from an ordinal reference system,\nor a (numeric) value in a temporal coordinate system.",
       "properties": {
@@ -161,10 +170,13 @@
       "required": [
         "hasTRS"
       ],
-      "title": "http://www.w3.org/2006/time#TimePosition",
+      "title": "TimePosition",
       "type": "object"
     }
   },
+  "$namespace": "http://www.w3.org/2006/time#",
+  "$ontology": "https://www.w3.org/TR/owl-time/",
+  "$prefix": "time",
   "additionalProperties": false,
   "description": "A temporal entity with zero extent or duration",
   "properties": {
@@ -237,6 +249,6 @@
       "rdf_type": "http://www.w3.org/2006/time#GeneralDateTimeDescription"
     }
   },
-  "title": "http://www.w3.org/2006/time#Instant",
+  "title": "TimeInstant",
   "type": "object"
 }
