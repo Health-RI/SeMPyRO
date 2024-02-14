@@ -1,0 +1,399 @@
+{
+  "$IRI": "http://www.w3.org/ns/prov#Activity",
+  "$defs": {
+    "Association": {
+      "$IRI": "http://www.w3.org/ns/prov#Association",
+      "$namespace": "http://www.w3.org/ns/prov#",
+      "$ontology": "https://www.w3.org/TR/prov-o/",
+      "$prefix": "prov",
+      "additionalProperties": false,
+      "description": "An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent\nhad a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent\nto achieve some goals in the context of this activity.",
+      "properties": {
+        "hadPlan": {
+          "default": null,
+          "description": "A plan is an entity that represents a set of actions or steps intended by one or more agents to achieve some goals.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadPlan",
+          "rdf_type": "uri",
+          "title": "Hadplan",
+          "type": "string"
+        },
+        "hadRole": {
+          "default": null,
+          "description": "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadRole",
+          "rdf_type": "uri",
+          "title": "Hadrole",
+          "type": "string"
+        },
+        "agent": {
+          "default": null,
+          "description": "The prov:agent property references an prov:Agent which influenced a resource. This property applies to an prov:AgentInfluence, which is given by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity or prov:Agent.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#Agent",
+          "rdf_type": "uri",
+          "title": "Agent",
+          "type": "string"
+        }
+      },
+      "title": "Association",
+      "type": "object"
+    },
+    "End": {
+      "$IRI": "http://www.w3.org/ns/prov#End",
+      "$namespace": "http://www.w3.org/ns/prov#",
+      "$ontology": "https://www.w3.org/TR/prov-o/",
+      "$prefix": "prov",
+      "additionalProperties": false,
+      "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists\nafter its end. Any usage, generation, or invalidation involving an activity precedes the activity's end.\nAn end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated\nthe trigger.",
+      "properties": {
+        "entity": {
+          "default": null,
+          "description": "The prov:entity property references an prov:Entity which influenced a resource. This property applies to an prov:EntityInfluence, which is given by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity or prov:Agent.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#Entity",
+          "rdf_type": "uri",
+          "title": "Entity",
+          "type": "string"
+        },
+        "hadRole": {
+          "default": null,
+          "description": "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadRole",
+          "rdf_type": "uri",
+          "title": "Hadrole",
+          "type": "string"
+        },
+        "influencer": {
+          "default": null,
+          "description": "This property is used as part of the qualified influence pattern. Subclasses of prov:Influence use these subproperties to reference the resource (Entity, Agent, or Activity) whose influence is being qualified.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#influencer",
+          "rdf_type": "uri",
+          "title": "Influencer",
+          "type": "string"
+        },
+        "hadActivity": {
+          "default": null,
+          "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadActivity",
+          "rdf_type": "uri",
+          "title": "Hadactivity",
+          "type": "string"
+        },
+        "atTime": {
+          "default": null,
+          "description": "The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark transitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or ending of activities. This notion of event is not first-class in the data model, but it is useful for explaining its other concepts and its semantics.",
+          "format": "date-time",
+          "rdf_term": "http://www.w3.org/ns/prov#InstantaneousEvent",
+          "rdf_type": "xsd:dateTime",
+          "title": "Attime",
+          "type": "string"
+        },
+        "atLocation": {
+          "default": null,
+          "description": "A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#atLocation",
+          "rdf_type": "uri",
+          "title": "Atlocation",
+          "type": "string"
+        }
+      },
+      "title": "End",
+      "type": "object"
+    },
+    "Start": {
+      "$IRI": "http://www.w3.org/ns/prov#Start",
+      "$namespace": "http://www.w3.org/ns/prov#",
+      "$ontology": "https://www.w3.org/TR/prov-o/",
+      "$prefix": "prov",
+      "additionalProperties": false,
+      "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did\nnot exist before its start. Any usage, generation, or invalidation involving an activity follows the\nactivity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as\nstarter, that generated the trigger.",
+      "properties": {
+        "entity": {
+          "default": null,
+          "description": "The prov:entity property references an prov:Entity which influenced a resource. This property applies to an prov:EntityInfluence, which is given by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity or prov:Agent.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#Entity",
+          "rdf_type": "uri",
+          "title": "Entity",
+          "type": "string"
+        },
+        "hadRole": {
+          "default": null,
+          "description": "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadRole",
+          "rdf_type": "uri",
+          "title": "Hadrole",
+          "type": "string"
+        },
+        "influencer": {
+          "default": null,
+          "description": "This property is used as part of the qualified influence pattern. Subclasses of prov:Influence use these subproperties to reference the resource (Entity, Agent, or Activity) whose influence is being qualified.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#influencer",
+          "rdf_type": "uri",
+          "title": "Influencer",
+          "type": "string"
+        },
+        "hadActivity": {
+          "default": null,
+          "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#hadActivity",
+          "rdf_type": "uri",
+          "title": "Hadactivity",
+          "type": "string"
+        },
+        "atTime": {
+          "default": null,
+          "description": "The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark transitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or ending of activities. This notion of event is not first-class in the data model, but it is useful for explaining its other concepts and its semantics.",
+          "format": "date-time",
+          "rdf_term": "http://www.w3.org/ns/prov#InstantaneousEvent",
+          "rdf_type": "xsd:dateTime",
+          "title": "Attime",
+          "type": "string"
+        },
+        "atLocation": {
+          "default": null,
+          "description": "A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/prov#atLocation",
+          "rdf_type": "uri",
+          "title": "Atlocation",
+          "type": "string"
+        }
+      },
+      "title": "Start",
+      "type": "object"
+    }
+  },
+  "$namespace": "http://www.w3.org/ns/prov#",
+  "$ontology": "https://www.w3.org/TR/prov-o/",
+  "$prefix": "prov",
+  "additionalProperties": false,
+  "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include \nconsuming, processing, transforming, modifying, relocating, using, or generating entities.",
+  "properties": {
+    "generated": {
+      "default": null,
+      "description": "Generation is the completion of production of a new entity by an activity. This entity did not exist before generation and becomes available for usage after this generation.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#generated",
+      "rdf_type": "uri",
+      "title": "Generated",
+      "type": "array"
+    },
+    "qualifiedAssociation": {
+      "default": null,
+      "description": "An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent had a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent to achieve some goals in the context of this activity.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Association"
+          }
+        ]
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedQuotation",
+      "rdf_type": "uri",
+      "title": "Qualifiedassociation",
+      "type": "array"
+    },
+    "wasAssociatedWith": {
+      "default": null,
+      "description": "An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent had a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent to achieve some goals in the context of this activity.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#wasAssociatedWith",
+      "rdf_type": "uri",
+      "title": "Wasassociatedwith",
+      "type": "string"
+    },
+    "qualifiedEnd": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/End"
+        }
+      ],
+      "default": null,
+      "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end. An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated the trigger.",
+      "edf_type": "http://www.w3.org/ns/prov#End",
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedEnd"
+    },
+    "wasEndedBy": {
+      "default": null,
+      "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end. An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated the trigger.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#wasEndedBy",
+      "rdf_type": "uri",
+      "title": "Wasendedby",
+      "type": "string"
+    },
+    "qualifiedUsage": {
+      "default": null,
+      "description": "Usage is the beginning of utilizing an entity by an activity. Before usage, the activity had not begun to utilize this entity and could not have been affected by the entity.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedUsage",
+      "rdf_type": "uri",
+      "title": "Qualifiedusage",
+      "type": "array"
+    },
+    "used": {
+      "default": null,
+      "description": "Usage is the beginning of utilizing an entity by an activity. Before usage, the activity had not begun to utilize this entity and could not have been affected by the entity.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#used",
+      "rdf_type": "uri",
+      "title": "Used",
+      "type": "string"
+    },
+    "invalidated": {
+      "default": null,
+      "description": "Invalidation is the start of the destruction, cessation, or expiry of an existing entity by an activity. The entity is no longer available for use (or further invalidation) after invalidation. Any generation or usage of an entity precedes its invalidation.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#invalidated",
+      "rdf_type": "uri",
+      "title": "Invalidated",
+      "type": "array"
+    },
+    "endedAtTime": {
+      "default": null,
+      "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end. An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated the trigger.",
+      "format": "date-time",
+      "rdf_term": "http://www.w3.org/ns/prov#endedAtTime",
+      "rdf_type": "xsd:dateTime",
+      "title": "Endedattime",
+      "type": "string"
+    },
+    "qualifiedStart": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Start"
+        }
+      ],
+      "default": null,
+      "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did not exist before its start. Any usage, generation, or invalidation involving an activity follows the activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as starter, that generated the trigger.",
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedStart",
+      "rdf_type": "http://www.w3.org/ns/prov#Start"
+    },
+    "wasInformedBy": {
+      "default": null,
+      "description": "Communication is the exchange of an entity by two activities, one activity using the entity generated by the other.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#wasInformedBy",
+      "rdf_type": "uri",
+      "title": "Wasinformedby",
+      "type": "array"
+    },
+    "wasStartedBy": {
+      "default": null,
+      "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did not exist before its start. Any usage, generation, or invalidation involving an activity follows the activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as starter, that generated the trigger.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#wasStartedBy",
+      "rdf_type": "uri",
+      "title": "Wasstartedby",
+      "type": "string"
+    },
+    "startedAtTime": {
+      "default": null,
+      "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did not exist before its start. Any usage, generation, or invalidation involving an activity follows the activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as starter, that generated the trigger.",
+      "format": "date-time",
+      "rdf_term": "http://www.w3.org/ns/prov#startedAtTime",
+      "rdf_type": "xsd:dateTime",
+      "title": "Startedattime",
+      "type": "string"
+    },
+    "qualifiedCommunication": {
+      "default": null,
+      "description": "Communication is the exchange of an entity by two activities, one activity using the entity generated by the other.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedCommunication",
+      "rdf_type": "uri",
+      "title": "Qualifiedcommunication",
+      "type": "array"
+    },
+    "wasInfluencedBy": {
+      "default": null,
+      "description": "Influence is the capacity of an entity, activity, or agent to have an effect on the character, development, or behavior of another by means of usage, start, end, generation, invalidation, communication, derivation, attribution, association, or delegation.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#wasInfluencedBy",
+      "rdf_type": "uri",
+      "title": "Wasinfluencedby",
+      "type": "array"
+    },
+    "qualifiedInfluence": {
+      "default": null,
+      "description": "Influence is the capacity of an entity, activity, or agent to have an effect on the character, development, or behavior of another by means of usage, start, end, generation, invalidation, communication, derivation, attribution, association, or delegation.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/prov#qualifiedInfluence",
+      "rdf_type": "uri",
+      "title": "Qualifiedinfluence",
+      "type": "array"
+    },
+    "atLocation": {
+      "default": null,
+      "description": "A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#atLocation",
+      "rdf_type": "uri",
+      "title": "Atlocation",
+      "type": "string"
+    }
+  },
+  "title": "Activity",
+  "type": "object"
+}

@@ -1,3 +1,4 @@
+from pathlib import Path
 from pydantic import AnyHttpUrl, ConfigDict, Field, NaiveDatetime, AwareDatetime
 from rdflib import PROV
 from typing import Union, List
@@ -6,22 +7,34 @@ from dcat.rdf_model import RDFModel
 
 
 class Association(RDFModel):
-    model_config = ConfigDict(title=PROV.Association)
+    """
+    An activity association is an assignment of responsibility to an agent for an activity, indicating that the agent
+    had a role in the activity. It further allows for a plan to be specified, which is the plan intended by the agent
+    to achieve some goals in the context of this activity.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.Association,
+            "$prefix": "prov"
+        }
+    )
 
-    hadPlan: Union[AnyHttpUrl, RDFModel] = Field(
+    hadPlan: AnyHttpUrl = Field(
         default=None,
         description="A plan is an entity that represents a set of actions or steps intended by one or more agents to "
                     "achieve some goals.",
         rdf_term=PROV.hadPlan,
         rdf_type="uri")
-    hadRole: Union[AnyHttpUrl, RDFModel] = Field(
+    hadRole: AnyHttpUrl = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
         rdf_term=PROV.hadRole,
         rdf_type="uri"
     )
-    agent: Union[AnyHttpUrl, RDFModel] = Field(
+    agent: AnyHttpUrl = Field(
         default=None,
         description="The prov:agent property references an prov:Agent which influenced a resource. "
                     "This property applies to an prov:AgentInfluence, which is given by a subproperty of "
@@ -32,7 +45,20 @@ class Association(RDFModel):
 
 
 class InstantaneousEvent(RDFModel):
-    model_config = ConfigDict(title=PROV.InstantaneousEvent)
+    """
+    The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark
+    transitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or
+    ending of activities. This notion of event is not first-class in the data model, but it is useful for explaining
+    its other concepts and its semantics.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.InstantaneousEvent,
+            "$prefix": "prov"
+        }
+    )
 
     atTime: Union[NaiveDatetime, AwareDatetime] = Field(
         default=None,
@@ -43,14 +69,14 @@ class InstantaneousEvent(RDFModel):
         rdf_term=PROV.InstantaneousEvent,
         rdf_type="xsd:dateTime"
     )
-    hadRole: Union[AnyHttpUrl, RDFModel] = Field(
+    hadRole: AnyHttpUrl = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
         rdf_term=PROV.hadRole,
         rdf_type="uri"
     )
-    atLocation: Union[AnyHttpUrl, RDFModel] = Field(
+    atLocation: AnyHttpUrl = Field(
         default=None,
         description="A location can be an identifiable geographic place (ISO 19112), but it can also be a "
                     "non-geographic place such as a directory, row, or column. As such, there are numerous ways in "
@@ -61,7 +87,18 @@ class InstantaneousEvent(RDFModel):
 
 
 class EntityInfluence(RDFModel):
-    model_config = ConfigDict(title=PROV.EntityInfluence)
+    """
+    EntityInfluence is the capacity of an entity to have an effect on the character, development, or behavior of 
+    another by means of usage, start, end, derivation, or other.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.EntityInfluence,
+            "$prefix": "prov"
+        }
+    )
 
     entity: AnyHttpUrl = Field(
         default=None,
@@ -71,7 +108,7 @@ class EntityInfluence(RDFModel):
         rdf_term=PROV.Entity,
         rdf_type="uri"
     )
-    hadRole: Union[AnyHttpUrl, RDFModel] = Field(
+    hadRole: AnyHttpUrl = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
@@ -97,33 +134,69 @@ class EntityInfluence(RDFModel):
 
 
 class End(InstantaneousEvent, EntityInfluence):
-    model_config = ConfigDict(title=PROV.End)
+    """
+    End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists
+    after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end.
+    An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated
+    the trigger.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.End,
+            "$prefix": "prov"
+        })
 
 
 class Start(InstantaneousEvent, EntityInfluence):
-    model_config = ConfigDict(title=PROV.Start)
+    """
+    Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did
+    not exist before its start. Any usage, generation, or invalidation involving an activity follows the
+    activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as
+    starter, that generated the trigger.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.Start,
+            "$prefix": "prov"
+        }
+    )
 
 
 class Activity(RDFModel):
-    model_config = ConfigDict(title=PROV.Activity)
+    """
+    An activity is something that occurs over a period of time and acts upon or with entities; it may include 
+    consuming, processing, transforming, modifying, relocating, using, or generating entities.
+    """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "$ontology": "https://www.w3.org/TR/prov-o/",
+            "$namespace": str(PROV),
+            "$IRI": PROV.Activity,
+            "$prefix": "prov"
+        }
+    )
 
-    generated: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    generated: List[AnyHttpUrl] = Field(
         default=None,
         description="Generation is the completion of production of a new entity by an activity. This entity did not "
                     "exist before generation and becomes available for usage after this generation.",
         rdf_term=PROV.generated,
         rdf_type="uri"
     )
-    qualifiedAssociation: List[Association] = Field(
+    qualifiedAssociation: List[Union[AnyHttpUrl, Association]] = Field(
         default=None,
         description="An activity association is an assignment of responsibility to an agent for an activity, "
                     "indicating that the agent had a role in the activity. It further allows for a plan to be "
                     "specified, which is the plan intended by the agent to achieve some goals in the context of this "
                     "activity.",
         rdf_term=PROV.qualifiedQuotation,
-        rdf_type=PROV.Association
+        rdf_type="uri"
     )
-    wasAssociatedWith: Union[AnyHttpUrl, RDFModel] = Field(
+    wasAssociatedWith: AnyHttpUrl = Field(
         default=None,
         description="An activity association is an assignment of responsibility to an agent for an activity, "
                     "indicating that the agent had a role in the activity. It further allows for a plan to be "
@@ -150,7 +223,7 @@ class Activity(RDFModel):
         rdf_term=PROV.wasEndedBy,
         rdf_type="uri"
     )
-    qualifiedUsage: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    qualifiedUsage: List[AnyHttpUrl] = Field(
         default=None,
         description="Usage is the beginning of utilizing an entity by an activity. "
                     "Before usage, the activity had not begun to utilize this entity and could not have been affected "
@@ -161,11 +234,11 @@ class Activity(RDFModel):
     used: AnyHttpUrl = Field(
         default=None,
         description="Usage is the beginning of utilizing an entity by an activity. Before usage, the activity had not "
-                    "begun to utilize this entity and could not have been affected by the entity.", 
+                    "begun to utilize this entity and could not have been affected by the entity.",
         rdf_term=PROV.used,
         rdf_type="uri"
     )
-    invalidated: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    invalidated: List[AnyHttpUrl] = Field(
         default=None,
         description="Invalidation is the start of the destruction, cessation, or expiry of an existing entity by "
                     "an activity. The entity is no longer available for use (or further invalidation) after "
@@ -178,7 +251,7 @@ class Activity(RDFModel):
         description="End is when an activity is deemed to have been ended by an entity, known as trigger. "
                     "The activity no longer exists after its end. Any usage, generation, or invalidation "
                     "involving an activity precedes the activity's end. An end may refer to a trigger entity that "
-                    "terminated the activity, or to an activity, known as ender that generated the trigger.", 
+                    "terminated the activity, or to an activity, known as ender that generated the trigger.",
         rdf_term=PROV.endedAtTime,
         rdf_type="xsd:dateTime"
     )
@@ -187,23 +260,23 @@ class Activity(RDFModel):
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving "
                     "an activity follows the activity's start. A start may refer to a trigger entity that set off "
-                    "the activity, or to an activity, known as starter, that generated the trigger.", 
+                    "the activity, or to an activity, known as starter, that generated the trigger.",
         rdf_term=PROV.qualifiedStart,
-        rdf_type=Start
+        rdf_type=PROV.Start
     )
-    wasInformedBy: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    wasInformedBy: List[AnyHttpUrl] = Field(
         default=None,
         description="Communication is the exchange of an entity by two activities, one activity using the entity "
                     "generated by the other.",
         rdf_term=PROV.wasInformedBy,
         rdf_type="uri"
     )
-    wasStartedBy: Union[AnyHttpUrl, RDFModel] = Field(
+    wasStartedBy: AnyHttpUrl = Field(
         default=None,
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving an "
                     "activity follows the activity's start. A start may refer to a trigger entity that set off "
-                    "the activity, or to an activity, known as starter, that generated the trigger.", 
+                    "the activity, or to an activity, known as starter, that generated the trigger.",
         rdf_term=PROV.wasStartedBy,
         rdf_type="uri"
     )
@@ -212,34 +285,34 @@ class Activity(RDFModel):
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving an "
                     "activity follows the activity's start. A start may refer to a trigger entity that set off"
-                    " the activity, or to an activity, known as starter, that generated the trigger.", 
+                    " the activity, or to an activity, known as starter, that generated the trigger.",
         rdf_term=PROV.startedAtTime,
         rdf_type="xsd:dateTime"
     )
-    qualifiedCommunication: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    qualifiedCommunication: List[AnyHttpUrl] = Field(
         default=None,
         description="Communication is the exchange of an entity by two activities, one activity using the entity "
                     "generated by the other.",
         rdf_term=PROV.qualifiedCommunication,
         rdf_type="uri"
     )
-    wasInfluencedBy: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    wasInfluencedBy: List[AnyHttpUrl] = Field(
         default=None,
         description="Influence is the capacity of an entity, activity, or agent to have an effect on the character, "
                     "development, or behavior of another by means of usage, start, end, generation, invalidation, "
-                    "communication, derivation, attribution, association, or delegation.", 
+                    "communication, derivation, attribution, association, or delegation.",
         rdf_term=PROV.wasInfluencedBy,
         rdf_type="uri"
     )
-    qualifiedInfluence: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    qualifiedInfluence: List[AnyHttpUrl] = Field(
         default=None,
         description="Influence is the capacity of an entity, activity, or agent to have an effect on the character, "
                     "development, or behavior of another by means of usage, start, end, generation, invalidation, "
-                    "communication, derivation, attribution, association, or delegation.", 
+                    "communication, derivation, attribution, association, or delegation.",
         rdf_term=PROV.qualifiedInfluence,
         rdf_type="uri"
     )
-    atLocation: Union[AnyHttpUrl, RDFModel] = Field(
+    atLocation: AnyHttpUrl = Field(
         default=None,
         description="A location can be an identifiable geographic place (ISO 19112), but it can also be a "
                     "non-geographic place such as a directory, row, or column. As such, there are numerous ways in "
@@ -247,3 +320,14 @@ class Activity(RDFModel):
         rdf_term=PROV.atLocation,
         rdf_type="uri"
     )
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models", "prov")
+    models = ["Association", "Activity", "Start", "End", "EntityInfluence", "InstantaneousEvent"]
+    for model_name in models:
+        model = globals()[model_name]
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.json"),
+                                  file_format="json")
+        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.yaml"),
+                                  file_format="yaml")
