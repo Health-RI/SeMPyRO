@@ -1,5 +1,4 @@
 import json
-from json import JSONDecodeError
 import logging
 from pathlib import Path
 from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator

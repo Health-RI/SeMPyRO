@@ -1,5 +1,3 @@
-import json
-import logging
 import re
 from pathlib import Path
 from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator
@@ -9,8 +7,6 @@ from rdflib.namespace import DCTERMS, FOAF
 from pydantic.networks import validate_email
 
 from dcat.rdf_model import RDFModel, LiteralField
-
-logger = logging.getLogger("__name__")
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 

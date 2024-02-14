@@ -11,7 +11,7 @@ from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
 from rdflib.compare import to_isomorphic
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models", "time")
 
 EX = Namespace("http://www.example.com/")
 
