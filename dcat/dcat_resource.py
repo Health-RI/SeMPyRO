@@ -1,20 +1,22 @@
 from abc import ABCMeta
 import logging
 
-from datetime import date
+from datetime import date, datetime
+import dateutil.parser as parser
 from enum import Enum
 import json
 from pathlib import Path
 from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
-    NaiveDatetime
-from typing import List, Union, Any
-from rdflib.namespace import DCAT, DCTERMS, PROV, ODRL2
+    NaiveDatetime, ValidationError
+import re
+from typing import List, Union
+from rdflib import DCAT, DCTERMS, PROV, ODRL2, URIRef
 
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.policy import ODRLPolicy
 from namespaces.ADMS import ADMS, ADMSStatus
 from namespaces.DCATv3 import DCATv3
-from vcard import VCard, Agent
+from dcat.vcard import VCard, Agent
 
 logger = logging.getLogger("__name__")
 
@@ -27,138 +29,153 @@ class Status(Enum):
 
 
 class AccessRights(Enum):
-    public = "public"
-    restricted = "restricted",
-    non_public = "non-public"
+    public = URIRef("http://publications.europa.eu/resource/authority/access-right/PUBLIC")
+    restricted = URIRef("http://publications.europa.eu/resource/authority/access-right/RESTRICTED")
+    non_public = URIRef("http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC")
 
 
 class DCATResource(RDFModel, metaclass=ABCMeta):
     """Resource published or curated by a single agent. Abstract class"""
-    model_config = ConfigDict(arbitrary_types_allowed=True, use_enum_values=True)
-    access_rights: Enum = Field(default=None,
-                                description="Information about who can access the resource or an indication of its "
-                                            "security status.",
-                                rdf_term=DCTERMS.accessRights,
-                                rdf_type="literal")
-    conforms_to: AnyHttpUrl = Field(default=None,
-                                    description="An established standard to which the described resource conforms.",
-                                    rdf_term=DCTERMS.conformsTo,
-                                    rdf_type="uri"
-                                    )
-    contact_point: List[Union[AnyHttpUrl, VCard, Agent]] = Field(default=None,
-                                                                 description="Relevant contact information for the "
-                                                                             "cataloged resource. Use of vCard is "
-                                                                             "recommended",
-                                                                 rdf_term=DCAT.contactPoint,
-                                                                 rdf_type="uri")
-    creator: List[Union[AnyHttpUrl, VCard, Agent]] = Field(default=None,
-                                                           description="The entity responsible for producing the "
-                                                                       "resource. Resources of type foaf:Agent are "
-                                                                       "recommended as values for this property.",
-                                                           rdf_term=DCTERMS.creator,
-                                                           rdf_type="uri")
-    description: List[LiteralField] = Field(description="A free-text account of the resource.",
-                                            rdf_term=DCTERMS.description,
-                                            rdf_type="literal"
-                                            )
-    has_part: AnyHttpUrl = Field(default=None,
-                                 description="A related resource that is included either physically or logically in "
-                                             "the described resource.",
-                                 rdf_term=DCTERMS.hasPart,
-                                 rdf_type="uri")
-    has_policy: ODRLPolicy = Field(default=None,
-                                   description="An ODRL conformant policy expressing the rights associated with the "
-                                               "resource.",
-                                   rdf_term=ODRL2.hasPolicy,
-                                   rdf_type="uri"
-                                   )
+    model_config = ConfigDict(arbitrary_types_allowed=True,
+                              use_enum_values=True,
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCAT),
+                                  "$IRI": DCAT.Resource,
+                                  "$prefix": "dcat"
+                              }
+                              )
+    access_rights: AccessRights = Field(
+        default=None,
+        description="Information about who can access the resource or an indication of its security status.",
+        rdf_term=DCTERMS.accessRights,
+        rdf_type="uri")
+    conforms_to: AnyHttpUrl = Field(
+        default=None,
+        description="An established standard to which the described resource conforms.",
+        rdf_term=DCTERMS.conformsTo,
+        rdf_type="uri"
+    )
+    contact_point: List[Union[AnyHttpUrl, VCard, Agent]] = Field(
+        default=None,
+        description="Relevant contact information for the cataloged resource. Use of vCard is recommended",
+        rdf_term=DCAT.contactPoint,
+        rdf_type="uri")
+    creator: List[Union[AnyHttpUrl, VCard, Agent]] = Field(
+        default=None,
+        description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
+                    "recommended as values for this property.",
+        rdf_term=DCTERMS.creator,
+        rdf_type="uri")
+    description: List[LiteralField] = Field(
+        description="A free-text account of the resource.",
+        rdf_term=DCTERMS.description,
+        rdf_type="literal"
+    )
+    has_part: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A related resource that is included either physically or logically in the described resource.",
+        rdf_term=DCTERMS.hasPart,
+        rdf_type="uri")
+    has_policy: ODRLPolicy = Field(
+        default=None,
+        description="An ODRL conformant policy expressing the rights associated with the resource.",
+        rdf_term=ODRL2.hasPolicy,
+        rdf_type="uri"
+    )
     identifier: Union[str, LiteralField] = Field(
         description="A unique identifier of the resource being described or cataloged.",
         rdf_term=DCTERMS.identifier,
         rdf_type="rdfs_literal")
-    is_referenced_by: AnyHttpUrl = Field(default=None,
-                                         description="A related resource, such as a publication, that references, "
-                                                     "cites, or otherwise points to the cataloged resource.",
-                                         rdf_term=DCTERMS.isReferencedBy,
-                                         rdf_type="uri"
-                                         )
-    keyword: List[LiteralField] = Field(default=None,
-                                        description="A keyword or tag describing the resource.",
-                                        alias="tag",
-                                        rdf_term=DCAT.keyword,
-                                        rdf_type="rdfs_literal")
-    landing_page: List[AnyHttpUrl] = Field(default=None,
-                                           description="A Web page that can be navigated to in a Web browser to gain "
-                                                       "access to the catalog, a dataset, its distributions and/or "
-                                                       "additional information.",
-                                           rdf_term=DCAT.landingPage,
-                                           rdf_type="uri")
-    license: AnyHttpUrl = Field(default=None,
-                                description="A legal document under which the resource is made available.",
-                                rdf_term=DCTERMS.license,
-                                rdf_type="uri"
-                                )
-    language: List[AnyHttpUrl] = Field(default=None,
-                                       description="A language of the resource. This refers to the natural language "
-                                                   "used for textual metadata (i.e., titles, descriptions, etc.) of "
-                                                   "a cataloged resource (i.e., dataset or service) or the textual "
-                                                   "values of a dataset distribution",
-                                       rdf_term=DCTERMS.language,
-                                       rdf_type="uri"
-                                       )
-    relation: List[AnyHttpUrl] = Field(default=None,
-                                       description="A resource with an unspecified relationship to the cataloged "
-                                                   "resource.",
-                                       rdf_term=DCTERMS.relation,
-                                       rdf_type="uri"
-                                       )
-    rights: Any = Field(default=None,
-                        description="Information about rights held in and over the distribution."
-                                    "Recommended practice is to refer to a rights statement with a URI. "
-                                    "If this is not possible or feasible, a literal value (name, label, or short text) "
-                                    "may be provided.",
-                        rdf_term=DCTERMS.rights,
-                        rdf_type="rdfs_literal")  # todo deal with multiple types
-    qualified_relation: List[AnyHttpUrl] = Field(default=None,
-                                                 description="Link to a description of a relationship with another "
-                                                             "resource",
-                                                 rdf_term=DCAT.qualifiedRelation,
-                                                 rdf_type="uri"
-                                                 )
-    publisher: List[Union[AnyHttpUrl, Agent]] = Field(default=None,
-                                                      description="The entity responsible for making the resource "
-                                                                  "available.",
-                                                      rdf_term=DCTERMS.publisher,
-                                                      rdf_type="uri"
-                                                      )
-    release_date: Union[date, AwareDatetime, NaiveDatetime] = Field(default=None,
-                                                                    description="Date of formal issuance "
-                                                                                "(e.g., publication) of the resource.",
-                                                                    rdf_term=DCTERMS.issued,
-                                                                    rdf_type="rdfs_literal")
-    # todo date to literal: rdfs:Literal encoded using the relevant ISO 8601 Date and Time compliant string [DATETIME] 
-    #  and typed using the appropriate XML Schema datatype [XMLSCHEMA11-2] (xsd:gYear, xsd:gYearMonth, xsd:date, or xsd:dateTime).
-    theme: List[AnyHttpUrl] = Field(default=None,
-                                    description="A main category of the resource. A resource can have multiple themes.",
-                                    alias="category",
-                                    rdf_term=DCAT.theme,
-                                    rdf_type="uri")
-    title: List[LiteralField] = Field(description="A name given to the resource.",
-                                      rdf_term=DCTERMS.title,
-                                      rdf_type="rdfs_literal"
-                                      )
-    type: List[AnyHttpUrl] = Field(default=None,
-                                   description="The nature or genre of the resource.",
-                                   alias="genre",
-                                   rdf_term=DCTERMS.type,
-                                   rdf_type="uri")
+    is_referenced_by: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A related resource, such as a publication, that references, cites, or otherwise points to the "
+                    "cataloged resource.",
+        rdf_term=DCTERMS.isReferencedBy,
+        rdf_type="uri"
+    )
+    keyword: List[LiteralField] = Field(
+        default=None,
+        description="A keyword or tag describing the resource.",
+        alias="tag",
+        rdf_term=DCAT.keyword,
+        rdf_type="rdfs_literal")
+    landing_page: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, "
+                    "its distributions and/or additional information.",
+        rdf_term=DCAT.landingPage,
+        rdf_type="uri")
+    license: AnyHttpUrl = Field(
+        default=None,
+        description="A legal document under which the resource is made available.",
+        rdf_term=DCTERMS.license,
+        rdf_type="uri"
+    )
+    language: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A language of the resource. This refers to the natural language used for textual metadata "
+                    "(i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the "
+                    "textual values of a dataset distribution",
+        rdf_term=DCTERMS.language,
+        rdf_type="uri"
+    )
+    relation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A resource with an unspecified relationship to the cataloged resource.",
+        rdf_term=DCTERMS.relation,
+        rdf_type="uri"
+    )
+    rights: Union[LiteralField, AnyHttpUrl] = Field(
+        default=None,
+        description="Information about rights held in and over the distribution. Recommended practice is to refer to "
+                    "a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, "
+                    "or short text) may be provided.",
+        rdf_term=DCTERMS.rights,
+        rdf_type="uri")
+    qualified_relation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="Link to a description of a relationship with another resource",
+        rdf_term=DCAT.qualifiedRelation,
+        rdf_type="uri"
+    )
+    publisher: List[Union[AnyHttpUrl, Agent]] = Field(
+        default=None,
+        description="The entity responsible for making the resource available.",
+        rdf_term=DCTERMS.publisher,
+        rdf_type="uri"
+    )
+    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
+        default=None,
+        description="Date of formal issuance (e.g., publication) of the resource.",
+        rdf_term=DCTERMS.issued,
+        rdf_type="datetime_literal"
+    )
+    theme: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A main category of the resource. A resource can have multiple themes.",
+        alias="category",
+        rdf_term=DCAT.theme,
+        rdf_type="uri"
+    )
+    title: List[LiteralField] = Field(
+        description="A name given to the resource.",
+        rdf_term=DCTERMS.title,
+        rdf_type="rdfs_literal"
+    )
+    type: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The nature or genre of the resource.",
+        alias="genre",
+        rdf_term=DCTERMS.type,
+        rdf_type="uri")
     update_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         alias="modification_date",
         rdf_term=DCTERMS.modified,
-        rdf_type="rdfs_literal"
-    )  # todo date format
+        rdf_type="datetime_literal"
+    )
     qualified_attribution: List[AnyHttpUrl] = Field(
         default=None,
         description="Link to an Agent having some form of responsibility for the resource",
@@ -177,23 +194,24 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         rdf_term=DCTERMS.hasVersion,
         rdf_type="uri"
     )
-    previous_version: AnyHttpUrl = Field(default=None,
-                                         description="The previous version of a resource in a lineage [PAV].",
-                                         rdf_term=DCATv3.previousVersion,
-                                         rdf_type="uri"
-                                         )
+    previous_version: AnyHttpUrl = Field(
+        default=None,
+        description="The previous version of a resource in a lineage [PAV].",
+        rdf_term=DCATv3.previousVersion,
+        rdf_type="uri"
+    )
     replaces: AnyHttpUrl = Field(
         default=None,
         description="A related resource that is supplanted, displaced, or superseded by the described resource",
         rdf_term=DCTERMS.replaces,
         rdf_type="uri"
     )
-    status: Status = Field(default=None,
-                           description="The status of the resource in the context of a particular workflow process "
-                                       "[VOCAB-ADMS].",
-                           rdf_term=ADMS.status,
-                           rdf_type="uri"
-                           )
+    status: Status = Field(
+        default=None,
+        description="The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
+        rdf_term=ADMS.status,
+        rdf_type="uri"
+    )
     version: List[LiteralField] = Field(
         default=None,
         description="The version indicator (name or identifier) of a resource.",
@@ -242,13 +260,22 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                 new_list.append(item)
         return new_list
 
-    # @classmethod
-    # def to_graph(cls):
-    #     pass
+    @field_validator("release_date", "update_date", mode="before")
+    @classmethod
+    def date_handler(cls, value):
+        if isinstance(value, str):
+            year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
+            year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
+                                            "[0-5][0-9]|14:00))?")
+            if not (re.match(year_pattern, value) or re.match(year_month_pattern, value)):
+                try:
+                    value = parser.parse(value)
+                except TypeError:
+                    raise ValidationError
+        return value
 
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
-    with open(Path(json_models_folder, "DCATResource.json"), "w") as schema_file:
-        model_schema = DCATResource.model_json_schema()
-        json.dump(model_schema, schema_file, indent=2)
+    DCATResource.save_schema_to_file(Path(json_models_folder, "DCATResource.json"), "json")
+    DCATResource.save_schema_to_file(Path(json_models_folder, "DCATResource.yaml"), "yaml")
