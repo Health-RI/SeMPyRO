@@ -1,7 +1,9 @@
+import re
+from datetime import date, datetime
 import json
 import logging
 from pathlib import Path
-from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator, NaiveDatetime, AwareDatetime
 from pydantic.fields import PydanticUndefined
 from typing import Union, Type, Any, Dict, List
 from typing import Literal as typing_Literal
@@ -156,7 +158,28 @@ class RDFModel(BaseModel):
                         graph.add((node_to_add, rdf_predicate, item))
 
     @staticmethod
-    def _convert_to_rdf_type(rdf_type: str, value: Any) -> Union[URIRef, Literal]:
+    def _convert_to_datetime_literal(value: Union[str, date, datetime, AwareDatetime, NaiveDatetime]) -> Literal:
+        literal_format = None
+        if isinstance(value, (datetime, AwareDatetime, NaiveDatetime)):
+            literal_format = XSD.dateTime
+        elif isinstance(value, date):
+            literal_format = XSD.date
+        elif isinstance(value, str):
+            year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
+            year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
+                                            "[0-5][0-9]|14:00))?")
+            if re.match(year_month_pattern, value):
+                literal_format = XSD.gYearMonth
+            elif re.match(year_pattern, value):
+                literal_format = XSD.gYear
+            else:
+                logging.warning(f"{str} does not match neither gYear nor gYearMonth pattern")
+        else:
+            raise TypeError(f"Value {value} is of unsupported type {type(value)}, either str, date, datetime, "
+                            f"pydantic.AwareDatetime or pydantic.NaiveDatetime are expected")
+        return Literal(str(value), datatype=literal_format)
+
+    def _convert_to_rdf_type(self, rdf_type: str, value: Any) -> Union[URIRef, Literal]:
         if rdf_type.startswith("xsd:"):
             xsd_attribute = getattr(XSD, rdf_type.split(":")[-1])
             return Literal(value, datatype=xsd_attribute)
@@ -167,6 +190,8 @@ class RDFModel(BaseModel):
                 return URIRef(str(value))
             case "rdfs_literal":
                 return Literal(value)
+            case "datetime_literal":
+                return self._convert_to_datetime_literal(value)
             case _:
                 raise RDFModelError(f"{rdf_type} does not match any of allowed types.\n"
                                     f"Expected types: 'literal', 'uri' or one of XDS types formatted `xsd:<type>`")

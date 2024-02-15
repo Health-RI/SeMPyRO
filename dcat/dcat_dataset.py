@@ -1,10 +1,11 @@
-from typing import List, Union, Any
+import json
+from typing import List, Union
+from pathlib import Path
 from pydantic import Field, AnyHttpUrl, ConfigDict
-from rdflib.namespace import DCAT, DCTERMS, DefinedNamespace, PROV, XSD
+from rdflib.namespace import DCAT, DCTERMS, PROV, XSD
 
 from dcat.dcat_resource import DCATResource, LiteralField
 from dcat.dcat_time_models import PeriodOfTime
-from dcat.dataset_series import DatasetSeries
 from dcat.spatial import Location
 from dcat.prov_classes import Activity
 
@@ -35,7 +36,14 @@ class Frequency(Enum):
 
 
 class DCATDataset(DCATResource):
-    model_config = ConfigDict(title=DCAT.Dataset)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCAT),
+                                  "$IRI": DCAT.Dataset,
+                                  "$prefix": "dcat"
+                              }
+                              )
 
     distribution: List[AnyHttpUrl] = Field(
         default=None,
@@ -47,7 +55,7 @@ class DCATDataset(DCATResource):
         default=None,
         description="The temporal period that the dataset covers.",
         rdf_term=DCTERMS.temporal,
-        rdf_type=PeriodOfTime
+        rdf_type=DCTERMS.PeriodOfTime
     )
     frequency: Union[AnyHttpUrl, Frequency] = Field(
         default=None,
@@ -55,7 +63,7 @@ class DCATDataset(DCATResource):
         rfd_term=DCTERMS.accrualPeriodicity,
         rdf_type="uri"
     )
-    in_series: List[AnyHttpUrl, DatasetSeries] = Field(
+    in_series: List[AnyHttpUrl] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
         rdf_term=DCATv3.inSeries,
@@ -75,16 +83,22 @@ class DCATDataset(DCATResource):
         rdf_term=DCAT.spatialResolutionInMeters,
         rdf_type="xsd:decimal")
 
-    temporal_resolution: List[str] = Field(
+    temporal_resolution: List[Union[str, LiteralField]] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
-        rdf_term=DCAT.spatialResolutionInMeters,
+        rdf_term=DCAT.temporalResolution,
         rdf_type="xsd:duration"
     )
 
-    was_generated_by: List[Activity] = Field(
+    was_generated_by: List[Union[AnyHttpUrl, Activity]] = Field(
         default=None,
         description="An activity that generated, or provides the business context for, the creation of the dataset.",
         rdf_term=PROV.wasGeneratedBy,
         rdf_type="uri"
     )
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    DCATDataset.save_schema_to_file(Path(json_models_folder, "DCATDataset.json"), "json")
+    DCATDataset.save_schema_to_file(Path(json_models_folder, "DCATDataset.yaml"), "yaml")

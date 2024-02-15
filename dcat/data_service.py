@@ -1,16 +1,22 @@
-import json
 from pathlib import Path
 from pydantic import ConfigDict, AnyHttpUrl, Field
 from rdflib.namespace import DCAT
 from typing import List, Union
 
-from dcat_resource import DCATResource
-from dcat_dataset import DCATDataset
+from dcat.dcat_resource import DCATResource
+from dcat.dcat_dataset import DCATDataset
 
 
-class DatasetSeries(DCATResource):
+class DatasetService(DCATResource):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
-    model_config = ConfigDict(title=DCAT.DataService)
+    model_config = ConfigDict(
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCAT),
+                                  "$IRI": DCAT.DataService,
+                                  "$prefix": "dcat"
+                              }
+                              )
 
     endpoint_description: List[Union[AnyHttpUrl, DCATResource]] = Field(
         default=None,
@@ -34,6 +40,6 @@ class DatasetSeries(DCATResource):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
-    with open(Path(json_models_folder, "DatasetSeries.json"), "w") as schema_file:
-        model_schema = DatasetSeries.model_json_schema()
-        json.dump(model_schema, schema_file, indent=2)
+    DatasetService.save_schema_to_file(Path(json_models_folder, "DatasetService.json"), "json")
+    DatasetService.save_schema_to_file(Path(json_models_folder, "DatasetService.yaml"), "yaml")
+
