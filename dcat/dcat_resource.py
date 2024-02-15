@@ -4,7 +4,6 @@ import logging
 from datetime import date, datetime
 import dateutil.parser as parser
 from enum import Enum
-import json
 from pathlib import Path
 from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
     NaiveDatetime, ValidationError

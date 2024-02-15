@@ -1,28 +1,12 @@
-import json
-from datetime import date
-from typing import List, Union, Any
+from datetime import date, datetime
+from typing import List, Union
 from pathlib import Path
 from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime
-from rdflib.namespace import DCAT, FOAF, DCTERMS, ODRL2, Namespace
+from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.dcat_resource import ODRLPolicy
-
-SPDX = Namespace("http://spdx.org/rdf/terms#")
-
-
-class Checksum(RDFModel):
-    model_config = ConfigDict(title=SPDX.Checksum)
-
-    algorithm: AnyHttpUrl = Field(
-        description="The algorithm used to produce the subject Checksum.",
-        rdf_term=SPDX.algorithm,
-        rdf_type="uri"
-                           )
-    checksum_value: Union[str, LiteralField] = Field(
-        description="A lower case hexadecimal encoded digest value produced using a specific algorithm.",
-        rdf_term=SPDX.checksumValue,
-        rdf_type="xsd:hexBinary"
-    )
+from dcat.spdx_classes import SPDX, Checksum
+from dcat.data_service import DatasetService
 
 
 class DCATDistribution(RDFModel):
@@ -31,7 +15,15 @@ class DCATDistribution(RDFModel):
     in various ways, including natural language, media-type or format, schematic organization, temporal and spatial
     resolution, level of detail or profiles (which might specify any or all of the above).
     """
-    model_config = ConfigDict(title=DCAT.Distribution, arbitrary_types_allowed=True, use_enum_values=True)
+    model_config = ConfigDict(arbitrary_types_allowed=True,
+                              use_enum_values=True,
+                              json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCAT),
+                                  "$IRI": DCAT.Distribution,
+                                  "$prefix": "dcat"
+                              }
+                              )
 
     title: List[LiteralField] = Field(
         description="A name given to the distribution.",
@@ -47,16 +39,15 @@ class DCATDistribution(RDFModel):
         default=None,
         description="Date of formal issuance (e.g., publication) of the distribution.",
         rdf_term=DCTERMS.issued,
-        rdf_type="rdfs_literal"
+        rdf_type="datetime_literal"
     )
-    #todo (xsd:gYear, xsd:gYearMonth, xsd:date, or xsd:dateTime).
-    update_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    update_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the distribution was changed, updated or modified.",
         alias="modification_date",
         rdf_term=DCTERMS.modified,
-        rdf_type="rdfs_literal"
-    )  # todo date format
+        rdf_type="datetime_literal"
+    )
     license: AnyHttpUrl = Field(
         default=None,
         description="A legal document under which the distribution is made available.",
@@ -64,11 +55,11 @@ class DCATDistribution(RDFModel):
         rdf_type="uri"
                                 )
     access_rights: AnyHttpUrl = Field(
-        default=None, 
+        default=None,
         description='A rights statement that concerns how the distribution is accessed.',
         rdf_term=DCTERMS.accessRights,
         rdf_type="uri")
-    rights: [AnyHttpUrl, Any] = Field(
+    rights: [AnyHttpUrl] = Field(
         default=None,
         description="Information about rights held in and over the distribution.",
         rdf_term=DCTERMS.rights,
@@ -86,7 +77,7 @@ class DCATDistribution(RDFModel):
         rdf_term=DCAT.accessURL,
         rdf_type="uri"
     )
-    access_service: List[Union[AnyHttpUrl, Any]] = Field(
+    access_service: List[Union[AnyHttpUrl, DatasetService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset",
         rdf_term=DCAT.accessService,
@@ -120,8 +111,8 @@ class DCATDistribution(RDFModel):
     conforms_to: List[AnyHttpUrl] = Field(
         default=None,
         description="An established standard to which the distribution conforms.",
-        rdf_term = DCTERMS.conformsTo,
-        rdf_type = "uri"
+        rdf_term=DCTERMS.conformsTo,
+        rdf_type="uri"
     )
     media_type: AnyHttpUrl = Field(
         default=None,
@@ -149,10 +140,16 @@ class DCATDistribution(RDFModel):
         rdf_term=DCAT.packageFormat,
         rdf_type="uri"
     )
-    checksum: Any = Field(
+    checksum: Checksum = Field(
         default=None,
         description="The checksum property provides a mechanism that can be used to verify that the contents of "
                     "a file or package have not changed [SPDX].",
         rdf_term=SPDX.checksum,
         rdf_type="uri"
     )
+
+
+if __name__ == "__main__":
+    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    DCATDistribution.save_schema_to_file(Path(json_models_folder, "DCATDistribution.json"), "json")
+    DCATDistribution.save_schema_to_file(Path(json_models_folder, "DCATDistribution.yaml"), "yaml")

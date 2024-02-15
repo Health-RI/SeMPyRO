@@ -1,5 +1,4 @@
-import json
-from typing import List, Union
+from typing import List
 from pathlib import Path
 from pydantic import Field, AnyHttpUrl, ConfigDict
 from rdflib.namespace import DCAT, FOAF
@@ -8,7 +7,13 @@ from dcat.dcat_dataset import DCATDataset
 
 class DCATCatalog(DCATDataset):
     """A curated collection of metadata about resources."""
-    model_config = ConfigDict(title=DCAT.Catalog)
+    model_config = ConfigDict(json_schema_extra={
+                                  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+                                  "$namespace": str(DCAT),
+                                  "$IRI": DCAT.Catalog,
+                                  "$prefix": "dcat"
+                              }
+                              )
 
     catalog_record: AnyHttpUrl = Field(
         default=None,
@@ -52,6 +57,5 @@ class DCATCatalog(DCATDataset):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
-    with open(Path(json_models_folder, "DCATCatalog.json"), "w") as schema_file:
-        model_schema = DCATCatalog.model_json_schema()
-        json.dump(model_schema, schema_file, indent=2)
+    DCATCatalog.save_schema_to_file(Path(json_models_folder, "DCATCatalog.json"), "json")
+    DCATCatalog.save_schema_to_file(Path(json_models_folder, "DCATCatalog.yaml"), "yaml")
