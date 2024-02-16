@@ -1378,7 +1378,7 @@
       "title": "DCATResource",
       "type": "object"
     },
-    "DatasetService": {
+    "DataService": {
       "$IRI": "http://www.w3.org/ns/dcat#DataService",
       "$namespace": "http://www.w3.org/ns/dcat#",
       "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
@@ -1888,7 +1888,7 @@
         "title",
         "endpoint_url"
       ],
-      "title": "DatasetService",
+      "title": "DataService",
       "type": "object"
     },
     "End": {
@@ -2957,7 +2957,7 @@
             "type": "string"
           },
           {
-            "$ref": "#/$defs/DatasetService"
+            "$ref": "#/$defs/DataService"
           }
         ]
       },

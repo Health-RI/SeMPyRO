@@ -5,7 +5,7 @@ import pytest
 from dcat.dcat_resource import DCATResource
 from dcat.dcat_dataset import DCATDataset
 from dcat.dataset_series import DatasetSeries
-from dcat.data_service import DatasetService
+from dcat.data_service import DataService
 from dcat.dcat_catalog import DCATCatalog
 from dcat.dcat_distribution import DCATDistribution
 
@@ -16,7 +16,7 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_
 @pytest.mark.parametrize("model_name", ["DCATResource",
                                         "DCATDataset",
                                         "DatasetSeries",
-                                        "DatasetService",
+                                        "DataService",
                                         "DCATCatalog",
                                         "DCATDistribution"
                                         ])

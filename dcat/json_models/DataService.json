@@ -2789,6 +2789,6 @@
     "title",
     "endpoint_url"
   ],
-  "title": "DatasetService",
+  "title": "DataService",
   "type": "object"
 }

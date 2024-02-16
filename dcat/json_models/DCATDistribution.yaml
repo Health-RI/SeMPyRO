@@ -1166,7 +1166,7 @@ $defs:
     - title
     title: DCATResource
     type: object
-  DatasetService:
+  DataService:
     $IRI: http://www.w3.org/ns/dcat#DataService
     $namespace: http://www.w3.org/ns/dcat#
     $ontology: https://www.w3.org/TR/vocab-dcat-3/
@@ -1573,7 +1573,7 @@ $defs:
     - identifier
     - title
     - endpoint_url
-    title: DatasetService
+    title: DataService
     type: object
   End:
     $IRI: http://www.w3.org/ns/prov#End
@@ -2521,7 +2521,7 @@ properties:
       - format: uri
         minLength: 1
         type: string
-      - $ref: '#/$defs/DatasetService'
+      - $ref: '#/$defs/DataService'
     rdf_term: http://www.w3.org/ns/dcat#accessService
     rdf_type: uri
     title: Access Service

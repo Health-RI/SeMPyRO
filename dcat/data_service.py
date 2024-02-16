@@ -7,7 +7,7 @@ from dcat.dcat_resource import DCATResource
 from dcat.dcat_dataset import DCATDataset
 
 
-class DatasetService(DCATResource):
+class DataService(DCATResource):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
     model_config = ConfigDict(
                               json_schema_extra={
@@ -40,6 +40,6 @@ class DatasetService(DCATResource):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
-    DatasetService.save_schema_to_file(Path(json_models_folder, "DatasetService.json"), "json")
-    DatasetService.save_schema_to_file(Path(json_models_folder, "DatasetService.yaml"), "yaml")
+    DataService.save_schema_to_file(Path(json_models_folder, "DataService.json"), "json")
+    DataService.save_schema_to_file(Path(json_models_folder, "DataService.yaml"), "yaml")
 

@@ -6,7 +6,7 @@ from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.dcat_resource import ODRLPolicy
 from dcat.spdx_classes import SPDX, Checksum
-from dcat.data_service import DatasetService
+from dcat.data_service import DataService
 
 
 class DCATDistribution(RDFModel):
@@ -77,7 +77,7 @@ class DCATDistribution(RDFModel):
         rdf_term=DCAT.accessURL,
         rdf_type="uri"
     )
-    access_service: List[Union[AnyHttpUrl, DatasetService]] = Field(
+    access_service: List[Union[AnyHttpUrl, DataService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset",
         rdf_term=DCAT.accessService,
