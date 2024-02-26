@@ -6,6 +6,7 @@ from typing import List, Union
 from dcat.dcat_resource import DCATResource
 from dcat.rdf_model import RDFModel, LiteralField
 from hri_dataset import HRIDataset
+from utils.validator_functions import force_literal_field
 
 
 class HRIDataService(RDFModel):
@@ -43,17 +44,8 @@ class HRIDataService(RDFModel):
 
     @field_validator("title", mode="before")
     @classmethod
-    def force_literal_field(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        """
-        In case values are provided as a strings, convert to LiteralField object with none as datatype and language
-        """
-        new_list = []
-        for item in value:
-            if isinstance(item, str):
-                new_list.append(LiteralField(value=item))
-            else:
-                new_list.append(item)
-        return new_list
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":

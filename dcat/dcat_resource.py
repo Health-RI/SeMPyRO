@@ -2,12 +2,10 @@ from abc import ABCMeta
 import logging
 
 from datetime import date, datetime
-import dateutil.parser as parser
 from enum import Enum
 from pathlib import Path
 from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
-    NaiveDatetime, ValidationError
-import re
+    NaiveDatetime
 from typing import List, Union
 from rdflib import DCAT, DCTERMS, PROV, ODRL2, URIRef
 
@@ -16,6 +14,8 @@ from dcat.policy import ODRLPolicy
 from namespaces.ADMS import ADMS, ADMSStatus
 from namespaces.DCATv3 import DCATv3
 from dcat.vcard import VCard, Agent
+
+from utils.validator_functions import date_handler, force_literal_field
 
 logger = logging.getLogger("__name__")
 
@@ -247,31 +247,13 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
 
     @field_validator("title", "description", "keyword", "version", "version_notes", mode="before")
     @classmethod
-    def force_literal_field(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        """
-        In case values are provided as a strings, convert to LiteralField object with none as datatype and language
-        """
-        new_list = []
-        for item in value:
-            if isinstance(item, str):
-                new_list.append(LiteralField(value=item))
-            else:
-                new_list.append(item)
-        return new_list
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return [force_literal_field(item) for item in value]
 
     @field_validator("release_date", "update_date", mode="before")
     @classmethod
-    def date_handler(cls, value):
-        if isinstance(value, str):
-            year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
-            year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
-                                            "[0-5][0-9]|14:00))?")
-            if not (re.match(year_pattern, value) or re.match(year_month_pattern, value)):
-                try:
-                    value = parser.parse(value)
-                except TypeError:
-                    raise ValidationError
-        return value
+    def date_validator(cls, value):
+        return date_handler(value)
 
 
 if __name__ == "__main__":

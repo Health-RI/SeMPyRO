@@ -11,6 +11,8 @@ from rdflib import BNode, Graph, URIRef, Literal, XSD
 from rdflib.namespace import RDF, DefinedNamespaceMeta
 import ruamel.yaml
 
+from utils.constants import year_pattern, year_month_pattern
+
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
 
@@ -165,9 +167,6 @@ class RDFModel(BaseModel):
         elif isinstance(value, date):
             literal_format = XSD.date
         elif isinstance(value, str):
-            year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
-            year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
-                                            "[0-5][0-9]|14:00))?")
             if re.match(year_month_pattern, value):
                 literal_format = XSD.gYearMonth
             elif re.match(year_pattern, value):
@@ -194,7 +193,7 @@ class RDFModel(BaseModel):
                 return self._convert_to_datetime_literal(value)
             case _:
                 raise RDFModelError(f"{rdf_type} does not match any of allowed types.\n"
-                                    f"Expected types: 'literal', 'uri' or one of XDS types formatted `xsd:<type>`")
+                                    f"Expected types: 'literal', 'uri' or one of XSD types formatted `xsd:<type>`")
 
     @classmethod
     def annotate_model(cls):

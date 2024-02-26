@@ -4,9 +4,11 @@ from rdflib import DCAT, DCTERMS
 from typing import Union
 
 from dcat.rdf_model import RDFModel, LiteralField
+from utils.validator_functions import force_literal_field
 
 from namespaces.GEOSPARQL import GeoSPARQL
 from namespaces.LOCN import LOCN
+
 
 
 class Geometry(RDFModel):
@@ -123,14 +125,8 @@ class Location(RDFModel):
 
     @field_validator("geometry", "centroid", mode="before")
     @classmethod
-    def force_literal_field(cls, value: Union[str, LiteralField]) -> LiteralField:
-        """
-        In case value is provided as a string, convert to LiteralField object with geosparql:wktLiteral as datatype
-        """
-        if isinstance(value, str):
-            return LiteralField(value=value, datatype="geosparql:wktLiteral")
-        else:
-            return value
+    def convert_to_literal(cls, value: Union[str, LiteralField]) -> LiteralField:
+        return force_literal_field(value)
 
 
 if __name__ == "__main__":

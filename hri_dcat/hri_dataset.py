@@ -9,6 +9,7 @@ from dcat.rdf_model import RDFModel, LiteralField
 from dcat.vcard import Agent
 
 from namespaces.DCATv3 import DCATv3
+from utils.validator_functions import date_handler
 
 
 class HRIDataset(RDFModel):
@@ -112,17 +113,8 @@ class HRIDataset(RDFModel):
 
     @field_validator("issued", mode="before")
     @classmethod
-    def date_handler(cls, value):
-        if isinstance(value, str):
-            year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
-            year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
-                                            "[0-5][0-9]|14:00))?")
-            if not (re.match(year_pattern, value) or re.match(year_month_pattern, value)):
-                try:
-                    value = parser.parse(value)
-                except TypeError:
-                    raise ValidationError
-        return value
+    def date_validator(cls, value):
+        return date_handler(value)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 from datetime import date
 from enum import Enum
-import json
 import logging
 from pathlib import Path
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
@@ -10,11 +9,10 @@ import typing
 from typing import Dict, Any, Union
 
 from dcat.rdf_model import RDFModel, LiteralField
+from utils.constants import year_pattern, year_month_pattern
+from utils.validator_functions import force_literal_field
 
 logger = logging.getLogger("__name__")
-
-RDF_KEY = "rdf_term"
-RDF_TYPE_KEY = "rdf_type"
 
 GREG_URL = "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
 
@@ -209,7 +207,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                       description="Year position in a calendar-clock system. The range of this property is not "
                                   "specified, so can be replaced by any specific representation of a calendar year "
                                   "from any calendar.",
-                      pattern="-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                      pattern=year_pattern,
                       rdf_term=TIME.year,
                       rdf_type="xsd:gYear")
     month: str = Field(default=None,
@@ -314,14 +312,13 @@ class TimeInstant(RDFModel):
                                               )
     inXSDgYear: str = Field(default=None,
                             description="Position of an instant, expressed using xsd:gYear",
-                            pattern="-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                            pattern=year_pattern,
                             rdf_term=TIME.inXSDgYear,
                             rdf_type="xsd:gYear"
                             )
     inXSDgYearMonth: str = Field(default=None,
                                  description="Position of an instant, expressed using xsd:gYearMonth",
-                                 pattern="-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
-                                         "[0-5][0-9]|14:00))?",
+                                 pattern=year_month_pattern,
                                  rdf_term=TIME.inXSDgYearMonth,
                                  rdf_type="xsd:gYearMonth"
                                  )
@@ -387,14 +384,8 @@ class PeriodOfTime(RDFModel):
 
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
-    def force_literal_field(cls, value: Union[str, LiteralField]) -> LiteralField:
-        """
-        In case value is provided as a string, convert to LiteralField object with none as datatype and language
-        """
-        if isinstance(value, str):
-            return LiteralField(value=value)
-        else:
-            return value
+    def convert_to_literal(cls, value: Union[str, LiteralField]) -> LiteralField:
+        return force_literal_field(value)
 
     @model_validator(mode="before")
     @classmethod

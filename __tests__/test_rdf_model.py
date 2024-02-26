@@ -6,6 +6,7 @@ import pytest
 from typing import Union
 import re
 import dateutil.parser as parser
+from utils.validator_functions import date_handler
 
 
 @pytest.mark.parametrize("date_input,output", [
@@ -21,17 +22,8 @@ def test_time_literal(date_input, output):
 
         @field_validator("date_field", mode="before")
         @classmethod
-        def date_handler(cls, value):
-            if isinstance(value, str):
-                year_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?")
-                year_month_pattern = re.compile("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):"
-                                                "[0-5][0-9]|14:00))?")
-                if not (re.match(year_pattern, value) or re.match(year_month_pattern, value)):
-                    try:
-                        value = parser.parse(value)
-                    except TypeError:
-                        raise ValidationError
-            return value
+        def date_validator(cls, value):
+            return date_handler(value)
 
     obj = myModel(date_field=date_input)
     expected = obj._convert_to_datetime_literal(obj.date_field)
