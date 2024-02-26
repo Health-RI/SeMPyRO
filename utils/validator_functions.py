@@ -1,15 +1,14 @@
 from datetime import datetime
 import dateutil.parser as parser
 from pydantic import ValidationError
-from rdflib import URIRef
 import re
-from typing import List, Union, Any
+from typing import Union, Any
 
 from dcat.rdf_model import LiteralField
 from utils.constants import year_pattern, year_month_pattern
 
 
-def force_literal_field(value: Union[str, LiteralField], datatype: URIRef = None) -> LiteralField:
+def force_literal_field(value: Union[str, LiteralField]) -> LiteralField:
     """
     Converts string values to LiteralField object with none as datatype and language
     :param value: input value

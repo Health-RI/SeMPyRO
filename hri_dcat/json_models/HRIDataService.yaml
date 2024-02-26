@@ -526,17 +526,6 @@ $defs:
         rdf_type: uri
         title: License
         type: string
-      relation:
-        description: A resource with an unspecified relationship to the cataloged
-          resource.
-        items:
-          format: uri
-          minLength: 1
-          type: string
-        rdf_term: http://purl.org/dc/terms/relation
-        rdf_type: uri
-        title: Relation
-        type: array
       distribution:
         default:
         description: An available distribution of the dataset.
@@ -593,7 +582,6 @@ $defs:
     - title
     - genre
     - license
-    - relation
     title: HRIDataset
     type: object
   LiteralField:
@@ -908,6 +896,7 @@ properties:
         minLength: 1
         type: string
       - $ref: '#/$defs/DCATResource'
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#endpointDescription
     rdf_type: uri
     title: Endpoint Description

@@ -81,11 +81,6 @@ class HRIDataset(RDFModel):
         rdf_term=DCTERMS.license,
         rdf_type="uri"
     )
-    relation: List[AnyHttpUrl] = Field(
-        description="A resource with an unspecified relationship to the cataloged resource.",
-        rdf_term=DCTERMS.relation,
-        rdf_type="uri"
-    )
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset.",

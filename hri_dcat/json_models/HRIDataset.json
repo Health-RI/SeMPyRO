@@ -245,18 +245,6 @@
       "title": "License",
       "type": "string"
     },
-    "relation": {
-      "description": "A resource with an unspecified relationship to the cataloged resource.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
-      "rdf_term": "http://purl.org/dc/terms/relation",
-      "rdf_type": "uri",
-      "title": "Relation",
-      "type": "array"
-    },
     "distribution": {
       "default": null,
       "description": "An available distribution of the dataset.",
@@ -321,8 +309,7 @@
     "category",
     "title",
     "genre",
-    "license",
-    "relation"
+    "license"
   ],
   "title": "HRIDataset",
   "type": "object"

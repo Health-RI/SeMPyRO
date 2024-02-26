@@ -101,7 +101,7 @@ properties:
     title: Founded By
     type: array
   relation:
-    description: A resource with an unspecified relationship to the cataloged resource.
+    description: Link to the project datasets
     items:
       format: uri
       minLength: 1

@@ -34,7 +34,7 @@ class HRIDataService(RDFModel):
         rdf_term=DCAT.servesDataset,
         rdf_type="uri"
     )
-    endpoint_description: List[Union[AnyHttpUrl, DCATResource]] = Field(
+    endpoint_description: List[Union[AnyHttpUrl, DCATResource, LiteralField]] = Field(
         default=None,
         description="A description of the services available via the end-points, including their operations, "
                     "parameters etc.",
@@ -42,7 +42,7 @@ class HRIDataService(RDFModel):
         rdf_type="uri"
     )
 
-    @field_validator("title", mode="before")
+    @field_validator("title", "endpoint_description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
         return [force_literal_field(item) for item in value]

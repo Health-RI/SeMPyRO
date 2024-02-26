@@ -38,7 +38,7 @@ class Project(RDFModel):
         rdf_type="uri"
     )
     relation: List[AnyHttpUrl] = Field(
-        description="A resource with an unspecified relationship to the cataloged resource.",
+        description="Link to the project datasets",
         rdf_term=DCTERMS.relation,
         rdf_type="uri"
     )
