@@ -1,12 +1,13 @@
 from datetime import date, datetime
 from typing import List, Union
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime
+from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
 from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.dcat_resource import ODRLPolicy
 from dcat.spdx_classes import SPDX, Checksum
 from dcat.data_service import DataService
+from utils.validator_functions import force_literal_field
 
 
 class DCATDistribution(RDFModel):
@@ -147,6 +148,11 @@ class DCATDistribution(RDFModel):
         rdf_term=SPDX.checksum,
         rdf_type="uri"
     )
+
+    @field_validator("title", "description", mode="before")
+    @classmethod
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":
