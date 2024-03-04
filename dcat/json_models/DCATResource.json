@@ -478,18 +478,22 @@
       "rdf_type": "uri"
     },
     "identifier": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/$defs/LiteralField"
-        }
-      ],
+      "default": null,
       "description": "A unique identifier of the resource being described or cataloged.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
+      },
       "rdf_term": "http://purl.org/dc/terms/identifier",
       "rdf_type": "rdfs_literal",
-      "title": "Identifier"
+      "title": "Identifier",
+      "type": "array"
     },
     "is_referenced_by": {
       "default": null,
@@ -815,7 +819,6 @@
   },
   "required": [
     "description",
-    "identifier",
     "title"
   ],
   "title": "DCATResource",

@@ -82,7 +82,8 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         rdf_term=ODRL2.hasPolicy,
         rdf_type="uri"
     )
-    identifier: Union[str, LiteralField] = Field(
+    identifier: List[Union[str, LiteralField]] = Field(
+        default=None,
         description="A unique identifier of the resource being described or cataloged.",
         rdf_term=DCTERMS.identifier,
         rdf_type="rdfs_literal")

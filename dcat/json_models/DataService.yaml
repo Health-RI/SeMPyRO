@@ -393,13 +393,16 @@ $defs:
         rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
         rdf_type: uri
       identifier:
-        anyOf:
-        - type: string
-        - $ref: '#/$defs/LiteralField'
+        default:
         description: A unique identifier of the resource being described or cataloged.
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/identifier
         rdf_type: rdfs_literal
         title: Identifier
+        type: array
       is_referenced_by:
         default:
         description: A related resource, such as a publication, that references, cites,
@@ -762,7 +765,6 @@ $defs:
         type: array
     required:
     - description
-    - identifier
     - title
     title: DCATDataset
     type: object
@@ -850,13 +852,16 @@ $defs:
         rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
         rdf_type: uri
       identifier:
-        anyOf:
-        - type: string
-        - $ref: '#/$defs/LiteralField'
+        default:
         description: A unique identifier of the resource being described or cataloged.
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/identifier
         rdf_type: rdfs_literal
         title: Identifier
+        type: array
       is_referenced_by:
         default:
         description: A related resource, such as a publication, that references, cites,
@@ -1129,7 +1134,6 @@ $defs:
         type: array
     required:
     - description
-    - identifier
     - title
     title: DCATResource
     type: object
@@ -2062,13 +2066,16 @@ properties:
     rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
     rdf_type: uri
   identifier:
-    anyOf:
-    - type: string
-    - $ref: '#/$defs/LiteralField'
+    default:
     description: A unique identifier of the resource being described or cataloged.
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/identifier
     rdf_type: rdfs_literal
     title: Identifier
+    type: array
   is_referenced_by:
     default:
     description: A related resource, such as a publication, that references, cites,
@@ -2378,7 +2385,6 @@ properties:
     type: array
 required:
 - description
-- identifier
 - title
 - endpoint_url
 title: DataService
