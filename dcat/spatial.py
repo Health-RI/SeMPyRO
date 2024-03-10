@@ -113,7 +113,7 @@ class Location(RDFModel):
         description="The geographic bounding box of a spatial thing [SDW-BP].",
         alias="bbox",
         rdf_term=DCAT.bbox,
-        rdf_type="rdf_literal"
+        rdf_type="rdfs_literal"
     )
     centroid: LiteralField = Field(
         default=None,
