@@ -5,7 +5,7 @@ from typing import List, Union
 
 from dcat.dcat_resource import DCATResource
 from dcat.rdf_model import RDFModel, LiteralField
-from hri_dataset import HRIDataset
+from hri_dcat.hri_dataset import HRIDataset
 from utils.validator_functions import force_literal_field
 
 

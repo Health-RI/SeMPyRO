@@ -1,15 +1,13 @@
-import dateutil.parser as parser
 from datetime import date, datetime
 from typing import List, Union
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, ValidationError, field_validator
-import re
+from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.vcard import Agent
 
 from namespaces.DCATv3 import DCATv3
-from utils.validator_functions import date_handler
+from utils.validator_functions import date_handler, force_literal_field
 
 
 class HRIDataset(RDFModel):
@@ -105,6 +103,11 @@ class HRIDataset(RDFModel):
         rdf_term=DCATv3.inSeries,
         rdf_type="uri"
     )
+
+    @field_validator("title", "description", mode="before")
+    @classmethod
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return [force_literal_field(item) for item in value]
 
     @field_validator("issued", mode="before")
     @classmethod

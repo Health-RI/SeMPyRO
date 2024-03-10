@@ -1,9 +1,10 @@
 from typing import List, Union
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict
+from pydantic import Field, AnyHttpUrl, ConfigDict, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 from dcat.rdf_model import RDFModel, LiteralField
 from dcat.data_service import DataService
+from utils.validator_functions import force_literal_field
 
 
 class HRIDistribution(RDFModel):
@@ -32,7 +33,7 @@ class HRIDistribution(RDFModel):
     description: List[LiteralField] = Field(
         description="A free-text account of the distribution.",
         rdf_term=DCTERMS.description,
-        rdf_type="literal"
+        rdf_type="rdfs_literal"
     )
     access_url: List[AnyHttpUrl] = Field(
         description="A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, "
@@ -58,6 +59,11 @@ class HRIDistribution(RDFModel):
         rdf_term=DCAT.downloadURL,
         rdf_type="uri"
     )
+
+    @field_validator("title", "description", mode="before")
+    @classmethod
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":
