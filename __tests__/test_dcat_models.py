@@ -9,7 +9,7 @@ from dcat.data_service import DataService
 from dcat.dcat_catalog import DCATCatalog
 from dcat.dcat_distribution import DCATDistribution
 
-TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
+
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
 
 

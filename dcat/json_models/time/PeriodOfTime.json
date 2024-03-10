@@ -134,13 +134,22 @@
       "type": "object"
     },
     "LiteralField": {
-      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
       "properties": {
         "datatype": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
           "default": null,
           "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
-          "title": "Datatype",
-          "type": "string"
+          "title": "Datatype"
         },
         "language": {
           "default": null,
