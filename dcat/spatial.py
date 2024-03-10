@@ -10,7 +10,6 @@ from namespaces.GEOSPARQL import GeoSPARQL
 from namespaces.LOCN import LOCN
 
 
-
 class Geometry(RDFModel):
     """
     Geometry class for GeoSPARQL Geometry specification

@@ -1,15 +1,17 @@
-import re
-from datetime import date, datetime
 import json
 import logging
+import re
+from datetime import date, datetime
 from pathlib import Path
-from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator, NaiveDatetime, AwareDatetime
-from pydantic.fields import PydanticUndefined
-from typing import Union, Type, Any, Dict, List
 from typing import Literal as typing_Literal
+from typing import Union, Type, Any, Dict, List
+
+import ruamel.yaml
+from pydantic import (BaseModel, ConfigDict, Field, model_validator, field_validator, NaiveDatetime, AwareDatetime,
+                      AnyUrl)
+from pydantic.fields import PydanticUndefined
 from rdflib import BNode, Graph, URIRef, Literal, XSD
 from rdflib.namespace import RDF, DefinedNamespaceMeta
-import ruamel.yaml
 
 from utils.constants import year_pattern, year_month_pattern
 
@@ -53,7 +55,7 @@ class LiteralField(BaseModel):
     Model to handle literal fields
     Attributes
     ----------
-    datatype : str Optional
+    datatype : str, pydantic.AnyUrl Optional
         datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
     language : str Optional
         RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated 
@@ -63,7 +65,7 @@ class LiteralField(BaseModel):
     either datatype or language, or none of these two attributes should be provided 
     as per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal
     """
-    datatype: str = Field(default=None, description="datatype,"
+    datatype: Union[AnyUrl, str] = Field(default=None, description="datatype,"
                                                     "see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes")
     language: str = Field(default=None,
                           description="RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,"
@@ -95,7 +97,10 @@ class LiteralField(BaseModel):
         return value
 
     def flatten_to_literal(self, graph, subject, node_predicate):
-        value = Literal(self.value, lang=self.language, datatype=self.datatype)
+        datatype = None
+        if self.datatype:
+            datatype = URIRef(self.datatype)
+        value = Literal(self.value, lang=self.language, datatype=datatype)
         graph.add((subject, node_predicate, value))
         return graph
 
