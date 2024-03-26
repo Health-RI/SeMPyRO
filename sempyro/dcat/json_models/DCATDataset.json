@@ -711,7 +711,7 @@
           "default": null,
           "description": "The geographic bounding box of a spatial thing [SDW-BP].",
           "rdf_term": "http://www.w3.org/ns/dcat#bbox",
-          "rdf_type": "rdf_literal",
+          "rdf_type": "rdfs_literal",
           "title": "Bbox"
         },
         "centroid": {
