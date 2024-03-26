@@ -1,12 +1,10 @@
-from dcat.rdf_model import RDFModel
+from sempyro.rdf_model import RDFModel
 from datetime import date, datetime
-from pydantic import AwareDatetime, NaiveDatetime, field_validator, ValidationError
+from pydantic import AwareDatetime, NaiveDatetime, field_validator
 from rdflib import Literal, XSD
 import pytest
 from typing import Union
-import re
-import dateutil.parser as parser
-from utils.validator_functions import date_handler
+from sempyro.utils.validator_functions import date_handler
 
 
 @pytest.mark.parametrize("date_input,output", [

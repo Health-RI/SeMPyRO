@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 import pytest
 
-from dcat.spatial import Location, Geometry
+from sempyro.dcat.spatial import Location, Geometry
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models", "geo")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models", "geo")
 
 
 @pytest.mark.parametrize("model_name", ["Location", "Geometry"])

@@ -2,13 +2,13 @@ import json
 from pathlib import Path
 import pytest
 
-from hri_dcat.hri_dataset import HRIDataset
-from hri_dcat.project import Project
-from hri_dcat.hri_data_service import HRIDataService
-from hri_dcat.hri_catalog import HRICatalog
-from hri_dcat.hri_distribution import HRIDistribution
+from sempyro.hri_dcat.hri_dataset import HRIDataset
+from sempyro.foaf.project import Project
+from sempyro.hri_dcat.hri_data_service import HRIDataService
+from sempyro.hri_dcat.hri_catalog import HRICatalog
+from sempyro.hri_dcat.hri_distribution import HRIDistribution
 
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "hri_dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "hri_dcat", "json_models")
 
 
 @pytest.mark.parametrize("model_name", ["Project",

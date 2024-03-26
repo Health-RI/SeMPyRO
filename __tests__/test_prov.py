@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 import pytest
 
-from dcat.prov_classes import Activity, Association, Start, End, EntityInfluence, InstantaneousEvent
+from sempyro.dcat.prov_classes import Activity, Association, Start, End, EntityInfluence, InstantaneousEvent
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models", "prov")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models", "prov")
 
 
 @pytest.mark.parametrize("model_name", ["Activity", "Association", "Start", "End", "EntityInfluence", 

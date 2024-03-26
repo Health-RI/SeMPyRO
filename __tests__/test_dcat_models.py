@@ -2,15 +2,15 @@ import json
 from pathlib import Path
 import pytest
 
-from dcat.dcat_resource import DCATResource
-from dcat.dcat_dataset import DCATDataset
-from dcat.dataset_series import DatasetSeries
-from dcat.data_service import DataService
-from dcat.dcat_catalog import DCATCatalog
-from dcat.dcat_distribution import DCATDistribution
+from sempyro.dcat.dcat_resource import DCATResource
+from sempyro.dcat.dcat_dataset import DCATDataset
+from sempyro.dcat.dataset_series import DatasetSeries
+from sempyro.dcat.data_service import DataService
+from sempyro.dcat.dcat_catalog import DCATCatalog
+from sempyro.dcat.dcat_distribution import DCATDistribution
 
 
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models")
 
 
 @pytest.mark.parametrize("model_name", ["DCATResource",

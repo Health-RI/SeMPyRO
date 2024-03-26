@@ -1,22 +1,51 @@
-[tool.poetry]
-name = "hrimodeling"
-version = "0.1.0"
-description = ""
-authors = ["anastasianayden <anastasia.nayden@health-ri.nl>"]
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-rdflib = "^7.0.0"
-pydantic = "^2.5.2"
-ruamel-yaml = "^0.18.5"
-notebook = "^7.0.6"
-email-validator = "^2.1.0.post1"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.4"
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sempyro"
+version = "v1.0.0"
+description = "Pydantic models representing classes of DCAT-AP v3 data model."
+keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
+
+requires-python = ">= 3.11"
+
+dependencies = [
+    "rdflib >= 7.0.0",
+    "pydantic == 2.5.2",
+    "ruamel-yaml == 0.18.5",
+    "email-validator == 2.1.0.post1",
+    "python-dateutil == 2.9.0.post0"
+#    "graphviz == 0.20.1"
+    ]
+
+readme = "README.md"
+icense = {file = "LICENSE"}
+
+[project.optional-dependencies]
+notebook_docs = ["notebook >= 7.0.6"]
+
+
+#[tool.poetry]
+#name = "hrimodeling"
+#version = "1.0.0"
+#description = ""
+#authors = ["anastasianayden <anastasia.nayden@health-ri.nl>"]
+#readme = "README.md"
+#
+#[tool.poetry.dependencies]
+#python = "^3.11"
+#rdflib = "^7.0.0"
+#pydantic = "2.5.2"
+#ruamel-yaml = "^0.18.5"
+#email-validator = "^2.1.0.post1"
+#graphviz = "^0.20.1"
+#
+#
+#[tool.poetry.group.dev.dependencies]
+#pytest = "^7.4.4"
+#coverage = "^7.4.1"
+#
+#[build-system]
+#requires = ["poetry-core"]
+#build-backend = "poetry.core.masonry.api"

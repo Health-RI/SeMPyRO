@@ -1,12 +1,11 @@
 import json
 from pathlib import Path
-import pytest
 
-from dcat.policy import ODRLPolicy
+from sempyro.dcat.policy import ODRLPolicy
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models")
 
 
 def test_vcard_agent():

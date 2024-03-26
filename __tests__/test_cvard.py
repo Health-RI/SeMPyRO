@@ -4,13 +4,13 @@ import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError, Url
-from dcat.vcard import VCard, Agent, VCARD
-from dcat.rdf_model import LiteralField
+from sempyro.dcat.vcard import VCard, Agent, VCARD
+from sempyro.rdf_model import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
 from rdflib.compare import to_isomorphic
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models")
 
 EX = Namespace("http://www.example.com/")
 
