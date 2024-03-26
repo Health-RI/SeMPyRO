@@ -35,10 +35,15 @@ common basis within Europe to share Datasets and Data Services cross-border and 
 
 ### Health-RI core data model
 
-Health-RI has published a [Core Metadata Model](https://health-ri.atlassian.net/l/cp/udWLxwpu) based on DCAT-AP
-specification. Current package includes Pydatic classes for **Health-RI Core model**.
+Health-RI is the the organization in the Netherlands dedicated to improving the reuse of health data
+for policy, research, and innovation to achieve a learning healthcare system.
+We have published a [Core Metadata Model](https://health-ri.atlassian.net/l/cp/udWLxwpu) based on DCAT-AP
+specification for the sharing of Dutch healthcare-related datasets.
+Current package includes Pydantic classes for the **Health-RI Core model**.
 
 ## Installation
+
+TODO
 
 ## Licence
 

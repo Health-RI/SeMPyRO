@@ -17,8 +17,8 @@ The package comprises three types of classes to implement DCAT model: Pydantic-b
 
 ### Model classes
 
-All the model classes are inherited from RDFModel which is, in its turn, a subclass of pydantic.BaseModel. They are developed
-to implement DCAT-AP v3 model and provide validations.
+All the model classes are inherited from `RDFModel` which is, in its turn, a subclass of `pydantic.BaseModel`.
+They are developed to implement DCAT-AP v3 model and provide validations.
 
 Following DCAT classes are available in the package:
 
@@ -212,7 +212,7 @@ print(dataset.to_graph(URIRef("http://example.com/ts1234")).serialize())
 
 The code above prints out:
 
-```
+```turtle
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
