@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 import pytest
 
-from sempyro.dcat.prov_classes import Activity, Association, Start, End, EntityInfluence, InstantaneousEvent
+from sempyro.prov import Activity, Association, Start, End, EntityInfluence, InstantaneousEvent
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")

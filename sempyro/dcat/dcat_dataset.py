@@ -5,13 +5,13 @@ from typing import List, Union
 from sempyro.dcat.dcat_resource import DCATResource
 from sempyro.rdf_model import LiteralField
 from sempyro.dcat.dcat_time_models import PeriodOfTime
-from sempyro.dcat.prov_classes import Activity
+from sempyro.prov import Activity
 from sempyro.dcat.spatial import Location
 from pydantic import Field, AnyHttpUrl, ConfigDict
 from rdflib.namespace import DCAT, DCTERMS, PROV
 
-from sempyro.namespaces.DCATv3 import DCATv3
-from sempyro.namespaces.FREQ import FREQ
+from sempyro.namespaces import DCATv3
+from sempyro.namespaces import FREQ
 
 
 class Frequency(Enum):
@@ -98,6 +98,6 @@ class DCATDataset(DCATResource):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
     DCATDataset.save_schema_to_file(Path(json_models_folder, "DCATDataset.json"), "json")
     DCATDataset.save_schema_to_file(Path(json_models_folder, "DCATDataset.yaml"), "yaml")
