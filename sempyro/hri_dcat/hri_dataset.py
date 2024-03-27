@@ -2,12 +2,12 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from sempyro.dcat.vcard import Agent
+from sempyro.foaf import Agent
 from sempyro.rdf_model import RDFModel, LiteralField
 from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
-from sempyro.namespaces.DCATv3 import DCATv3
+from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
 
 
@@ -117,6 +117,6 @@ class HRIDataset(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
     HRIDataset.save_schema_to_file(Path(json_models_folder, "HRIDataset.json"), "json")
     HRIDataset.save_schema_to_file(Path(json_models_folder, "HRIDataset.yaml"), "yaml")

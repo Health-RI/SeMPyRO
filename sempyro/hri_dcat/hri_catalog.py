@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Union
 
-from sempyro.dcat.vcard import Agent
+from sempyro.foaf import Agent
 from sempyro.rdf_model import RDFModel, LiteralField
 from pydantic import Field, AnyHttpUrl, ConfigDict, field_validator
 from rdflib.namespace import DCAT, DCTERMS
@@ -49,6 +49,6 @@ class HRICatalog(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
     HRICatalog.save_schema_to_file(Path(json_models_folder, "HRICatalog.json"), "json")
     HRICatalog.save_schema_to_file(Path(json_models_folder, "HRICatalog.yaml"), "yaml")

@@ -6,7 +6,6 @@ from sempyro.rdf_model import RDFModel, LiteralField
 from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator
 from pydantic.networks import validate_email
 from rdflib import Namespace
-from rdflib.namespace import DCTERMS, FOAF
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
@@ -61,31 +60,7 @@ class VCard(RDFModel):
         return new_list
 
 
-class Agent(RDFModel):
-    model_config = ConfigDict(
-                              json_schema_extra={
-                                  "$ontology": "http://xmlns.com/foaf/spec/",
-                                  "$namespace": str(FOAF),
-                                  "$IRI": FOAF.Agent,
-                                  "$prefix": "foaf"
-                              }
-                              )
-
-    name: List[Union[str, LiteralField]] = Field(description="A name of the agent",
-                                                 rdf_term=FOAF.name,
-                                                 rdf_type="rdfs_literal"
-                                                 )
-    identifier: Union[str, LiteralField] = Field(description="A unique identifier of the agent.",
-                                                 rdf_term=DCTERMS.identifier,
-                                                 rdf_type="rdfs_literal")
-
-
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
-    models = ["VCard", "Agent"]
-    for model_name in models:
-        model = globals()[model_name]
-        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.json"),
-                                  file_format="json")
-        model.save_schema_to_file(path=Path(json_models_folder, f"{model_name}.yaml"),
-                                  file_format="yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
+    VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.json"), file_format="json")
+    VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.yaml"), file_format="yaml")

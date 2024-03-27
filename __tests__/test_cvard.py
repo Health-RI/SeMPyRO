@@ -1,24 +1,40 @@
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 
 import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError, Url
-from sempyro.dcat.vcard import VCard, Agent, VCARD
+from sempyro.dcat.vcard import VCard, VCARD
+from sempyro.foaf import Agent
 from sempyro.rdf_model import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
 from rdflib.compare import to_isomorphic
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
-MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "sempyro", "dcat", "json_models")
+MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
 
 EX = Namespace("http://www.example.com/")
 
 
-@pytest.mark.parametrize("model_name", ["VCard",
-                                        "Agent"])
-def test_vcard_agent(model_name):
-    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json"), "r") as model_file:
+@pytest.mark.parametrize("model_name,test_path",
+                         [("VCard", "vcard"),
+                          ("Agent", "foaf")])
+def test_vcard_agent(model_name, test_path):
+    with open(Path(MODELS_JSON_DIRECTORY, test_path, f"{model_name}.json"), "r") as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()
@@ -86,4 +102,3 @@ def test_vcard_namespace():
     expected_graph.parse(Path(TEST_DATA_DIRECTORY, "vCard_as_a_node.ttl"))
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
     assert [x for x in actual_graph.namespaces()] == [y for y in expected_graph.namespaces()]
-
