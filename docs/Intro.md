@@ -116,13 +116,15 @@ be described multiple times for different languages.
 
 ## Using SeMPyRO
 
+### A simple Dataset
+
 *SeMPyRO* makes it easy to model DCAT in a Pythonic way. We could model above Dataset in the
 following way.
 
 ```python
-from dcat.rdf_model import LiteralField
-from dcat.dcat_dataset import DCATDataset
-from rdflib import XSD, URIRef
+from sempyro.rdf_model import LiteralField
+from sempyro.dcat.dcat_dataset import DCATDataset
+from rdflib import URIRef
 
 dataset_title = LiteralField(value="Population statistics")
 description = LiteralField(value="This is description of Test dataset")
@@ -134,8 +136,36 @@ dataset_graph = dataset.to_graph(URIRef("http://example.com/dataset/population")
 print(dataset_graph.serialize())
 ```
 
+This will result in the exact same output as before:
+
+```turtle
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://example.org/dataset/population> a dcat:Dataset ;
+  dcterms:title "Population statistics" ;
+  dcterms:description "This dataset provides statistics on the population of various countries."
+  .
+```
+
 Note how the title and description are *Lists*, to allow for additional languages to be added.
 Also note how it is mandatory to add an IRI when serializing the model to a Graph.
+
+The default serialization from RDFLib is *Turtle*. It is also possible to serialize to other
+representations:
+
+```python
+print(dataset_graph.serialize(format="ntriples"))
+```
+
+```
+<http://example.com/dataset/population> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Dataset> .
+<http://example.com/dataset/population> <http://purl.org/dc/terms/title> "Population statistics" .
+<http://example.com/dataset/population> <http://purl.org/dc/terms/description> "This is description of Test dataset" .
+```
+
+### Extending with catalog
 
 To add the Catalog, it could be done as follows:
 
@@ -162,24 +192,44 @@ combined_graph = catalog.to_graph(URIRef("http://example.com/catalog/example")) 
 print(combined_graph.serialize())
 ```
 
+This will result in the following output:
+
+```turtle
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://example.org/catalog/statistics> a dcat:Catalog ;
+  dcterms:title "Example Data Catalog" ;
+  dcterms:description "This is an example data catalog that contains a single dataset." ;
+  dcat:dataset <http://example.org/dataset/population> .
+
+<http://example.org/dataset/population> a dcat:Dataset ;
+  dcterms:title "Population statistics" ;
+  dcterms:description "This dataset provides statistics on the population of various countries."
+  .
+```
+
 Note how we add up the Graphs of the Catalog and the Dataset. The package is smart enough to understand
 that the Dataset mentioned in the Catalog is the same one we describe.
+
+### Data validation
 
 The package performs validation to ensure correct data types are used. Below an example when using
 a string instead of an URIRef.
 
 ```python
-> dataset.to_graph("no valid uri")
+> dataset.to_graph("invalid uri")
 
-AssertionError: Subject no valid uri must be an rdflib term
+AssertionError: Subject invalid uri must be an rdflib term
 ```
 
 Even when using the correct datatypes, some validation will take place:
 
 ```python
-> dataset.to_graph(URIRef("no valid uri"))
+> dataset.to_graph(URIRef("invalid uri"))
 
-no valid uri does not look like a valid URI, trying to serialize this will break.
+invalid uri does not look like a valid URI, trying to serialize this will break.
 ```
 
 The package supports a lot of advanced modelling. For more details, see [here](Models.md)
