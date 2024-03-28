@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import List, Union
 
 from sempyro.foaf import Agent
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 from pydantic import Field, AnyHttpUrl, ConfigDict, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 

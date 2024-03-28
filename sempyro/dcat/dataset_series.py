@@ -4,7 +4,7 @@ from sempyro.dcat.dcat_dataset import DCATDataset
 from pydantic import ConfigDict
 from rdflib import DCAT
 
-from sempyro.namespaces.DCATv3 import DCATv3
+from sempyro.namespaces import DCATv3
 
 
 class DatasetSeries(DCATDataset):
@@ -20,6 +20,6 @@ class DatasetSeries(DCATDataset):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
     DatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.json"), "json")
     DatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.yaml"), "yaml")

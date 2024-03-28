@@ -15,7 +15,7 @@
 from pathlib import Path
 from typing import Union, List
 
-from sempyro.rdf_model import RDFModel
+from sempyro import RDFModel
 from pydantic import AnyHttpUrl, ConfigDict, Field, NaiveDatetime, AwareDatetime
 from rdflib import PROV
 

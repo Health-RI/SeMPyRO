@@ -15,7 +15,7 @@
 from pathlib import Path
 from typing import List, Union
 
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 from pydantic import ConfigDict, Field
 from rdflib.namespace import DCTERMS, FOAF
 

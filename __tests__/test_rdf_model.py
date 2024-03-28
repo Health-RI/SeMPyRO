@@ -1,4 +1,4 @@
-from sempyro.rdf_model import RDFModel
+from sempyro import RDFModel
 from datetime import date, datetime
 from pydantic import AwareDatetime, NaiveDatetime, field_validator
 from rdflib import Literal, XSD

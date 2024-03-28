@@ -19,7 +19,7 @@ from rdflib import Namespace
 import re
 from typing import List, Union
 
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
@@ -75,6 +75,6 @@ class VCard(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
     VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.json"), file_format="json")
     VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.yaml"), file_format="yaml")

@@ -22,7 +22,7 @@ from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime
 from rdflib import URIRef, DCAT, DCTERMS, TIME
 from typing import Dict, Any, Union
 
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 from sempyro.namespaces import Greg
 from sempyro.utils.constants import year_pattern, year_month_pattern
 from sempyro.utils.validator_functions import force_literal_field

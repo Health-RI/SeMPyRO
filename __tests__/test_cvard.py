@@ -20,7 +20,7 @@ from pathlib import Path
 from pydantic_core import ValidationError, Url
 from sempyro.vcard import VCard, VCARD
 from sempyro.foaf import Agent
-from sempyro.rdf_model import LiteralField
+from sempyro import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
 from rdflib.compare import to_isomorphic
 

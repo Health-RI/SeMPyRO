@@ -57,6 +57,6 @@ class DCATCatalog(DCATDataset):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
     DCATCatalog.save_schema_to_file(Path(json_models_folder, "DCATCatalog.json"), "json")
     DCATCatalog.save_schema_to_file(Path(json_models_folder, "DCATCatalog.yaml"), "yaml")

@@ -17,7 +17,7 @@ from pydantic import ConfigDict, AnyHttpUrl, Field
 from rdflib import Namespace
 from typing import Union
 
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 
 SPDX = Namespace("http://spdx.org/rdf/terms#")
 

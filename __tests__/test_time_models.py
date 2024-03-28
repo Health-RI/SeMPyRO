@@ -20,7 +20,7 @@ from pydantic_core import ValidationError
 from sempyro.time import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime, \
     DateTimeDescription, DayOfWeek
 from sempyro.namespaces import Greg
-from sempyro.rdf_model import LiteralField
+from sempyro import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
 from rdflib.compare import to_isomorphic
 

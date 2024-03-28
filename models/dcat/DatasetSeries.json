@@ -1001,6 +1001,7 @@
     },
     "RDFModel": {
       "additionalProperties": false,
+      "description": "Base class for creating pydantic models convertible to RDF graph",
       "properties": {},
       "title": "RDFModel",
       "type": "object"

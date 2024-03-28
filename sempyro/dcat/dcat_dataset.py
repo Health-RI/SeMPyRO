@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Union
 
 from sempyro.dcat.dcat_resource import DCATResource
-from sempyro.rdf_model import LiteralField
+from sempyro import LiteralField
 from sempyro.time import PeriodOfTime
 from sempyro.prov import Activity
 from sempyro.geo import Location

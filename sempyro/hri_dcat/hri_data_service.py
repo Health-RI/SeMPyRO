@@ -3,7 +3,7 @@ from typing import List, Union
 
 from sempyro.dcat.dcat_resource import DCATResource
 from sempyro.hri_dcat.hri_dataset import HRIDataset
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 from pydantic import ConfigDict, AnyHttpUrl, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
@@ -50,6 +50,6 @@ class HRIDataService(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
     HRIDataService.save_schema_to_file(Path(json_models_folder, "HRIDataService.json"), "json")
     HRIDataService.save_schema_to_file(Path(json_models_folder, "HRIDataService.yaml"), "yaml")

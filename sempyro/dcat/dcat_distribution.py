@@ -14,15 +14,14 @@
 
 from datetime import date, datetime
 from pathlib import Path
+from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
+from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from typing import List, Union
 
+from sempyro import RDFModel, LiteralField
 from sempyro.dcat.data_service import DataService
 from sempyro.dcat.dcat_resource import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
-from sempyro.rdf_model import RDFModel, LiteralField
-from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
-from rdflib.namespace import DCAT, DCTERMS, ODRL2
-
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -172,6 +171,6 @@ class DCATDistribution(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
     DCATDistribution.save_schema_to_file(Path(json_models_folder, "DCATDistribution.json"), "json")
     DCATDistribution.save_schema_to_file(Path(json_models_folder, "DCATDistribution.yaml"), "yaml")

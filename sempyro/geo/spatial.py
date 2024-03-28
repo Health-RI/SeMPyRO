@@ -18,7 +18,7 @@ from rdflib import DCAT, DCTERMS
 from typing import Union
 
 from sempyro.namespaces import GeoSPARQL, LOCN
-from sempyro.rdf_model import RDFModel, LiteralField
+from sempyro import RDFModel, LiteralField
 from sempyro.utils.validator_functions import force_literal_field
 
 

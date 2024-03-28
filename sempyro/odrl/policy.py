@@ -17,7 +17,7 @@ from pydantic import ConfigDict, Field, AnyHttpUrl
 from rdflib.namespace import ODRL2
 from typing import List, Union
 
-from sempyro.rdf_model import RDFModel
+from sempyro import RDFModel
 
 
 class ODRLPolicy(RDFModel):

@@ -1,17 +1,31 @@
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 import logging
 import re
+import ruamel.yaml
+
 from datetime import date, datetime
 from pathlib import Path
-from typing import Literal as typing_Literal
-from typing import Union, Type, Any, Dict, List
-
-import ruamel.yaml
 from pydantic import (BaseModel, ConfigDict, Field, model_validator, field_validator, NaiveDatetime, AwareDatetime,
                       AnyUrl)
 from pydantic.fields import PydanticUndefined
 from rdflib import BNode, Graph, URIRef, Literal, XSD
 from rdflib.namespace import RDF, DefinedNamespaceMeta
+from typing import Literal as typing_Literal
+from typing import Union, Type, Any, Dict, List
 
 from sempyro.utils.constants import year_pattern, year_month_pattern
 
@@ -22,6 +36,7 @@ logger = logging.getLogger("__name__")
 
 
 class ModelAnnotationUtil:
+    """A util class for quick access to RDFModel fields info"""
     def __init__(self, model: Union[Type[BaseModel]]):
         self.fields = model.model_fields
 
@@ -110,6 +125,7 @@ class RDFModelError(AttributeError):
 
 
 class RDFModel(BaseModel):
+    """Base class for creating pydantic models convertible to RDF graph"""
     model_config = ConfigDict(extra="forbid", use_enum_values=True, arbitrary_types_allowed=True)
 
     def to_graph_node(self,
