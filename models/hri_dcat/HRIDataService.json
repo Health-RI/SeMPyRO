@@ -1113,6 +1113,7 @@
       "type": "array"
     },
     "serves_dataset": {
+      "default": null,
       "description": "A collection of data that this data service can distribute.",
       "items": {
         "anyOf": [
@@ -1157,8 +1158,7 @@
   },
   "required": [
     "endpoint_url",
-    "title",
-    "serves_dataset"
+    "title"
   ],
   "title": "HRIDataService",
   "type": "object"

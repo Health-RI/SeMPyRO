@@ -1,12 +1,25 @@
-from pathlib import Path
-from typing import List, Union
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-from sempyro.dcat.dcat_resource import DCATResource
-from sempyro.hri_dcat.hri_dataset import HRIDataset
-from sempyro import RDFModel, LiteralField
+from pathlib import Path
 from pydantic import ConfigDict, AnyHttpUrl, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
+from typing import List, Union
 
+from sempyro.dcat import DCATResource
+from sempyro.hri_dcat import HRIDataset
+from sempyro import RDFModel, LiteralField
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -31,6 +44,7 @@ class HRIDataService(RDFModel):
         rdf_type="rdfs_literal"
     )
     serves_dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
+        default=None,
         description="A collection of data that this data service can distribute.",
         rdf_term=DCAT.servesDataset,
         rdf_type="uri"

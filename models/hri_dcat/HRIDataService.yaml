@@ -883,6 +883,7 @@ properties:
     title: Title
     type: array
   serves_dataset:
+    default:
     description: A collection of data that this data service can distribute.
     items:
       anyOf:
@@ -912,6 +913,5 @@ properties:
 required:
 - endpoint_url
 - title
-- serves_dataset
 title: HRIDataService
 type: object
