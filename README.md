@@ -1,6 +1,6 @@
 # HRIPydanticModels
 
-**HRIPydanticModels** is a Python package containing Pydantic models representing classes of the
+**SeMPyRO** is a Python package containing Pydantic models representing classes of the
 DCAT-AP v3 data model. It is designed to streamline data validation, conversion to RDF, and schema generation processes.
 
 ## Key Features
@@ -35,20 +35,26 @@ common basis within Europe to share Datasets and Data Services cross-border and 
 
 ### Health-RI core data model
 
-Health-RI is the the organization in the Netherlands dedicated to improving the reuse of health data
-for policy, research, and innovation to achieve a learning healthcare system.
-We have published a [Core Metadata Model](https://health-ri.atlassian.net/l/cp/udWLxwpu) based on DCAT-AP
+Health-RI is a no profit organization in the Netherlands dedicated to improving the reuse of health data for policy, 
+research, and innovation to achieve a learning healthcare system.
+We have published a [Core Metadata Model](https://health-ri.atlassian.net/l/cp/udWLxwpu) based on DCAT-AP 
 specification for the sharing of Dutch healthcare-related datasets.
 Current package includes Pydantic classes for the **Health-RI Core model**.
 
 ## Installation
 
-TODO
+To install the package run
+```commandline
+pip install sempyro
+```
+
+[Documentation](./docs) folder contains usage examples executable in Jupiter Notebook. 
+If you want to explore them follow [official Jupyter installation guid](https://jupyter.org/install#jupyter-notebook).
 
 ## Licence
 
-todo - add
+[Apache-2.0](./LICENSE)
 
 ## Documentation
 
-For more information on package content and usage please review [documentation](./docs/Models.md)
+For more information on package content and usage please review [documentation](./docs).
