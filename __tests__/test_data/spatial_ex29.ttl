@@ -1,0 +1,23 @@
+# EXAMPLE 29: Spatial coverage as a polygon
+# A dataset whose spatial coverage corresponds to Anne Frank's house in Amsterdam, specified as a polygon (the coordinate reference system is CRS84).
+
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+
+<http://example.com#AnneFrank_0> a dcat:Dataset ;
+  dcterms:spatial [
+    a dcterms:Location ;
+    locn:geometry """POLYGON ((
+      4.8842353 52.375108 , 4.884276 52.375153 ,
+      4.8842567 52.375159 , 4.883981 52.375254 ,
+      4.8838502 52.375109 , 4.883819 52.375075 ,
+      4.8841037 52.374979 , 4.884143 52.374965 ,
+      4.8842069 52.375035 , 4.884263 52.375016 ,
+      4.8843200 52.374996 , 4.884255 52.374926 ,
+      4.8843289 52.374901 , 4.884451 52.375034 ,
+      4.8842353 52.375108
+    ))"""^^geo:wktLiteral ;
+  ] .
