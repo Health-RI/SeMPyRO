@@ -17,7 +17,7 @@ from pydantic import Field, AnyHttpUrl, ConfigDict, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 from typing import List, Union
 
-from sempyro.dcat import DataService
+from sempyro.hri_dcat import HRIDataService
 from sempyro import RDFModel, LiteralField
 from sempyro.utils.validator_functions import force_literal_field
 
@@ -61,7 +61,7 @@ class HRIDistribution(RDFModel):
         rdf_term=DCAT.mediaType,
         rdf_type="uri"
     )
-    access_service: List[Union[AnyHttpUrl, DataService]] = Field(
+    access_service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset",
         rdf_term=DCAT.accessService,
