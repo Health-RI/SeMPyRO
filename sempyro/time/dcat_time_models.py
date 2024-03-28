@@ -1,15 +1,29 @@
-import logging
-import typing
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from datetime import date
 from enum import Enum
+import logging
+import typing
+
 from pathlib import Path
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
+from rdflib import URIRef, DCAT, DCTERMS, TIME
 from typing import Dict, Any, Union
 
 from sempyro.rdf_model import RDFModel, LiteralField
-from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
-from rdflib import Namespace, URIRef
-from rdflib.namespace import DCAT, DCTERMS, TIME, DefinedNamespace
-
+from sempyro.namespaces import Greg
 from sempyro.utils.constants import year_pattern, year_month_pattern
 from sempyro.utils.validator_functions import force_literal_field
 
@@ -66,27 +80,6 @@ class DayOfWeek(Enum):
     Friday = TIME.Friday
     Saturday = TIME.Saturday
     Sunday = TIME.Sunday
-
-
-class Greg(DefinedNamespace):
-    """
-    OWL-Time Gregorian Calendar
-    Generated from: https://www.w3.org/ns/time/gregorian#
-    """
-    January: URIRef
-    February: URIRef
-    March: URIRef
-    April: URIRef
-    May: URIRef
-    June: URIRef
-    July: URIRef
-    August: URIRef
-    September: URIRef
-    October: URIRef
-    November: URIRef
-    December: URIRef
-
-    _NS = Namespace("http://www.w3.org/ns/time/gregorian#")
 
 
 class MonthOfYear(Enum):
@@ -401,7 +394,7 @@ class PeriodOfTime(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models", "time")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "time")
     models = ["TimePosition", "GeneralDateTimeDescription", "DateTimeDescription", "TimeInstant", "PeriodOfTime"]
     for model_name in models:
         model = globals()[model_name]

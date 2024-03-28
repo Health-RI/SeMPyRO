@@ -12,20 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .ADMS import ADMS, ADMSStatus
-from .DCATv3 import DCATv3
-from .FREQ import FREQ
-from .GEOSPARQL import GeoSPARQL
-from .LOCN import LOCN
-from .GREG import Greg
-
+from .spatial import Geometry, Location
 
 __all__ = (
-    "ADMS",
-    "ADMSStatus",
-    "DCATv3",
-    "FREQ",
-    "GeoSPARQL",
-    "LOCN",
-    "Greg"
+    "Geometry",
+    "Location"
 )

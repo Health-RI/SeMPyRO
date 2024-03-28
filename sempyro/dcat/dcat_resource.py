@@ -19,8 +19,8 @@ from enum import Enum
 from pathlib import Path
 from typing import List, Union
 
-from sempyro.dcat.policy import ODRLPolicy
-from sempyro.dcat.vcard import VCard
+from sempyro.odrl import ODRLPolicy
+from sempyro.vcard import VCard
 from sempyro.foaf import Agent
 from sempyro.rdf_model import RDFModel, LiteralField
 from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \

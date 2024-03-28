@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 import pytest
 
-from sempyro.dcat.spatial import Location, Geometry
+from sempyro.geo import Location, Geometry
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")

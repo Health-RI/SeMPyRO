@@ -15,7 +15,7 @@
 import json
 from pathlib import Path
 
-from sempyro.dcat.policy import ODRLPolicy
+from sempyro.odrl import ODRLPolicy
 
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")

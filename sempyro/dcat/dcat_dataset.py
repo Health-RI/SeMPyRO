@@ -4,9 +4,9 @@ from typing import List, Union
 
 from sempyro.dcat.dcat_resource import DCATResource
 from sempyro.rdf_model import LiteralField
-from sempyro.dcat.dcat_time_models import PeriodOfTime
+from sempyro.time import PeriodOfTime
 from sempyro.prov import Activity
-from sempyro.dcat.spatial import Location
+from sempyro.geo import Location
 from pydantic import Field, AnyHttpUrl, ConfigDict
 from rdflib.namespace import DCAT, DCTERMS, PROV
 

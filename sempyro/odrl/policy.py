@@ -1,9 +1,23 @@
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from pathlib import Path
+from pydantic import ConfigDict, Field, AnyHttpUrl
+from rdflib.namespace import ODRL2
 from typing import List, Union
 
 from sempyro.rdf_model import RDFModel
-from pydantic import ConfigDict, Field, AnyHttpUrl
-from rdflib.namespace import ODRL2
 
 
 class ODRLPolicy(RDFModel):
@@ -92,7 +106,7 @@ class ODRLPolicy(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "odrl")
     ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, f"ODRLPolicy.json"),
                                    file_format="json")
     ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, f"ODRLPolicy.yaml"),

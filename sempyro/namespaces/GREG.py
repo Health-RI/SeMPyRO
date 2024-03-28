@@ -12,20 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .ADMS import ADMS, ADMSStatus
-from .DCATv3 import DCATv3
-from .FREQ import FREQ
-from .GEOSPARQL import GeoSPARQL
-from .LOCN import LOCN
-from .GREG import Greg
+from rdflib import URIRef, Namespace
+from rdflib.namespace import DefinedNamespace
 
 
-__all__ = (
-    "ADMS",
-    "ADMSStatus",
-    "DCATv3",
-    "FREQ",
-    "GeoSPARQL",
-    "LOCN",
-    "Greg"
-)
+class Greg(DefinedNamespace):
+    """
+    OWL-Time Gregorian Calendar
+    Generated from: https://www.w3.org/ns/time/gregorian#
+    """
+    January: URIRef
+    February: URIRef
+    March: URIRef
+    April: URIRef
+    May: URIRef
+    June: URIRef
+    July: URIRef
+    August: URIRef
+    September: URIRef
+    October: URIRef
+    November: URIRef
+    December: URIRef
+
+    _NS = Namespace("http://www.w3.org/ns/time/gregorian#")

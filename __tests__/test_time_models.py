@@ -17,8 +17,9 @@ import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError
-from sempyro.dcat.dcat_time_models import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime, \
-    DateTimeDescription, Greg, DayOfWeek
+from sempyro.time import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime, \
+    DateTimeDescription, DayOfWeek
+from sempyro.namespaces import Greg
 from sempyro.rdf_model import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
 from rdflib.compare import to_isomorphic

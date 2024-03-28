@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
 from pathlib import Path
-from typing import List, Union
-
-from sempyro.rdf_model import RDFModel, LiteralField
 from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator
 from pydantic.networks import validate_email
 from rdflib import Namespace
+import re
+from typing import List, Union
+
+from sempyro.rdf_model import RDFModel, LiteralField
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
@@ -75,6 +75,6 @@ class VCard(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "")
     VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.json"), file_format="json")
     VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.yaml"), file_format="yaml")

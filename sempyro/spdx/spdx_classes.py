@@ -1,9 +1,23 @@
+# Copyright 2024 Stichting Health-RI
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from pathlib import Path
+from pydantic import ConfigDict, AnyHttpUrl, Field
+from rdflib import Namespace
 from typing import Union
 
 from sempyro.rdf_model import RDFModel, LiteralField
-from pydantic import ConfigDict, AnyHttpUrl, Field
-from rdflib import Namespace
 
 SPDX = Namespace("http://spdx.org/rdf/terms#")
 
@@ -36,7 +50,7 @@ class Checksum(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parent.resolve(), "json_models")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "spdx")
     Checksum.save_schema_to_file(Path(json_models_folder, "Checksum.json"), "json")
     Checksum.save_schema_to_file(Path(json_models_folder, "Checksum.yaml"), "yaml")
 

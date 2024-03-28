@@ -18,7 +18,7 @@ import pytest
 
 from pathlib import Path
 from pydantic_core import ValidationError, Url
-from sempyro.dcat.vcard import VCard, VCARD
+from sempyro.vcard import VCard, VCARD
 from sempyro.foaf import Agent
 from sempyro.rdf_model import LiteralField
 from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
