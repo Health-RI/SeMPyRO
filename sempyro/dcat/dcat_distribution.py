@@ -19,8 +19,8 @@ from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from typing import List, Union
 
 from sempyro import RDFModel, LiteralField
-from sempyro.dcat.data_service import DataService
-from sempyro.dcat.dcat_resource import ODRLPolicy
+from sempyro.dcat import DataService
+from sempyro.odrl import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
 from sempyro.utils.validator_functions import force_literal_field
 

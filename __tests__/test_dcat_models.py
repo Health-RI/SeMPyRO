@@ -16,12 +16,7 @@ import json
 from pathlib import Path
 import pytest
 
-from sempyro.dcat import DCATResource
-from sempyro.dcat import DCATDataset
-from sempyro.dcat.dataset_series import DatasetSeries
-from sempyro.dcat.data_service import DataService
-from sempyro.dcat.dcat_catalog import DCATCatalog
-from sempyro.dcat.dcat_distribution import DCATDistribution
+from sempyro.dcat import DCATResource, DCATDataset, DatasetSeries, DataService, DCATCatalog, DCATDistribution
 
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "dcat")

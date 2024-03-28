@@ -17,18 +17,17 @@ from abc import ABCMeta
 from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
+from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
+    NaiveDatetime
+from rdflib import DCAT, DCTERMS, PROV, ODRL2, URIRef
 from typing import List, Union
 
 from sempyro.odrl import ODRLPolicy
 from sempyro.vcard import VCard
 from sempyro.foaf import Agent
 from sempyro import RDFModel, LiteralField
-from pydantic import ConfigDict, Field, AnyHttpUrl, field_validator, AwareDatetime, \
-    NaiveDatetime
-from rdflib import DCAT, DCTERMS, PROV, ODRL2, URIRef
 
-from sempyro.namespaces import ADMS, ADMSStatus
-from sempyro.namespaces import DCATv3
+from sempyro.namespaces import ADMS, ADMSStatus, DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
 
 logger = logging.getLogger("__name__")

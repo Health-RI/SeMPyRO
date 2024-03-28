@@ -16,11 +16,8 @@ import json
 from pathlib import Path
 import pytest
 
-from sempyro.hri_dcat.hri_dataset import HRIDataset
+from sempyro.hri_dcat import HRIDataset, HRIDataService, HRICatalog, HRIDistribution
 from sempyro.foaf import Project
-from sempyro.hri_dcat.hri_data_service import HRIDataService
-from sempyro.hri_dcat.hri_catalog import HRICatalog
-from sempyro.hri_dcat.hri_distribution import HRIDistribution
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
 
