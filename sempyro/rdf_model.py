@@ -55,14 +55,26 @@ class ModelAnnotationUtil:
                 self.fields.items()}
 
     def get_fields_types(self):
-        return {key: {"datatype": value.annotation.__name__,
-                      "RDF type": value.json_schema_extra.get("rdf_type", "No RDF type specified for the field")} for
+        return {key: {"datatype": self._get_list_types(datatype=value.annotation),
+                      "RDF type": value.json_schema_extra.get("rdf_type", "No RDF type specified for the field")} for 
                 key, value in self.fields.items()}
 
     def fields_defaults(self):
         # if default is not set in a model it is PydanticUndefined
         return {key: value.default for key, value in self.fields.items() if
                 value.default not in [None, PydanticUndefined]}
+
+    def _get_list_types(self, datatype):
+        dt_name = datatype.__name__
+        if dt_name in ["List", "Union"]:
+            types = []
+            for subtype in getattr(datatype, "__args__"):
+                types.append(self._get_list_types(subtype))
+            return f"{dt_name}[{', '.join(types)}]"
+        elif dt_name == "Annotated":
+            return getattr(datatype, "__args__")[0].__name__
+        else:
+            return dt_name
 
 
 class LiteralField(BaseModel):
