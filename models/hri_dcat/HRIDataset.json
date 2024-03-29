@@ -140,7 +140,7 @@
       "title": "Description",
       "type": "array"
     },
-    "release_date": {
+    "issued": {
       "anyOf": [
         {
           "type": "string"
@@ -157,7 +157,7 @@
       "description": "Date of formal issuance (e.g., publication) of the resource.",
       "rdf_term": "http://purl.org/dc/terms/issued",
       "rdf_type": "datetime_literal",
-      "title": "Release Date"
+      "title": "Issued"
     },
     "identifier": {
       "anyOf": [
@@ -173,7 +173,7 @@
       "rdf_type": "xsd:string",
       "title": "Identifier"
     },
-    "modification_date": {
+    "modified": {
       "anyOf": [
         {
           "type": "string"
@@ -190,7 +190,7 @@
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Modification Date"
+      "title": "Modified"
     },
     "publisher": {
       "description": "The entity responsible for making the resource available.",
@@ -211,7 +211,7 @@
       "title": "Publisher",
       "type": "array"
     },
-    "category": {
+    "theme": {
       "description": "A main category of the resource. A resource can have multiple themes.",
       "items": {
         "format": "uri",
@@ -220,7 +220,7 @@
       },
       "rdf_term": "http://www.w3.org/ns/dcat#themeTaxonomy",
       "rdf_type": "uri",
-      "title": "Category",
+      "title": "Theme",
       "type": "array"
     },
     "title": {
@@ -233,7 +233,7 @@
       "title": "Title",
       "type": "array"
     },
-    "genre": {
+    "type": {
       "description": "The nature or genre of the resource.",
       "items": {
         "format": "uri",
@@ -242,7 +242,7 @@
       },
       "rdf_term": "http://purl.org/dc/terms/type",
       "rdf_type": "uri",
-      "title": "Genre",
+      "title": "Type",
       "type": "array"
     },
     "license": {
@@ -311,13 +311,13 @@
     "contact_point",
     "creator",
     "description",
-    "release_date",
+    "issued",
     "identifier",
-    "modification_date",
+    "modified",
     "publisher",
-    "category",
+    "theme",
     "title",
-    "genre",
+    "type",
     "license"
   ],
   "title": "HRIDataset",

@@ -123,7 +123,6 @@ class Location(RDFModel):
     bounding_box: Union[LiteralField, str] = Field(
         default=None,
         description="The geographic bounding box of a spatial thing [SDW-BP].",
-        alias="bbox",
         rdf_term=DCAT.bbox,
         rdf_type="rdfs_literal"
     )

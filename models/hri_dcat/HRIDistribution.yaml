@@ -143,14 +143,14 @@ $defs:
         rdf_type: uri
         title: Is Referenced By
         type: array
-      tag:
+      keyword:
         default:
         description: A keyword or tag describing the resource.
         items:
           $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#keyword
         rdf_type: rdfs_literal
-        title: Tag
+        title: Keyword
         type: array
       landing_page:
         default:
@@ -247,7 +247,7 @@ $defs:
         rdf_term: http://purl.org/dc/terms/issued
         rdf_type: datetime_literal
         title: Release Date
-      category:
+      theme:
         default:
         description: A main category of the resource. A resource can have multiple
           themes.
@@ -257,7 +257,7 @@ $defs:
           type: string
         rdf_term: http://www.w3.org/ns/dcat#theme
         rdf_type: uri
-        title: Category
+        title: Theme
         type: array
       title:
         description: A name given to the resource.
@@ -267,7 +267,7 @@ $defs:
         rdf_type: rdfs_literal
         title: Title
         type: array
-      genre:
+      type:
         default:
         description: The nature or genre of the resource.
         items:
@@ -276,9 +276,9 @@ $defs:
           type: string
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
-        title: Genre
+        title: Type
         type: array
-      modification_date:
+      update_date:
         anyOf:
         - type: string
         - format: date
@@ -290,7 +290,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Modification Date
+        title: Update Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -511,7 +511,7 @@ $defs:
         rdf_type: literal
         title: Description
         type: array
-      release_date:
+      issued:
         anyOf:
         - type: string
         - format: date-time
@@ -521,7 +521,7 @@ $defs:
         description: Date of formal issuance (e.g., publication) of the resource.
         rdf_term: http://purl.org/dc/terms/issued
         rdf_type: datetime_literal
-        title: Release Date
+        title: Issued
       identifier:
         anyOf:
         - type: string
@@ -530,7 +530,7 @@ $defs:
         rdf_term: http://purl.org/dc/terms/identifier
         rdf_type: xsd:string
         title: Identifier
-      modification_date:
+      modified:
         anyOf:
         - type: string
         - format: date
@@ -541,7 +541,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Modification Date
+        title: Modified
       publisher:
         description: The entity responsible for making the resource available.
         items:
@@ -554,7 +554,7 @@ $defs:
         rdf_type: uri
         title: Publisher
         type: array
-      category:
+      theme:
         description: A main category of the resource. A resource can have multiple
           themes.
         items:
@@ -563,7 +563,7 @@ $defs:
           type: string
         rdf_term: http://www.w3.org/ns/dcat#themeTaxonomy
         rdf_type: uri
-        title: Category
+        title: Theme
         type: array
       title:
         description: A name given to the resource.
@@ -573,7 +573,7 @@ $defs:
         rdf_type: rdfs_literal
         title: Title
         type: array
-      genre:
+      type:
         description: The nature or genre of the resource.
         items:
           format: uri
@@ -581,7 +581,7 @@ $defs:
           type: string
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
-        title: Genre
+        title: Type
         type: array
       license:
         description: A legal document under which the resource is made available.
@@ -639,13 +639,13 @@ $defs:
     - contact_point
     - creator
     - description
-    - release_date
+    - issued
     - identifier
-    - modification_date
+    - modified
     - publisher
-    - category
+    - theme
     - title
-    - genre
+    - type
     - license
     title: HRIDataset
     type: object
@@ -811,7 +811,7 @@ $defs:
         rdf_type: uri
         title: Function
         type: array
-      hasAction:
+      action:
         default:
         description: The operation relating to the Asset for which the Rule is being
           subjected.
@@ -821,7 +821,7 @@ $defs:
           type: string
         rdf_term: http://www.w3.org/ns/odrl/2/action
         rdf_type: uri
-        title: Hasaction
+        title: Action
         type: array
       constraint:
         default:

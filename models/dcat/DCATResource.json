@@ -251,7 +251,7 @@
           "title": "Function",
           "type": "array"
         },
-        "hasAction": {
+        "action": {
           "default": null,
           "description": "The operation relating to the Asset for which the Rule is being subjected.",
           "items": {
@@ -261,7 +261,7 @@
           },
           "rdf_term": "http://www.w3.org/ns/odrl/2/action",
           "rdf_type": "uri",
-          "title": "Hasaction",
+          "title": "Action",
           "type": "array"
         },
         "constraint": {
@@ -518,7 +518,7 @@
       "title": "Is Referenced By",
       "type": "array"
     },
-    "tag": {
+    "keyword": {
       "default": null,
       "description": "A keyword or tag describing the resource.",
       "items": {
@@ -526,7 +526,7 @@
       },
       "rdf_term": "http://www.w3.org/ns/dcat#keyword",
       "rdf_type": "rdfs_literal",
-      "title": "Tag",
+      "title": "Keyword",
       "type": "array"
     },
     "landing_page": {
@@ -648,7 +648,7 @@
       "rdf_type": "datetime_literal",
       "title": "Release Date"
     },
-    "category": {
+    "theme": {
       "default": null,
       "description": "A main category of the resource. A resource can have multiple themes.",
       "items": {
@@ -658,7 +658,7 @@
       },
       "rdf_term": "http://www.w3.org/ns/dcat#theme",
       "rdf_type": "uri",
-      "title": "Category",
+      "title": "Theme",
       "type": "array"
     },
     "title": {
@@ -671,7 +671,7 @@
       "title": "Title",
       "type": "array"
     },
-    "genre": {
+    "type": {
       "default": null,
       "description": "The nature or genre of the resource.",
       "items": {
@@ -681,10 +681,10 @@
       },
       "rdf_term": "http://purl.org/dc/terms/type",
       "rdf_type": "uri",
-      "title": "Genre",
+      "title": "Type",
       "type": "array"
     },
-    "modification_date": {
+    "update_date": {
       "anyOf": [
         {
           "type": "string"
@@ -702,7 +702,7 @@
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Modification Date"
+      "title": "Update Date"
     },
     "qualified_attribution": {
       "default": null,

@@ -85,7 +85,6 @@ class ODRLPolicy(RDFModel):
     action: List[AnyHttpUrl] = Field(
         default=None,
         description="The operation relating to the Asset for which the Rule is being subjected.",
-        alias="hasAction",
         rdf_term=ODRL2.action,
         rdf_type="uri")
     constraint: List[AnyHttpUrl] = Field(

@@ -166,7 +166,7 @@
       "title": "Function",
       "type": "array"
     },
-    "hasAction": {
+    "action": {
       "default": null,
       "description": "The operation relating to the Asset for which the Rule is being subjected.",
       "items": {
@@ -176,7 +176,7 @@
       },
       "rdf_term": "http://www.w3.org/ns/odrl/2/action",
       "rdf_type": "uri",
-      "title": "Hasaction",
+      "title": "Action",
       "type": "array"
     },
     "constraint": {

@@ -53,7 +53,6 @@ class HRIDataset(RDFModel):
     )
     issued: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
         description="Date of formal issuance (e.g., publication) of the resource.",
-        alias="release_date",
         rdf_term=DCTERMS.issued,
         rdf_type="datetime_literal"
     )
@@ -63,7 +62,6 @@ class HRIDataset(RDFModel):
         rdf_type="xsd:string")
     modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         description="Most recent date on which the resource was changed, updated or modified.",
-        alias="modification_date",
         rdf_term=DCTERMS.modified,
         rdf_type="datetime_literal"
     )
@@ -74,7 +72,6 @@ class HRIDataset(RDFModel):
     )
     theme: List[AnyHttpUrl] = Field(
         description="A main category of the resource. A resource can have multiple themes.",
-        alias="category",
         rdf_term=DCAT.themeTaxonomy,
         rdf_type="uri"
     )
@@ -85,7 +82,6 @@ class HRIDataset(RDFModel):
     )
     type: List[AnyHttpUrl] = Field(
         description="The nature or genre of the resource.",
-        alias="genre",
         rdf_term=DCTERMS.type,
         rdf_type="uri")
     license: AnyHttpUrl = Field(

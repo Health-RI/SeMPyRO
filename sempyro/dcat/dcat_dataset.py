@@ -83,7 +83,6 @@ class DCATDataset(DCATResource):
     spatial: List[Union[AnyHttpUrl, Location]] = Field(
         default=None,
         description="The geographical area covered by the dataset.",
-        alias="geographical_coverage",
         rdf_term=DCTERMS.spatial,
         rdf_type="uri")
 

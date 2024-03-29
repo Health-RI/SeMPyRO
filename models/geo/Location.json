@@ -162,7 +162,7 @@
       "rdf_type": "geosparql:wktLiteral",
       "title": "Geometry"
     },
-    "bbox": {
+    "bounding_box": {
       "anyOf": [
         {
           "$ref": "#/$defs/LiteralField"
@@ -175,7 +175,7 @@
       "description": "The geographic bounding box of a spatial thing [SDW-BP].",
       "rdf_term": "http://www.w3.org/ns/dcat#bbox",
       "rdf_type": "rdfs_literal",
-      "title": "Bbox"
+      "title": "Bounding Box"
     },
     "centroid": {
       "allOf": [

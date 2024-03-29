@@ -60,7 +60,6 @@ class DCATDistribution(RDFModel):
     update_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the distribution was changed, updated or modified.",
-        alias="modification_date",
         rdf_term=DCTERMS.modified,
         rdf_type="datetime_literal"
     )
