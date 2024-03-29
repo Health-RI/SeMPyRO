@@ -139,7 +139,11 @@ class RDFModelError(AttributeError):
 
 class RDFModel(BaseModel):
     """Base class for creating pydantic models convertible to RDF graph"""
-    model_config = ConfigDict(extra="forbid", use_enum_values=True, arbitrary_types_allowed=True)
+    model_config = ConfigDict(extra="forbid",
+                              use_enum_values=True,
+                              arbitrary_types_allowed=True,
+                              validate_assignment=True
+                              )
 
     def to_graph_node(self,
                       graph: Graph,
