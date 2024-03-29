@@ -123,7 +123,7 @@ following way.
 
 ```python
 from sempyro.rdf_model import LiteralField
-from sempyro.dcat.dcat_dataset import DCATDataset
+from sempyro.dcat import DCATDataset
 from rdflib import URIRef
 
 dataset_title = LiteralField(value="Population statistics")
@@ -170,9 +170,8 @@ print(dataset_graph.serialize(format="ntriples"))
 To add the Catalog, it could be done as follows:
 
 ```python
-from dcat.rdf_model import LiteralField
-from dcat.dcat_dataset import DCATDataset
-from dcat.dcat_catalog import DCATCatalog
+from sempyro import LiteralField
+from sempyro.dcat import DCATDataset, DCATCatalog
 from rdflib import URIRef
 
 catalog_title = LiteralField(value="Example Data Catalog")
