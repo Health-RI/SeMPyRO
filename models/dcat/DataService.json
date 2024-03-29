@@ -1727,6 +1727,10 @@
               "$ref": "#/$defs/Geometry"
             }
           ],
+          "bind_namespace": [
+            "locn",
+            "http://www.w3.org/ns/locn#"
+          ],
           "default": null,
           "description": "Associates a spatial thing [SDW-BP] with a corresponding geometry.",
           "rdf_term": "http://www.w3.org/ns/locn#geometry",

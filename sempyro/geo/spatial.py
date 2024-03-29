@@ -117,6 +117,7 @@ class Location(RDFModel):
     geometry: Union[LiteralField, Geometry] = Field(
         default=None,
         description="Associates a spatial thing [SDW-BP] with a corresponding geometry.",
+        bind_namespace=("locn", str(LOCN)),
         rdf_term=LOCN.geometry,
         rdf_type="geosparql:wktLiteral"
     )

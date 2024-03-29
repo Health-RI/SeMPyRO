@@ -31,6 +31,7 @@ from sempyro.utils.constants import year_pattern, year_month_pattern
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
+BIND_NAMESPACE_KEY = "bind_namespace"
 
 logger = logging.getLogger("__name__")
 
@@ -173,6 +174,7 @@ class RDFModel(BaseModel):
             if value:
                 rdf_predicate = self.model_fields[field].json_schema_extra[RDF_KEY]
                 rdf_type = self.model_fields[field].json_schema_extra.get(RDF_TYPE_KEY)
+                bind_namespace = self.model_fields[field].json_schema_extra.get(BIND_NAMESPACE_KEY)
                 if not isinstance(value, List):
                     value = [value]
                 for item in value:
@@ -191,6 +193,8 @@ class RDFModel(BaseModel):
                         else:
                             item = self._convert_to_rdf_type(rdf_type, item)
                         graph.add((node_to_add, rdf_predicate, item))
+                    if bind_namespace:
+                        graph.bind(bind_namespace[0], URIRef(bind_namespace[1]))
 
     @staticmethod
     def _convert_to_datetime_literal(value: Union[str, date, datetime, AwareDatetime, NaiveDatetime]) -> Literal:
