@@ -122,7 +122,7 @@ be described multiple times for different languages.
 following way.
 
 ```python
-from sempyro.rdf_model import LiteralField
+from sempyro import LiteralField
 from sempyro.dcat import DCATDataset
 from rdflib import URIRef
 
@@ -177,7 +177,9 @@ from rdflib import URIRef
 catalog_title = LiteralField(value="Example Data Catalog")
 catalog_desc = LiteralField(value="This is an example data catalog that contains a single dataset.")
 
-catalog = DCATCatalog(title=[catalog_title], description=[catalog_desc], dataset=[URIRef("http://example.com/dataset/population")])
+dataset_subject = URIRef("http://example.com/dataset/population")
+
+catalog = DCATCatalog(title=[catalog_title], description=[catalog_desc], dataset=[dataset_subject])
 
 dataset_title = LiteralField(value="Population statistics")
 description = LiteralField(value="This is description of Test dataset")
@@ -186,7 +188,7 @@ dataset = DCATDataset(title=[dataset_title],
                       description=[description],
                       )
 
-combined_graph = catalog.to_graph(URIRef("http://example.com/catalog/example")) + dataset.to_graph(URIRef("http://example.com/dataset/population"))
+combined_graph = catalog.to_graph(URIRef("http://example.com/catalog/example")) + dataset.to_graph(dataset_subject)
 
 print(combined_graph.serialize())
 ```
@@ -209,26 +211,8 @@ This will result in the following output:
   .
 ```
 
-Note how we add up the Graphs of the Catalog and the Dataset. The package is smart enough to understand
-that the Dataset mentioned in the Catalog is the same one we describe.
+Note how we add up the Graphs of the Catalog and the Dataset, the dataset subject IRI will be used as an internal 
+reference to connect catalog and dataset.
 
-### Data validation
-
-The package performs validation to ensure correct data types are used. Below an example when using
-a string instead of an URIRef.
-
-```python
-> dataset.to_graph("invalid uri")
-
-AssertionError: Subject invalid uri must be an rdflib term
-```
-
-Even when using the correct datatypes, some validation will take place:
-
-```python
-> dataset.to_graph(URIRef("invalid uri"))
-
-invalid uri does not look like a valid URI, trying to serialize this will break.
-```
 
 The package supports a lot of advanced modelling. For more details, see [here](Models.md)

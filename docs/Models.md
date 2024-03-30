@@ -8,6 +8,7 @@
   - [Enum classes](#enum-classes)
 - [How a model is defined](#how-a-model-is-defined)
 - [Explore Model annotation](#explore-model-annotation)
+- [Data validation](#data-validation)
 - [Defining a model of your own and extending models](#defining-a-model-of-your-own-and-extending-models)
 - [Usage examples](#usage-examples)
 
@@ -29,6 +30,11 @@ Following DCAT classes are available in the package:
 - DatasetSeries - a subclass of DCATDataset, corresponds [DCAT Dataset Series](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset_Series).
 - DCATDistribution - a subclass of DCATResource, corresponds [DCAT Distribution](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution).
 - DataService - a subclass of DCATResource, corresponds [DCAT Data Service](https://www.w3.org/TR/vocab-dcat-3/#Class:Data_Service).
+
+```python
+# to import 
+from sempyro.dcat import DCATResource, DCATDataset, DCATCatalog, DCATDistribution, DatasetSeries, DataService
+```
 
 Along with a number of supporting classes:
 
@@ -52,6 +58,16 @@ Along with a number of supporting classes:
 - vCard [Minimal implementation of vCard](https://www.w3.org/TR/vcard-rdf/)
 - Agent [Health-RI interpretation of PROV Agent](https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification#Agent)
 
+```python
+# to import
+from sempyro.time import PeriodOfTime, TimeInstant, TimePosition, GeneralDateTimeDescription, DateTimeDescription
+from sempyro.geo import Location, Geometry
+from sempyro.prov import Activity, Association, End, EntityInfluence, InstantaneousEvent
+from sempyro.odrl import ODRLPolicy
+from sempyro.vcard import VCard
+from sempyro.foaf import Agent
+```
+
 Package includes **Health-RI core model** following classes
 
 - Project [FOAF Project implementation](http://xmlns.com/foaf/spec/#term_Project)
@@ -59,6 +75,10 @@ Package includes **Health-RI core model** following classes
 - HRICatalog
 - HRIDistribution
 - HRIDataService
+```python
+# to import
+from sempyro.hri_dcat import HRIDataset, HRICatalog, HRIDistribution, HRIDataService
+```
 
 Note: Health-RI core model is a more strict one cardinality-wise and regarding mandatory and recommended fields than
 DCAT-AP profile. There's no child-parent relationship implemented for HRI models.
@@ -74,6 +94,10 @@ from the package:
 - GEOSPARQL - GeoSPARQL Ontology Namespace, generated based on [Open Geospatial Consortium documentation](https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl#)
 - LOCN - ISA Location Core Vocabulary Namespace, generated based on [ISA Programme Location Core Vocabulary specification](https://semiceu.github.io/Core-Location-Vocabulary/releases/w3c/locn.ttl)
 - Greg - [OWL-Time Gregorian Calendar](https://www.w3.org/ns/time/gregorian#) namespace
+```python
+# to import
+from sempyro.namespaces import DCATv3, ADMS, FREQ, GeoSPARQL, LOCN, Greg
+```
 
 ### Enum classes
 
@@ -84,6 +108,10 @@ In case RDF property range is defined by an ontology following `enum` classes ar
 - Frequency
 - DayOfWeek
 - MonthOfYear
+```python
+from sempyro.dcat import Status, AccessRights, Frequency
+from sempyro.time import DayOfWeek, MonthOfYear
+```
 
 ## How a model is defined
 
@@ -461,6 +489,91 @@ taking two arguments:
 - file_format - either "json" or "yaml", "json" is default
 
 **NB!** There is a **known limitation** for pydantic json serialization: "oneOf" is not implemented.
+
+## Data validation
+
+The package performs validation to ensure correct data types are used. 
+
+Models are protected from providing extra fields, for example the following code:
+
+```python
+from sempyro.dcat import DCATDataset
+from sempyro import LiteralField
+
+my_dataset = DCATDataset(**{
+  "title": [LiteralField(**{"value": "My dataset", "language": "en"})],
+  "description": [LiteralField(**{"value": "What my dataset is about", "language": "en"})],
+  "contact_information": "my_email@email.com"
+})
+```
+throws extra vialation error:
+```text
+pydantic_core._pydantic_core.ValidationError: 1 validation error for DCATDataset
+contact_information
+  Extra inputs are not permitted [type=extra_forbidden, input_value='my_email@email.com', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/extra_forbidden
+```
+Skipping mandatory fields is not allowed:
+
+```python
+from sempyro.dcat import DCATDataset
+from sempyro import LiteralField
+
+my_dataset = DCATDataset(**{
+  "title": [LiteralField(**{"value": "My dataset", "language": "en"})],
+})
+
+```
+```text
+pydantic_core._pydantic_core.ValidationError: 1 validation error for DCATDataset
+description
+  Field required [type=missing, input_value={'title': ['My dataset']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+```
+Fields datatypes are also checked. In the example below `contact_point` is expected to be list of objects of type 
+VCard, Agents or URL (or a combination of them).
+```python
+from sempyro.dcat import DCATDataset
+from sempyro import LiteralField
+
+my_dataset = DCATDataset(**{
+  "title": [LiteralField(**{"value": "My dataset", "language": "en"})],
+  "description": [LiteralField(**{"value": "What my dataset is about", "language": "en"})],
+  "contact_point": ["my_email@email.com"]
+})
+```
+A string was provided, therefore instead:
+```text
+contact_point.0.url['http','https']
+  Input should be a valid URL, relative URL without a base [type=url_parsing, input_value='my_email@email.com', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/url_parsing
+contact_point.0.VCard
+  Input should be a valid dictionary or instance of VCard [type=model_type, input_value='my_email@email.com', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/model_type
+contact_point.0.Agent
+  Input should be a valid dictionary or instance of Agent [type=model_type, input_value='my_email@email.com', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/model_type
+```
+When creating a ETL script for you data it maybe convenient to validate data even before models are instantiated with the data 
+and remove invalid records beforehand. It can be done with pydantic `model_validate_json`, data should be a json string:
+
+```python
+from sempyro.dcat import DCATDataset
+from sempyro.namespaces import GeoSPARQL
+import json
+
+data = {
+    "title": [{"value": "My dataset", "language": "en"}],
+    "description": [{"value": "What my dataset is about", "language": "en"}],
+    "spatial": [{"bounding_box": {"value": "POLYGON((-180 90,180 90,180 -90,-180 -90,-180 90))",
+                                  "datatype": GeoSPARQL.wktLiteral}}]
+}
+
+DCATDataset.model_validate_json(json.dumps(data))
+
+```
+The example above passes the validation successfully. Note how the package recognizes and the structure of nested objects
+(LiteralField for title and description and Location for spatial).
 
 ## Defining a model of your own and extending models
 
