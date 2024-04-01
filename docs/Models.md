@@ -583,3 +583,4 @@ create one of your own.
 ## Usage examples
 
 [IPython Notebook usage example for time models](Usage_example_time_models.ipynb)
+[IPython Notebool usage example for DCATDataset from source data to FDP](Usage_example_with_test_data.ipynb)
