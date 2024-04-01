@@ -205,6 +205,8 @@ print(hermione.to_graph(URIRef("https://harrypotter.fandom.com/wiki/Hermione_Gra
     foaf:name "Hermione Granger" .
 
 ```
+### Visualization with erdantic
+
 You may need to visualize your model. This can be done with `erdantic` package:
 ```python
 import erdantic as erd
@@ -218,3 +220,14 @@ diagram.draw("wizard.png")
 ```
 with the following output:
 ![Wizard diadram](./imgs/wizard.png)
+
+Note: you may face issues with `pygraphviz` dependency when installing `erdantic`. Below there is a solution 
+for MacOs Sonoma:
+```commandline
+brew install graphviz
+pip install --no-cache-dir \
+  --config-settings="--global-option=build_ext" \
+  --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" \
+  --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" \
+  pygraphviz
+```

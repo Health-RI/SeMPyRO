@@ -50,6 +50,7 @@ pip install sempyro
 
 [Documentation](./docs) folder contains usage examples executable in Jupiter Notebook. 
 If you want to explore them follow [official Jupyter installation guid](https://jupyter.org/install#jupyter-notebook).
+Additionally you may need to install pandas and/or [erdantic](./docs/Defining_extendind_a_model.md#visualization-with-erdantic).
 
 ## Licence
 
