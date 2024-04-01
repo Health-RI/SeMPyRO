@@ -1,0 +1,301 @@
+$IRI: http://purl.org/dc/terms/PeriodOfTime
+$defs:
+  GeneralDateTimeDescription:
+    $IRI: http://www.w3.org/2006/time#GeneralDateTimeDescription
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: Description of date and time structured with separate values for
+      the various elements of a calendar-clock system
+    properties:
+      timeZone:
+        default:
+        description: The time zone for clock elements in the temporal position
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#timeZone
+        rdf_type: uri
+        title: Timezone
+        type: string
+      unitType:
+        description: The temporal unit which provides the precision of a date-time
+          value or scale of a temporal extent
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#unitType
+        rdf_type: uri
+        title: Unittype
+        type: string
+      hasTRS:
+        description: The temporal reference system used by a temporal position or
+          extent description
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#hasTRS
+        rdf_type: uri
+        title: Hastrs
+        type: string
+      year:
+        default:
+        description: Year position in a calendar-clock system. The range of this property
+          is not specified, so can be replaced by any specific representation of a
+          calendar year from any calendar.
+        rdf_term: http://www.w3.org/2006/time#year
+        rdf_type: xsd:gYear
+        title: Year
+        type: string
+      month:
+        default:
+        description: Month position in a calendar-clock system. The range of this
+          property is not specified, so can be replaced by any specific representation
+          of a calendar month from any calendar.
+        rdf_term: http://www.w3.org/2006/time#month
+        rdf_type: xsd:gMonth
+        title: Month
+        type: string
+      day:
+        default:
+        description: Day position in a calendar-clock system. The range of this property
+          is not specified, so can be replaced by any specific representation of a
+          calendar day from any calendar.
+        rdf_term: http://www.w3.org/2006/time#day
+        rdf_type: xsd:gDay
+        title: Day
+        type: string
+      hour:
+        default:
+        description: Hour position in a calendar-clock system
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#hour
+        rdf_type: xsd:nonNegativeInteger
+        title: Hour
+        type: integer
+      minute:
+        default:
+        description: Minute position in a calendar-clock system
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#minute
+        rdf_type: xsd:nonNegativeInteger
+        title: Minute
+        type: integer
+      second:
+        default:
+        description: Second position in a calendar-clock system.
+        rdf_term: http://www.w3.org/2006/time#second
+        rdf_type: xsd:decimal
+        title: Second
+        type: number
+      week:
+        default:
+        description: Week number within the year.
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#week
+        rdf_type: xsd:nonNegativeInteger
+        title: Week
+        type: integer
+      dayOfYear:
+        default:
+        description: The number of the day within the year
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#dayOfYear
+        rdf_type: xsd:nonNegativeInteger
+        title: Dayofyear
+        type: integer
+      dayOfWeek:
+        default:
+        description: The day of week, whose value is a member of the class time:DayOfWeek
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#dayOfWeek
+        rdf_type: uri
+        title: Dayofweek
+        type: string
+      monthOfYear:
+        default:
+        description: The month of the year, whose value is a member of the class time:MonthOfYear
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#monthOfYear
+        rdf_type: uri
+        title: Monthofyear
+        type: string
+    required:
+    - unitType
+    - hasTRS
+    title: GeneralDateTimeDescription
+    type: object
+  LiteralField:
+    description: "Model to handle literal fields\nAttributes\n----------\ndatatype
+      : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
+      see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
+      \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      value : str\n    literal value\neither datatype or language, or none of these
+      two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
+    properties:
+      datatype:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: string
+        default:
+        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        title: Datatype
+      language:
+        default:
+        description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
+          also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        title: Language
+        type: string
+      value:
+        description: Field value
+        title: Value
+        type: string
+    required:
+    - value
+    title: LiteralField
+    type: object
+  TimeInstant:
+    $IRI: http://www.w3.org/2006/time#Instant
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: A temporal entity with zero extent or duration
+    properties:
+      inXSDDate:
+        default:
+        description: Position of an instant, expressed using xsd:date
+        format: date
+        rdf_term: http://www.w3.org/2006/time#inXSDDate
+        rdf_type: xsd:date
+        title: Inxsddate
+        type: string
+      inXSDDateTime:
+        default:
+        deprecated: true
+        description: (deprecated) Position of an instant, expressed using xsd:dateTime
+        format: date-time
+        rdf_term: http://www.w3.org/2006/time#inXSDDateTime
+        rdf_type: xsd:dateTime
+        title: Inxsddatetime
+        type: string
+      inXSDDateTimeStamp:
+        default:
+        description: Position of an instant, expressed using xsd:dateTimeStamp, in
+          which the time-zone field is mandatory
+        format: date-time
+        rdf_term: http://www.w3.org/2006/time#inXSDDateTimeStamp
+        rdf_type: xsd:dateTimeStamp
+        title: Inxsddatetimestamp
+        type: string
+      inXSDgYear:
+        default:
+        description: Position of an instant, expressed using xsd:gYear
+        pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        rdf_term: http://www.w3.org/2006/time#inXSDgYear
+        rdf_type: xsd:gYear
+        title: Inxsdgyear
+        type: string
+      inXSDgYearMonth:
+        default:
+        description: Position of an instant, expressed using xsd:gYearMonth
+        pattern: 
+          -?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        rdf_term: http://www.w3.org/2006/time#inXSDgYearMonth
+        rdf_type: xsd:gYearMonth
+        title: Inxsdgyearmonth
+        type: string
+      inTimePosition:
+        allOf:
+        - $ref: '#/$defs/TimePosition'
+        default:
+        description: Position of an instant, expressed as a temporal coordinate or
+          nominal val
+        rdf_term: http://www.w3.org/2006/time#inTimePosition
+        rdf_type: http://www.w3.org/2006/time#TimePosition
+      inDateTime:
+        allOf:
+        - $ref: '#/$defs/GeneralDateTimeDescription'
+        default:
+        description: Position of an instant, expressed using a structured description
+        rdf_term: http://www.w3.org/2006/time#inDateTime
+        rdf_type: http://www.w3.org/2006/time#GeneralDateTimeDescription
+    title: TimeInstant
+    type: object
+  TimePosition:
+    $IRI: http://www.w3.org/2006/time#TimePosition
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: "A temporal position described using either a (nominal) value from
+      an ordinal reference system,\nor a (numeric) value in a temporal coordinate
+      system."
+    properties:
+      nominalPosition:
+        default:
+        description: The (nominal) value indicating temporal position in an ordinal
+          reference system
+        rdf_term: http://www.w3.org/2006/time#nominalPosition
+        rdf_type: xsd:string
+        title: Nominalposition
+        type: string
+      numericPosition:
+        default:
+        description: The (numeric) value indicating position within a temporal coordinate
+          system
+        rdf_term: http://www.w3.org/2006/time#numericPosition
+        rdf_type: xsd:decimal
+        title: Numericposition
+        type: number
+      hasTRS:
+        description: The temporal reference system used by a temporal position or
+          extent description
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#hasTRS
+        rdf_type: uri
+        title: Hastrs
+        type: string
+    required:
+    - hasTRS
+    title: TimePosition
+    type: object
+$namespace: http://purl.org/dc/terms/
+$ontology: https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time
+$prefix: dcterms
+additionalProperties: false
+properties:
+  start_date:
+    allOf:
+    - $ref: '#/$defs/LiteralField'
+    default:
+    description: The start of the period
+    rdf_term: http://www.w3.org/ns/dcat#startDate
+    rdf_type: rdfs_literal
+  end_date:
+    allOf:
+    - $ref: '#/$defs/LiteralField'
+    default:
+    description: The end of the period
+    rdf_term: http://www.w3.org/ns/dcat#endDate
+    rdf_type: rdfs_literal
+  beginning:
+    allOf:
+    - $ref: '#/$defs/TimeInstant'
+    default:
+    description: Beginning of a period or interval
+    rdf_term: http://www.w3.org/2006/time#hasBeginning
+    rdf_type: http://www.w3.org/2006/time#Instant
+  end:
+    allOf:
+    - $ref: '#/$defs/TimeInstant'
+    default:
+    description: End of a period or interval
+    rdf_term: http://www.w3.org/2006/time#hasEnd
+    rdf_type: http://www.w3.org/2006/time#Instant
+title: PeriodOfTime
+type: object

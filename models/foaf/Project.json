@@ -1,0 +1,170 @@
+{
+  "$IRI": "http://xmlns.com/foaf/0.1/Project",
+  "$defs": {
+    "Agent": {
+      "$IRI": "http://xmlns.com/foaf/0.1/Agent",
+      "$namespace": "http://xmlns.com/foaf/0.1/",
+      "$ontology": "http://xmlns.com/foaf/spec/",
+      "$prefix": "foaf",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "A name of the agent",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
+          "rdf_term": "http://xmlns.com/foaf/0.1/name",
+          "rdf_type": "rdfs_literal",
+          "title": "Name",
+          "type": "array"
+        },
+        "identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "description": "A unique identifier of the agent.",
+          "rdf_term": "http://purl.org/dc/terms/identifier",
+          "rdf_type": "rdfs_literal",
+          "title": "Identifier"
+        }
+      },
+      "required": [
+        "name",
+        "identifier"
+      ],
+      "title": "Agent",
+      "type": "object"
+    },
+    "LiteralField": {
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "properties": {
+        "datatype": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
+          "title": "Datatype"
+        },
+        "language": {
+          "default": null,
+          "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+          "title": "Language",
+          "type": "string"
+        },
+        "value": {
+          "description": "Field value",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "LiteralField",
+      "type": "object"
+    }
+  },
+  "$namespace": "http://xmlns.com/foaf/0.1/",
+  "$ontology": [
+    "http://xmlns.com/foaf/spec/",
+    "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification"
+  ],
+  "$prefix": "foaf",
+  "additionalProperties": false,
+  "properties": {
+    "description": {
+      "description": "A free-text description of the project.",
+      "items": {
+        "$ref": "#/$defs/LiteralField"
+      },
+      "rdf_term": "http://purl.org/dc/terms/description",
+      "rdf_type": "literal",
+      "title": "Description",
+      "type": "array"
+    },
+    "identifier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
+      "description": "A unique identifier of the resource being described or cataloged.",
+      "rdf_term": "http://purl.org/dc/terms/identifier",
+      "rdf_type": "xsd:string",
+      "title": "Identifier"
+    },
+    "title": {
+      "description": "A name given to the resource.",
+      "items": {
+        "$ref": "#/$defs/LiteralField"
+      },
+      "rdf_term": "http://purl.org/dc/terms/title",
+      "rdf_type": "rdfs_literal",
+      "title": "Title",
+      "type": "array"
+    },
+    "founded_by": {
+      "description": "An organization funding a project or person.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Agent"
+          }
+        ]
+      },
+      "rdf_term": "http://xmlns.com/foaf/0.1/fundedBy",
+      "rdf_type": "uri",
+      "title": "Founded By",
+      "type": "array"
+    },
+    "relation": {
+      "description": "Link to the project datasets",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/relation",
+      "rdf_type": "uri",
+      "title": "Relation",
+      "type": "array"
+    }
+  },
+  "required": [
+    "description",
+    "identifier",
+    "title",
+    "founded_by",
+    "relation"
+  ],
+  "title": "Project",
+  "type": "object"
+}

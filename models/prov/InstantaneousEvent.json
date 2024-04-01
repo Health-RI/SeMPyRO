@@ -1,0 +1,41 @@
+{
+  "$IRI": "http://www.w3.org/ns/prov#InstantaneousEvent",
+  "$namespace": "http://www.w3.org/ns/prov#",
+  "$ontology": "https://www.w3.org/TR/prov-o/",
+  "$prefix": "prov",
+  "additionalProperties": false,
+  "description": "The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark\ntransitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or\nending of activities. This notion of event is not first-class in the data model, but it is useful for explaining\nits other concepts and its semantics.",
+  "properties": {
+    "atTime": {
+      "default": null,
+      "description": "The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark transitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or ending of activities. This notion of event is not first-class in the data model, but it is useful for explaining its other concepts and its semantics.",
+      "format": "date-time",
+      "rdf_term": "http://www.w3.org/ns/prov#InstantaneousEvent",
+      "rdf_type": "xsd:dateTime",
+      "title": "Attime",
+      "type": "string"
+    },
+    "hadRole": {
+      "default": null,
+      "description": "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#hadRole",
+      "rdf_type": "uri",
+      "title": "Hadrole",
+      "type": "string"
+    },
+    "atLocation": {
+      "default": null,
+      "description": "A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#atLocation",
+      "rdf_type": "uri",
+      "title": "Atlocation",
+      "type": "string"
+    }
+  },
+  "title": "InstantaneousEvent",
+  "type": "object"
+}

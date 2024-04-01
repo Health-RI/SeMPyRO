@@ -1,0 +1,52 @@
+{
+  "$IRI": "http://www.w3.org/ns/prov#EntityInfluence",
+  "$namespace": "http://www.w3.org/ns/prov#",
+  "$ontology": "https://www.w3.org/TR/prov-o/",
+  "$prefix": "prov",
+  "additionalProperties": false,
+  "description": "EntityInfluence is the capacity of an entity to have an effect on the character, development, or behavior of \nanother by means of usage, start, end, derivation, or other.",
+  "properties": {
+    "entity": {
+      "default": null,
+      "description": "The prov:entity property references an prov:Entity which influenced a resource. This property applies to an prov:EntityInfluence, which is given by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity or prov:Agent.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#Entity",
+      "rdf_type": "uri",
+      "title": "Entity",
+      "type": "string"
+    },
+    "hadRole": {
+      "default": null,
+      "description": "A role is the function of an entity or agent with respect to an activity, in the context of a usage, generation, invalidation, association, start, and end.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#hadRole",
+      "rdf_type": "uri",
+      "title": "Hadrole",
+      "type": "string"
+    },
+    "influencer": {
+      "default": null,
+      "description": "This property is used as part of the qualified influence pattern. Subclasses of prov:Influence use these subproperties to reference the resource (Entity, Agent, or Activity) whose influence is being qualified.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#influencer",
+      "rdf_type": "uri",
+      "title": "Influencer",
+      "type": "string"
+    },
+    "hadActivity": {
+      "default": null,
+      "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/ns/prov#hadActivity",
+      "rdf_type": "uri",
+      "title": "Hadactivity",
+      "type": "string"
+    }
+  },
+  "title": "EntityInfluence",
+  "type": "object"
+}

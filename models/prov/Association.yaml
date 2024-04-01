@@ -1,0 +1,46 @@
+$IRI: http://www.w3.org/ns/prov#Association
+$namespace: http://www.w3.org/ns/prov#
+$ontology: https://www.w3.org/TR/prov-o/
+$prefix: prov
+additionalProperties: false
+description: "An activity association is an assignment of responsibility to an agent
+  for an activity, indicating that the agent\nhad a role in the activity. It further
+  allows for a plan to be specified, which is the plan intended by the agent\nto achieve
+  some goals in the context of this activity."
+properties:
+  hadPlan:
+    default:
+    description: A plan is an entity that represents a set of actions or steps intended
+      by one or more agents to achieve some goals.
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/ns/prov#hadPlan
+    rdf_type: uri
+    title: Hadplan
+    type: string
+  hadRole:
+    default:
+    description: A role is the function of an entity or agent with respect to an activity,
+      in the context of a usage, generation, invalidation, association, start, and
+      end.
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/ns/prov#hadRole
+    rdf_type: uri
+    title: Hadrole
+    type: string
+  agent:
+    default:
+    description: The prov:agent property references an prov:Agent which influenced
+      a resource. This property applies to an prov:AgentInfluence, which is given
+      by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
+      prov:Activity or prov:Agent.
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/ns/prov#Agent
+    rdf_type: uri
+    title: Agent
+    type: string
+title: Association
+type: object
+$defs: {}

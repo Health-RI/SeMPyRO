@@ -1,0 +1,157 @@
+$IRI: http://www.w3.org/2006/time#DateTimeDescription
+$defs:
+  DayOfWeek:
+    enum:
+    - http://www.w3.org/2006/time#Monday
+    - http://www.w3.org/2006/time#Tuesday
+    - http://www.w3.org/2006/time#Wednesday
+    - http://www.w3.org/2006/time#Thursday
+    - http://www.w3.org/2006/time#Friday
+    - http://www.w3.org/2006/time#Saturday
+    - http://www.w3.org/2006/time#Sunday
+    title: DayOfWeek
+    type: string
+  MonthOfYear:
+    enum:
+    - http://www.w3.org/ns/time/gregorian#January
+    - http://www.w3.org/ns/time/gregorian#February
+    - http://www.w3.org/ns/time/gregorian#March
+    - http://www.w3.org/ns/time/gregorian#April
+    - http://www.w3.org/ns/time/gregorian#May
+    - http://www.w3.org/ns/time/gregorian#June
+    - http://www.w3.org/ns/time/gregorian#July
+    - http://www.w3.org/ns/time/gregorian#August
+    - http://www.w3.org/ns/time/gregorian#September
+    - http://www.w3.org/ns/time/gregorian#October
+    - http://www.w3.org/ns/time/gregorian#November
+    - http://www.w3.org/ns/time/gregorian#December
+    title: MonthOfYear
+    type: string
+$namespace: http://www.w3.org/2006/time#
+$ontology: https://www.w3.org/TR/owl-time/
+$prefix: time
+additionalProperties: false
+description: "Description of date and time structured with separate values for the
+  various elements of a calendar-clock system.\nThe temporal reference system is fixed
+  to Gregorian Calendar, and the range of year, month, day properties\nrestricted
+  to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively."
+properties:
+  timeZone:
+    default:
+    description: The time zone for clock elements in the temporal position
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#timeZone
+    rdf_type: uri
+    title: Timezone
+    type: string
+  unitType:
+    description: The temporal unit which provides the precision of a date-time value
+      or scale of a temporal extent
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/2006/time#unitType
+    rdf_type: uri
+    title: Unittype
+    type: string
+  hasTRS:
+    const: http://www.opengis.net/def/uom/ISO-8601/0/Gregorian
+    default: http://www.opengis.net/def/uom/ISO-8601/0/Gregorian
+    description: The temporal reference system used by a temporal position or extent
+      description
+    rdf_term: http://www.w3.org/2006/time#hasTRS
+    rdf_type: uri
+    title: Hastrs
+  year:
+    default:
+    description: Year position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      year from any calendar.
+    pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+    rdf_term: http://www.w3.org/2006/time#year
+    rdf_type: xsd:gYear
+    title: Year
+    type: string
+  month:
+    default:
+    description: Month position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      month from any calendar.
+    pattern: --(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+    rdf_term: http://www.w3.org/2006/time#month
+    rdf_type: xsd:gMonth
+    title: Month
+    type: string
+  day:
+    default:
+    description: Day position in a calendar-clock system. The range of this property
+      is not specified, so can be replaced by any specific representation of a calendar
+      day from any calendar.
+    pattern: '---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?'
+    rdf_term: http://www.w3.org/2006/time#day
+    rdf_type: xsd:gDay
+    title: Day
+    type: string
+  hour:
+    default:
+    description: Hour position in a calendar-clock system
+    maximum: 23
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#hour
+    rdf_type: xsd:nonNegativeInteger
+    title: Hour
+    type: integer
+  minute:
+    default:
+    description: Minute position in a calendar-clock system
+    maximum: 59
+    minimum: 0
+    rdf_term: http://www.w3.org/2006/time#minute
+    rdf_type: xsd:nonNegativeInteger
+    title: Minute
+    type: integer
+  second:
+    default:
+    description: Second position in a calendar-clock system.
+    exclusiveMaximum: 60.0
+    minimum: 0.0
+    rdf_term: http://www.w3.org/2006/time#second
+    rdf_type: xsd:decimal
+    title: Second
+    type: number
+  week:
+    default:
+    description: Week number within the year.
+    maximum: 53
+    minimum: 1
+    rdf_term: http://www.w3.org/2006/time#week
+    rdf_type: xsd:nonNegativeInteger
+    title: Week
+    type: integer
+  dayOfYear:
+    default:
+    description: The number of the day within the year
+    maximum: 366
+    minimum: 1
+    rdf_term: http://www.w3.org/2006/time#dayOfYear
+    rdf_type: xsd:nonNegativeInteger
+    title: Dayofyear
+    type: integer
+  dayOfWeek:
+    allOf:
+    - $ref: '#/$defs/DayOfWeek'
+    default:
+    description: The day of week, whose value is a member of the class time:DayOfWeek
+    rdf_term: http://www.w3.org/2006/time#dayOfWeek
+    rdf_type: uri
+  monthOfYear:
+    allOf:
+    - $ref: '#/$defs/MonthOfYear'
+    default:
+    description: The month of the year, whose value is a member of the class time:MonthOfYear
+    rdf_term: http://www.w3.org/2006/time#monthOfYear
+    rdf_type: uri
+required:
+- unitType
+title: DateTimeDescription
+type: object

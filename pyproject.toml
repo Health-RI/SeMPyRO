@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sempyro"
+version = "v1.0.0"
+description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
+keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
+requires-python = ">= 3.9"
+authors = [
+    { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
+    { name = "Mark Janse", email = "mark.janse@health-ri.nl" }
+]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+dependencies = [
+    "rdflib >= 7.0.0",
+    "pydantic == 2.5.2",
+    "ruamel.yaml == 0.18.5",
+    "email-validator == 2.1.0.post1",
+    "python-dateutil == 2.9.0.post0"
+    ]
+
+readme = "README.md"
+icense = {file = "LICENSE"}
+
+[project.optional-dependencies]
+notebook_docs = [
+    "notebook >= 7.0.6",
+    "pandas >=1.5.3",
+    "tabulate >= 0.9.0"
+]
+
+[project.urls]
+Documentation = "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
+Repository = "https://github.com/Health-RI/SeMPyRO.git"
+Issues = "https://github.com/Health-RI/SeMPyRO/issues"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov"
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11", "3.12", "pypy3.9", "pypy3.10"]

@@ -1,0 +1,40 @@
+{
+  "$IRI": "http://www.w3.org/2006/time#TimePosition",
+  "$namespace": "http://www.w3.org/2006/time#",
+  "$ontology": "https://www.w3.org/TR/owl-time/",
+  "$prefix": "time",
+  "additionalProperties": false,
+  "description": "A temporal position described using either a (nominal) value from an ordinal reference system,\nor a (numeric) value in a temporal coordinate system.",
+  "properties": {
+    "nominalPosition": {
+      "default": null,
+      "description": "The (nominal) value indicating temporal position in an ordinal reference system",
+      "rdf_term": "http://www.w3.org/2006/time#nominalPosition",
+      "rdf_type": "xsd:string",
+      "title": "Nominalposition",
+      "type": "string"
+    },
+    "numericPosition": {
+      "default": null,
+      "description": "The (numeric) value indicating position within a temporal coordinate system",
+      "rdf_term": "http://www.w3.org/2006/time#numericPosition",
+      "rdf_type": "xsd:decimal",
+      "title": "Numericposition",
+      "type": "number"
+    },
+    "hasTRS": {
+      "description": "The temporal reference system used by a temporal position or extent description",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.w3.org/2006/time#hasTRS",
+      "rdf_type": "uri",
+      "title": "Hastrs",
+      "type": "string"
+    }
+  },
+  "required": [
+    "hasTRS"
+  ],
+  "title": "TimePosition",
+  "type": "object"
+}

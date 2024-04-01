@@ -1,0 +1,19 @@
+# EXAMPLE 24: Temporal coverage as closed interval, using time:ProperInterval
+# The following dataset specification is equivalent to the one in Example 23, but it uses [OWL-TIME]:
+
+@prefix ex: <http://www.example.com/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+
+
+ex:ds348 a dcat:Dataset ;
+  dcterms:temporal [ a dcterms:PeriodOfTime , time:ProperInterval ;
+    time:hasBeginning [ a time:Instant ;
+      time:inXSDDate "2016-03-04"^^xsd:date ;
+    ] ;
+    time:hasEnd [ a time:Instant ;
+      time:inXSDDate "2018-08-05"^^xsd:date ;
+    ] ;
+  ] .

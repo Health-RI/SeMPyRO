@@ -1,0 +1,11 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ex: <http://www.example.com/> .
+@prefix v: <http://www.w3.org/2006/vcard/ns#> .
+
+ex:MagicBus a dcat:Dataset ;
+    dcterms:creator [ a v:VCard ;
+            v:fn "Emir Kusturica"@en,
+                "Емир Кустурица"@sr ;
+            v:hasEmail <mailto:exampleemail@domain.com> ;
+            v:hasUID <https://en.wikipedia.org/wiki/Emir_Kusturica> ] .

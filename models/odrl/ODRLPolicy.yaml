@@ -1,0 +1,180 @@
+$IRI: http://www.w3.org/ns/odrl/2/Policy
+$defs:
+  RDFModel:
+    additionalProperties: false
+    description: Base class for creating pydantic models convertible to RDF graph
+    properties: {}
+    title: RDFModel
+    type: object
+$namespace: http://www.w3.org/ns/odrl/2/
+$ontology: https://www.w3.org/TR/odrl-vocab/#
+$prefix: odrl
+additionalProperties: false
+description: A non-empty group of Permissions and/or Prohibitions.
+properties:
+  conflict:
+    default:
+    description: The conflict-resolution strategy for a Policy.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/RDFModel'
+    rdf_term: http://www.w3.org/ns/odrl/2/conflict
+    rdf_type: uri
+    title: Conflict
+    type: array
+  permission:
+    default:
+    description: Permissions take preference over prohibitions.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/RDFModel'
+    rdf_term: http://www.w3.org/ns/odrl/2/permission
+    rdf_type: uri
+    title: Permission
+    type: array
+  prohibition:
+    default:
+    description: The inability to perform an Action over an Asset.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/RDFModel'
+    rdf_term: http://www.w3.org/ns/odrl/2/prohibition
+    rdf_type: uri
+    title: Prohibition
+    type: array
+  inheritFrom:
+    default:
+    description: Relates a (child) policy to another (parent) policy from which terms
+      are inherited.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/inheritFrom
+    rdf_type: uri
+    title: Inheritfrom
+    type: array
+  profile:
+    default:
+    description: The identifier(s) of an ODRL Profile that the Policy conforms to.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/profile
+    rdf_type: uri
+    title: Profile
+    type: array
+  obligation:
+    default:
+    description: Relates an individual Duty to a Policy.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/obligation
+    rdf_type: uri
+    title: Obligation
+    type: array
+  uid:
+    default:
+    description: Unique Identifier
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/uid
+    rdf_type: uri
+    title: Uid
+    type: array
+  relation:
+    default:
+    description: Relation is an abstract property which creates an explicit link between
+      an Action and an Asset.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/relation
+    rdf_type: uri
+    title: Relation
+    type: array
+  target:
+    default:
+    description: The target property indicates the Asset that is the primary subject
+      to which the Rule action directly applies.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/target
+    rdf_type: uri
+    title: Target
+    type: array
+  function:
+    default:
+    description: Function is an abstract property whose sub-properties define the
+      functional roles which may be fulfilled by a party in relation to a Rule.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/function
+    rdf_type: uri
+    title: Function
+    type: array
+  action:
+    default:
+    description: The operation relating to the Asset for which the Rule is being subjected.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/action
+    rdf_type: uri
+    title: Action
+    type: array
+  constraint:
+    default:
+    description: Constraint applied to a Rule
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/constraint
+    rdf_type: uri
+    title: Constraint
+    type: array
+  assignee:
+    default:
+    description: The Party is the recipient of the Rule.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/assignee
+    rdf_type: uri
+    title: Assignee
+    type: array
+  assigner:
+    default:
+    description: The Party is the issuer of the Rule.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/odrl/2/assigner
+    rdf_type: uri
+    title: Assigner
+    type: array
+title: ODRLPolicy
+type: object
