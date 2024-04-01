@@ -223,18 +223,17 @@ class RDFModel(BaseModel):
         if rdf_type.startswith("xsd:"):
             xsd_attribute = getattr(XSD, rdf_type.split(":")[-1])
             return Literal(value, datatype=xsd_attribute)
-        match rdf_type:
-            case "literal":
-                return Literal(value)
-            case "uri":
-                return URIRef(str(value))
-            case "rdfs_literal":
-                return Literal(value)
-            case "datetime_literal":
-                return self._convert_to_datetime_literal(value)
-            case _:
-                raise RDFModelError(f"{rdf_type} does not match any of allowed types.\n"
-                                    f"Expected types: 'literal', 'uri' or one of XSD types formatted `xsd:<type>`")
+        if rdf_type == "literal":
+            return Literal(value)
+        elif rdf_type == "uri":
+            return URIRef(str(value))
+        elif rdf_type == "rdfs_literal":
+            return Literal(value)
+        elif rdf_type == "datetime_literal":
+            return self._convert_to_datetime_literal(value)
+        else:
+            raise RDFModelError(f"{rdf_type} does not match any of allowed types.\n"
+                                f"Expected types: 'literal', 'uri' or one of XSD types formatted `xsd:<type>`")
 
     @classmethod
     def annotate_model(cls):
