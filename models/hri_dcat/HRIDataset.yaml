@@ -1,0 +1,240 @@
+$IRI: http://www.w3.org/ns/dcat#Dataset
+$defs:
+  Agent:
+    $IRI: http://xmlns.com/foaf/0.1/Agent
+    $namespace: http://xmlns.com/foaf/0.1/
+    $ontology: http://xmlns.com/foaf/spec/
+    $prefix: foaf
+    additionalProperties: false
+    properties:
+      name:
+        description: A name of the agent
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
+        rdf_term: http://xmlns.com/foaf/0.1/name
+        rdf_type: rdfs_literal
+        title: Name
+        type: array
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the agent.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+    required:
+    - name
+    - identifier
+    title: Agent
+    type: object
+  LiteralField:
+    description: "Model to handle literal fields\nAttributes\n----------\ndatatype
+      : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
+      see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
+      \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      value : str\n    literal value\neither datatype or language, or none of these
+      two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
+    properties:
+      datatype:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: string
+        default:
+        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        title: Datatype
+      language:
+        default:
+        description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
+          also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        title: Language
+        type: string
+      value:
+        description: Field value
+        title: Value
+        type: string
+    required:
+    - value
+    title: LiteralField
+    type: object
+$namespace: http://www.w3.org/ns/dcat#
+$ontology:
+- https://www.w3.org/TR/vocab-dcat-3/
+- https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+$prefix: dcat
+additionalProperties: false
+properties:
+  contact_point:
+    description: Relevant contact information for the cataloged resource.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/Agent'
+    rdf_term: http://www.w3.org/ns/dcat#contactPoint
+    rdf_type: uri
+    title: Contact Point
+    type: array
+  creator:
+    description: The entity responsible for producing the resource. Resources of type
+      foaf:Agent are recommended as values for this property.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/Agent'
+    rdf_term: http://purl.org/dc/terms/creator
+    rdf_type: uri
+    title: Creator
+    type: array
+  description:
+    description: A free-text account of the resource.
+    items:
+      $ref: '#/$defs/LiteralField'
+    rdf_term: http://purl.org/dc/terms/description
+    rdf_type: literal
+    title: Description
+    type: array
+  issued:
+    anyOf:
+    - type: string
+    - format: date-time
+      type: string
+    - format: date
+      type: string
+    description: Date of formal issuance (e.g., publication) of the resource.
+    rdf_term: http://purl.org/dc/terms/issued
+    rdf_type: datetime_literal
+    title: Issued
+  identifier:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
+    description: A unique identifier of the resource being described or cataloged.
+    rdf_term: http://purl.org/dc/terms/identifier
+    rdf_type: xsd:string
+    title: Identifier
+  modified:
+    anyOf:
+    - type: string
+    - format: date
+      type: string
+    - format: date-time
+      type: string
+    description: Most recent date on which the resource was changed, updated or modified.
+    rdf_term: http://purl.org/dc/terms/modified
+    rdf_type: datetime_literal
+    title: Modified
+  publisher:
+    description: The entity responsible for making the resource available.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/Agent'
+    rdf_term: http://purl.org/dc/terms/publisher
+    rdf_type: uri
+    title: Publisher
+    type: array
+  theme:
+    description: A main category of the resource. A resource can have multiple themes.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/dcat#themeTaxonomy
+    rdf_type: uri
+    title: Theme
+    type: array
+  title:
+    description: A name given to the resource.
+    items:
+      $ref: '#/$defs/LiteralField'
+    rdf_term: http://purl.org/dc/terms/title
+    rdf_type: rdfs_literal
+    title: Title
+    type: array
+  type:
+    description: The nature or genre of the resource.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://purl.org/dc/terms/type
+    rdf_type: uri
+    title: Type
+    type: array
+  license:
+    description: A legal document under which the resource is made available.
+    format: uri
+    minLength: 1
+    rdf_term: http://purl.org/dc/terms/license
+    rdf_type: uri
+    title: License
+    type: string
+  distribution:
+    default:
+    description: An available distribution of the dataset.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/dcat#distribution
+    rdf_type: uri
+    title: Distribution
+    type: array
+  project:
+    default:
+    description: connect dataset to the corresponding projects
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://xmlns.com/foaf/0.1/Project
+    rdf_type: uri
+    title: Project
+    type: array
+  has_version:
+    default:
+    description: This resource has a more specific, versioned resource
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://purl.org/dc/terms/hasVersion
+    rdf_type: uri
+    title: Has Version
+    type: array
+  in_series:
+    default:
+    description: A dataset series of which the dataset is part.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://www.w3.org/ns/dcat#inSeries
+    rdf_type: uri
+    title: In Series
+    type: array
+required:
+- contact_point
+- creator
+- description
+- issued
+- identifier
+- modified
+- publisher
+- theme
+- title
+- type
+- license
+title: HRIDataset
+type: object

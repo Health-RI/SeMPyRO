@@ -1,0 +1,77 @@
+{
+  "$IRI": "http://spdx.org/rdf/terms#Checksum",
+  "$defs": {
+    "LiteralField": {
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "properties": {
+        "datatype": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
+          "title": "Datatype"
+        },
+        "language": {
+          "default": null,
+          "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+          "title": "Language",
+          "type": "string"
+        },
+        "value": {
+          "description": "Field value",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "LiteralField",
+      "type": "object"
+    }
+  },
+  "$namespace": "http://spdx.org/rdf/terms#",
+  "$ontology": "http://spdx.org/rdf/terms/2.3",
+  "$prefix": "spdx",
+  "additionalProperties": false,
+  "description": "A Checksum is value that allows the contents of a file to be authenticated. \nEven small changes to the content of the file will change its checksum. \nThis class allows the results of a variety of checksum and cryptographic message digest algorithms to be \nrepresented.",
+  "properties": {
+    "algorithm": {
+      "description": "The algorithm used to produce the subject Checksum.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://spdx.org/rdf/terms#algorithm",
+      "rdf_type": "uri",
+      "title": "Algorithm",
+      "type": "string"
+    },
+    "checksum_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
+      "description": "A lower case hexadecimal encoded digest value produced using a specific algorithm.",
+      "rdf_term": "http://spdx.org/rdf/terms#checksumValue",
+      "rdf_type": "xsd:hexBinary",
+      "title": "Checksum Value"
+    }
+  },
+  "required": [
+    "algorithm",
+    "checksum_value"
+  ],
+  "title": "Checksum",
+  "type": "object"
+}

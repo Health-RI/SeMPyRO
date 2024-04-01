@@ -1,0 +1,20 @@
+# EXAMPLE the DateTimeDescription class is used to express the same date using the Gregorian calendar
+
+@prefix ex: <http://www.example.com/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix greg: <http://www.w3.org/ns/time/gregorian#> .
+
+
+ex: ex:AbbyBirthdayGregorian [ a time:DateTimeDescription ;
+            time:day "---23"^^xsd:gDay ;
+            time:dayOfWeek time:Wednesday ;
+            time:dayOfYear "143"^^xsd:nonNegativeInteger ;
+            time:hour "8"^^xsd:nonNegativeInteger ;
+            time:minute "20"^^xsd:nonNegativeInteger ;
+            time:month "--05"^^xsd:gMonth ;
+            time:monthOfYear greg:May ;
+            time:timeZone <https://www.timeanddate.com/time/zones/awst> ;
+            time:hasTRS <http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> ;
+            time:unitType time:unitMinute ;
+            time:year "2001"^^xsd:gYear ] .

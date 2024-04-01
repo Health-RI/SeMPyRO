@@ -1,0 +1,12 @@
+# EXAMPLE 23: Temporal coverage as closed interval
+@prefix ex: <http://www.example.com/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+
+ex:ds257 a dcat:Dataset ;
+  dcterms:temporal [ a dcterms:PeriodOfTime ;
+    dcat:startDate "2016-03-04"^^xsd:date ;
+    dcat:endDate   "2018-08-05"^^xsd:date ;
+  ] .

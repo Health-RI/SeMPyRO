@@ -1,0 +1,141 @@
+{
+  "$IRI": "http://www.opengis.net/ont/geosparql#Geometry",
+  "$defs": {
+    "LiteralField": {
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "properties": {
+        "datatype": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
+          "title": "Datatype"
+        },
+        "language": {
+          "default": null,
+          "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+          "title": "Language",
+          "type": "string"
+        },
+        "value": {
+          "description": "Field value",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "LiteralField",
+      "type": "object"
+    }
+  },
+  "$namespace": "http://www.opengis.net/ont/geosparql#",
+  "$ontology": "https://docs.ogc.org/is/22-047r1/22-047r1.html",
+  "$prefix": "geo",
+  "additionalProperties": false,
+  "description": "Geometry class for GeoSPARQL Geometry specification",
+  "properties": {
+    "dimension": {
+      "default": null,
+      "description": "The topological dimension of this geometric object, which must be less than or equal to the coordinate dimension. In non-homogeneous collections, this is the largest topological dimension of the contained objects.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#dimension",
+      "rdf_type": "xsd:integer",
+      "title": "Dimension",
+      "type": "integer"
+    },
+    "coordinateDimension": {
+      "default": null,
+      "description": "The number of measurements or axes needed to describe the position of this Geometry in a coordinate system.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#coordinateDimension",
+      "rdf_type": "xsd:integer",
+      "title": "Coordinatedimension",
+      "type": "integer"
+    },
+    "spatialDimension": {
+      "default": null,
+      "description": "The number of measurements or axes needed to describe the spatial position of this Geometry in a coordinate system.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#spatialDimension",
+      "rdf_type": "xsd:integer",
+      "title": "Spatialdimension",
+      "type": "integer"
+    },
+    "hasSpatialResolution": {
+      "default": null,
+      "description": "The spatial resolution of a Geometry",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialResolution",
+      "rdf_type": "uri",
+      "title": "Hasspatialresolution",
+      "type": "string"
+    },
+    "hasMetricSpatialResolution": {
+      "default": null,
+      "description": "The spatial resolution of a Geometry in meters.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution",
+      "rdf_type": "xsd:double",
+      "title": "Hasmetricspatialresolution",
+      "type": "number"
+    },
+    "hasSpatialAccuracy": {
+      "default": null,
+      "description": "The positional accuracy of the coordinates of a Geometry",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialAccuracy",
+      "rdf_type": "uri",
+      "title": "Hasspatialaccuracy",
+      "type": "string"
+    },
+    "hasMetricSpatialAccuracy": {
+      "default": null,
+      "description": "The positional accuracy of the coordinates of a Geometry in meters.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy",
+      "rdf_type": "xsd:double",
+      "title": "Hasmetricspatialaccuracy",
+      "type": "number"
+    },
+    "isEmpty": {
+      "default": null,
+      "description": "(true) if this geometric object is the empty Geometry. If true, then this geometric object represents the empty point set for the coordinate space.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#isEmpty",
+      "rdf_type": "xsd:boolean",
+      "title": "Isempty",
+      "type": "boolean"
+    },
+    "isSimple": {
+      "default": null,
+      "description": "(true) if this geometric object has no anomalous geometric points, such as self intersection or self tangency.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#isSimple",
+      "rdf_type": "xsd:boolean",
+      "title": "Issimple",
+      "type": "boolean"
+    },
+    "hasSerialization": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
+      "default": null,
+      "description": "Connects a Geometry object with its text-based serialization.",
+      "rdf_term": "http://www.opengis.net/ont/geosparql#hasSerialization",
+      "rdf_type": "rdfs_literal",
+      "title": "Hasserialization"
+    }
+  },
+  "title": "Geometry",
+  "type": "object"
+}

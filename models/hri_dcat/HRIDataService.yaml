@@ -1,0 +1,917 @@
+$IRI: http://www.w3.org/ns/dcat#DataService
+$defs:
+  AccessRights:
+    enum:
+    - http://publications.europa.eu/resource/authority/access-right/PUBLIC
+    - http://publications.europa.eu/resource/authority/access-right/RESTRICTED
+    - http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC
+    title: AccessRights
+    type: string
+  Agent:
+    $IRI: http://xmlns.com/foaf/0.1/Agent
+    $namespace: http://xmlns.com/foaf/0.1/
+    $ontology: http://xmlns.com/foaf/spec/
+    $prefix: foaf
+    additionalProperties: false
+    properties:
+      name:
+        description: A name of the agent
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
+        rdf_term: http://xmlns.com/foaf/0.1/name
+        rdf_type: rdfs_literal
+        title: Name
+        type: array
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the agent.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+    required:
+    - name
+    - identifier
+    title: Agent
+    type: object
+  DCATResource:
+    $IRI: http://www.w3.org/ns/dcat#Resource
+    $namespace: http://www.w3.org/ns/dcat#
+    $ontology: https://www.w3.org/TR/vocab-dcat-3/
+    $prefix: dcat
+    additionalProperties: false
+    description: Resource published or curated by a single agent. Abstract class
+    properties:
+      access_rights:
+        allOf:
+        - $ref: '#/$defs/AccessRights'
+        default:
+        description: Information about who can access the resource or an indication
+          of its security status.
+        rdf_term: http://purl.org/dc/terms/accessRights
+        rdf_type: uri
+      conforms_to:
+        default:
+        description: An established standard to which the described resource conforms.
+        format: uri
+        minLength: 1
+        rdf_term: http://purl.org/dc/terms/conformsTo
+        rdf_type: uri
+        title: Conforms To
+        type: string
+      contact_point:
+        default:
+        description: Relevant contact information for the cataloged resource. Use
+          of vCard is recommended
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/VCard'
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://www.w3.org/ns/dcat#contactPoint
+        rdf_type: uri
+        title: Contact Point
+        type: array
+      creator:
+        default:
+        description: The entity responsible for producing the resource. Resources
+          of type foaf:Agent are recommended as values for this property.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/VCard'
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://purl.org/dc/terms/creator
+        rdf_type: uri
+        title: Creator
+        type: array
+      description:
+        description: A free-text account of the resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://purl.org/dc/terms/description
+        rdf_type: literal
+        title: Description
+        type: array
+      has_part:
+        default:
+        description: A related resource that is included either physically or logically
+          in the described resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/hasPart
+        rdf_type: uri
+        title: Has Part
+        type: array
+      has_policy:
+        allOf:
+        - $ref: '#/$defs/ODRLPolicy'
+        default:
+        description: An ODRL conformant policy expressing the rights associated with
+          the resource.
+        rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
+        rdf_type: uri
+      identifier:
+        default:
+        description: A unique identifier of the resource being described or cataloged.
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+        type: array
+      is_referenced_by:
+        default:
+        description: A related resource, such as a publication, that references, cites,
+          or otherwise points to the cataloged resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/isReferencedBy
+        rdf_type: uri
+        title: Is Referenced By
+        type: array
+      keyword:
+        default:
+        description: A keyword or tag describing the resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://www.w3.org/ns/dcat#keyword
+        rdf_type: rdfs_literal
+        title: Keyword
+        type: array
+      landing_page:
+        default:
+        description: A Web page that can be navigated to in a Web browser to gain
+          access to the catalog, a dataset, its distributions and/or additional information.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#landingPage
+        rdf_type: uri
+        title: Landing Page
+        type: array
+      license:
+        default:
+        description: A legal document under which the resource is made available.
+        format: uri
+        minLength: 1
+        rdf_term: http://purl.org/dc/terms/license
+        rdf_type: uri
+        title: License
+        type: string
+      language:
+        default:
+        description: A language of the resource. This refers to the natural language
+          used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged
+          resource (i.e., dataset or service) or the textual values of a dataset distribution
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/language
+        rdf_type: uri
+        title: Language
+        type: array
+      relation:
+        default:
+        description: A resource with an unspecified relationship to the cataloged
+          resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/relation
+        rdf_type: uri
+        title: Relation
+        type: array
+      rights:
+        anyOf:
+        - $ref: '#/$defs/LiteralField'
+        - format: uri
+          minLength: 1
+          type: string
+        default:
+        description: Information about rights held in and over the distribution. Recommended
+          practice is to refer to a rights statement with a URI. If this is not possible
+          or feasible, a literal value (name, label, or short text) may be provided.
+        rdf_term: http://purl.org/dc/terms/rights
+        rdf_type: uri
+        title: Rights
+      qualified_relation:
+        default:
+        description: Link to a description of a relationship with another resource
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#qualifiedRelation
+        rdf_type: uri
+        title: Qualified Relation
+        type: array
+      publisher:
+        default:
+        description: The entity responsible for making the resource available.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://purl.org/dc/terms/publisher
+        rdf_type: uri
+        title: Publisher
+        type: array
+      release_date:
+        anyOf:
+        - type: string
+        - format: date-time
+          type: string
+        - format: date
+          type: string
+        default:
+        description: Date of formal issuance (e.g., publication) of the resource.
+        rdf_term: http://purl.org/dc/terms/issued
+        rdf_type: datetime_literal
+        title: Release Date
+      theme:
+        default:
+        description: A main category of the resource. A resource can have multiple
+          themes.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#theme
+        rdf_type: uri
+        title: Theme
+        type: array
+      title:
+        description: A name given to the resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://purl.org/dc/terms/title
+        rdf_type: rdfs_literal
+        title: Title
+        type: array
+      type:
+        default:
+        description: The nature or genre of the resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/type
+        rdf_type: uri
+        title: Type
+        type: array
+      update_date:
+        anyOf:
+        - type: string
+        - format: date
+          type: string
+        - format: date-time
+          type: string
+        default:
+        description: Most recent date on which the resource was changed, updated or
+          modified.
+        rdf_term: http://purl.org/dc/terms/modified
+        rdf_type: datetime_literal
+        title: Update Date
+      qualified_attribution:
+        default:
+        description: Link to an Agent having some form of responsibility for the resource
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/prov#qualifiedAttribution
+        rdf_type: uri
+        title: Qualified Attribution
+        type: array
+      has_current_version:
+        default:
+        description: This resource has a more specific, versioned resource with equivalent
+          content [PAV].
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/dcat#hasCurrentVersion
+        rdf_type: uri
+        title: Has Current Version
+        type: string
+      has_version:
+        default:
+        description: This resource has a more specific, versioned resource
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/hasVersion
+        rdf_type: uri
+        title: Has Version
+        type: array
+      previous_version:
+        default:
+        description: The previous version of a resource in a lineage [PAV].
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/dcat#previousVersion
+        rdf_type: uri
+        title: Previous Version
+        type: string
+      replaces:
+        default:
+        description: A related resource that is supplanted, displaced, or superseded
+          by the described resource
+        format: uri
+        minLength: 1
+        rdf_term: http://purl.org/dc/terms/replaces
+        rdf_type: uri
+        title: Replaces
+        type: string
+      status:
+        allOf:
+        - $ref: '#/$defs/Status'
+        default:
+        description: The status of the resource in the context of a particular workflow
+          process [VOCAB-ADMS].
+        rdf_term: http://www.w3.org/ns/adms#status
+        rdf_type: uri
+      version:
+        default:
+        description: The version indicator (name or identifier) of a resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://www.w3.org/ns/dcat#version
+        rdf_type: rdfs_literal
+        title: Version
+        type: array
+      version_notes:
+        default:
+        description: A description of changes between this version and the previous
+          version of the resource [VOCAB-ADMS].
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://www.w3.org/ns/adms#versionNotes
+        rdf_type: rdfs_literal
+        title: Version Notes
+        type: array
+      first:
+        default:
+        description: The first resource in an ordered collection or series of resources,
+          to which the current resource belongs.
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/dcat#first
+        rdf_type: uri
+        title: First
+        type: string
+      last:
+        default:
+        description: The last resource in an ordered collection or series of resources,
+          to which the current resource belongs.
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/dcat#last
+        rdf_type: uri
+        title: Last
+        type: string
+      previous:
+        default:
+        description: The previous resource (before the current one) in an ordered
+          collection or series of resources.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#prev
+        rdf_type: uri
+        title: Previous
+        type: array
+    required:
+    - description
+    - title
+    title: DCATResource
+    type: object
+  HRIDataset:
+    $IRI: http://www.w3.org/ns/dcat#Dataset
+    $namespace: http://www.w3.org/ns/dcat#
+    $ontology:
+    - https://www.w3.org/TR/vocab-dcat-3/
+    - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+    $prefix: dcat
+    additionalProperties: false
+    properties:
+      contact_point:
+        description: Relevant contact information for the cataloged resource.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://www.w3.org/ns/dcat#contactPoint
+        rdf_type: uri
+        title: Contact Point
+        type: array
+      creator:
+        description: The entity responsible for producing the resource. Resources
+          of type foaf:Agent are recommended as values for this property.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://purl.org/dc/terms/creator
+        rdf_type: uri
+        title: Creator
+        type: array
+      description:
+        description: A free-text account of the resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://purl.org/dc/terms/description
+        rdf_type: literal
+        title: Description
+        type: array
+      issued:
+        anyOf:
+        - type: string
+        - format: date-time
+          type: string
+        - format: date
+          type: string
+        description: Date of formal issuance (e.g., publication) of the resource.
+        rdf_term: http://purl.org/dc/terms/issued
+        rdf_type: datetime_literal
+        title: Issued
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the resource being described or cataloged.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: xsd:string
+        title: Identifier
+      modified:
+        anyOf:
+        - type: string
+        - format: date
+          type: string
+        - format: date-time
+          type: string
+        description: Most recent date on which the resource was changed, updated or
+          modified.
+        rdf_term: http://purl.org/dc/terms/modified
+        rdf_type: datetime_literal
+        title: Modified
+      publisher:
+        description: The entity responsible for making the resource available.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Agent'
+        rdf_term: http://purl.org/dc/terms/publisher
+        rdf_type: uri
+        title: Publisher
+        type: array
+      theme:
+        description: A main category of the resource. A resource can have multiple
+          themes.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#themeTaxonomy
+        rdf_type: uri
+        title: Theme
+        type: array
+      title:
+        description: A name given to the resource.
+        items:
+          $ref: '#/$defs/LiteralField'
+        rdf_term: http://purl.org/dc/terms/title
+        rdf_type: rdfs_literal
+        title: Title
+        type: array
+      type:
+        description: The nature or genre of the resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/type
+        rdf_type: uri
+        title: Type
+        type: array
+      license:
+        description: A legal document under which the resource is made available.
+        format: uri
+        minLength: 1
+        rdf_term: http://purl.org/dc/terms/license
+        rdf_type: uri
+        title: License
+        type: string
+      distribution:
+        default:
+        description: An available distribution of the dataset.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#distribution
+        rdf_type: uri
+        title: Distribution
+        type: array
+      project:
+        default:
+        description: connect dataset to the corresponding projects
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://xmlns.com/foaf/0.1/Project
+        rdf_type: uri
+        title: Project
+        type: array
+      has_version:
+        default:
+        description: This resource has a more specific, versioned resource
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/hasVersion
+        rdf_type: uri
+        title: Has Version
+        type: array
+      in_series:
+        default:
+        description: A dataset series of which the dataset is part.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#inSeries
+        rdf_type: uri
+        title: In Series
+        type: array
+    required:
+    - contact_point
+    - creator
+    - description
+    - issued
+    - identifier
+    - modified
+    - publisher
+    - theme
+    - title
+    - type
+    - license
+    title: HRIDataset
+    type: object
+  LiteralField:
+    description: "Model to handle literal fields\nAttributes\n----------\ndatatype
+      : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
+      see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
+      \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      value : str\n    literal value\neither datatype or language, or none of these
+      two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
+    properties:
+      datatype:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: string
+        default:
+        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        title: Datatype
+      language:
+        default:
+        description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
+          also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        title: Language
+        type: string
+      value:
+        description: Field value
+        title: Value
+        type: string
+    required:
+    - value
+    title: LiteralField
+    type: object
+  ODRLPolicy:
+    $IRI: http://www.w3.org/ns/odrl/2/Policy
+    $namespace: http://www.w3.org/ns/odrl/2/
+    $ontology: https://www.w3.org/TR/odrl-vocab/#
+    $prefix: odrl
+    additionalProperties: false
+    description: A non-empty group of Permissions and/or Prohibitions.
+    properties:
+      conflict:
+        default:
+        description: The conflict-resolution strategy for a Policy.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/RDFModel'
+        rdf_term: http://www.w3.org/ns/odrl/2/conflict
+        rdf_type: uri
+        title: Conflict
+        type: array
+      permission:
+        default:
+        description: Permissions take preference over prohibitions.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/RDFModel'
+        rdf_term: http://www.w3.org/ns/odrl/2/permission
+        rdf_type: uri
+        title: Permission
+        type: array
+      prohibition:
+        default:
+        description: The inability to perform an Action over an Asset.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/RDFModel'
+        rdf_term: http://www.w3.org/ns/odrl/2/prohibition
+        rdf_type: uri
+        title: Prohibition
+        type: array
+      inheritFrom:
+        default:
+        description: Relates a (child) policy to another (parent) policy from which
+          terms are inherited.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/inheritFrom
+        rdf_type: uri
+        title: Inheritfrom
+        type: array
+      profile:
+        default:
+        description: The identifier(s) of an ODRL Profile that the Policy conforms
+          to.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/profile
+        rdf_type: uri
+        title: Profile
+        type: array
+      obligation:
+        default:
+        description: Relates an individual Duty to a Policy.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/obligation
+        rdf_type: uri
+        title: Obligation
+        type: array
+      uid:
+        default:
+        description: Unique Identifier
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/uid
+        rdf_type: uri
+        title: Uid
+        type: array
+      relation:
+        default:
+        description: Relation is an abstract property which creates an explicit link
+          between an Action and an Asset.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/relation
+        rdf_type: uri
+        title: Relation
+        type: array
+      target:
+        default:
+        description: The target property indicates the Asset that is the primary subject
+          to which the Rule action directly applies.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/target
+        rdf_type: uri
+        title: Target
+        type: array
+      function:
+        default:
+        description: Function is an abstract property whose sub-properties define
+          the functional roles which may be fulfilled by a party in relation to a
+          Rule.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/function
+        rdf_type: uri
+        title: Function
+        type: array
+      action:
+        default:
+        description: The operation relating to the Asset for which the Rule is being
+          subjected.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/action
+        rdf_type: uri
+        title: Action
+        type: array
+      constraint:
+        default:
+        description: Constraint applied to a Rule
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/constraint
+        rdf_type: uri
+        title: Constraint
+        type: array
+      assignee:
+        default:
+        description: The Party is the recipient of the Rule.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/assignee
+        rdf_type: uri
+        title: Assignee
+        type: array
+      assigner:
+        default:
+        description: The Party is the issuer of the Rule.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/odrl/2/assigner
+        rdf_type: uri
+        title: Assigner
+        type: array
+    title: ODRLPolicy
+    type: object
+  RDFModel:
+    additionalProperties: false
+    description: Base class for creating pydantic models convertible to RDF graph
+    properties: {}
+    title: RDFModel
+    type: object
+  Status:
+    enum:
+    - http://purl.org/adms/status/Completed
+    - http://purl.org/adms/status/Deprecated
+    - http://purl.org/adms/status/UnderDevelopment
+    - http://purl.org/adms/status/Withdrawn
+    title: Status
+    type: string
+  VCard:
+    $IRI: http://www.w3.org/2006/vcard/ns#VCard
+    $namespace: http://www.w3.org/2006/vcard/ns#
+    $ontology: https://www.w3.org/TR/vcard-rdf/
+    $prefix: v
+    additionalProperties: false
+    description: "The vCard class is equivalent to the new Kind class, which is the
+      parent for the four explicit types\nof vCards (Individual, Organization, Location,
+      Group)"
+    properties:
+      hasEmail:
+        default:
+        description: The email address as a mailto URI
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
+        rdf_type: uri
+        title: Hasemail
+        type: array
+      full_name:
+        default:
+        description: The full name of the object (as a single string). This is the
+          only mandatory property.
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
+        rdf_term: http://www.w3.org/2006/vcard/ns#fn
+        rdf_type: rdfs_literal
+        title: Full Name
+        type: array
+      hasUID:
+        description: A unique identifier for the object
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasUID
+        rdf_type: uri
+        title: Hasuid
+        type: string
+    required:
+    - hasUID
+    title: VCard
+    type: object
+$namespace: http://www.w3.org/ns/dcat#
+$ontology: https://www.w3.org/TR/vocab-dcat-3/
+$prefix: dcat
+additionalProperties: false
+description: A collection of operations that provides access to one or more datasets
+  or data processing functions.
+properties:
+  endpoint_url:
+    description: The root location or primary endpoint of the service (a Web-resolvable
+      IRI).
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/DCATResource'
+    rdf_term: http://www.w3.org/ns/dcat#endpointURL
+    rdf_type: uri
+    title: Endpoint Url
+    type: array
+  title:
+    description: A name given to the resource.
+    items:
+      $ref: '#/$defs/LiteralField'
+    rdf_term: http://purl.org/dc/terms/title
+    rdf_type: rdfs_literal
+    title: Title
+    type: array
+  serves_dataset:
+    default:
+    description: A collection of data that this data service can distribute.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/HRIDataset'
+    rdf_term: http://www.w3.org/ns/dcat#servesDataset
+    rdf_type: uri
+    title: Serves Dataset
+    type: array
+  endpoint_description:
+    default:
+    description: A description of the services available via the end-points, including
+      their operations, parameters etc.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/DCATResource'
+      - $ref: '#/$defs/LiteralField'
+    rdf_term: http://www.w3.org/ns/dcat#endpointDescription
+    rdf_type: uri
+    title: Endpoint Description
+    type: array
+required:
+- endpoint_url
+- title
+title: HRIDataService
+type: object

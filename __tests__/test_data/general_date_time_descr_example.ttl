@@ -1,0 +1,15 @@
+# EXAMPLE the GeneralDateTimeDescription class is used to express the same date using the Hebrew calendar
+
+@prefix ex: <http://www.example.com/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix dbr: <https://dbpedia.org/page/> .
+
+
+ex: ex:AbbyBirthdayHebrew [ a time:GeneralDateTimeDescription ;
+            time:unitType time:unitDay ;
+            time:day "---01"^^xsd:gDay ;
+            time:hasTRS <http://dbpedia.org/resource/Hebrew_calendar> ;
+            time:month "--03"^^xsd:gMonth ;
+            time:monthOfYear dbr:Sivan ;
+            time:year "5761"^^xsd:gYear ] .
