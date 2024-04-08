@@ -1,7 +1,8 @@
-# HRIPydanticModels
+# SeMPyRO Data Models
 
-**SeMPyRO** is a Python package containing Pydantic models representing classes of the
-DCAT-AP v3 data model. It is designed to streamline data validation, conversion to RDF, and schema generation processes.
+**SeMPyRO** (for Semantic Models Python/Pydantic RDF Ontology) is a Python package containing Pydantic models 
+representing classes of the DCAT-AP v3 data model. It is designed to streamline data validation, conversion to RDF, 
+and schema generation processes.
 
 ## Key Features
 

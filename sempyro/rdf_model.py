@@ -205,8 +205,10 @@ class RDFModel(BaseModel):
         literal_format = None
         if isinstance(value, (datetime, AwareDatetime, NaiveDatetime)):
             literal_format = XSD.dateTime
+            value = value.isoformat()
         elif isinstance(value, date):
             literal_format = XSD.date
+            value = value.isoformat()
         elif isinstance(value, str):
             if re.match(year_month_pattern, value):
                 literal_format = XSD.gYearMonth
@@ -217,7 +219,7 @@ class RDFModel(BaseModel):
         else:
             raise TypeError(f"Value {value} is of unsupported type {type(value)}, either str, date, datetime, "
                             f"pydantic.AwareDatetime or pydantic.NaiveDatetime are expected")
-        return Literal(str(value), datatype=literal_format)
+        return Literal(value, datatype=literal_format)
 
     def _convert_to_rdf_type(self, rdf_type: str, value: Any) -> Union[URIRef, Literal]:
         if rdf_type.startswith("xsd:"):
