@@ -19,9 +19,8 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField, RDFModel
-from sempyro.foaf import Agent
-from sempyro import LiteralField
 from sempyro.dcat import DCATCatalog
+from sempyro.foaf import Agent
 from sempyro.utils.validator_functions import force_literal_field
 
 

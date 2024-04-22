@@ -14,15 +14,16 @@
 
 from datetime import date, datetime
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
-from rdflib.namespace import DCAT, DCTERMS, FOAF
 from typing import List, Union
 
-from sempyro.foaf import Agent
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
+from rdflib.namespace import DCAT, DCTERMS, FOAF
+
 from sempyro import LiteralField
+from sempyro.dcat import DCATDataset
+from sempyro.foaf import Agent
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
-from sempyro.dcat import DCATDataset
 from sempyro.vcard import VCard
 
 

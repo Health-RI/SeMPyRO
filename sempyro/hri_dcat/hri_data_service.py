@@ -13,13 +13,14 @@
 # limitations under the License.
 
 from pathlib import Path
-from pydantic import ConfigDict, AnyHttpUrl, Field, field_validator
-from rdflib.namespace import DCAT, DCTERMS
 from typing import List, Union
 
-from sempyro.dcat import DCATResource, DataService
-from sempyro.hri_dcat import HRIDataset
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from rdflib.namespace import DCAT, DCTERMS
+
 from sempyro import LiteralField
+from sempyro.dcat import DataService, DCATResource
+from sempyro.hri_dcat import HRIDataset
 from sempyro.utils.validator_functions import force_literal_field
 
 
