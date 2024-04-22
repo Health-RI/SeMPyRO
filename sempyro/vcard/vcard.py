@@ -12,14 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pathlib import Path
-from pydantic import ConfigDict, Field, AnyHttpUrl, AnyUrl, field_validator
-from pydantic.networks import validate_email
-from rdflib import Namespace
 import re
+from pathlib import Path
 from typing import List, Union
 
-from sempyro import RDFModel, LiteralField
+from pydantic import AnyHttpUrl, AnyUrl, ConfigDict, Field, field_validator
+from pydantic.networks import validate_email
+from rdflib import Namespace
+
+from sempyro import LiteralField, RDFModel
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
@@ -58,7 +59,7 @@ class VCard(RDFModel):
     def _convert_to_mailto(cls, value: str) -> AnyUrl:
         mail_part = value
         if value.startswith("mailto:"):
-            mail_part = re.split(":|\//", value)[-1]
+            mail_part = re.split(r":|\//", value)[-1]
         mail_part = validate_email(mail_part)[1]
         return AnyUrl(f"mailto:{mail_part}")
 
@@ -76,5 +77,5 @@ class VCard(RDFModel):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
-    VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.json"), file_format="json")
-    VCard.save_schema_to_file(path=Path(json_models_folder, f"VCard.yaml"), file_format="yaml")
+    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.json"), file_format="json")
+    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.yaml"), file_format="yaml")

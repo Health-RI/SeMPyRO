@@ -13,16 +13,15 @@
 # limitations under the License.
 
 import json
-import pytest
-
 from pathlib import Path
-from rdflib import Graph, URIRef, RDF, DCTERMS, DCAT
+
+import pytest
+from rdflib import DCAT, DCTERMS, RDF, Graph, URIRef
 from rdflib.compare import to_isomorphic
 
-from sempyro.geo import Location, Geometry
 from sempyro import LiteralField
-from sempyro.namespaces import GeoSPARQL, LOCN
-
+from sempyro.geo import Geometry, Location
+from sempyro.namespaces import LOCN, GeoSPARQL
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "geo")
@@ -30,7 +29,7 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "geo
 
 @pytest.mark.parametrize("model_name", ["Location", "Geometry"])
 def test_spatial_objects(model_name):
-    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json")) as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()

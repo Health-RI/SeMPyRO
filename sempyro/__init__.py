@@ -14,7 +14,7 @@
 
 from importlib.metadata import version
 
-from .rdf_model import RDFModel, LiteralField
+from .rdf_model import LiteralField, RDFModel
 from .utils import validator_functions
 
 __version__ = version("sempyro")
@@ -36,5 +36,5 @@ __all__ = (
     )
 
 
-def __dir__() -> 'list[str]':
+def __dir__() -> "list[str]":
     return list(__all__)

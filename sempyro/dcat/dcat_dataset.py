@@ -14,16 +14,17 @@
 
 from enum import Enum
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict
-from rdflib.namespace import DCAT, DCTERMS, PROV
 from typing import List, Union
 
-from sempyro.dcat import DCATResource
+from pydantic import AnyHttpUrl, ConfigDict, Field
+from rdflib.namespace import DCAT, DCTERMS, PROV
+
 from sempyro import LiteralField
-from sempyro.time import PeriodOfTime
-from sempyro.prov import Activity
+from sempyro.dcat import DCATResource
 from sempyro.geo import Location
-from sempyro.namespaces import DCATv3, FREQ
+from sempyro.namespaces import FREQ, DCATv3
+from sempyro.prov import Activity
+from sempyro.time import PeriodOfTime
 
 
 class Frequency(Enum):

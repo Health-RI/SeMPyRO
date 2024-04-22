@@ -15,19 +15,27 @@
 import json
 import logging
 import re
-import ruamel.yaml
-
 from datetime import date, datetime
 from pathlib import Path
-from pydantic import (BaseModel, ConfigDict, Field, model_validator, field_validator, NaiveDatetime, AwareDatetime,
-                      AnyUrl)
-from pydantic.fields import PydanticUndefined
-from rdflib import BNode, Graph, URIRef, Literal, XSD
-from rdflib.namespace import RDF, DefinedNamespaceMeta
+from typing import Any, Dict, List, Type, Union
 from typing import Literal as typing_Literal
-from typing import Union, Type, Any, Dict, List
 
-from sempyro.utils.constants import year_pattern, year_month_pattern
+import ruamel.yaml
+from pydantic import (
+    AnyUrl,
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    NaiveDatetime,
+    field_validator,
+    model_validator,
+)
+from pydantic.fields import PydanticUndefined
+from rdflib import XSD, BNode, Graph, Literal, URIRef
+from rdflib.namespace import RDF, DefinedNamespaceMeta
+
+from sempyro.utils.constants import year_month_pattern, year_pattern
 
 RDF_KEY = "rdf_term"
 RDF_TYPE_KEY = "rdf_type"
@@ -57,7 +65,7 @@ class ModelAnnotationUtil:
 
     def get_fields_types(self):
         return {key: {"datatype": self._get_list_types(datatype=value.annotation),
-                      "RDF type": value.json_schema_extra.get("rdf_type", "No RDF type specified for the field")} for 
+                      "RDF type": value.json_schema_extra.get("rdf_type", "No RDF type specified for the field")} for
                 key, value in self.fields.items()}
 
     def fields_defaults(self):
@@ -69,11 +77,11 @@ class ModelAnnotationUtil:
         dt_name = datatype.__name__
         if dt_name in ["List", "Union"]:
             types = []
-            for subtype in getattr(datatype, "__args__"):
+            for subtype in datatype.__args__:
                 types.append(self._get_list_types(subtype))
             return f"{dt_name}[{', '.join(types)}]"
         elif dt_name == "Annotated":
-            return getattr(datatype, "__args__")[0].__name__
+            return datatype.__args__[0].__name__
         else:
             return dt_name
 
@@ -110,7 +118,7 @@ class LiteralField(BaseModel):
                              "per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal")
         return data
 
-    @field_validator("datatype", mode='before')
+    @field_validator("datatype", mode="before")
     @classmethod
     def try_solve_datatype(cls, value: str) -> Union[str, URIRef]:
         """

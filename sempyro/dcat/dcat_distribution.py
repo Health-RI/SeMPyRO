@@ -14,11 +14,12 @@
 
 from datetime import date, datetime
 from pathlib import Path
-from pydantic import Field, AnyHttpUrl, ConfigDict, AwareDatetime, NaiveDatetime, field_validator
-from rdflib.namespace import DCAT, DCTERMS, ODRL2
 from typing import List, Union
 
-from sempyro import RDFModel, LiteralField
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
+from rdflib.namespace import DCAT, DCTERMS, ODRL2
+
+from sempyro import LiteralField, RDFModel
 from sempyro.dcat import DataService
 from sempyro.odrl import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
@@ -71,7 +72,7 @@ class DCATDistribution(RDFModel):
                                 )
     access_rights: AnyHttpUrl = Field(
         default=None,
-        description='A rights statement that concerns how the distribution is accessed.',
+        description="A rights statement that concerns how the distribution is accessed.",
         rdf_term=DCTERMS.accessRights,
         rdf_type="uri")
     rights: [AnyHttpUrl] = Field(
