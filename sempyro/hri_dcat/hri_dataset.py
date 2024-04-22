@@ -19,12 +19,14 @@ from rdflib.namespace import DCAT, DCTERMS, FOAF
 from typing import List, Union
 
 from sempyro.foaf import Agent
-from sempyro import RDFModel, LiteralField
+from sempyro import LiteralField
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
+from sempyro.dcat import DCATDataset
+from sempyro.vcard import VCard
 
 
-class HRIDataset(RDFModel):
+class HRIDataset(DCATDataset):
     model_config = ConfigDict(
                               json_schema_extra={
                                   "$ontology": ["https://www.w3.org/TR/vocab-dcat-3/",
@@ -35,53 +37,54 @@ class HRIDataset(RDFModel):
                                   "$prefix": "dcat"
                               }
                               )
-    contact_point: List[Union[AnyHttpUrl, Agent]] = Field(
-        description="Relevant contact information for the cataloged resource.",
+    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+        description="Relevant contact information for the cataloged resource. HRI mandatory",
         rdf_term=DCAT.contactPoint,
         rdf_type="uri")
 
     creator: List[Union[AnyHttpUrl, Agent]] = Field(
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
-                    "recommended as values for this property.",
+                    "recommended as values for this property. HRI mandatory",
         rdf_term=DCTERMS.creator,
         rdf_type="uri")
 
     description: List[LiteralField] = Field(
-        description="A free-text account of the resource.",
+        description="A free-text account of the resource. HRI mandatory",
         rdf_term=DCTERMS.description,
         rdf_type="literal"
     )
     issued: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
-        description="Date of formal issuance (e.g., publication) of the resource.",
+        description="Date of formal issuance (e.g., publication) of the resource. HRI mandatory",
         rdf_term=DCTERMS.issued,
         rdf_type="datetime_literal"
     )
     identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the resource being described or cataloged.",
+        description="A unique identifier of the resource being described or cataloged. HRI mandatory",
         rdf_term=DCTERMS.identifier,
-        rdf_type="xsd:string")
+        rdf_type="xsd:string"
+    )
     modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
-        description="Most recent date on which the resource was changed, updated or modified.",
+        description="Most recent date on which the resource was changed, updated or modified. HRI mandatory",
         rdf_term=DCTERMS.modified,
         rdf_type="datetime_literal"
     )
     publisher: List[Union[AnyHttpUrl, Agent]] = Field(
-        description="The entity responsible for making the resource available.",
+        description="The entity responsible for making the resource available. HRI mandatory",
         rdf_term=DCTERMS.publisher,
         rdf_type="uri"
     )
     theme: List[AnyHttpUrl] = Field(
-        description="A main category of the resource. A resource can have multiple themes.",
+        description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
         rdf_term=DCAT.themeTaxonomy,
         rdf_type="uri"
     )
     title: List[LiteralField] = Field(
-        description="A name given to the resource.",
+        description="A name given to the resource. HRI mandatory",
         rdf_term=DCTERMS.title,
         rdf_type="rdfs_literal"
     )
     type: List[AnyHttpUrl] = Field(
-        description="The nature or genre of the resource.",
+        description="The nature or genre of the resource. HRI mandatory",
         rdf_term=DCTERMS.type,
         rdf_type="uri")
     license: AnyHttpUrl = Field(
@@ -91,25 +94,25 @@ class HRIDataset(RDFModel):
     )
     distribution: List[AnyHttpUrl] = Field(
         default=None,
-        description="An available distribution of the dataset.",
+        description="An available distribution of the dataset. HRI recommended",
         rdf_term=DCAT.distribution,
         rdf_type="uri"
     )
-    project: List[AnyHttpUrl] = Field(
+    relation: List[AnyHttpUrl] = Field(
         default=None,
-        description="connect dataset to the corresponding projects",
+        description="connect dataset to the corresponding projects. HRI recommended",
         rdf_term=FOAF.Project,
         rdf_type="uri"
     )
-    has_version: List[AnyHttpUrl] = Field(
+    version: List[LiteralField] = Field(
         default=None,
-        description="This resource has a more specific, versioned resource",
-        rdf_term=DCTERMS.hasVersion,
-        rdf_type="uri"
+        description="The version indicator (name or identifier) of a resource. HRI recommended",
+        rdf_term=DCATv3.version,
+        rdf_type="rdfs_literal"
     )
     in_series: List[AnyHttpUrl] = Field(
         default=None,
-        description="A dataset series of which the dataset is part.",
+        description="A dataset series of which the dataset is part. HRI recommended",
         rdf_term=DCATv3.inSeries,
         rdf_type="uri"
     )

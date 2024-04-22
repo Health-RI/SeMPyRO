@@ -81,7 +81,7 @@ from sempyro.hri_dcat import HRIDataset, HRICatalog, HRIDistribution, HRIDataSer
 ```
 
 Note: Health-RI core model is a more strict one cardinality-wise and regarding mandatory and recommended fields than
-DCAT-AP profile. There's no child-parent relationship implemented for HRI models.
+DCAT-AP profile. Classes implementing HRI model are an extension of DCAT models.
 
 ### Namespaces
 
