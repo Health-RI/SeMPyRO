@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sempyro"
-version = "v1.1.0"
+version = "v1.2.0"
 description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
 requires-python = ">= 3.9"
