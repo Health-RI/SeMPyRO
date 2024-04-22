@@ -15,9 +15,10 @@
 from pathlib import Path
 from typing import List, Union
 
-from sempyro import RDFModel, LiteralField
 from pydantic import ConfigDict, Field
 from rdflib.namespace import DCTERMS, FOAF
+
+from sempyro import LiteralField, RDFModel
 
 
 class Agent(RDFModel):
@@ -41,5 +42,5 @@ class Agent(RDFModel):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "foaf")
-    Agent.save_schema_to_file(path=Path(json_models_folder, f"Agent.json"), file_format="json")
-    Agent.save_schema_to_file(path=Path(json_models_folder, f"Agent.yaml"), file_format="yaml")
+    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.json"), file_format="json")
+    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.yaml"), file_format="yaml")

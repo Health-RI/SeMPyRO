@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from rdflib import URIRef, Namespace
+from rdflib import Namespace, URIRef
 from rdflib.namespace import DefinedNamespace
 
 

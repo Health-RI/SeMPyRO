@@ -13,16 +13,23 @@
 # limitations under the License.
 
 import json
-import pytest
-
 from pathlib import Path
+
+import pytest
 from pydantic_core import ValidationError
-from sempyro.time import TimePosition, GeneralDateTimeDescription, TimeInstant, PeriodOfTime, \
-    DateTimeDescription, DayOfWeek
-from sempyro.namespaces import Greg
-from sempyro import LiteralField
-from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, TIME, URIRef, BNode
+from rdflib import DCAT, DCTERMS, RDF, TIME, BNode, Graph, Namespace, URIRef
 from rdflib.compare import to_isomorphic
+
+from sempyro import LiteralField
+from sempyro.namespaces import Greg
+from sempyro.time import (
+    DateTimeDescription,
+    DayOfWeek,
+    GeneralDateTimeDescription,
+    PeriodOfTime,
+    TimeInstant,
+    TimePosition,
+)
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "time")
@@ -36,7 +43,7 @@ EX = Namespace("http://www.example.com/")
                                         "TimeInstant",
                                         "PeriodOfTime"])
 def test_time_models(model_name):
-    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json")) as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()
@@ -45,7 +52,7 @@ def test_time_models(model_name):
 
 @pytest.mark.parametrize("input_file", ["time_position_nominal.json", "time_position_numeric.json"])
 def test_time_position(input_file):
-    with open(Path(TEST_DATA_DIRECTORY, input_file), "r") as file:
+    with open(Path(TEST_DATA_DIRECTORY, input_file)) as file:
         assert TimePosition.model_validate_json(file.read())
 
 
@@ -94,12 +101,12 @@ def test_time_position_to_graph():
 
 
 def test_general_date_time_descr():
-    with open(Path(TEST_DATA_DIRECTORY, "general_date_time_description.json"), "r") as test_data_file:
+    with open(Path(TEST_DATA_DIRECTORY, "general_date_time_description.json")) as test_data_file:
         assert GeneralDateTimeDescription.model_validate_json(test_data_file.read())
 
 
 def test_general_date_time_descr_serialize():
-    with open(Path(TEST_DATA_DIRECTORY, "general_date_time_description.json"), "r") as test_data_file:
+    with open(Path(TEST_DATA_DIRECTORY, "general_date_time_description.json")) as test_data_file:
         obj = GeneralDateTimeDescription.model_validate_json(test_data_file.read())
     dbr = Namespace("https://dbpedia.org/page/")
     graph = Graph()
@@ -115,7 +122,7 @@ def test_general_date_time_descr_serialize():
 
 
 def test_date_time_descr():
-    with open(Path(TEST_DATA_DIRECTORY, "date_time_description.json"), "r") as test_data_file:
+    with open(Path(TEST_DATA_DIRECTORY, "date_time_description.json")) as test_data_file:
         assert DateTimeDescription.model_validate_json(test_data_file.read())
 
 
@@ -127,7 +134,7 @@ def test_raises_at_hastrs_change():
 
 
 def test_date_time_descr_serialize():
-    with open(Path(TEST_DATA_DIRECTORY, "date_time_description.json"), "r") as test_data_file:
+    with open(Path(TEST_DATA_DIRECTORY, "date_time_description.json")) as test_data_file:
         obj = DateTimeDescription.model_validate_json(test_data_file.read())
     graph = Graph()
     graph.bind("ex", EX)

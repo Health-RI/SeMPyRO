@@ -13,11 +13,12 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import Union, List
+from typing import List, Union
+
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime
+from rdflib import PROV
 
 from sempyro import RDFModel
-from pydantic import AnyHttpUrl, ConfigDict, Field, NaiveDatetime, AwareDatetime
-from rdflib import PROV
 
 
 class Association(RDFModel):

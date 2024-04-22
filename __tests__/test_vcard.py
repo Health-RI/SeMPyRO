@@ -13,16 +13,16 @@
 # limitations under the License.
 
 import json
+from pathlib import Path
 
 import pytest
-
-from pathlib import Path
-from pydantic_core import ValidationError, Url
-from sempyro.vcard import VCard, VCARD
-from sempyro.foaf import Agent
-from sempyro import LiteralField
-from rdflib import Graph, DCAT, Namespace, RDF, DCTERMS, URIRef
+from pydantic_core import Url, ValidationError
+from rdflib import DCAT, DCTERMS, RDF, Graph, Namespace, URIRef
 from rdflib.compare import to_isomorphic
+
+from sempyro import LiteralField
+from sempyro.foaf import Agent
+from sempyro.vcard import VCARD, VCard
 
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
@@ -34,7 +34,7 @@ EX = Namespace("http://www.example.com/")
                          [("VCard", "vcard"),
                           ("Agent", "foaf")])
 def test_vcard_agent(model_name, test_path):
-    with open(Path(MODELS_JSON_DIRECTORY, test_path, f"{model_name}.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, test_path, f"{model_name}.json")) as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()

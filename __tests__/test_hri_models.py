@@ -14,10 +14,11 @@
 
 import json
 from pathlib import Path
+
 import pytest
 
-from sempyro.hri_dcat import HRIDataset, HRIDataService, HRICatalog, HRIDistribution
 from sempyro.foaf import Project
+from sempyro.hri_dcat import HRICatalog, HRIDataService, HRIDataset, HRIDistribution
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
 
@@ -29,7 +30,7 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
                                         "HRIDistribution"
                                         ])
 def test_hri_models(model_name):
-    with open(Path(MODELS_JSON_DIRECTORY, "hri_dcat", f"{model_name}.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, "hri_dcat", f"{model_name}.json")) as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()
@@ -37,7 +38,7 @@ def test_hri_models(model_name):
 
 
 def test_project():
-    with open(Path(MODELS_JSON_DIRECTORY, "foaf", f"Project.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, "foaf", "Project.json")) as model_file:
         model_json = json.load(model_file)
     actual_schema = Project.model_json_schema()
     assert json.dumps(model_json) == json.dumps(actual_schema)

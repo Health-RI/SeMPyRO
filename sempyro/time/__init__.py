@@ -12,8 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .dcat_time_models import (TimePosition, GeneralDateTimeDescription, DateTimeDescription, TimeInstant, PeriodOfTime,
-                               MonthOfYear, DayOfWeek)
+from .dcat_time_models import (
+    DateTimeDescription,
+    DayOfWeek,
+    GeneralDateTimeDescription,
+    MonthOfYear,
+    PeriodOfTime,
+    TimeInstant,
+    TimePosition,
+)
 
 __all__ = (
     "TimePosition",

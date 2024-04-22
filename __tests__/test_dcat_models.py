@@ -14,10 +14,10 @@
 
 import json
 from pathlib import Path
+
 import pytest
 
-from sempyro.dcat import DCATResource, DCATDataset, DatasetSeries, DataService, DCATCatalog, DCATDistribution
-
+from sempyro.dcat import DataService, DatasetSeries, DCATCatalog, DCATDataset, DCATDistribution, DCATResource
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "dcat")
 
@@ -30,7 +30,7 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "dca
                                         "DCATDistribution"
                                         ])
 def test_resource_models(model_name):
-    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, f"{model_name}.json")) as model_file:
         model_json = json.load(model_file)
     instance = globals()[model_name]
     actual_schema = instance.model_json_schema()
