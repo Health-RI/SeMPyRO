@@ -13,12 +13,13 @@
 # limitations under the License.
 
 from pathlib import Path
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
-from rdflib import DCAT, DCTERMS
 from typing import Union
 
-from sempyro.namespaces import GeoSPARQL, LOCN
-from sempyro import RDFModel, LiteralField
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from rdflib import DCAT, DCTERMS
+
+from sempyro import LiteralField, RDFModel
+from sempyro.namespaces import LOCN, GeoSPARQL
 from sempyro.utils.validator_functions import force_literal_field
 
 

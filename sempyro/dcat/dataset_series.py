@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
+
 from pydantic import ConfigDict
 from rdflib import DCAT
 

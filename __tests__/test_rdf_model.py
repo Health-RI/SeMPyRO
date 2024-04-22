@@ -12,15 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from sempyro import RDFModel
 from datetime import date, datetime
-from pydantic import AwareDatetime, NaiveDatetime, field_validator
-from rdflib import Literal, XSD, URIRef, Graph
-from rdflib.compare import to_isomorphic
-import pytest
 from typing import Union
-from sempyro.utils.validator_functions import date_handler
+
+import pytest
+from pydantic import AwareDatetime, NaiveDatetime, field_validator
+from rdflib import XSD, Graph, Literal, URIRef
+from rdflib.compare import to_isomorphic
+
+from sempyro import RDFModel
 from sempyro.dcat import DCATDataset
+from sempyro.utils.validator_functions import date_handler
 
 
 @pytest.mark.parametrize("date_input,output", [
@@ -46,11 +48,11 @@ def test_time_literal(date_input, output):
 
 @pytest.mark.parametrize("issued,expected_date",
                          [
-                             ("1992", "\"1992\"^^xsd:gYear"),
-                             ("November 9, 1999", "\"1999-11-09T00:00:00\"^^xsd:dateTime"),
-                             ("2006-09", "\"2006-09\"^^xsd:gYearMonth"),
-                             ("25-05-1998", "\"1998-05-25T00:00:00\"^^xsd:dateTime"),
-                             (datetime.now().date(), f"\"{(str(datetime.now().date()))}\"^^xsd:date")
+                             ("1992", '"1992"^^xsd:gYear'),
+                             ("November 9, 1999", '"1999-11-09T00:00:00"^^xsd:dateTime'),
+                             ("2006-09", '"2006-09"^^xsd:gYearMonth'),
+                             ("25-05-1998", '"1998-05-25T00:00:00"^^xsd:dateTime'),
+                             (datetime.now().date(), f'"{datetime.now().date()!s}"^^xsd:date')
                          ]
                          )
 def test_time_serialization(issued, expected_date):
@@ -60,9 +62,9 @@ def test_time_serialization(issued, expected_date):
                 f"@prefix dcterms: <http://purl.org/dc/terms/> .\n"
                 f"@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
                 f"<http://example.com/1> a dcat:Dataset ;\n"
-                f"dcterms:description \"Test description\" ;\n"
+                f'dcterms:description "Test description" ;\n'
                 f"dcterms:issued {expected_date} ;\n"
-                f"dcterms:title \"Test title\" .\n")
+                f'dcterms:title "Test title" .\n')
     dataset = DCATDataset(title=title,
                           description=description,
                           release_date=issued

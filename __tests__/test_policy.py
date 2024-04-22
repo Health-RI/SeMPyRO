@@ -17,13 +17,12 @@ from pathlib import Path
 
 from sempyro.odrl import ODRLPolicy
 
-
 TEST_DATA_DIRECTORY = Path(Path(__file__).parent.resolve(), "test_data")
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "odrl")
 
 
 def test_vcard_agent():
-    with open(Path(MODELS_JSON_DIRECTORY, f"ODRLPolicy.json"), "r") as model_file:
+    with open(Path(MODELS_JSON_DIRECTORY, "ODRLPolicy.json")) as model_file:
         model_json = json.load(model_file)
     actual_schema = ODRLPolicy.model_json_schema()
     assert json.dumps(model_json) == json.dumps(actual_schema)

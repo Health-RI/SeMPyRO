@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import date
-from enum import Enum
 import logging
 import typing
-
+from datetime import date
+from enum import Enum
 from pathlib import Path
-from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
-from rdflib import URIRef, DCAT, DCTERMS, TIME
-from typing import Dict, Any, Union
+from typing import Any, Dict, Union
 
-from sempyro import RDFModel, LiteralField
+from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
+from rdflib import DCAT, DCTERMS, TIME, URIRef
+
+from sempyro import LiteralField, RDFModel
 from sempyro.namespaces import Greg
-from sempyro.utils.constants import year_pattern, year_month_pattern
+from sempyro.utils.constants import year_month_pattern, year_pattern
 from sempyro.utils.validator_functions import force_literal_field
 
 logger = logging.getLogger("__name__")
@@ -208,14 +208,14 @@ class DateTimeDescription(GeneralDateTimeDescription):
                        description="Month position in a calendar-clock system. The range of this property is not "
                                    "specified, so can be replaced by any specific representation of a calendar month "
                                    "from any calendar.",
-                       pattern="--(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                       pattern=r"--(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
                        rdf_term=TIME.month,
                        rdf_type="xsd:gMonth")
     day: str = Field(default=None,
                      description="Day position in a calendar-clock system. The range of this property is not "
                                  "specified, so can be replaced by any specific representation of a calendar day from "
                                  "any calendar.",
-                     pattern="---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+                     pattern=r"---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
                      rdf_term=TIME.day,
                      rdf_type="xsd:gDay")
 
@@ -271,8 +271,8 @@ class DateTimeDescription(GeneralDateTimeDescription):
         else:
             return value
 
-    # Some combinations of properties are redundant. For example, within a specified :year if :dayOfYear is provided 
-    # then :day and :month can be computed, and vice versa. Individual values SHOULD be consistent with each other and 
+    # Some combinations of properties are redundant. For example, within a specified :year if :dayOfYear is provided
+    # then :day and :month can be computed, and vice versa. Individual values SHOULD be consistent with each other and
     # the calendar, indicated through the value of the :hasTRS property.
 
 

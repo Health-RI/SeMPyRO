@@ -13,14 +13,14 @@
 # limitations under the License.
 
 import re
-import dateutil.parser as parser
-
 from datetime import datetime
+from typing import Any, Union
+
+from dateutil import parser
 from pydantic import ValidationError
-from typing import Union, Any
 
 from sempyro import LiteralField
-from sempyro.utils.constants import year_pattern, year_month_pattern
+from sempyro.utils.constants import year_month_pattern, year_pattern
 
 
 def force_literal_field(value: Union[str, LiteralField]) -> LiteralField:

@@ -13,11 +13,12 @@
 # limitations under the License.
 
 from pathlib import Path
-from pydantic import ConfigDict, AnyHttpUrl, Field
-from rdflib import Namespace
 from typing import Union
 
-from sempyro import RDFModel, LiteralField
+from pydantic import AnyHttpUrl, ConfigDict, Field
+from rdflib import Namespace
+
+from sempyro import LiteralField, RDFModel
 
 SPDX = Namespace("http://spdx.org/rdf/terms#")
 

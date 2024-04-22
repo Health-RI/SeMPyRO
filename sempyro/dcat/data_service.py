@@ -13,9 +13,10 @@
 # limitations under the License.
 
 from pathlib import Path
-from pydantic import ConfigDict, AnyHttpUrl, Field
-from rdflib.namespace import DCAT
 from typing import List, Union
+
+from pydantic import AnyHttpUrl, ConfigDict, Field
+from rdflib.namespace import DCAT
 
 from sempyro.dcat import DCATDataset, DCATResource
 

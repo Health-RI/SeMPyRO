@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from rdflib import URIRef
-from rdflib.namespace import Namespace, DefinedNamespace
+from rdflib.namespace import DefinedNamespace, Namespace
 
 
 class LOCN(DefinedNamespace):
@@ -29,11 +29,11 @@ class LOCN(DefinedNamespace):
     adminUnitL1: URIRef  # Best practice is to use the ISO 3166-1 code but if this is inappropriate for the context, country names should be provided in a consistent manner to reduce ambiguity. For example, either write 'United Kingdom' or 'UK' consistently throughout the data set and avoid mixing the two.
     adminUnitL2: URIRef  # The region of the address, usually a county, state or other such area that typically encompasses several localities. The domain of  locn:adminUnitL2 is locn:Address and the range is a literal, conceptually defined by the INSPIRE Geographical Name data type.
     fullAddress: URIRef  # The complete address written as a string, with or without formatting.
-    geographicName: URIRef  # A geographic name is a proper noun applied to a spatial object. 
+    geographicName: URIRef  # A geographic name is a proper noun applied to a spatial object.
     geometry: URIRef  # Associates any resource with the corresponding geometry.
     location: URIRef  # The location property links any resource to the Location Class. Asserting the location relationship implies only that the domain has some connection to a Location in time or space. It does not imply that the resource is necessarily at that location at the time when the assertion is made.
     locatorDesignator: URIRef  # A number or a sequence of characters that uniquely identifies the locator within the relevant scope(s). The full identification of the locator could include one or more locator designators.
-    locatorName: URIRef  # Proper noun(s) applied to the real world entity identified by the locator. The locator name could be the name of the property or complex, of the building or part of the building, or it could be the name of a room inside a building. 
+    locatorName: URIRef  # Proper noun(s) applied to the real world entity identified by the locator. The locator name could be the name of the property or complex, of the building or part of the building, or it could be the name of a room inside a building.
     poBox: URIRef  # The Post Office Box number.
     postCode: URIRef  # The post code (a.k.a postal code, zip code etc.). Post codes are common elements in many countries' postal address systems. The domain of locn:postCode is locn:Address.
     postName: URIRef  # The key postal division of the address, usually the city. (INSPIRE's definition is "One or more names created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points.").

@@ -16,9 +16,8 @@ from .ADMS import ADMS, ADMSStatus
 from .DCATv3 import DCATv3
 from .FREQ import FREQ
 from .GEOSPARQL import GeoSPARQL
-from .LOCN import LOCN
 from .GREG import Greg
-
+from .LOCN import LOCN
 
 __all__ = (
     "ADMS",

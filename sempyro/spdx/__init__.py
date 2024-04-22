@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .spdx_classes import Checksum, SPDX
+from .spdx_classes import SPDX, Checksum
 
 __all__ = (
     "Checksum",

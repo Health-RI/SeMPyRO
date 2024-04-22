@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from rdflib import URIRef
-from rdflib.namespace import Namespace, DefinedNamespace
+from rdflib.namespace import DefinedNamespace, Namespace
 
 
 class GeoSPARQL(DefinedNamespace):

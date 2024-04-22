@@ -13,9 +13,10 @@
 # limitations under the License.
 
 from pathlib import Path
-from pydantic import ConfigDict, Field, AnyHttpUrl
-from rdflib.namespace import ODRL2
 from typing import List, Union
+
+from pydantic import AnyHttpUrl, ConfigDict, Field
+from rdflib.namespace import ODRL2
 
 from sempyro import RDFModel
 
@@ -106,7 +107,7 @@ class ODRLPolicy(RDFModel):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "odrl")
-    ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, f"ODRLPolicy.json"),
+    ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, "ODRLPolicy.json"),
                                    file_format="json")
-    ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, f"ODRLPolicy.yaml"),
+    ODRLPolicy.save_schema_to_file(path=Path(json_models_folder, "ODRLPolicy.yaml"),
                                    file_format="yaml")
