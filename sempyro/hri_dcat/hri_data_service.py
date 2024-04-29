@@ -18,13 +18,13 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro import LiteralField, RDFModel
-from sempyro.dcat import DCATResource
+from sempyro import LiteralField
+from sempyro.dcat import DataService, DCATResource
 from sempyro.hri_dcat import HRIDataset
 from sempyro.utils.validator_functions import force_literal_field
 
 
-class HRIDataService(RDFModel):
+class HRIDataService(DataService):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
     model_config = ConfigDict(
                               json_schema_extra={
@@ -35,25 +35,25 @@ class HRIDataService(RDFModel):
                               }
                               )
     endpoint_url: List[Union[AnyHttpUrl, DCATResource]] = Field(
-        description="The root location or primary endpoint of the service (a Web-resolvable IRI).",
+        description="The root location or primary endpoint of the service (a Web-resolvable IRI). HRI mandatory",
         rdf_term=DCAT.endpointURL,
         rdf_type="uri"
     )
     title: List[LiteralField] = Field(
-        description="A name given to the resource.",
+        description="A name given to the resource. HRI mandatory",
         rdf_term=DCTERMS.title,
         rdf_type="rdfs_literal"
     )
     serves_dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
         default=None,
-        description="A collection of data that this data service can distribute.",
+        description="A collection of data that this data service can distribute. HRI recommended",
         rdf_term=DCAT.servesDataset,
         rdf_type="uri"
     )
     endpoint_description: List[Union[AnyHttpUrl, DCATResource, LiteralField]] = Field(
         default=None,
         description="A description of the services available via the end-points, including their operations, "
-                    "parameters etc.",
+                    "parameters etc. HRI recommended",
         rdf_term=DCAT.endpointDescription,
         rdf_type="uri"
     )
