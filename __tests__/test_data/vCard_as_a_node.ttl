@@ -4,7 +4,7 @@
 @prefix v: <http://www.w3.org/2006/vcard/ns#> .
 
 ex:MagicBus a dcat:Dataset ;
-    dcterms:creator [ a v:VCard ;
+    dcterms:creator [ a v:Kind ;
             v:fn "Emir Kusturica"@en,
                 "Емир Кустурица"@sr ;
             v:hasEmail <mailto:exampleemail@domain.com> ;

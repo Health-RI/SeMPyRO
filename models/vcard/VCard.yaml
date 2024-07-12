@@ -1,4 +1,4 @@
-$IRI: http://www.w3.org/2006/vcard/ns#VCard
+$IRI: http://www.w3.org/2006/vcard/ns#Kind
 $defs:
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
