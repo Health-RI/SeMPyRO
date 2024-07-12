@@ -1657,7 +1657,7 @@ $defs:
           format: uri
           minLength: 1
           type: string
-        rdf_term: http://www.w3.org/ns/dcat#themeTaxonomy
+        rdf_term: http://www.w3.org/ns/dcat#theme
         rdf_type: uri
         title: Theme
         type: array
@@ -1670,7 +1670,8 @@ $defs:
         title: Title
         type: array
       type:
-        description: The nature or genre of the resource. HRI mandatory
+        default:
+        description: The nature or genre of the resource. HRI recommended
         items:
           format: uri
           minLength: 1
@@ -1926,7 +1927,6 @@ $defs:
     - publisher
     - theme
     - title
-    - type
     - issued
     - modified
     title: HRIDataset

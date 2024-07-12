@@ -1919,7 +1919,7 @@
             "minLength": 1,
             "type": "string"
           },
-          "rdf_term": "http://www.w3.org/ns/dcat#themeTaxonomy",
+          "rdf_term": "http://www.w3.org/ns/dcat#theme",
           "rdf_type": "uri",
           "title": "Theme",
           "type": "array"
@@ -1935,7 +1935,8 @@
           "type": "array"
         },
         "type": {
-          "description": "The nature or genre of the resource. HRI mandatory",
+          "default": null,
+          "description": "The nature or genre of the resource. HRI recommended",
           "items": {
             "format": "uri",
             "minLength": 1,
@@ -2259,7 +2260,6 @@
         "publisher",
         "theme",
         "title",
-        "type",
         "issued",
         "modified"
       ],
