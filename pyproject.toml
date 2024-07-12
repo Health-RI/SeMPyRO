@@ -48,6 +48,9 @@ Documentation = "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
 Repository = "https://github.com/Health-RI/SeMPyRO.git"
 Issues = "https://github.com/Health-RI/SeMPyRO/issues"
 
+[tool.hatch.envs.docs]
+features = ["notebook-docs"]
+
 [tool.hatch.envs.test]
 dependencies = [
   "pytest",
