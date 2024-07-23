@@ -14,6 +14,7 @@
 
 import json
 from pathlib import Path
+import sys
 
 import pytest
 from rdflib import DCAT, DCTERMS, RDF, Graph, URIRef
@@ -36,6 +37,7 @@ def test_spatial_objects(model_name):
     assert json.dumps(model_json) == json.dumps(actual_schema)
 
 
+@pytest.mark.xfail(sys.platform == "win32", reason="Different line endings Windows/*nix systems")
 def test_spatial_ex29():
     expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "spatial_ex29.ttl"))
 

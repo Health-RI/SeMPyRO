@@ -95,7 +95,7 @@ def test_vcard_namespace():
     film_director.to_graph_node(graph=actual_graph,
                                 subject=subject,
                                 node_predicate=DCTERMS.creator,
-                                node_type=VCARD.VCard)
+                                node_type=VCARD.Kind)
     expected_graph = Graph()
     expected_graph.bind("ex", example_ns)
     expected_graph.bind("v", VCARD)

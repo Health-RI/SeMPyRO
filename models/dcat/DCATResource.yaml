@@ -261,7 +261,7 @@ $defs:
     title: Status
     type: string
   VCard:
-    $IRI: http://www.w3.org/2006/vcard/ns#VCard
+    $IRI: http://www.w3.org/2006/vcard/ns#Kind
     $namespace: http://www.w3.org/2006/vcard/ns#
     $ontology: https://www.w3.org/TR/vcard-rdf/
     $prefix: v

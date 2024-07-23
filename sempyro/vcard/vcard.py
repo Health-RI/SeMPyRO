@@ -34,7 +34,7 @@ class VCard(RDFModel):
                               json_schema_extra={
                                   "$ontology": "https://www.w3.org/TR/vcard-rdf/",
                                   "$namespace": str(VCARD),
-                                  "$IRI": VCARD.VCard,
+                                  "$IRI": VCARD.Kind,
                                   "$prefix": "v"
                               }
                               )

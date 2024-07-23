@@ -76,7 +76,7 @@ class HRIDataset(DCATDataset):
     )
     theme: List[AnyHttpUrl] = Field(
         description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
-        rdf_term=DCAT.themeTaxonomy,
+        rdf_term=DCAT.theme,
         rdf_type="uri"
     )
     title: List[LiteralField] = Field(
@@ -85,7 +85,8 @@ class HRIDataset(DCATDataset):
         rdf_type="rdfs_literal"
     )
     type: List[AnyHttpUrl] = Field(
-        description="The nature or genre of the resource. HRI mandatory",
+        default=None,
+        description="The nature or genre of the resource. HRI recommended",
         rdf_term=DCTERMS.type,
         rdf_type="uri")
     license: AnyHttpUrl = Field(
@@ -118,7 +119,7 @@ class HRIDataset(DCATDataset):
         rdf_type="uri"
     )
 
-    @field_validator("title", "description", mode="before")
+    @field_validator("title", "description", "keyword", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
         return [force_literal_field(item) for item in value]

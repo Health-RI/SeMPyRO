@@ -9,8 +9,8 @@ description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a P
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
 requires-python = ">= 3.8"
 authors = [
-    { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
-    { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
+  { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
+  { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
 ]
 
 classifiers = [
@@ -34,25 +34,21 @@ dependencies = [
 ]
 
 readme = "README.md"
-icense = {file = "LICENSE"}
+license = { file = "LICENSE" }
 
 [project.optional-dependencies]
-notebook_docs = [
-    "notebook >= 7.0.6",
-    "pandas >=1.5.3",
-    "tabulate >= 0.9.0"
-]
+notebook_docs = ["notebook >= 7.0.6", "pandas >=1.5.3", "tabulate >= 0.9.0"]
 
 [project.urls]
 Documentation = "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
 Repository = "https://github.com/Health-RI/SeMPyRO.git"
 Issues = "https://github.com/Health-RI/SeMPyRO/issues"
 
+[tool.hatch.envs.docs]
+features = ["notebook-docs"]
+
 [tool.hatch.envs.test]
-dependencies = [
-  "pytest",
-  "pytest-cov"
-]
+dependencies = ["pytest", "pytest-cov"]
 
 [[tool.hatch.envs.test.matrix]]
 python = ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy3.9", "pypy3.10"]
