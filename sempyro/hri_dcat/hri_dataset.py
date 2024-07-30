@@ -62,7 +62,7 @@ class HRIDataset(DCATDataset):
     identifier: Union[str, LiteralField] = Field(
         description="A unique identifier of the resource being described or cataloged. HRI mandatory",
         rdf_term=DCTERMS.identifier,
-        rdf_type="xsd:string"
+        rdf_type="rdfs_literal"
     )
     modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         description="Most recent date on which the resource was changed, updated or modified. HRI mandatory",
