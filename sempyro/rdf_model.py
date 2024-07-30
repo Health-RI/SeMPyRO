@@ -113,9 +113,10 @@ class LiteralField(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def validate(cls, data: Dict) -> Dict[str, Any]:
-        if data.get("datatype") and data.get("language"):
-            raise ValueError("A Literal can only have one of 'language' or 'datatype', "
-                             "per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal")
+        if isinstance(data, dict):
+            if data.get("datatype") and data.get("language"):
+                raise ValueError("A Literal can only have one of 'language' or 'datatype', "
+                                "per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal")
         return data
 
     @field_validator("datatype", mode="before")
