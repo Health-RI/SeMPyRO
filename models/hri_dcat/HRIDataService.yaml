@@ -1088,7 +1088,7 @@ $defs:
         description: A unique identifier of the resource being described or cataloged.
           HRI mandatory
         rdf_term: http://purl.org/dc/terms/identifier
-        rdf_type: xsd:string
+        rdf_type: rdfs_literal
         title: Identifier
       is_referenced_by:
         default:
