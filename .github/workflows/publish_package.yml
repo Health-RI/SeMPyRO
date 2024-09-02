@@ -36,6 +36,6 @@ jobs:
     - name: Test package
       run: hatch run +py=${{ env.PYTHON_VERSION }} test:test
     - name: Push Python artifacts to PyPI
-      uses: pypa/gh-action-pypi-publish@v1.9.0
+      uses: pypa/gh-action-pypi-publish@v1.10.0
       with:
         skip-existing: true
