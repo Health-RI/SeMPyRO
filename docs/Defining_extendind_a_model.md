@@ -29,7 +29,7 @@ class CustomAgent(Agent):
         rdf_term=FOAF.birthday,
         rdf_type="uri"
     )
-    gender: Literal["Male", "Femail", "Other", "Ambiguous", "Unknown"] = Field(
+    gender: Literal["Male", "Female", "Other", "Ambiguous", "Unknown"] = Field(
         default=None,
         description="Gender as per Athena classification",
         rdf_term=FOAF.gender,
