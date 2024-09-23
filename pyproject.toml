@@ -41,7 +41,7 @@ notebook_docs = [
   "notebook >= 7.0.6",
   "pandas >=1.5.3",
   "tabulate >= 0.9.0",
-  "fdpAPIconnector >= 0.0.5",
+  "fairclient >= 1.0.0",
 ]
 
 [project.urls]
