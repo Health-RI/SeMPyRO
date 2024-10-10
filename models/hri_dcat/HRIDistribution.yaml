@@ -1570,6 +1570,7 @@ $defs:
         title: Landing Page
         type: array
       license:
+        default:
         description: A legal document under which the resource is made available.
         format: uri
         minLength: 1
@@ -1923,7 +1924,6 @@ $defs:
     - creator
     - description
     - identifier
-    - license
     - publisher
     - theme
     - title

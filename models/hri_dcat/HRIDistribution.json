@@ -1809,6 +1809,7 @@
           "type": "array"
         },
         "license": {
+          "default": null,
           "description": "A legal document under which the resource is made available.",
           "format": "uri",
           "minLength": 1,
@@ -2256,7 +2257,6 @@
         "creator",
         "description",
         "identifier",
-        "license",
         "publisher",
         "theme",
         "title",
