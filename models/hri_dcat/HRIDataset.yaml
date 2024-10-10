@@ -1285,6 +1285,7 @@ properties:
     title: Landing Page
     type: array
   license:
+    default:
     description: A legal document under which the resource is made available.
     format: uri
     minLength: 1
@@ -1634,7 +1635,6 @@ required:
 - creator
 - description
 - identifier
-- license
 - publisher
 - theme
 - title
