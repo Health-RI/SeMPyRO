@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import pytest
 from rdflib import DCAT, DCTERMS, RDF, Graph, URIRef

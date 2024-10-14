@@ -15,7 +15,7 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field
+from pydantic import AnyUrl, ConfigDict, Field
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField, RDFModel
@@ -23,21 +23,27 @@ from sempyro import LiteralField, RDFModel
 
 class Agent(RDFModel):
     model_config = ConfigDict(
-                              json_schema_extra={
-                                  "$ontology": "http://xmlns.com/foaf/spec/",
-                                  "$namespace": str(FOAF),
-                                  "$IRI": FOAF.Agent,
-                                  "$prefix": "foaf"
-                              }
-                              )
+        json_schema_extra={
+            "$ontology": "http://xmlns.com/foaf/spec/",
+            "$namespace": str(FOAF),
+            "$IRI": FOAF.Agent,
+            "$prefix": "foaf",
+        }
+    )
 
-    name: List[Union[str, LiteralField]] = Field(description="A name of the agent",
-                                                 rdf_term=FOAF.name,
-                                                 rdf_type="rdfs_literal"
-                                                 )
-    identifier: Union[str, LiteralField] = Field(description="A unique identifier of the agent.",
-                                                 rdf_term=DCTERMS.identifier,
-                                                 rdf_type="rdfs_literal")
+    name: List[Union[str, LiteralField]] = Field(
+        description="A name of the agent", rdf_term=FOAF.name, rdf_type="rdfs_literal"
+    )
+    identifier: Union[str, LiteralField] = Field(
+        description="A unique identifier of the agent.", rdf_term=DCTERMS.identifier, rdf_type="rdfs_literal"
+    )
+    mbox: List[AnyUrl] = Field(
+        default=None,
+        description="A personal mailbox, ie. an Internet mailbox associated "
+        "with exactly one owner, the first owner of this mailbox.",
+        rdf_term=FOAF.mbox,
+        rdf_type="uri",
+    )
 
 
 if __name__ == "__main__":
