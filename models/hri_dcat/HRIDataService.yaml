@@ -1126,6 +1126,7 @@ $defs:
       license:
         default:
         description: A legal document under which the resource is made available.
+          HRI recommended
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/license
