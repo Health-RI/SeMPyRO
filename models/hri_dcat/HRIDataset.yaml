@@ -1297,7 +1297,9 @@ properties:
     title: Landing Page
     type: array
   license:
-    description: A legal document under which the resource is made available.
+    default:
+    description: A legal document under which the resource is made available. HRI
+      recommended
     format: uri
     minLength: 1
     rdf_term: http://purl.org/dc/terms/license
@@ -1646,7 +1648,6 @@ required:
 - creator
 - description
 - identifier
-- license
 - publisher
 - theme
 - title

@@ -90,7 +90,8 @@ class HRIDataset(DCATDataset):
         rdf_term=DCTERMS.type,
         rdf_type="uri")
     license: AnyHttpUrl = Field(
-        description="A legal document under which the resource is made available.",
+        default=None,
+        description="A legal document under which the resource is made available. HRI recommended",
         rdf_term=DCTERMS.license,
         rdf_type="uri"
     )

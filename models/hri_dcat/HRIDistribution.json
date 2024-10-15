@@ -1822,7 +1822,8 @@
           "type": "array"
         },
         "license": {
-          "description": "A legal document under which the resource is made available.",
+          "default": null,
+          "description": "A legal document under which the resource is made available. HRI recommended",
           "format": "uri",
           "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/license",
@@ -2269,7 +2270,6 @@
         "creator",
         "description",
         "identifier",
-        "license",
         "publisher",
         "theme",
         "title",
