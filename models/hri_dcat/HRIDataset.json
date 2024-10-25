@@ -260,6 +260,19 @@
           "rdf_term": "http://purl.org/dc/terms/identifier",
           "rdf_type": "rdfs_literal",
           "title": "Identifier"
+        },
+        "mbox": {
+          "default": null,
+          "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
+          "rdf_type": "uri",
+          "title": "Mbox",
+          "type": "array"
         }
       },
       "required": [
@@ -1420,7 +1433,8 @@
       "type": "array"
     },
     "license": {
-      "description": "A legal document under which the resource is made available.",
+      "default": null,
+      "description": "A legal document under which the resource is made available. HRI recommended",
       "format": "uri",
       "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/license",
@@ -1867,7 +1881,6 @@
     "creator",
     "description",
     "identifier",
-    "license",
     "publisher",
     "theme",
     "title",

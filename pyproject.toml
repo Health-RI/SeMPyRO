@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "sempyro"
-version = "v1.4.0"
+dynamic = ["version"]
 description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
 requires-python = ">= 3.8"
@@ -48,6 +48,12 @@ notebook_docs = [
 Documentation = "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
 Repository = "https://github.com/Health-RI/SeMPyRO.git"
 Issues = "https://github.com/Health-RI/SeMPyRO/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
 
 [tool.hatch.envs.docs]
 features = ["notebook-docs"]

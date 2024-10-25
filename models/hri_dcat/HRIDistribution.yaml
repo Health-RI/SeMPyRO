@@ -259,6 +259,18 @@ $defs:
         rdf_term: http://purl.org/dc/terms/identifier
         rdf_type: rdfs_literal
         title: Identifier
+      mbox:
+        default:
+        description: A personal mailbox, ie. an Internet mailbox associated with exactly
+          one owner, the first owner of this mailbox.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://xmlns.com/foaf/0.1/mbox
+        rdf_type: uri
+        title: Mbox
+        type: array
     required:
     - name
     - identifier
@@ -1570,7 +1582,9 @@ $defs:
         title: Landing Page
         type: array
       license:
+        default:
         description: A legal document under which the resource is made available.
+          HRI recommended
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/license
@@ -1923,7 +1937,6 @@ $defs:
     - creator
     - description
     - identifier
-    - license
     - publisher
     - theme
     - title
