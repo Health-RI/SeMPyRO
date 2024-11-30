@@ -37,7 +37,7 @@ jobs:
       run: |
         hatch run +py=${{ matrix.python-version }} test:cov --doctest-modules --junitxml=junit/test-results.xml
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
