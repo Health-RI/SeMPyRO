@@ -13,11 +13,12 @@
 # limitations under the License.
 
 from datetime import date, datetime
+from enum import Enum
 from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
-from rdflib.namespace import DCAT, DCTERMS, FOAF
+from rdflib.namespace import DCAT, DCTERMS, FOAF, URIRef
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDataset
@@ -25,6 +26,23 @@ from sempyro.foaf import Agent
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
 from sempyro.vcard import VCard
+
+
+class DatasetTheme(Enum):
+    agri = URIRef("http://publications.europa.eu/resource/authority/data-theme/AGRI")
+    econ = URIRef("http://publications.europa.eu/resource/authority/data-theme/ECON")
+    educ = URIRef("http://publications.europa.eu/resource/authority/data-theme/EDUC")
+    ener = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENER")
+    envi = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENVI")
+    gove = URIRef("http://publications.europa.eu/resource/authority/data-theme/GOVE")
+    heal = URIRef("http://publications.europa.eu/resource/authority/data-theme/HEAL")
+    intr = URIRef("http://publications.europa.eu/resource/authority/data-theme/INTR")
+    just = URIRef("http://publications.europa.eu/resource/authority/data-theme/JUST")
+    op_datpro = URIRef("http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO")
+    regi = URIRef("http://publications.europa.eu/resource/authority/data-theme/REGI")
+    soci = URIRef("http://publications.europa.eu/resource/authority/data-theme/SOCI")
+    tech = URIRef("http://publications.europa.eu/resource/authority/data-theme/TECH")
+    tran = URIRef("http://publications.europa.eu/resource/authority/data-theme/TRAN")
 
 
 class HRIDataset(DCATDataset):
@@ -38,7 +56,7 @@ class HRIDataset(DCATDataset):
                                   "$prefix": "dcat"
                               }
                               )
-    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+    contact_point: Union[AnyHttpUrl, VCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
         rdf_term=DCAT.contactPoint,
         rdf_type="uri")
@@ -74,7 +92,7 @@ class HRIDataset(DCATDataset):
         rdf_term=DCTERMS.publisher,
         rdf_type="uri"
     )
-    theme: List[AnyHttpUrl] = Field(
+    theme: List[DatasetTheme] = Field(
         description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
         rdf_term=DCAT.theme,
         rdf_type="uri"
