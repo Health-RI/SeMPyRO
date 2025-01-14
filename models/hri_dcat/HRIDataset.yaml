@@ -322,6 +322,24 @@ $defs:
         type: string
     title: Association
     type: object
+  DatasetTheme:
+    enum:
+    - http://publications.europa.eu/resource/authority/data-theme/AGRI
+    - http://publications.europa.eu/resource/authority/data-theme/ECON
+    - http://publications.europa.eu/resource/authority/data-theme/EDUC
+    - http://publications.europa.eu/resource/authority/data-theme/ENER
+    - http://publications.europa.eu/resource/authority/data-theme/ENVI
+    - http://publications.europa.eu/resource/authority/data-theme/GOVE
+    - http://publications.europa.eu/resource/authority/data-theme/HEAL
+    - http://publications.europa.eu/resource/authority/data-theme/INTR
+    - http://publications.europa.eu/resource/authority/data-theme/JUST
+    - http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO
+    - http://publications.europa.eu/resource/authority/data-theme/REGI
+    - http://publications.europa.eu/resource/authority/data-theme/SOCI
+    - http://publications.europa.eu/resource/authority/data-theme/TECH
+    - http://publications.europa.eu/resource/authority/data-theme/TRAN
+    title: DatasetTheme
+    type: string
   End:
     $IRI: http://www.w3.org/ns/prov#End
     $namespace: http://www.w3.org/ns/prov#
@@ -1202,17 +1220,15 @@ properties:
     title: Conforms To
     type: string
   contact_point:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/VCard'
     description: Relevant contact information for the cataloged resource. HRI mandatory
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/VCard'
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
     title: Contact Point
-    type: array
   creator:
     description: The entity responsible for producing the resource. Resources of type
       foaf:Agent are recommended as values for this property. HRI mandatory
@@ -1382,9 +1398,7 @@ properties:
     description: A main category of the resource. A resource can have multiple themes.
       HRI mandatory
     items:
-      format: uri
-      minLength: 1
-      type: string
+      $ref: '#/$defs/DatasetTheme'
     rdf_term: http://www.w3.org/ns/dcat#theme
     rdf_type: uri
     title: Theme
