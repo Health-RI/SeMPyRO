@@ -81,6 +81,15 @@ def test_agent():
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
 
 
+def test_agent_mailto():
+    person = Agent(name=["Jorrit H. Poelen"],
+                   identifier="https://dcat.example.org/PoelenJorritHID",
+                   mbox="test@example.com")
+    actual_graph = person.to_graph(subject=URIRef("https://dcat.example.org/PoelenJorritHID"))
+    expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "agent_mailto.ttl"))
+    assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
+
+
 def test_vcard_namespace():
     actual_graph = Graph()
     example_ns = Namespace("http://www.example.com/")
