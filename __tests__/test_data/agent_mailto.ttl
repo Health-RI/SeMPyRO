@@ -1,0 +1,7 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://dcat.example.org/PoelenJorritHID> a foaf:Agent ;
+    dcterms:identifier "https://dcat.example.org/PoelenJorritHID" ;
+    foaf:mbox <mailto:test@example.com> ;
+    foaf:name "Jorrit H. Poelen" .
