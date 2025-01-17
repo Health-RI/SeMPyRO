@@ -9,7 +9,7 @@ and schema generation processes.
 - **Data Validation**: Easily validate data against schemas, ensuring its correctness, integrity and DCAT-AP compatibility.
 - **RDF Graph Conversion**: Convert data into RDF graphs effortlessly, enabling integration with RDF-based systems and applications.
 - **Schema Generation**: Generate JSON/YAML schemas compatible with the DCAT-AP v3 profile, facilitating interoperability and compliance with standards.
-- **Pedantic Integration**: Built upon the robust [Pydantic](https://docs.pydantic.dev/) library, leveraging its powerful validation capabilities and extending them for RDF handling.
+- **Pydantic Integration**: Built upon the robust [Pydantic](https://docs.pydantic.dev/) library, leveraging its powerful validation capabilities and extending them for RDF handling.
 
 ## Background
 
