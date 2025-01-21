@@ -59,7 +59,7 @@ class VCard(RDFModel):
     def _convert_to_mailto(cls, value: str) -> AnyUrl:
         mail_part = value
         if value.startswith("mailto:"):
-            mail_part = re.split(r":|\//", value)[-1]
+            mail_part = re.split(r":|//", value)[-1]
         mail_part = validate_email(mail_part)[1]
         return AnyUrl(f"mailto:{mail_part}")
 

@@ -81,6 +81,30 @@ def test_agent():
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
 
 
+@pytest.mark.parametrize("email", ["mailto:exampleemail@domain.com",
+                                   "mailto://exampleemail@domain.com",
+                                   "exampleemail@domain.com",
+                                   ["exampleemail@domain.com"],
+                                   "mailto:http://exampleemail@domain.com"
+                                   ])
+def test_agent_email(email):
+    card_obj = Agent(mbox=email, name=["I am example"], identifier="https://orcid.org/0009-0000-xxxx-xxxx")
+    expected = [Url("mailto:exampleemail@domain.com")]
+    assert card_obj.mbox == expected
+
+
+@pytest.mark.parametrize("email", ["my:email@gmail.com",
+                                   "myemailgmail.com",
+                                   "mailto:emailgmail.com",
+                                   "http://email@gmail.com",
+                                   ])
+def test_email_email_validation(email):
+    with pytest.raises(ValidationError):
+        card_obj = Agent(mbox=email,
+                         name=["I am example"],
+                         identifier="https://orcid.org/0009-0000-xxxx-xxxx")
+
+
 def test_vcard_namespace():
     actual_graph = Graph()
     example_ns = Namespace("http://www.example.com/")
