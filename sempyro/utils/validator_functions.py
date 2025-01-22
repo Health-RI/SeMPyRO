@@ -14,10 +14,11 @@
 
 import re
 from datetime import datetime
-from typing import Any, Union
+from typing import Any, Union, List
 
 from dateutil import parser
-from pydantic import ValidationError
+from pydantic import ValidationError, AnyUrl
+from pydantic.networks import validate_email
 
 from sempyro import LiteralField
 from sempyro.utils.constants import year_month_pattern, year_pattern
@@ -50,3 +51,30 @@ def date_handler(value: Union[str, Any]) -> Union[str, datetime, Any]:
             except TypeError:
                 raise ValidationError
     return value
+
+
+def convert_to_mailto(value: str) -> AnyUrl:
+    """
+    Checks if a string starts with `mailto:`, and if not, prefixes it with this. After that it uses a
+    `validate_email` from Pydantic to validate the email.
+    :param value: str, input value
+    :return: a variable of type `AnyUrl` containing a valid email address with the `mailto:` prefix.
+    :raises: PydanticCustomError in case the email is not valid.
+    """
+    mail_part = value
+    if value.startswith("mailto:"):
+        mail_part = re.split(r":|//", value)[-1]
+    mail_part = validate_email(mail_part)[1]
+    return AnyUrl(f"mailto:{mail_part}")
+
+
+def validate_convert_email(value: Union[str, AnyUrl, List[Union[str, AnyUrl]]]) -> List[AnyUrl]:
+    """
+    Iteratively applies the function `convert_to_mailto` over the (list of) input value(s).
+    :param value: list or str, (list of) input value(s)
+    :return: a list of validated emails with the `mailto:` prefix.
+    """
+    if not isinstance(value, list):
+        value = [value]
+    new_list = [convert_to_mailto(item) for item in value]
+    return new_list
