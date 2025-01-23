@@ -15,6 +15,7 @@
 import json
 import logging
 import re
+import sys
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Type, Union
@@ -64,6 +65,8 @@ class ModelAnnotationUtil:
                 self.fields.items()}
 
     def get_fields_types(self):
+        if sys.version_info < (3, 10):
+            logger.warning("This functionality can cause errors on Python 3.9, see issue 43 on Github.")
         return {key: {"datatype": self._get_list_types(datatype=value.annotation),
                       "RDF type": value.json_schema_extra.get("rdf_type", "No RDF type specified for the field")} for
                 key, value in self.fields.items()}

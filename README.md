@@ -60,3 +60,9 @@ Additionally you may need to install pandas and/or [erdantic](./docs/Defining_ex
 ## Documentation
 
 For more information on package content and usage please review [documentation](./docs).
+
+## Known issues
+
+Method `.get_fields_types()` from the `ModelAnnotationUtil` object returned by `RDFModel.annotate_model()` returns 
+an `AttributeError` when run under Python 3.9. This method does work in Python 3.10 and up. 
+See issue [#43](https://github.com/Health-RI/SeMPyRO/issues/43).
