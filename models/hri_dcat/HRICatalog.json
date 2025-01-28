@@ -1310,27 +1310,20 @@
       "type": "string"
     },
     "contact_point": {
-      "default": null,
-      "description": "Relevant contact information for the cataloged resource. Use of vCard is recommended",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/VCard"
-          },
-          {
-            "$ref": "#/$defs/Agent"
-          }
-        ]
-      },
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/VCard"
+        }
+      ],
+      "description": "Relevant contact information for the cataloged resource. HRI mandatory",
       "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
       "rdf_type": "uri",
-      "title": "Contact Point",
-      "type": "array"
+      "title": "Contact Point"
     },
     "creator": {
       "default": null,
