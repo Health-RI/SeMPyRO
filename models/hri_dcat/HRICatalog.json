@@ -1917,6 +1917,7 @@
     }
   },
   "required": [
+    "contact_point",
     "description",
     "publisher",
     "title"
