@@ -21,6 +21,7 @@ from rdflib.namespace import DCAT, DCTERMS
 from sempyro import LiteralField, RDFModel
 from sempyro.dcat import DCATCatalog
 from sempyro.foaf import Agent
+from sempyro.vcard import VCard
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -48,6 +49,11 @@ class HRICatalog(DCATCatalog):
     publisher: List[Union[AnyHttpUrl, Agent]] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
         rdf_term=DCTERMS.publisher,
+        rdf_type="uri"
+    )
+    contact_point: Union[AnyHttpUrl, VCard] = Field(
+        description="Relevant contact information for the cataloged resource. HRI mandatory",
+        rdf_term=DCAT.contactPoint,
         rdf_type="uri"
     )
     dataset: List[AnyHttpUrl] = Field(
