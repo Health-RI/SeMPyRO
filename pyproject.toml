@@ -27,8 +27,7 @@ classifiers = [
 
 dependencies = [
   "rdflib >= 7.0.0",
-  # "pydantic ~= 2.5.2",
-  "pydantic ~= 2.10",
+  "pydantic ~= 2.10.6",
   "ruamel.yaml ~= 0.18.5",
   "email-validator == 2.2.0",
   "python-dateutil ~= 2.8",
