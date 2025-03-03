@@ -38,41 +38,55 @@ class HRICatalog(DCATCatalog):
     )
     title: List[LiteralField] = Field(
         description="A name given to the resource. HRI mandatory",
-        rdf_term=DCTERMS.title,
-        rdf_type="rdfs_literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.title,
+            "rdf_type": "rdfs_literal"
+        }
     )
     description: List[LiteralField] = Field(
         description="A free-text account of the resource. HRI mandatory",
-        rdf_term=DCTERMS.description,
-        rdf_type="literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.description,
+            "rdf_type": "literal"
+        }
     )
     publisher: List[Union[AnyHttpUrl, Agent]] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
-        rdf_term=DCTERMS.publisher,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
     )
     contact_point: Union[AnyHttpUrl, VCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
-        rdf_term=DCAT.contactPoint,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
     )
     dataset: List[AnyHttpUrl] = Field(
         default=None,
         description="relates every catalogue to its containing datasets. HRI recommended",
-        rdf_term=DCAT.dataset,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.dataset,
+            "rdf_type": "uri"
+        }
     )
     service: List[AnyHttpUrl] = Field(
         default=None,
         description="A service that is listed in the catalog. HRI recommended",
-        rdf_term=DCAT.DataService,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.DataService,
+            "rdf_type": "uri"
+        }
     )
     catalog: List[AnyHttpUrl] = Field(
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
-        rdf_term=DCAT.Catalog,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.Catalog,
+            "rdf_type": "uri"
+        }
     )
 
     @field_validator("title", "description", mode="before")

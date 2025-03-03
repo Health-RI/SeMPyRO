@@ -66,8 +66,8 @@ $defs:
           generation, or invalidation involving an activity precedes the activity's
           end. An end may refer to a trigger entity that terminated the activity,
           or to an activity, known as ender that generated the trigger.
-        edf_type: http://www.w3.org/ns/prov#End
         rdf_term: http://www.w3.org/ns/prov#qualifiedEnd
+        rdf_type: http://www.w3.org/ns/prov#End
       wasEndedBy:
         default:
         description: End is when an activity is deemed to have been ended by an entity,
@@ -1991,9 +1991,6 @@ $defs:
         anyOf:
         - $ref: '#/$defs/LiteralField'
         - $ref: '#/$defs/Geometry'
-        bind_namespace:
-        - locn
-        - http://www.w3.org/ns/locn#
         default:
         description: Associates a spatial thing [SDW-BP] with a corresponding geometry.
         rdf_term: http://www.w3.org/ns/locn#geometry
