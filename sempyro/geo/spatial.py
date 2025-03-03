@@ -138,10 +138,11 @@ class Location(RDFModel):
     geometry: Union[LiteralField, Geometry] = Field(
         default=None,
         description="Associates a spatial thing [SDW-BP] with a corresponding geometry.",
-        bind_namespace=("locn", str(LOCN)),
+        # bind_namespace=("locn", str(LOCN)),
         json_schema_extra={
             "rdf_term": LOCN.geometry,
-            "rdf_type": "geosparql:wktLiteral"
+            "rdf_type": "geosparql:wktLiteral",
+            "bind_namespace": ("locn", str(LOCN)),
         }
     )
     bounding_box: Union[LiteralField, str] = Field(
