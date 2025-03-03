@@ -153,8 +153,7 @@ properties:
     rdf_type: rdfs_literal
     title: Bounding Box
   centroid:
-    allOf:
-    - $ref: '#/$defs/LiteralField'
+    $ref: '#/$defs/LiteralField'
     default:
     description: The geographic center (centroid) of a spatial thing [SDW-BP].
     rdf_term: http://www.w3.org/ns/dcat#centroid

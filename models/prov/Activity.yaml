@@ -262,8 +262,7 @@ properties:
     title: Wasassociatedwith
     type: string
   qualifiedEnd:
-    allOf:
-    - $ref: '#/$defs/End'
+    $ref: '#/$defs/End'
     default:
     description: End is when an activity is deemed to have been ended by an entity,
       known as trigger. The activity no longer exists after its end. Any usage, generation,
@@ -336,8 +335,7 @@ properties:
     title: Endedattime
     type: string
   qualifiedStart:
-    allOf:
-    - $ref: '#/$defs/Start'
+    $ref: '#/$defs/Start'
     default:
     description: Start is when an activity is deemed to have been started by an entity,
       known as trigger. The activity did not exist before its start. Any usage, generation,

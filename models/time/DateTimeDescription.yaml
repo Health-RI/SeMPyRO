@@ -62,6 +62,7 @@ properties:
     rdf_term: http://www.w3.org/2006/time#hasTRS
     rdf_type: uri
     title: Hastrs
+    type: string
   year:
     default:
     description: Year position in a calendar-clock system. The range of this property
@@ -138,15 +139,13 @@ properties:
     title: Dayofyear
     type: integer
   dayOfWeek:
-    allOf:
-    - $ref: '#/$defs/DayOfWeek'
+    $ref: '#/$defs/DayOfWeek'
     default:
     description: The day of week, whose value is a member of the class time:DayOfWeek
     rdf_term: http://www.w3.org/2006/time#dayOfWeek
     rdf_type: uri
   monthOfYear:
-    allOf:
-    - $ref: '#/$defs/MonthOfYear'
+    $ref: '#/$defs/MonthOfYear'
     default:
     description: The month of the year, whose value is a member of the class time:MonthOfYear
     rdf_term: http://www.w3.org/2006/time#monthOfYear

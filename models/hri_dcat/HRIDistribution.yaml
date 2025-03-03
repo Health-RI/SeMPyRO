@@ -59,8 +59,7 @@ $defs:
         title: Wasassociatedwith
         type: string
       qualifiedEnd:
-        allOf:
-        - $ref: '#/$defs/End'
+        $ref: '#/$defs/End'
         default:
         description: End is when an activity is deemed to have been ended by an entity,
           known as trigger. The activity no longer exists after its end. Any usage,
@@ -133,8 +132,7 @@ $defs:
         title: Endedattime
         type: string
       qualifiedStart:
-        allOf:
-        - $ref: '#/$defs/Start'
+        $ref: '#/$defs/Start'
         default:
         description: Start is when an activity is deemed to have been started by an
           entity, known as trigger. The activity did not exist before its start. Any
@@ -364,8 +362,7 @@ $defs:
     description: Resource published or curated by a single agent. Abstract class
     properties:
       access_rights:
-        allOf:
-        - $ref: '#/$defs/AccessRights'
+        $ref: '#/$defs/AccessRights'
         default:
         description: Information about who can access the resource or an indication
           of its security status.
@@ -431,8 +428,7 @@ $defs:
         title: Has Part
         type: array
       has_policy:
-        allOf:
-        - $ref: '#/$defs/ODRLPolicy'
+        $ref: '#/$defs/ODRLPolicy'
         default:
         description: An ODRL conformant policy expressing the rights associated with
           the resource.
@@ -661,8 +657,7 @@ $defs:
         title: Replaces
         type: string
       status:
-        allOf:
-        - $ref: '#/$defs/Status'
+        $ref: '#/$defs/Status'
         default:
         description: The status of the resource in the context of a particular workflow
           process [VOCAB-ADMS].
@@ -1074,8 +1069,7 @@ $defs:
       or data processing functions.
     properties:
       access_rights:
-        allOf:
-        - $ref: '#/$defs/AccessRights'
+        $ref: '#/$defs/AccessRights'
         default:
         description: Information about who can access the resource or an indication
           of its security status.
@@ -1141,8 +1135,7 @@ $defs:
         title: Has Part
         type: array
       has_policy:
-        allOf:
-        - $ref: '#/$defs/ODRLPolicy'
+        $ref: '#/$defs/ODRLPolicy'
         default:
         description: An ODRL conformant policy expressing the rights associated with
           the resource.
@@ -1371,8 +1364,7 @@ $defs:
         title: Replaces
         type: string
       status:
-        allOf:
-        - $ref: '#/$defs/Status'
+        $ref: '#/$defs/Status'
         default:
         description: The status of the resource in the context of a particular workflow
           process [VOCAB-ADMS].
@@ -1487,8 +1479,7 @@ $defs:
     additionalProperties: false
     properties:
       access_rights:
-        allOf:
-        - $ref: '#/$defs/AccessRights'
+        $ref: '#/$defs/AccessRights'
         default:
         description: Information about who can access the resource or an indication
           of its security status.
@@ -1548,8 +1539,7 @@ $defs:
         title: Has Part
         type: array
       has_policy:
-        allOf:
-        - $ref: '#/$defs/ODRLPolicy'
+        $ref: '#/$defs/ODRLPolicy'
         default:
         description: An ODRL conformant policy expressing the rights associated with
           the resource.
@@ -1773,8 +1763,7 @@ $defs:
         title: Replaces
         type: string
       status:
-        allOf:
-        - $ref: '#/$defs/Status'
+        $ref: '#/$defs/Status'
         default:
         description: The status of the resource in the context of a particular workflow
           process [VOCAB-ADMS].
@@ -1860,8 +1849,8 @@ $defs:
         - $ref: '#/$defs/Frequency'
         default:
         description: The frequency at which a dataset is published.
+        rdf_term: http://purl.org/dc/terms/accrualPeriodicity
         rdf_type: uri
-        rfd_term: http://purl.org/dc/terms/accrualPeriodicity
         title: Frequency
       in_series:
         default:
@@ -2020,8 +2009,7 @@ $defs:
         rdf_type: rdfs_literal
         title: Bounding Box
       centroid:
-        allOf:
-        - $ref: '#/$defs/LiteralField'
+        $ref: '#/$defs/LiteralField'
         default:
         description: The geographic center (centroid) of a spatial thing [SDW-BP].
         rdf_term: http://www.w3.org/ns/dcat#centroid
@@ -2213,29 +2201,25 @@ $defs:
     additionalProperties: false
     properties:
       start_date:
-        allOf:
-        - $ref: '#/$defs/LiteralField'
+        $ref: '#/$defs/LiteralField'
         default:
         description: The start of the period
         rdf_term: http://www.w3.org/ns/dcat#startDate
         rdf_type: rdfs_literal
       end_date:
-        allOf:
-        - $ref: '#/$defs/LiteralField'
+        $ref: '#/$defs/LiteralField'
         default:
         description: The end of the period
         rdf_term: http://www.w3.org/ns/dcat#endDate
         rdf_type: rdfs_literal
       beginning:
-        allOf:
-        - $ref: '#/$defs/TimeInstant'
+        $ref: '#/$defs/TimeInstant'
         default:
         description: Beginning of a period or interval
         rdf_term: http://www.w3.org/2006/time#hasBeginning
         rdf_type: http://www.w3.org/2006/time#Instant
       end:
-        allOf:
-        - $ref: '#/$defs/TimeInstant'
+        $ref: '#/$defs/TimeInstant'
         default:
         description: End of a period or interval
         rdf_term: http://www.w3.org/2006/time#hasEnd
@@ -2391,16 +2375,14 @@ $defs:
         title: Inxsdgyearmonth
         type: string
       inTimePosition:
-        allOf:
-        - $ref: '#/$defs/TimePosition'
+        $ref: '#/$defs/TimePosition'
         default:
         description: Position of an instant, expressed as a temporal coordinate or
           nominal val
         rdf_term: http://www.w3.org/2006/time#inTimePosition
         rdf_type: http://www.w3.org/2006/time#TimePosition
       inDateTime:
-        allOf:
-        - $ref: '#/$defs/GeneralDateTimeDescription'
+        $ref: '#/$defs/GeneralDateTimeDescription'
         default:
         description: Position of an instant, expressed using a structured description
         rdf_term: http://www.w3.org/2006/time#inDateTime
@@ -2567,8 +2549,7 @@ properties:
     rdf_type: uri
     title: Rights
   has_policy:
-    allOf:
-    - $ref: '#/$defs/ODRLPolicy'
+    $ref: '#/$defs/ODRLPolicy'
     default:
     description: An ODRL conformant policy expressing the rights associated with the
       distribution.
@@ -2694,8 +2675,7 @@ properties:
     title: Packaging Format
     type: string
   checksum:
-    allOf:
-    - $ref: '#/$defs/Checksum'
+    $ref: '#/$defs/Checksum'
     default:
     description: The checksum property provides a mechanism that can be used to verify
       that the contents of a file or package have not changed [SPDX].

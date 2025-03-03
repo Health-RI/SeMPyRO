@@ -16,7 +16,8 @@ import json
 from pathlib import Path
 
 import pytest
-from pydantic_core import Url, ValidationError
+from pydantic import AnyUrl
+from pydantic_core import ValidationError
 from rdflib import DCAT, DCTERMS, RDF, Graph, Namespace, URIRef
 from rdflib.compare import to_isomorphic
 
@@ -48,7 +49,7 @@ def test_vcard_agent(model_name, test_path):
                                    ])
 def test_vcard_email(email):
     card_obj = VCard(hasEmail=email, full_name=["I am example"], hasUID="https://orcid.org/0009-0000-xxxx-xxxx")
-    expected = [Url("mailto:exampleemail@domain.com")]
+    expected = [AnyUrl("mailto:exampleemail@domain.com")]
     assert card_obj.hasEmail == expected
 
 
@@ -89,7 +90,7 @@ def test_agent():
                                    ])
 def test_agent_email(email):
     card_obj = Agent(mbox=email, name=["I am example"], identifier="https://orcid.org/0009-0000-xxxx-xxxx")
-    expected = [Url("mailto:exampleemail@domain.com")]
+    expected = [AnyUrl("mailto:exampleemail@domain.com")]
     assert card_obj.mbox == expected
 
 

@@ -400,11 +400,7 @@
   "description": "Resource published or curated by a single agent. Abstract class",
   "properties": {
     "access_rights": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/AccessRights"
-        }
-      ],
+      "$ref": "#/$defs/AccessRights",
       "default": null,
       "description": "Information about who can access the resource or an indication of its security status.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
@@ -490,11 +486,7 @@
       "type": "array"
     },
     "has_policy": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/ODRLPolicy"
-        }
-      ],
+      "$ref": "#/$defs/ODRLPolicy",
       "default": null,
       "description": "An ODRL conformant policy expressing the rights associated with the resource.",
       "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -774,11 +766,7 @@
       "type": "string"
     },
     "status": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/Status"
-        }
-      ],
+      "$ref": "#/$defs/Status",
       "default": null,
       "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
       "rdf_term": "http://www.w3.org/ns/adms#status",

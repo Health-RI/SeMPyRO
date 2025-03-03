@@ -324,8 +324,7 @@ additionalProperties: false
 description: Resource published or curated by a single agent. Abstract class
 properties:
   access_rights:
-    allOf:
-    - $ref: '#/$defs/AccessRights'
+    $ref: '#/$defs/AccessRights'
     default:
     description: Information about who can access the resource or an indication of
       its security status.
@@ -391,8 +390,7 @@ properties:
     title: Has Part
     type: array
   has_policy:
-    allOf:
-    - $ref: '#/$defs/ODRLPolicy'
+    $ref: '#/$defs/ODRLPolicy'
     default:
     description: An ODRL conformant policy expressing the rights associated with the
       resource.
@@ -618,8 +616,7 @@ properties:
     title: Replaces
     type: string
   status:
-    allOf:
-    - $ref: '#/$defs/Status'
+    $ref: '#/$defs/Status'
     default:
     description: The status of the resource in the context of a particular workflow
       process [VOCAB-ADMS].
