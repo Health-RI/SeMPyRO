@@ -60,52 +60,67 @@ class DCATDataset(DCATResource):
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset.",
-        rdf_term=DCAT.distribution,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.distribution,
+            "rdf_type": "uri"
+        }
     )
     temporal_coverage: List[PeriodOfTime] = Field(
         default=None,
         description="The temporal period that the dataset covers.",
-        rdf_term=DCTERMS.temporal,
-        rdf_type=DCTERMS.PeriodOfTime
+        json_schema_extra={
+            "rdf_term": DCTERMS.temporal,
+            "rdf_type": DCTERMS.PeriodOfTime
+        }
     )
     frequency: Union[AnyHttpUrl, Frequency] = Field(
         default=None,
         description="The frequency at which a dataset is published.",
-        rfd_term=DCTERMS.accrualPeriodicity,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,
+            "rdf_type": "uri"
+        }
     )
     in_series: List[AnyHttpUrl] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
-        rdf_term=DCATv3.inSeries,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCATv3.inSeries,
+            "rdf_type": "uri"
+        }
     )
     spatial: List[Union[AnyHttpUrl, Location]] = Field(
         default=None,
         description="The geographical area covered by the dataset.",
-        rdf_term=DCTERMS.spatial,
-        rdf_type="uri")
-
+        json_schema_extra={
+            "rdf_term": DCTERMS.spatial,
+            "rdf_type": "uri"
+        }
+    )
     spatial_resolution: List[float] = Field(
         default=None,
         description="Minimum spatial separation resolvable in a dataset, "
                     "measured in meters.",
-        rdf_term=DCAT.spatialResolutionInMeters,
-        rdf_type="xsd:decimal")
-
+        json_schema_extra={
+            "rdf_term": DCAT.spatialResolutionInMeters,
+            "rdf_type": "xsd:decimal"
+        }
+    )
     temporal_resolution: List[Union[str, LiteralField]] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
-        rdf_term=DCAT.temporalResolution,
-        rdf_type="xsd:duration"
+        json_schema_extra={
+            "rdf_term": DCAT.temporalResolution,
+            "rdf_type": "xsd:duration"
+        }
     )
-
     was_generated_by: List[Union[AnyHttpUrl, Activity]] = Field(
         default=None,
         description="An activity that generated, or provides the business context for, the creation of the dataset.",
-        rdf_term=PROV.wasGeneratedBy,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": PROV.wasGeneratedBy,
+            "rdf_type": "uri"
+        }
     )
 
 

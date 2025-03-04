@@ -40,13 +40,17 @@ class Checksum(RDFModel):
 
     algorithm: AnyHttpUrl = Field(
         description="The algorithm used to produce the subject Checksum.",
-        rdf_term=SPDX.algorithm,
-        rdf_type="uri"
-                           )
+        json_schema_extra={
+            "rdf_term": SPDX.algorithm,
+            "rdf_type": "uri"
+        }
+    )
     checksum_value: Union[str, LiteralField] = Field(
         description="A lower case hexadecimal encoded digest value produced using a specific algorithm.",
-        rdf_term=SPDX.checksumValue,
-        rdf_type="xsd:hexBinary"
+        json_schema_extra={
+            "rdf_term": SPDX.checksumValue,
+            "rdf_type": "xsd:hexBinary"
+        }
     )
 
 

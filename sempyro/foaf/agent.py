@@ -33,17 +33,27 @@ class Agent(RDFModel):
     )
 
     name: List[Union[str, LiteralField]] = Field(
-        description="A name of the agent", rdf_term=FOAF.name, rdf_type="rdfs_literal"
+        description="A name of the agent",
+        json_schema_extra={
+            "rdf_term": FOAF.name,
+            "rdf_type": "rdfs_literal"
+        }
     )
     identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the agent.", rdf_term=DCTERMS.identifier, rdf_type="rdfs_literal"
+        description="A unique identifier of the agent.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.identifier,
+            "rdf_type": "rdfs_literal"
+        }
     )
     mbox: List[AnyUrl] = Field(
         default=None,
         description="A personal mailbox, ie. an Internet mailbox associated "
         "with exactly one owner, the first owner of this mailbox.",
-        rdf_term=FOAF.mbox,
-        rdf_type="uri",
+        json_schema_extra={
+            "rdf_term": FOAF.mbox,
+            "rdf_type": "uri",
+        }
     )
 
     @field_validator("mbox", mode="before")

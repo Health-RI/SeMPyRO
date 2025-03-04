@@ -62,15 +62,11 @@
           "type": "string"
         },
         "qualifiedEnd": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/End"
-            }
-          ],
+          "$ref": "#/$defs/End",
           "default": null,
           "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end. An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated the trigger.",
-          "edf_type": "http://www.w3.org/ns/prov#End",
-          "rdf_term": "http://www.w3.org/ns/prov#qualifiedEnd"
+          "rdf_term": "http://www.w3.org/ns/prov#qualifiedEnd",
+          "rdf_type": "http://www.w3.org/ns/prov#End"
         },
         "wasEndedBy": {
           "default": null,
@@ -128,11 +124,7 @@
           "type": "string"
         },
         "qualifiedStart": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Start"
-            }
-          ],
+          "$ref": "#/$defs/Start",
           "default": null,
           "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did not exist before its start. Any usage, generation, or invalidation involving an activity follows the activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as starter, that generated the trigger.",
           "rdf_term": "http://www.w3.org/ns/prov#qualifiedStart",
@@ -371,11 +363,7 @@
       "additionalProperties": false,
       "properties": {
         "access_rights": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/AccessRights"
-            }
-          ],
+          "$ref": "#/$defs/AccessRights",
           "default": null,
           "description": "Information about who can access the resource or an indication of its security status.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
@@ -461,11 +449,7 @@
           "type": "array"
         },
         "has_policy": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/ODRLPolicy"
-            }
-          ],
+          "$ref": "#/$defs/ODRLPolicy",
           "default": null,
           "description": "An ODRL conformant policy expressing the rights associated with the resource.",
           "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -745,11 +729,7 @@
           "type": "string"
         },
         "status": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Status"
-            }
-          ],
+          "$ref": "#/$defs/Status",
           "default": null,
           "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
           "rdf_term": "http://www.w3.org/ns/adms#status",
@@ -847,8 +827,8 @@
           ],
           "default": null,
           "description": "The frequency at which a dataset is published.",
+          "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
           "rdf_type": "uri",
-          "rfd_term": "http://purl.org/dc/terms/accrualPeriodicity",
           "title": "Frequency"
         },
         "in_series": {
@@ -950,11 +930,7 @@
       "description": "Resource published or curated by a single agent. Abstract class",
       "properties": {
         "access_rights": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/AccessRights"
-            }
-          ],
+          "$ref": "#/$defs/AccessRights",
           "default": null,
           "description": "Information about who can access the resource or an indication of its security status.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
@@ -1040,11 +1016,7 @@
           "type": "array"
         },
         "has_policy": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/ODRLPolicy"
-            }
-          ],
+          "$ref": "#/$defs/ODRLPolicy",
           "default": null,
           "description": "An ODRL conformant policy expressing the rights associated with the resource.",
           "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -1324,11 +1296,7 @@
           "type": "string"
         },
         "status": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Status"
-            }
-          ],
+          "$ref": "#/$defs/Status",
           "default": null,
           "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
           "rdf_term": "http://www.w3.org/ns/adms#status",
@@ -1406,11 +1374,7 @@
       "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
       "properties": {
         "access_rights": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/AccessRights"
-            }
-          ],
+          "$ref": "#/$defs/AccessRights",
           "default": null,
           "description": "Information about who can access the resource or an indication of its security status.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
@@ -1496,11 +1460,7 @@
           "type": "array"
         },
         "has_policy": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/ODRLPolicy"
-            }
-          ],
+          "$ref": "#/$defs/ODRLPolicy",
           "default": null,
           "description": "An ODRL conformant policy expressing the rights associated with the resource.",
           "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -1780,11 +1740,7 @@
           "type": "string"
         },
         "status": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Status"
-            }
-          ],
+          "$ref": "#/$defs/Status",
           "default": null,
           "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
           "rdf_term": "http://www.w3.org/ns/adms#status",
@@ -2321,11 +2277,7 @@
           "title": "Bounding Box"
         },
         "centroid": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The geographic center (centroid) of a spatial thing [SDW-BP].",
           "rdf_term": "http://www.w3.org/ns/dcat#centroid",
@@ -2558,44 +2510,28 @@
       "additionalProperties": false,
       "properties": {
         "start_date": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The start of the period",
           "rdf_term": "http://www.w3.org/ns/dcat#startDate",
           "rdf_type": "rdfs_literal"
         },
         "end_date": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The end of the period",
           "rdf_term": "http://www.w3.org/ns/dcat#endDate",
           "rdf_type": "rdfs_literal"
         },
         "beginning": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimeInstant"
-            }
-          ],
+          "$ref": "#/$defs/TimeInstant",
           "default": null,
           "description": "Beginning of a period or interval",
           "rdf_term": "http://www.w3.org/2006/time#hasBeginning",
           "rdf_type": "http://www.w3.org/2006/time#Instant"
         },
         "end": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimeInstant"
-            }
-          ],
+          "$ref": "#/$defs/TimeInstant",
           "default": null,
           "description": "End of a period or interval",
           "rdf_term": "http://www.w3.org/2006/time#hasEnd",
@@ -2748,22 +2684,14 @@
           "type": "string"
         },
         "inTimePosition": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimePosition"
-            }
-          ],
+          "$ref": "#/$defs/TimePosition",
           "default": null,
           "description": "Position of an instant, expressed as a temporal coordinate or nominal val",
           "rdf_term": "http://www.w3.org/2006/time#inTimePosition",
           "rdf_type": "http://www.w3.org/2006/time#TimePosition"
         },
         "inDateTime": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/GeneralDateTimeDescription"
-            }
-          ],
+          "$ref": "#/$defs/GeneralDateTimeDescription",
           "default": null,
           "description": "Position of an instant, expressed using a structured description",
           "rdf_term": "http://www.w3.org/2006/time#inDateTime",
@@ -2960,11 +2888,7 @@
       "title": "Rights"
     },
     "has_policy": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/ODRLPolicy"
-        }
-      ],
+      "$ref": "#/$defs/ODRLPolicy",
       "default": null,
       "description": "An ODRL conformant policy expressing the rights associated with the distribution.",
       "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -3120,11 +3044,7 @@
       "type": "string"
     },
     "checksum": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/Checksum"
-        }
-      ],
+      "$ref": "#/$defs/Checksum",
       "default": null,
       "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed [SPDX].",
       "rdf_term": "http://spdx.org/rdf/terms#checksum",

@@ -36,19 +36,25 @@ class DataService(DCATResource):
         default=None,
         description="A description of the services available via the end-points, including their operations, "
                     "parameters etc.",
-        rdf_term=DCAT.endpointDescription,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.endpointDescription,
+            "rdf_type": "uri"
+        }
     )
     endpoint_url: List[Union[AnyHttpUrl, DCATResource]] = Field(
         description="The root location or primary endpoint of the service (a Web-resolvable IRI).",
-        rdf_term=DCAT.endpointURL,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.endpointURL,
+            "rdf_type": "uri"
+        }
     )
     serves_dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
         default=None,
         description="A collection of data that this data service can distribute.",
-        rdf_term=DCAT.servesDataset,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.servesDataset,
+            "rdf_type": "uri"
+        }
     )
 
 

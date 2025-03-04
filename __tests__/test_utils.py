@@ -1,5 +1,6 @@
 import pytest
-from pydantic_core import Url, PydanticCustomError
+from pydantic import AnyUrl
+from pydantic_core import PydanticCustomError
 
 from sempyro.utils.validator_functions import convert_to_mailto, validate_convert_email
 
@@ -10,7 +11,7 @@ from sempyro.utils.validator_functions import convert_to_mailto, validate_conver
                                    ])
 def test_convert_to_mailto(email):
     calculated = convert_to_mailto(email)
-    expected = Url("mailto:exampleemail@domain.com")
+    expected = AnyUrl("mailto:exampleemail@domain.com")
     assert calculated == expected
 
 

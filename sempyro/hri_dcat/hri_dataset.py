@@ -58,84 +58,114 @@ class HRIDataset(DCATDataset):
                               )
     contact_point: Union[AnyHttpUrl, VCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
-        rdf_term=DCAT.contactPoint,
-        rdf_type="uri")
-
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
+    )
     creator: List[Union[AnyHttpUrl, Agent]] = Field(
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property. HRI mandatory",
-        rdf_term=DCTERMS.creator,
-        rdf_type="uri")
-
+        json_schema_extra={
+            "rdf_term": DCTERMS.creator, "rdf_type": "uri"
+        }
+    )
     description: List[LiteralField] = Field(
         description="A free-text account of the resource. HRI mandatory",
-        rdf_term=DCTERMS.description,
-        rdf_type="literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.description,
+            "rdf_type": "literal"
+        }
     )
     issued: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
         description="Date of formal issuance (e.g., publication) of the resource. HRI mandatory",
-        rdf_term=DCTERMS.issued,
-        rdf_type="datetime_literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "datetime_literal"
+        }
     )
     identifier: Union[str, LiteralField] = Field(
         description="A unique identifier of the resource being described or cataloged. HRI mandatory",
-        rdf_term=DCTERMS.identifier,
-        rdf_type="rdfs_literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.identifier,
+            "rdf_type": "rdfs_literal"
+        }
     )
     modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         description="Most recent date on which the resource was changed, updated or modified. HRI mandatory",
-        rdf_term=DCTERMS.modified,
-        rdf_type="datetime_literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "datetime_literal"
+        }
     )
     publisher: List[Union[AnyHttpUrl, Agent]] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
-        rdf_term=DCTERMS.publisher,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
     )
     theme: List[DatasetTheme] = Field(
         description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
-        rdf_term=DCAT.theme,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.theme,
+            "rdf_type": "uri"
+        }
     )
     title: List[LiteralField] = Field(
         description="A name given to the resource. HRI mandatory",
-        rdf_term=DCTERMS.title,
-        rdf_type="rdfs_literal"
+        json_schema_extra={
+            "rdf_term": DCTERMS.title,
+            "rdf_type": "rdfs_literal"
+        }
     )
     type: List[AnyHttpUrl] = Field(
         default=None,
         description="The nature or genre of the resource. HRI recommended",
-        rdf_term=DCTERMS.type,
-        rdf_type="uri")
+        json_schema_extra={
+            "rdf_term": DCTERMS.type,
+            "rdf_type": "uri"
+        }
+    )
     license: AnyHttpUrl = Field(
         default=None,
         description="A legal document under which the resource is made available. HRI recommended",
-        rdf_term=DCTERMS.license,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCTERMS.license,
+            "rdf_type": "uri"
+        }
     )
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset. HRI recommended",
-        rdf_term=DCAT.distribution,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.distribution,
+            "rdf_type": "uri"
+        }
     )
     relation: List[AnyHttpUrl] = Field(
         default=None,
         description="connect dataset to the corresponding projects. HRI recommended",
-        rdf_term=FOAF.Project,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": FOAF.Project,
+            "rdf_type": "uri"
+        }
     )
     version: List[LiteralField] = Field(
         default=None,
         description="The version indicator (name or identifier) of a resource. HRI recommended",
-        rdf_term=DCATv3.version,
-        rdf_type="rdfs_literal"
+        json_schema_extra={
+            "rdf_term": DCATv3.version,
+            "rdf_type": "rdfs_literal"
+        }
     )
     in_series: List[AnyHttpUrl] = Field(
         default=None,
         description="A dataset series of which the dataset is part. HRI recommended",
-        rdf_term=DCATv3.inSeries,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCATv3.inSeries,
+            "rdf_type": "uri"
+        }
     )
 
     @field_validator("title", "description", "keyword", mode="before")
