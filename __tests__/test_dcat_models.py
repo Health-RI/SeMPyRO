@@ -17,15 +17,15 @@ from pathlib import Path
 
 import pytest
 
-from sempyro.dcat import DataService, DatasetSeries, DCATCatalog, DCATDataset, DCATDistribution, DCATResource
+from sempyro.dcat import DCATDataService, DCATDatasetSeries, DCATCatalog, DCATDataset, DCATDistribution, DCATResource
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models", "dcat")
 
 
 @pytest.mark.parametrize("model_name", ["DCATResource",
                                         "DCATDataset",
-                                        "DatasetSeries",
-                                        "DataService",
+                                        "DCATDatasetSeries",
+                                        "DCATDataService",
                                         "DCATCatalog",
                                         "DCATDistribution"
                                         ])

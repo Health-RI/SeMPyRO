@@ -19,12 +19,12 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DataService, DCATResource
+from sempyro.dcat import DCATDataService, DCATResource
 from sempyro.hri_dcat import HRIDataset
 from sempyro.utils.validator_functions import force_literal_field
 
 
-class HRIDataService(DataService):
+class HRIDataService(DCATDataService):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
     model_config = ConfigDict(
                               json_schema_extra={
