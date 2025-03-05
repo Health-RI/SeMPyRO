@@ -33,7 +33,7 @@ Following DCAT classes are available in the package:
 
 ```python
 # to import 
-from sempyro.dcat import DCATResource, DCATDataset, DCATCatalog, DCATDistribution, DatasetSeries, DataService
+from sempyro.dcat import DCATResource, DCATDataset, DCATCatalog, DCATDistribution, DCATDatasetSeries, DCATDataService
 ```
 
 Along with a number of supporting classes:
@@ -108,8 +108,10 @@ In case RDF property range is defined by an ontology following `enum` classes ar
 - Frequency
 - DayOfWeek
 - MonthOfYear
+
 ```python
-from sempyro.dcat import Status, AccessRights, Frequency
+from sempyro.dcat import Status, AccessRights
+from sempyro.vocabularies import Frequency
 from sempyro.time import DayOfWeek, MonthOfYear
 ```
 
@@ -181,24 +183,29 @@ set to `uri` so a field definition is as in the following example:
 from typing import Union, List
 from pydantic import AnyHttpUrl, Field
 from sempyro import RDFModel
-from sempyro.dcat import Frequency
+from sempyro.vocabularies import Frequency
 from rdflib.namespace import DCTERMS
 from sempyro.geo import Location
 
 
 class DCATDataset(RDFModel):
-    frequency: Union[AnyHttpUrl, Frequency] = Field(
-        default=None,
-        description="The frequency at which a dataset is published.",
-        rfd_term=DCTERMS.accrualPeriodicity,
-        rdf_type="uri"
-    )
-    spatial: List[Union[AnyHttpUrl, Location]] = Field(
-        default=None,
-        description="The geographical area covered by the dataset.",
-        alias="geographical_coverage",
-        rdf_term=DCTERMS.spatial,
-        rdf_type="uri")
+  frequency: Union[AnyHttpUrl, Frequency] = Field(
+    default=None,
+    description="The frequency at which a dataset is published.",
+    json_schema_extra={
+      "rdf_term": DCTERMS.accrualPeriodicity,
+      "rdf_type": "uri"
+    }
+  )
+  spatial: List[Union[AnyHttpUrl, Location]] = Field(
+    default=None,
+    description="The geographical area covered by the dataset.",
+    alias="geographical_coverage",
+    json_schema_extra={
+      "rdf_term": DCTERMS.spatial,
+      "rdf_type": "uri"
+    }
+  ) 
 ```
 
 In the example above `frequency` can be provided as external or internal URL or a value defined by `enum` class
