@@ -19,7 +19,7 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField, RDFModel
-from sempyro.dcat import DCATCatalog
+from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.utils.validator_functions import force_literal_field
@@ -50,7 +50,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "literal"
         }
     )
-    publisher: List[Union[AnyHttpUrl, Agent]] = Field(
+    publisher: Union[AnyHttpUrl, Agent] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
@@ -64,15 +64,14 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    dataset: List[AnyHttpUrl] = Field(
-        default=None,
-        description="relates every catalogue to its containing datasets. HRI recommended",
+    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
+        description="A Dataset that is part of the Catalog. HRI recommended",
         json_schema_extra={
             "rdf_term": DCAT.dataset,
             "rdf_type": "uri"
         }
     )
-    service: List[AnyHttpUrl] = Field(
+    service: List[Union[AnyHttpUrl, DCATDataService]] = Field(
         default=None,
         description="A service that is listed in the catalog. HRI recommended",
         json_schema_extra={
@@ -80,7 +79,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    catalog: List[AnyHttpUrl] = Field(
+    catalog: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={

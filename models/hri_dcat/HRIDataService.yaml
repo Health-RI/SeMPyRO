@@ -1026,6 +1026,37 @@ $defs:
         title: Hasserialization
     title: Geometry
     type: object
+  GeonovumLicences:
+    enum:
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/cc0
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/niet_open
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/public_domain_mark
+    title: GeonovumLicences
+    type: string
   HRIDataset:
     $IRI: http://www.w3.org/ns/dcat#Dataset
     $namespace: http://www.w3.org/ns/dcat#
@@ -1037,7 +1068,6 @@ $defs:
     properties:
       access_rights:
         $ref: '#/$defs/AccessRights'
-        default:
         description: Information about who can access the resource or an indication
           of its security status.
         rdf_term: http://purl.org/dc/terms/accessRights
@@ -1147,7 +1177,6 @@ $defs:
       license:
         default:
         description: A legal document under which the resource is made available.
-          HRI recommended
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/license
@@ -1493,6 +1522,7 @@ $defs:
         rdf_type: datetime_literal
         title: Modified
     required:
+    - access_rights
     - contact_point
     - creator
     - description
@@ -2039,9 +2069,8 @@ description: A collection of operations that provides access to one or more data
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
-    default:
-    description: Information about who can access the resource or an indication of
-      its security status.
+    description: Information regarding access or restrictions based on privacy, security,
+      or other policies.
     rdf_term: http://purl.org/dc/terms/accessRights
     rdf_type: uri
   conforms_to:
@@ -2054,16 +2083,14 @@ properties:
     title: Conforms To
     type: string
   contact_point:
-    default:
-    description: Relevant contact information for the cataloged resource. Use of vCard
-      is recommended
+    description: Contact information that can be used for sending comments about the
+      Data Service
     items:
       anyOf:
       - format: uri
         minLength: 1
         type: string
       - $ref: '#/$defs/VCard'
-      - $ref: '#/$defs/Agent'
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
     title: Contact Point
@@ -2111,16 +2138,13 @@ properties:
     rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
     rdf_type: uri
   identifier:
-    default:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     description: A unique identifier of the resource being described or cataloged.
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/identifier
     rdf_type: rdfs_literal
     title: Identifier
-    type: array
   is_referenced_by:
     default:
     description: A related resource, such as a publication, that references, cites,
@@ -2155,14 +2179,16 @@ properties:
     title: Landing Page
     type: array
   license:
-    default:
-    description: A legal document under which the resource is made available.
-    format: uri
-    minLength: 1
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/GeonovumLicences'
+    description: A legal document under which the resource is made available. HRI
+      mandatory
     rdf_term: http://purl.org/dc/terms/license
     rdf_type: uri
     title: License
-    type: string
   language:
     default:
     description: A language of the resource. This refers to the natural language used
@@ -2212,18 +2238,15 @@ properties:
     title: Qualified Relation
     type: array
   publisher:
-    default:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/Agent'
     description: The entity responsible for making the resource available.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/Agent'
     rdf_term: http://purl.org/dc/terms/publisher
     rdf_type: uri
     title: Publisher
-    type: array
   release_date:
     anyOf:
     - type: string
@@ -2237,12 +2260,10 @@ properties:
     rdf_type: datetime_literal
     title: Release Date
   theme:
-    default:
     description: A main category of the resource. A resource can have multiple themes.
+      HRI mandatory
     items:
-      format: uri
-      minLength: 1
-      type: string
+      $ref: '#/$defs/DatasetTheme'
     rdf_term: http://www.w3.org/ns/dcat#theme
     rdf_type: uri
     title: Theme
@@ -2388,33 +2409,28 @@ properties:
     title: Previous
     type: array
   endpoint_description:
-    default:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/DCATResource'
+    - $ref: '#/$defs/LiteralField'
     description: A description of the services available via the end-points, including
       their operations, parameters etc. HRI recommended
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/DCATResource'
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#endpointDescription
     rdf_type: uri
     title: Endpoint Description
-    type: array
   endpoint_url:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/DCATResource'
     description: The root location or primary endpoint of the service (a Web-resolvable
       IRI). HRI mandatory
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/DCATResource'
     rdf_term: http://www.w3.org/ns/dcat#endpointURL
     rdf_type: uri
     title: Endpoint Url
-    type: array
   serves_dataset:
     default:
     description: A collection of data that this data service can distribute. HRI recommended
@@ -2429,8 +2445,15 @@ properties:
     title: Serves Dataset
     type: array
 required:
+- access_rights
+- contact_point
 - description
+- identifier
+- license
+- publisher
+- theme
 - title
+- endpoint_description
 - endpoint_url
 title: HRIDataService
 type: object

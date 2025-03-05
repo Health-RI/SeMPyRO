@@ -1274,7 +1274,6 @@
   "properties": {
     "access_rights": {
       "$ref": "#/$defs/AccessRights",
-      "default": null,
       "description": "Information about who can access the resource or an indication of its security status.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
       "rdf_type": "uri"
@@ -1407,7 +1406,7 @@
     },
     "license": {
       "default": null,
-      "description": "A legal document under which the resource is made available. HRI recommended",
+      "description": "A legal document under which the resource is made available.",
       "format": "uri",
       "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/license",
@@ -1844,6 +1843,7 @@
     }
   },
   "required": [
+    "access_rights",
     "contact_point",
     "creator",
     "description",

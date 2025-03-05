@@ -1148,6 +1148,39 @@
       "title": "Geometry",
       "type": "object"
     },
+    "GeonovumLicences": {
+      "enum": [
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/cc0",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/niet_open",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/public_domain_mark"
+      ],
+      "title": "GeonovumLicences",
+      "type": "string"
+    },
     "HRIDataService": {
       "$IRI": "http://www.w3.org/ns/dcat#DataService",
       "$namespace": "http://www.w3.org/ns/dcat#",
@@ -1158,8 +1191,7 @@
       "properties": {
         "access_rights": {
           "$ref": "#/$defs/AccessRights",
-          "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
+          "description": "Information regarding access or restrictions based on privacy, security, or other policies.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
           "rdf_type": "uri"
         },
@@ -1174,8 +1206,7 @@
           "type": "string"
         },
         "contact_point": {
-          "default": null,
-          "description": "Relevant contact information for the cataloged resource. Use of vCard is recommended",
+          "description": "Contact information that can be used for sending comments about the Data Service",
           "items": {
             "anyOf": [
               {
@@ -1185,9 +1216,6 @@
               },
               {
                 "$ref": "#/$defs/VCard"
-              },
-              {
-                "$ref": "#/$defs/Agent"
               }
             ]
           },
@@ -1250,22 +1278,18 @@
           "rdf_type": "uri"
         },
         "identifier": {
-          "default": null,
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "description": "A unique identifier of the resource being described or cataloged.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://purl.org/dc/terms/identifier",
           "rdf_type": "rdfs_literal",
-          "title": "Identifier",
-          "type": "array"
+          "title": "Identifier"
         },
         "is_referenced_by": {
           "default": null,
@@ -1305,14 +1329,20 @@
           "type": "array"
         },
         "license": {
-          "default": null,
-          "description": "A legal document under which the resource is made available.",
-          "format": "uri",
-          "minLength": 1,
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/GeonovumLicences"
+            }
+          ],
+          "description": "A legal document under which the resource is made available. HRI mandatory",
           "rdf_term": "http://purl.org/dc/terms/license",
           "rdf_type": "uri",
-          "title": "License",
-          "type": "string"
+          "title": "License"
         },
         "language": {
           "default": null,
@@ -1371,24 +1401,20 @@
           "type": "array"
         },
         "publisher": {
-          "default": null,
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/Agent"
+            }
+          ],
           "description": "The entity responsible for making the resource available.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
           "rdf_term": "http://purl.org/dc/terms/publisher",
           "rdf_type": "uri",
-          "title": "Publisher",
-          "type": "array"
+          "title": "Publisher"
         },
         "release_date": {
           "anyOf": [
@@ -1411,12 +1437,9 @@
           "title": "Release Date"
         },
         "theme": {
-          "default": null,
-          "description": "A main category of the resource. A resource can have multiple themes.",
+          "description": "A main category of the resource. A resource can have multiple themes. HRI mandatory",
           "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
+            "$ref": "#/$defs/DatasetTheme"
           },
           "rdf_term": "http://www.w3.org/ns/dcat#theme",
           "rdf_type": "uri",
@@ -1585,46 +1608,39 @@
           "type": "array"
         },
         "endpoint_description": {
-          "default": null,
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/DCATResource"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "description": "A description of the services available via the end-points, including their operations, parameters etc. HRI recommended",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/DCATResource"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#endpointDescription",
           "rdf_type": "uri",
-          "title": "Endpoint Description",
-          "type": "array"
+          "title": "Endpoint Description"
         },
         "endpoint_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/DCATResource"
+            }
+          ],
           "description": "The root location or primary endpoint of the service (a Web-resolvable IRI). HRI mandatory",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/DCATResource"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#endpointURL",
           "rdf_type": "uri",
-          "title": "Endpoint Url",
-          "type": "array"
+          "title": "Endpoint Url"
         },
         "serves_dataset": {
           "default": null,
@@ -1648,8 +1664,15 @@
         }
       },
       "required": [
+        "access_rights",
+        "contact_point",
         "description",
+        "identifier",
+        "license",
+        "publisher",
+        "theme",
         "title",
+        "endpoint_description",
         "endpoint_url"
       ],
       "title": "HRIDataService",
@@ -1667,7 +1690,6 @@
       "properties": {
         "access_rights": {
           "$ref": "#/$defs/AccessRights",
-          "default": null,
           "description": "Information about who can access the resource or an indication of its security status.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
           "rdf_type": "uri"
@@ -1800,7 +1822,7 @@
         },
         "license": {
           "default": null,
-          "description": "A legal document under which the resource is made available. HRI recommended",
+          "description": "A legal document under which the resource is made available.",
           "format": "uri",
           "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/license",
@@ -2237,6 +2259,7 @@
         }
       },
       "required": [
+        "access_rights",
         "contact_point",
         "creator",
         "description",
@@ -2916,14 +2939,20 @@
       "title": "Update Date"
     },
     "license": {
-      "default": null,
-      "description": "A legal document under which the distribution is made available.",
-      "format": "uri",
-      "minLength": 1,
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/GeonovumLicences"
+        }
+      ],
+      "description": "A legal document under which the resource is made available.",
       "rdf_term": "http://purl.org/dc/terms/license",
       "rdf_type": "uri",
-      "title": "License",
-      "type": "string"
+      "title": "License"
     },
     "access_rights": {
       "default": null,
@@ -2936,11 +2965,13 @@
       "type": "string"
     },
     "rights": {
-      "default": null,
       "description": "Information about rights held in and over the distribution.",
+      "format": "uri",
+      "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/rights",
       "rdf_type": "uri",
-      "title": "Rights"
+      "title": "Rights",
+      "type": "string"
     },
     "has_policy": {
       "$ref": "#/$defs/ODRLPolicy",
@@ -2951,48 +2982,39 @@
     },
     "access_url": {
       "description": "A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, feed, SPARQL endpoint. HRI mandatory",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
+      "format": "uri",
+      "minLength": 1,
       "rdf_term": "http://www.w3.org/ns/dcat#accessURL",
       "rdf_type": "uri",
       "title": "Access Url",
-      "type": "array"
+      "type": "string"
     },
     "access_service": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/HRIDataService"
+        }
+      ],
       "default": null,
       "description": "A data service that gives access to the distribution of the dataset. HRI recommended",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/HRIDataService"
-          }
-        ]
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#accessService",
       "rdf_type": "uri",
-      "title": "Access Service",
-      "type": "array"
+      "title": "Access Service"
     },
     "download_url": {
       "default": null,
       "description": "The URL of the downloadable file in a given format. E.g., CSV file or RDF file. The format is indicated by the distribution's dcterms:format and/or dcat:mediaType. HRI recommended",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
+      "format": "uri",
+      "minLength": 1,
       "rdf_term": "http://www.w3.org/ns/dcat#downloadURL",
       "rdf_type": "uri",
       "title": "Download Url",
-      "type": "array"
+      "type": "string"
     },
     "byte_size": {
       "anyOf": [
@@ -3068,7 +3090,6 @@
       "type": "string"
     },
     "format": {
-      "default": null,
       "description": "he file format of the distribution.",
       "format": "uri",
       "minLength": 1,
@@ -3108,8 +3129,11 @@
   "required": [
     "title",
     "description",
+    "license",
+    "rights",
     "access_url",
-    "media_type"
+    "media_type",
+    "format"
   ],
   "title": "HRIDistribution",
   "type": "object"

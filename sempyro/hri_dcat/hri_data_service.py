@@ -19,9 +19,13 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataService, DCATResource
+from sempyro.dcat import DCATDataService, DCATResource, AccessRights
+from sempyro.foaf import Agent
 from sempyro.hri_dcat import HRIDataset
+from sempyro.hri_dcat.vocabularies import GeonovumLicences
+from sempyro.hri_dcat.hri_dataset import DatasetTheme
 from sempyro.utils.validator_functions import force_literal_field
+from sempyro.vcard import VCard
 
 
 class HRIDataService(DCATDataService):
@@ -34,7 +38,21 @@ class HRIDataService(DCATDataService):
                                   "$prefix": "dcat"
                               }
                               )
-    endpoint_url: List[Union[AnyHttpUrl, DCATResource]] = Field(
+    access_rights: AccessRights = Field(
+        description="Information regarding access or restrictions based on privacy, security, or other policies.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
+    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+        description="Contact information that can be used for sending comments about the Data Service",
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
+    )
+    endpoint_url: Union[AnyHttpUrl, DCATResource] = Field(
         description="The root location or primary endpoint of the service (a Web-resolvable IRI). HRI mandatory",
         json_schema_extra={
             "rdf_term": DCAT.endpointURL,
@@ -56,12 +74,39 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    endpoint_description: List[Union[AnyHttpUrl, DCATResource, LiteralField]] = Field(
-        default=None,
+    endpoint_description: Union[AnyHttpUrl, DCATResource, LiteralField] = Field(
         description="A description of the services available via the end-points, including their operations, "
                     "parameters etc. HRI recommended",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
+            "rdf_type": "uri"
+        }
+    )
+    identifier: Union[str, LiteralField] = Field(
+        description="A unique identifier of the resource being described or cataloged.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.identifier,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    license: Union[AnyHttpUrl, GeonovumLicences] = Field(
+        description="A legal document under which the resource is made available. HRI mandatory",
+        json_schema_extra={
+            "rdf_term": DCTERMS.license,
+            "rdf_type": "uri"
+        }
+    )
+    publisher: Union[AnyHttpUrl, Agent] = Field(
+        description="The entity responsible for making the resource available.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
+    )
+    theme: List[DatasetTheme] = Field(
+        description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
+        json_schema_extra={
+            "rdf_term": DCAT.theme,
             "rdf_type": "uri"
         }
     )

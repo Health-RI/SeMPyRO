@@ -135,14 +135,6 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    license: AnyHttpUrl = Field(
-        default=None,
-        description="A legal document under which the resource is made available. HRI recommended",
-        json_schema_extra={
-            "rdf_term": DCTERMS.license,
-            "rdf_type": "uri"
-        }
-    )
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset. HRI recommended",

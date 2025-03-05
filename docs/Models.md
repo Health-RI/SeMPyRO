@@ -110,8 +110,7 @@ In case RDF property range is defined by an ontology following `enum` classes ar
 - MonthOfYear
 
 ```python
-from sempyro.dcat import Status, AccessRights
-from sempyro.vocabularies import Frequency
+from sempyro.dcat import Status, AccessRights, Frequency
 from sempyro.time import DayOfWeek, MonthOfYear
 ```
 
@@ -183,7 +182,7 @@ set to `uri` so a field definition is as in the following example:
 from typing import Union, List
 from pydantic import AnyHttpUrl, Field
 from sempyro import RDFModel
-from sempyro.vocabularies import Frequency
+from sempyro.dcat import Frequency
 from rdflib.namespace import DCTERMS
 from sempyro.geo import Location
 

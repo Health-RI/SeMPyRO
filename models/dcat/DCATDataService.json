@@ -2753,6 +2753,6 @@
     "title",
     "endpoint_url"
   ],
-  "title": "DataService",
+  "title": "DCATDataService",
   "type": "object"
 }

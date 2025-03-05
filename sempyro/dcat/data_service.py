@@ -60,5 +60,5 @@ class DCATDataService(DCATResource):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
-    DCATDataService.save_schema_to_file(Path(json_models_folder, "DataService.json"), "json")
-    DCATDataService.save_schema_to_file(Path(json_models_folder, "DataService.yaml"), "yaml")
+    DCATDataService.save_schema_to_file(Path(json_models_folder, "DCATDataService.json"), "json")
+    DCATDataService.save_schema_to_file(Path(json_models_folder, "DCATDataService.yaml"), "yaml")

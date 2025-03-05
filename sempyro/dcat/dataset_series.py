@@ -35,5 +35,5 @@ class DCATDatasetSeries(DCATDataset):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
-    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.json"), "json")
-    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.yaml"), "yaml")
+    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DCATDatasetSeries.json"), "json")
+    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DCATDatasetSeries.yaml"), "yaml")

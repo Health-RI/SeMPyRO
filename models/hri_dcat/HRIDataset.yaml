@@ -1195,7 +1195,6 @@ additionalProperties: false
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
-    default:
     description: Information about who can access the resource or an indication of
       its security status.
     rdf_term: http://purl.org/dc/terms/accessRights
@@ -1303,8 +1302,7 @@ properties:
     type: array
   license:
     default:
-    description: A legal document under which the resource is made available. HRI
-      recommended
+    description: A legal document under which the resource is made available.
     format: uri
     minLength: 1
     rdf_term: http://purl.org/dc/terms/license
@@ -1646,6 +1644,7 @@ properties:
     rdf_type: datetime_literal
     title: Modified
 required:
+- access_rights
 - contact_point
 - creator
 - description
