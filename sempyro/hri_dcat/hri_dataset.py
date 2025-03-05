@@ -21,7 +21,7 @@ from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS, FOAF, URIRef
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataset
+from sempyro.dcat import DCATDataset, AccessRights
 from sempyro.foaf import Agent
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
@@ -56,6 +56,14 @@ class HRIDataset(DCATDataset):
                                   "$prefix": "dcat"
                               }
                               )
+
+    access_rights: AccessRights = Field(
+        description="Information about who can access the resource or an indication of its security status.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
     contact_point: Union[AnyHttpUrl, VCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
         json_schema_extra={
