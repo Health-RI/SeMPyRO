@@ -22,8 +22,7 @@ from sempyro import LiteralField
 from sempyro.dcat import DCATDataService, DCATResource, AccessRights
 from sempyro.foaf import Agent
 from sempyro.hri_dcat import HRIDataset
-from sempyro.hri_dcat.vocabularies import GeonovumLicences
-from sempyro.hri_dcat.hri_dataset import DatasetTheme
+from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.utils.validator_functions import force_literal_field
 from sempyro.vcard import VCard
 

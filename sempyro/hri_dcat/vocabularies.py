@@ -31,3 +31,20 @@ class GeonovumLicences(Enum):
     cc_byncsa_40 = URIRef("https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen40")
     niet_open = URIRef("https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/niet_open")
     public_domain_mark = URIRef("https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/public_domain_mark")
+
+
+class DatasetTheme(Enum):
+    agri = URIRef("http://publications.europa.eu/resource/authority/data-theme/AGRI")
+    econ = URIRef("http://publications.europa.eu/resource/authority/data-theme/ECON")
+    educ = URIRef("http://publications.europa.eu/resource/authority/data-theme/EDUC")
+    ener = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENER")
+    envi = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENVI")
+    gove = URIRef("http://publications.europa.eu/resource/authority/data-theme/GOVE")
+    heal = URIRef("http://publications.europa.eu/resource/authority/data-theme/HEAL")
+    intr = URIRef("http://publications.europa.eu/resource/authority/data-theme/INTR")
+    just = URIRef("http://publications.europa.eu/resource/authority/data-theme/JUST")
+    op_datpro = URIRef("http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO")
+    regi = URIRef("http://publications.europa.eu/resource/authority/data-theme/REGI")
+    soci = URIRef("http://publications.europa.eu/resource/authority/data-theme/SOCI")
+    tech = URIRef("http://publications.europa.eu/resource/authority/data-theme/TECH")
+    tran = URIRef("http://publications.europa.eu/resource/authority/data-theme/TRAN")

@@ -51,7 +51,7 @@ pip install sempyro
 
 [Documentation](./docs) folder contains usage examples executable in Jupiter Notebook. 
 If you want to explore them follow [official Jupyter installation guid](https://jupyter.org/install#jupyter-notebook).
-Additionally you may need to install pandas and/or [erdantic](./docs/Defining_extendind_a_model.md#visualization-with-erdantic).
+Additionally you may need to install pandas and/or [erdantic](./docs/Defining_extending_a_model#visualization-with-erdantic).
 
 ## Licence
 
@@ -59,7 +59,10 @@ Additionally you may need to install pandas and/or [erdantic](./docs/Defining_ex
 
 ## Documentation
 
-For more information on package content and usage please review [documentation](./docs).
+For more information on package content and usage see:
+- [Intro](./docs/Intro.md): An introduction to RDF, DCAT and DCAT-AP and using them in SeMPyRO.
+- [Models](./docs/Models.md): An overview of the models defined in SeMPyRO.
+- [Defining a model of your own and extending models](./docs/Defining_extending_a_model.md): An instruction on how to define your own model and extending existing models.
 
 ## Known issues
 

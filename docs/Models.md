@@ -1,9 +1,9 @@
-# HRI Pydantic Models
+# Models and other objects
 
-**Table of content:**
+**Table of contents:**
 
 - [Types of objects the package includes](#types-of-objects-the-package-includes)
-  - [Available model classes](#model-classes)
+  - [Model classes](#model-classes)
   - [Namespaces](#namespaces)
   - [Enum classes](#enum-classes)
 - [How a model is defined](#how-a-model-is-defined)
@@ -14,22 +14,24 @@
 
 ## Types of objects the package includes
 
-The package comprises three types of classes to implement DCAT model: Pydantic-based model classes, RDF namespaces and
-`enum` classes.
+The package comprises three types of classes to implement the DCAT model and it's derivatives: 
+- Pydantic-based model classes, 
+- RDF namespaces and
+- `enum` classes, representing vocabularies.
 
 ### Model classes
 
 All the model classes are inherited from `RDFModel` which is, in its turn, a subclass of `pydantic.BaseModel`.
-They are developed to implement DCAT-AP v3 model and provide validations.
 
-Following DCAT classes are available in the package:
+#### DCAT-AP v3
+The following classes that implement the DCAT-AP v3 model are available in the package:
 
 - DCATResource is an abstract class corresponding [DCAT Resource](https://www.w3.org/TR/vocab-dcat-3/#Class:Resource) definition.
 - DCATDataset - a subclass of DCATResource, corresponds [DCAT Dataset](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset).
 - DCATCatalog - a subclass of DCATDataset, corresponds [DCAT Catalog](https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog_Record).
-- DatasetSeries - a subclass of DCATDataset, corresponds [DCAT Dataset Series](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset_Series).
+- DCATDatasetSeries - a subclass of DCATDataset, corresponds [DCAT Dataset Series](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset_Series).
 - DCATDistribution - a subclass of DCATResource, corresponds [DCAT Distribution](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution).
-- DataService - a subclass of DCATResource, corresponds [DCAT Data Service](https://www.w3.org/TR/vocab-dcat-3/#Class:Data_Service).
+- DCATDataService - a subclass of DCATResource, corresponds [DCAT Data Service](https://www.w3.org/TR/vocab-dcat-3/#Class:Data_Service).
 
 ```python
 # to import 
@@ -68,9 +70,11 @@ from sempyro.vcard import VCard
 from sempyro.foaf import Agent
 ```
 
-Package includes **Health-RI core model** following classes
+#### Health-RI core metadata model
 
-- Project [FOAF Project implementation](http://xmlns.com/foaf/spec/#term_Project)
+This package includes the following classes for the **Health-RI core model**:
+
+- Project, an [FOAF Project implementation](http://xmlns.com/foaf/spec/#term_Project)
 - HRIDataset
 - HRICatalog
 - HRIDistribution
@@ -80,12 +84,12 @@ Package includes **Health-RI core model** following classes
 from sempyro.hri_dcat import HRIDataset, HRICatalog, HRIDistribution, HRIDataService
 ```
 
-Note: Health-RI core model is a more strict one cardinality-wise and regarding mandatory and recommended fields than
-DCAT-AP profile. Classes implementing HRI model are an extension of DCAT models.
+Note: The Health-RI core model imposes more restrictions on the cardinality, e.g., regarding mandatory and recommended
+properties, than the DCAT-AP v3 model. Classes implementing the Health-RI model are an extension of the DCAT models.
 
 ### Namespaces
 
-The package reuses common namespaces defined in `rdflib`. Additionally following namespaces are defined and available
+The package reuses common namespaces defined in `rdflib`. Additionally the following namespaces are defined and available
 from the package:
 
 - DCATv3 - extension for DCAT rdflib namespace to include attributes added in v3
@@ -103,15 +107,18 @@ from sempyro.namespaces import DCATv3, ADMS, FREQ, GeoSPARQL, LOCN, Greg
 
 In case RDF property range is defined by an ontology following `enum` classes are used to define choices:
 
-- Status
-- AccessRights
+- Status, based on ADMSStatus
+- AccessRights, based on the [European Access Right vocabulary](https://publications.europa.eu/resource/authority/access-right)
 - Frequency
 - DayOfWeek
 - MonthOfYear
+- DatasetTheme, based on the [European Data Theme vocabulary](http://publications.europa.eu/resource/authority/data-theme)
+- GeonovumLicenses, based on the [Geonovum License vocuabulary](https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties)
 
 ```python
 from sempyro.dcat import Status, AccessRights, Frequency
 from sempyro.time import DayOfWeek, MonthOfYear
+from sempyro.hri_dcat import DatasetTheme, GeonovumLicences
 ```
 
 ## How a model is defined
@@ -583,10 +590,11 @@ The example above passes the validation successfully. Note how the package recog
 
 ## Defining a model of your own and extending models
 
-Please review the [following page](Defining_extendind_a_model.md) to learn more on how to extend a model or
+Please review the [following page](Defining_extending_a_model) to learn more on how to extend a model or
 create one of your own.
 
 ## Usage examples
 
 [IPython Notebook usage example for time models](Usage_example_time_models.ipynb)
+
 [IPython Notebool usage example for DCATDataset from source data to FDP](Usage_example_with_test_data.ipynb)
