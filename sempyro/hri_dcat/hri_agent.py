@@ -26,7 +26,9 @@ from sempyro.utils.validator_functions import validate_convert_email
 class HRIAgent(Agent):
     model_config = ConfigDict(
         json_schema_extra={
-            "$ontology": "http://xmlns.com/foaf/spec/",
+            "$ontology": ["http://xmlns.com/foaf/spec/",
+                          "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
+                          "Metadata+Schema+Specification"],
             "$namespace": str(FOAF),
             "$IRI": FOAF.Agent,
             "$prefix": "foaf",
@@ -74,6 +76,6 @@ class HRIAgent(Agent):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "foaf")
-    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.json"), file_format="json")
-    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.yaml"), file_format="yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
+    HRIAgent.save_schema_to_file(path=Path(json_models_folder, "HRIAgent.json"), file_format="json")
+    HRIAgent.save_schema_to_file(path=Path(json_models_folder, "HRIAgent.yaml"), file_format="yaml")

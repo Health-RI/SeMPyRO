@@ -33,7 +33,9 @@ class HRIVCard(VCard):
     """
     model_config = ConfigDict(
                               json_schema_extra={
-                                  "$ontology": "https://www.w3.org/TR/vcard-rdf/",
+                                  "$ontology": ["https://www.w3.org/TR/vcard-rdf/",
+                                                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
+                                                "Metadata+Schema+Specification"],
                                   "$namespace": str(VCARD),
                                   "$IRI": VCARD.Kind,
                                   "$prefix": "v"
@@ -70,6 +72,6 @@ class HRIVCard(VCard):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
-    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.json"), file_format="json")
-    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.yaml"), file_format="yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
+    HRIVCard.save_schema_to_file(path=Path(json_models_folder, "HRIVCard.json"), file_format="json")
+    HRIVCard.save_schema_to_file(path=Path(json_models_folder, "HRIVCard.yaml"), file_format="yaml")

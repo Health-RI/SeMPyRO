@@ -17,11 +17,11 @@ from pathlib import Path
 from pydantic import ConfigDict
 from rdflib import DCAT
 
-from sempyro.dcat import DCATDataset
+from sempyro.dcat import DCATResource
 from sempyro.namespaces import DCATv3
 
 
-class DCATDatasetSeries(DCATDataset):
+class DCATDatasetSeries(DCATResource):
     """A collection of datasets that are published separately, but share some characteristics that group them"""
     model_config = ConfigDict(title=DCATv3.DatasetSeries,
                               json_schema_extra={
