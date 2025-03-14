@@ -56,6 +56,7 @@ class Agent(RDFModel):
         }
     )
     homepage: AnyUrl = Field(
+        default=None,
         description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
                     "how to get into contact.",
         json_schema_extra={
@@ -70,6 +71,8 @@ class Agent(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
+        if not isinstance(value, list):
+            value = [value]
         return validate_convert_email(value)
 
 

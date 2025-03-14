@@ -44,6 +44,16 @@ $defs:
         rdf_type: uri
         title: Mbox
         type: array
+      homepage:
+        default:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
     required:
     - name
     - identifier

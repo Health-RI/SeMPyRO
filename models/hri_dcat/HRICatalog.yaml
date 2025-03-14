@@ -269,6 +269,16 @@ $defs:
         rdf_type: uri
         title: Mbox
         type: array
+      homepage:
+        default:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
     required:
     - name
     - identifier
@@ -785,9 +795,11 @@ $defs:
         default:
         description: A dataset that is listed in the catalog.
         items:
-          format: uri
-          minLength: 1
-          type: string
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/DCATDataset'
         rdf_term: http://www.w3.org/ns/dcat#dataset
         rdf_type: uri
         title: Dataset
@@ -2392,6 +2404,99 @@ $defs:
         title: Hasserialization
     title: Geometry
     type: object
+  HRIAgent:
+    $IRI: http://xmlns.com/foaf/0.1/Agent
+    $namespace: http://xmlns.com/foaf/0.1/
+    $ontology:
+    - http://xmlns.com/foaf/spec/
+    - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+    $prefix: foaf
+    additionalProperties: false
+    properties:
+      name:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A name of the agent
+        rdf_term: http://xmlns.com/foaf/0.1/name
+        rdf_type: rdfs_literal
+        title: Name
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the agent.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+      mbox:
+        description: A personal mailbox, ie. an Internet mailbox associated with exactly
+          one owner, the first owner of this mailbox.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/mbox
+        rdf_type: uri
+        title: Mbox
+        type: string
+      homepage:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
+    required:
+    - name
+    - identifier
+    - mbox
+    - homepage
+    title: HRIAgent
+    type: object
+  HRIVCard:
+    $IRI: http://www.w3.org/2006/vcard/ns#Kind
+    $namespace: http://www.w3.org/2006/vcard/ns#
+    $ontology:
+    - https://www.w3.org/TR/vcard-rdf/
+    - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+    $prefix: v
+    additionalProperties: false
+    description: "The vCard class is equivalent to the new Kind class, which is the
+      parent for the four explicit types\nof vCards (Individual, Organization, Location,
+      Group)"
+    properties:
+      hasEmail:
+        description: The email address as a mailto URI
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
+        rdf_type: uri
+        title: Hasemail
+        type: string
+      full_name:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: The full name of the object (as a single string). This is the
+          only mandatory property.
+        rdf_term: http://www.w3.org/2006/vcard/ns#fn
+        rdf_type: rdfs_literal
+        title: Full Name
+      hasUID:
+        description: A unique identifier for the object
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasUID
+        rdf_type: uri
+        title: Hasuid
+        type: string
+    required:
+    - hasEmail
+    - full_name
+    - hasUID
+    title: HRIVCard
+    type: object
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
@@ -2946,7 +3051,7 @@ properties:
     - format: uri
       minLength: 1
       type: string
-    - $ref: '#/$defs/VCard'
+    - $ref: '#/$defs/HRIVCard'
     description: Relevant contact information for the cataloged resource. HRI mandatory
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
@@ -3099,7 +3204,7 @@ properties:
     - format: uri
       minLength: 1
       type: string
-    - $ref: '#/$defs/Agent'
+    - $ref: '#/$defs/HRIAgent'
     description: The entity responsible for making the resource available. HRI mandatory
     rdf_term: http://purl.org/dc/terms/publisher
     rdf_type: uri

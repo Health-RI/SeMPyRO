@@ -68,6 +68,8 @@ class VCard(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
+        if not isinstance(value, list):
+            value = [value]
         return validate_convert_email(value)
 
 
