@@ -75,9 +75,9 @@ class HRIDistribution(DCATDistribution):
     # FIXME: For format a controlled vocabulary is specified, but that is not complete.
     # E.g., DICOM is not in there. In the usage note a reference is also made to the EDAM ontology.
     format: AnyHttpUrl = Field(
-        description="he file format of the distribution.",
+        description="The file format of the distribution.",
         json_schema_extra={
-            "rdf_term": DCTERMS.MediaTypeOrExtent,
+            "rdf_term": DCTERMS.format,
             "rdf_type": "uri"
         }
     )
@@ -111,6 +111,13 @@ class HRIDistribution(DCATDistribution):
         json_schema_extra={
             "rdf_term": DCTERMS.rights,
             "rdf_type": "uri"
+        }
+    )
+    byte_size: Union[int, LiteralField] = Field(
+        description="The size of a distribution in bytes.",
+        json_schema_extra={
+            "rdf_term": DCAT.byteSize,
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 

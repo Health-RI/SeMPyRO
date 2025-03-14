@@ -18,10 +18,10 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro import LiteralField, RDFModel
+from sempyro import LiteralField
 from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
-from sempyro.foaf import Agent
-from sempyro.vcard import VCard
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -50,14 +50,14 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "literal"
         }
     )
-    publisher: Union[AnyHttpUrl, Agent] = Field(
+    publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
             "rdf_type": "uri"
         }
     )
-    contact_point: Union[AnyHttpUrl, VCard] = Field(
+    contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,

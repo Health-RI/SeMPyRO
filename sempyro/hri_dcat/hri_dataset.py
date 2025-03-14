@@ -21,11 +21,11 @@ from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDataset, AccessRights
-from sempyro.foaf import Agent
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import DatasetTheme
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
-from sempyro.vcard import VCard
 
 
 class HRIDataset(DCATDataset):
@@ -47,14 +47,14 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    contact_point: Union[AnyHttpUrl, VCard] = Field(
+    contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
             "rdf_type": "uri"
         }
     )
-    creator: List[Union[AnyHttpUrl, Agent]] = Field(
+    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property. HRI mandatory",
         json_schema_extra={
@@ -89,7 +89,7 @@ class HRIDataset(DCATDataset):
             "rdf_type": "datetime_literal"
         }
     )
-    publisher: List[Union[AnyHttpUrl, Agent]] = Field(
+    publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
@@ -148,6 +148,13 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCATv3.inSeries,
             "rdf_type": "uri"
+        }
+    )
+    keyword: List[LiteralField] = Field(
+        description="A keyword or tag describing the Dataset.",
+        json_schema_extra={
+            "rdf_term": DCAT.keyword,
+            "rdf_type": "rdfs_literal"
         }
     )
 
