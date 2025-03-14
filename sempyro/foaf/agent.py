@@ -55,6 +55,14 @@ class Agent(RDFModel):
             "rdf_type": "uri",
         }
     )
+    homepage: AnyUrl = Field(
+        description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
+                    "how to get into contact.",
+        json_schema_extra={
+            "rdf_term": FOAF.homepage,
+            "rdf_type": "uri",
+        }
+    )
 
     @field_validator("mbox", mode="before")
     @classmethod
