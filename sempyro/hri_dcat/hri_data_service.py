@@ -20,11 +20,11 @@ from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDataService, DCATResource, AccessRights
-from sempyro.foaf import Agent
 from sempyro.hri_dcat import HRIDataset
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.utils.validator_functions import force_literal_field
-from sempyro.vcard import VCard
 
 
 class HRIDataService(DCATDataService):
@@ -44,7 +44,7 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+    contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Contact information that can be used for sending comments about the Data Service",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
@@ -73,12 +73,12 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    endpoint_description: Union[AnyHttpUrl, DCATResource, LiteralField] = Field(
+    endpoint_description: LiteralField = Field(
         description="A description of the services available via the end-points, including their operations, "
-                    "parameters etc. HRI recommended",
+                    "parameters etc",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
-            "rdf_type": "uri"
+            "rdf_type": "rdfs_literal"
         }
     )
     identifier: Union[str, LiteralField] = Field(
@@ -95,7 +95,7 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    publisher: Union[AnyHttpUrl, Agent] = Field(
+    publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="The entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
@@ -112,8 +112,10 @@ class HRIDataService(DCATDataService):
 
     @field_validator("title", "endpoint_description", mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        return [force_literal_field(item) for item in value]
+    def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]) -> Union[LiteralField, List[LiteralField]]:
+        if isinstance(value, list):
+            return [force_literal_field(item) for item in value]
+        return force_literal_field(value)
 
 
 if __name__ == "__main__":
