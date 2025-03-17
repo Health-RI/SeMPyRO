@@ -113,7 +113,7 @@ In case RDF property range is defined by an ontology following `enum` classes ar
 - DayOfWeek
 - MonthOfYear
 - DatasetTheme, based on the [European Data Theme vocabulary](http://publications.europa.eu/resource/authority/data-theme)
-- GeonovumLicenses, based on the [Geonovum License vocuabulary](https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties)
+- GeonovumLicenses, based on the [Geonovum License vocabulary](https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties)
 
 ```python
 from sempyro.dcat import Status, AccessRights, Frequency
