@@ -63,6 +63,9 @@ For more information on package content and usage see:
 - [Intro](./docs/Intro.md): An introduction to RDF, DCAT and DCAT-AP and using them in SeMPyRO.
 - [Models](./docs/Models.md): An overview of the models defined in SeMPyRO.
 - [Defining a model of your own and extending models](./docs/Defining_extending_a_model.md): An instruction on how to define your own model and extending existing models.
+- [Preparing and uploading data to Fair Data Point with SeMPyRO](./docs/Documentation_DCAT.ipynb) and [Preparing and uploading data to Fair Data Point with SeMPyRO using Health-RI Core v2](./docs/Documentation_Health-RI_Core.ipynb) for an interactive introduction to the functionality.
+
+To push metadata manually to a FAIR Data Point, you can use this Juypter notebook: [Pushing metadata to an FDP](./docs/Push_to_FDP-Health-RI_v2.ipynb).
 
 ## Known issues
 
