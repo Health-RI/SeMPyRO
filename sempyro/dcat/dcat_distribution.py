@@ -16,7 +16,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
+from pydantic import AnyHttpUrl, AnyUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
 from rdflib.namespace import DCAT, DCTERMS, ODRL2
 
 from sempyro import LiteralField, RDFModel
@@ -170,11 +170,11 @@ class DCATDistribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    format: AnyHttpUrl = Field(
+    format: AnyUrl = Field(
         default=None,
-        description="he file format of the distribution.",
+        description="The file format of the distribution.",
         json_schema_extra={
-            "rdf_term": DCTERMS.MediaTypeOrExtent,
+            "rdf_term": DCTERMS.format,
             "rdf_type": "uri"
         }
     )

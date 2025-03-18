@@ -14,7 +14,7 @@
 
 from enum import Enum
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS, PROV
@@ -119,6 +119,14 @@ class DCATDataset(DCATResource):
         description="An activity that generated, or provides the business context for, the creation of the dataset.",
         json_schema_extra={
             "rdf_term": PROV.wasGeneratedBy,
+            "rdf_type": "uri"
+        }
+    )
+    access_rights: Optional[AnyHttpUrl] = Field(
+        default=None,
+        description="Information about who can access the dataset and under what conditions.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
             "rdf_type": "uri"
         }
     )

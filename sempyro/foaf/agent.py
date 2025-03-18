@@ -55,6 +55,15 @@ class Agent(RDFModel):
             "rdf_type": "uri",
         }
     )
+    homepage: List[AnyUrl] = Field(
+        default=None,
+        description="A homepage associated with the agent.",
+        json_schema_extra={
+            "rdf_term": FOAF.homepage,
+            "rdf_type": "uri",
+        }
+    )
+
 
     @field_validator("mbox", mode="before")
     @classmethod
