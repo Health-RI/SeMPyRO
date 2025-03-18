@@ -14,7 +14,7 @@
 
 ## Types of objects the package includes
 
-The package comprises three types of classes to implement the DCAT model and it's derivatives: 
+The package comprises three types of classes to implement the DCAT model and its derivatives: 
 - Pydantic-based model classes, 
 - RDF namespaces and
 - `enum` classes, representing vocabularies.
