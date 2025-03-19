@@ -37,6 +37,16 @@ $defs:
         rdf_type: uri
         title: Mbox
         type: array
+      homepage:
+        default:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
     required:
     - name
     - identifier
@@ -105,7 +115,7 @@ properties:
     rdf_type: rdfs_literal
     title: Title
     type: array
-  founded_by:
+  funder:
     description: An organization funding a project or person.
     items:
       anyOf:
@@ -115,9 +125,10 @@ properties:
       - $ref: '#/$defs/Agent'
     rdf_term: http://xmlns.com/foaf/0.1/fundedBy
     rdf_type: uri
-    title: Founded By
+    title: Funder
     type: array
   relation:
+    default:
     description: Link to the project datasets
     items:
       format: uri
@@ -131,7 +142,6 @@ required:
 - description
 - identifier
 - title
-- founded_by
-- relation
+- funder
 title: Project
 type: object

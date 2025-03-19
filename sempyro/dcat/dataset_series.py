@@ -17,11 +17,11 @@ from pathlib import Path
 from pydantic import ConfigDict
 from rdflib import DCAT
 
-from sempyro.dcat import DCATDataset
+from sempyro.dcat import DCATResource
 from sempyro.namespaces import DCATv3
 
 
-class DatasetSeries(DCATDataset):
+class DCATDatasetSeries(DCATResource):
     """A collection of datasets that are published separately, but share some characteristics that group them"""
     model_config = ConfigDict(title=DCATv3.DatasetSeries,
                               json_schema_extra={
@@ -35,5 +35,5 @@ class DatasetSeries(DCATDataset):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
-    DatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.json"), "json")
-    DatasetSeries.save_schema_to_file(Path(json_models_folder, "DatasetSeries.yaml"), "yaml")
+    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DCATDatasetSeries.json"), "json")
+    DCATDatasetSeries.save_schema_to_file(Path(json_models_folder, "DCATDatasetSeries.yaml"), "yaml")

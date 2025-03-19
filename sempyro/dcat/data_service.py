@@ -21,7 +21,7 @@ from rdflib.namespace import DCAT
 from sempyro.dcat import DCATDataset, DCATResource
 
 
-class DataService(DCATResource):
+class DCATDataService(DCATResource):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
     model_config = ConfigDict(
                               json_schema_extra={
@@ -60,5 +60,5 @@ class DataService(DCATResource):
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "dcat")
-    DataService.save_schema_to_file(Path(json_models_folder, "DataService.json"), "json")
-    DataService.save_schema_to_file(Path(json_models_folder, "DataService.yaml"), "yaml")
+    DCATDataService.save_schema_to_file(Path(json_models_folder, "DCATDataService.json"), "json")
+    DCATDataService.save_schema_to_file(Path(json_models_folder, "DCATDataService.yaml"), "yaml")

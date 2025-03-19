@@ -1,4 +1,4 @@
-$IRI: http://www.w3.org/ns/dcat#Resource
+$IRI: http://www.w3.org/ns/dcat#DatasetSeries
 $defs:
   AccessRights:
     enum:
@@ -328,10 +328,11 @@ $defs:
     title: VCard
     type: object
 $namespace: http://www.w3.org/ns/dcat#
-$ontology: https://www.w3.org/TR/vocab-dcat-3/
+$ontology:
+- https://www.w3.org/TR/vocab-dcat-3/
+- https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
 $prefix: dcat
 additionalProperties: false
-description: Resource published or curated by a single agent. Abstract class
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
@@ -380,11 +381,11 @@ properties:
     title: Creator
     type: array
   description:
-    description: A free-text account of the resource.
+    description: A free-text account of the Dataset Series. HRI mandatory
     items:
       $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/description
-    rdf_type: literal
+    rdf_type: rdfs_literal
     title: Description
     type: array
   has_part:
@@ -544,7 +545,7 @@ properties:
     title: Theme
     type: array
   title:
-    description: A name given to the resource.
+    description: A name given to the Dataset Series.. HRI mandatory
     items:
       $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/title
@@ -686,5 +687,5 @@ properties:
 required:
 - description
 - title
-title: DCATResource
+title: http://www.w3.org/ns/dcat#DatasetSeries
 type: object

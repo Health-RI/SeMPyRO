@@ -21,6 +21,7 @@ from rdflib.namespace import DCAT, DCTERMS
 from sempyro import LiteralField
 from sempyro.dcat import DCATDistribution
 from sempyro.hri_dcat import HRIDataService
+from sempyro.hri_dcat.vocabularies import GeonovumLicences
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -56,7 +57,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "rdfs_literal"
         }
     )
-    access_url: List[AnyHttpUrl] = Field(
+    access_url: AnyHttpUrl = Field(
         description="A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, "
                     "feed, SPARQL endpoint. HRI mandatory",
         json_schema_extra={
@@ -71,7 +72,23 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    access_service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
+    # FIXME: For format a controlled vocabulary is specified, but that is not complete.
+    # E.g., DICOM is not in there. In the usage note a reference is also made to the EDAM ontology.
+    format: AnyHttpUrl = Field(
+        description="The file format of the distribution.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.format,
+            "rdf_type": "uri"
+        }
+    )
+    license: Union[AnyHttpUrl, GeonovumLicences] = Field(
+        description="A legal document under which the resource is made available.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.license,
+            "rdf_type": "uri"
+        }
+    )
+    access_service: Union[AnyHttpUrl, HRIDataService] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset. HRI recommended",
         json_schema_extra={
@@ -79,7 +96,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    download_url: List[AnyHttpUrl] = Field(
+    download_url: AnyHttpUrl = Field(
         default=None,
         description="The URL of the downloadable file in a given format. E.g., CSV file or RDF file. "
                     "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType. "
@@ -87,6 +104,20 @@ class HRIDistribution(DCATDistribution):
         json_schema_extra={
             "rdf_term": DCAT.downloadURL,
             "rdf_type": "uri"
+        }
+    )
+    rights: AnyHttpUrl = Field(
+        description="Information about rights held in and over the distribution.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.rights,
+            "rdf_type": "uri"
+        }
+    )
+    byte_size: Union[int, LiteralField] = Field(
+        description="The size of a distribution in bytes.",
+        json_schema_extra={
+            "rdf_term": DCAT.byteSize,
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 

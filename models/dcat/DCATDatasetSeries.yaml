@@ -1,4 +1,4 @@
-$IRI: http://www.w3.org/ns/dcat#Resource
+$IRI: http://www.w3.org/ns/dcat#DatasetSeries
 $defs:
   AccessRights:
     enum:
@@ -331,7 +331,8 @@ $namespace: http://www.w3.org/ns/dcat#
 $ontology: https://www.w3.org/TR/vocab-dcat-3/
 $prefix: dcat
 additionalProperties: false
-description: Resource published or curated by a single agent. Abstract class
+description: A collection of datasets that are published separately, but share some
+  characteristics that group them
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
@@ -686,5 +687,5 @@ properties:
 required:
 - description
 - title
-title: DCATResource
+title: http://www.w3.org/ns/dcat#DatasetSeries
 type: object

@@ -33,20 +33,20 @@ $defs:
     title: LiteralField
     type: object
 $namespace: http://xmlns.com/foaf/0.1/
-$ontology: http://xmlns.com/foaf/spec/
+$ontology:
+- http://xmlns.com/foaf/spec/
+- https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
 $prefix: foaf
 additionalProperties: false
 properties:
   name:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     description: A name of the agent
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://xmlns.com/foaf/0.1/name
     rdf_type: rdfs_literal
     title: Name
-    type: array
   identifier:
     anyOf:
     - type: string
@@ -56,19 +56,15 @@ properties:
     rdf_type: rdfs_literal
     title: Identifier
   mbox:
-    default:
     description: A personal mailbox, ie. an Internet mailbox associated with exactly
       one owner, the first owner of this mailbox.
-    items:
-      format: uri
-      minLength: 1
-      type: string
+    format: uri
+    minLength: 1
     rdf_term: http://xmlns.com/foaf/0.1/mbox
     rdf_type: uri
     title: Mbox
-    type: array
+    type: string
   homepage:
-    default:
     description: A webpage that either allows to make contact (i.e. a webform) or
       the information contains how to get into contact.
     format: uri
@@ -80,5 +76,7 @@ properties:
 required:
 - name
 - identifier
-title: Agent
+- mbox
+- homepage
+title: HRIAgent
 type: object

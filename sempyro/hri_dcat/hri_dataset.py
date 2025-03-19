@@ -13,36 +13,19 @@
 # limitations under the License.
 
 from datetime import date, datetime
-from enum import Enum
 from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
-from rdflib.namespace import DCAT, DCTERMS, FOAF, URIRef
+from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataset
-from sempyro.foaf import Agent
+from sempyro.dcat import DCATDataset, AccessRights
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.hri_dcat.vocabularies import DatasetTheme
 from sempyro.namespaces import DCATv3
 from sempyro.utils.validator_functions import date_handler, force_literal_field
-from sempyro.vcard import VCard
-
-
-class DatasetTheme(Enum):
-    agri = URIRef("http://publications.europa.eu/resource/authority/data-theme/AGRI")
-    econ = URIRef("http://publications.europa.eu/resource/authority/data-theme/ECON")
-    educ = URIRef("http://publications.europa.eu/resource/authority/data-theme/EDUC")
-    ener = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENER")
-    envi = URIRef("http://publications.europa.eu/resource/authority/data-theme/ENVI")
-    gove = URIRef("http://publications.europa.eu/resource/authority/data-theme/GOVE")
-    heal = URIRef("http://publications.europa.eu/resource/authority/data-theme/HEAL")
-    intr = URIRef("http://publications.europa.eu/resource/authority/data-theme/INTR")
-    just = URIRef("http://publications.europa.eu/resource/authority/data-theme/JUST")
-    op_datpro = URIRef("http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO")
-    regi = URIRef("http://publications.europa.eu/resource/authority/data-theme/REGI")
-    soci = URIRef("http://publications.europa.eu/resource/authority/data-theme/SOCI")
-    tech = URIRef("http://publications.europa.eu/resource/authority/data-theme/TECH")
-    tran = URIRef("http://publications.europa.eu/resource/authority/data-theme/TRAN")
 
 
 class HRIDataset(DCATDataset):
@@ -56,14 +39,22 @@ class HRIDataset(DCATDataset):
                                   "$prefix": "dcat"
                               }
                               )
-    contact_point: Union[AnyHttpUrl, VCard] = Field(
+
+    access_rights: AccessRights = Field(
+        description="Information about who can access the resource or an indication of its security status.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
+    contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
             "rdf_type": "uri"
         }
     )
-    creator: List[Union[AnyHttpUrl, Agent]] = Field(
+    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property. HRI mandatory",
         json_schema_extra={
@@ -98,7 +89,7 @@ class HRIDataset(DCATDataset):
             "rdf_type": "datetime_literal"
         }
     )
-    publisher: List[Union[AnyHttpUrl, Agent]] = Field(
+    publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="The entity responsible for making the resource available. HRI mandatory",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
@@ -124,14 +115,6 @@ class HRIDataset(DCATDataset):
         description="The nature or genre of the resource. HRI recommended",
         json_schema_extra={
             "rdf_term": DCTERMS.type,
-            "rdf_type": "uri"
-        }
-    )
-    license: AnyHttpUrl = Field(
-        default=None,
-        description="A legal document under which the resource is made available. HRI recommended",
-        json_schema_extra={
-            "rdf_term": DCTERMS.license,
             "rdf_type": "uri"
         }
     )
@@ -165,6 +148,13 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCATv3.inSeries,
             "rdf_type": "uri"
+        }
+    )
+    keyword: List[LiteralField] = Field(
+        description="A keyword or tag describing the Dataset.",
+        json_schema_extra={
+            "rdf_term": DCAT.keyword,
+            "rdf_type": "rdfs_literal"
         }
     )
 

@@ -19,12 +19,15 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DataService, DCATResource
+from sempyro.dcat import DCATDataService, DCATResource, AccessRights
 from sempyro.hri_dcat import HRIDataset
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.utils.validator_functions import force_literal_field
 
 
-class HRIDataService(DataService):
+class HRIDataService(DCATDataService):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
     model_config = ConfigDict(
                               json_schema_extra={
@@ -34,7 +37,21 @@ class HRIDataService(DataService):
                                   "$prefix": "dcat"
                               }
                               )
-    endpoint_url: List[Union[AnyHttpUrl, DCATResource]] = Field(
+    access_rights: AccessRights = Field(
+        description="Information regarding access or restrictions based on privacy, security, or other policies.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
+    contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
+        description="Contact information that can be used for sending comments about the Data Service",
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
+    )
+    endpoint_url: Union[AnyHttpUrl, DCATResource] = Field(
         description="The root location or primary endpoint of the service (a Web-resolvable IRI). HRI mandatory",
         json_schema_extra={
             "rdf_term": DCAT.endpointURL,
@@ -56,20 +73,49 @@ class HRIDataService(DataService):
             "rdf_type": "uri"
         }
     )
-    endpoint_description: List[Union[AnyHttpUrl, DCATResource, LiteralField]] = Field(
-        default=None,
+    endpoint_description: LiteralField = Field(
         description="A description of the services available via the end-points, including their operations, "
-                    "parameters etc. HRI recommended",
+                    "parameters etc",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    identifier: Union[str, LiteralField] = Field(
+        description="A unique identifier of the resource being described or cataloged.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.identifier,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    license: Union[AnyHttpUrl, GeonovumLicences] = Field(
+        description="A legal document under which the resource is made available. HRI mandatory",
+        json_schema_extra={
+            "rdf_term": DCTERMS.license,
+            "rdf_type": "uri"
+        }
+    )
+    publisher: Union[AnyHttpUrl, HRIAgent] = Field(
+        description="The entity responsible for making the resource available.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
+    )
+    theme: List[DatasetTheme] = Field(
+        description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
+        json_schema_extra={
+            "rdf_term": DCAT.theme,
             "rdf_type": "uri"
         }
     )
 
     @field_validator("title", "endpoint_description", mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        return [force_literal_field(item) for item in value]
+    def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]) -> Union[LiteralField, List[LiteralField]]:
+        if isinstance(value, list):
+            return [force_literal_field(item) for item in value]
+        return force_literal_field(value)
 
 
 if __name__ == "__main__":

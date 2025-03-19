@@ -20,7 +20,7 @@ from pydantic import AnyHttpUrl, AnyUrl, AwareDatetime, ConfigDict, Field, Naive
 from rdflib.namespace import DCAT, DCTERMS, ODRL2
 
 from sempyro import LiteralField, RDFModel
-from sempyro.dcat import DataService
+from sempyro.dcat import DCATDataService
 from sempyro.odrl import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
 from sempyro.utils.validator_functions import force_literal_field
@@ -112,7 +112,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    access_service: List[Union[AnyHttpUrl, DataService]] = Field(
+    access_service: List[Union[AnyHttpUrl, DCATDataService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset",
         json_schema_extra={
