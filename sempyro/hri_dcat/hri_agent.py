@@ -18,21 +18,24 @@ from typing import List, Union
 from pydantic import AnyUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCTERMS, FOAF
 
-from sempyro import LiteralField, RDFModel
+from sempyro import LiteralField
+from sempyro.foaf import Agent
 from sempyro.utils.validator_functions import validate_convert_email
 
 
-class Agent(RDFModel):
+class HRIAgent(Agent):
     model_config = ConfigDict(
         json_schema_extra={
-            "$ontology": "http://xmlns.com/foaf/spec/",
+            "$ontology": ["http://xmlns.com/foaf/spec/",
+                          "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
+                          "Metadata+Schema+Specification"],
             "$namespace": str(FOAF),
             "$IRI": FOAF.Agent,
             "$prefix": "foaf",
         }
     )
 
-    name: List[Union[str, LiteralField]] = Field(
+    name: Union[str, LiteralField] = Field(
         description="A name of the agent",
         json_schema_extra={
             "rdf_term": FOAF.name,
@@ -46,8 +49,7 @@ class Agent(RDFModel):
             "rdf_type": "rdfs_literal"
         }
     )
-    mbox: List[AnyUrl] = Field(
-        default=None,
+    mbox: AnyUrl = Field(
         description="A personal mailbox, ie. an Internet mailbox associated "
         "with exactly one owner, the first owner of this mailbox.",
         json_schema_extra={
@@ -56,7 +58,6 @@ class Agent(RDFModel):
         }
     )
     homepage: AnyUrl = Field(
-        default=None,
         description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
                     "how to get into contact.",
         json_schema_extra={
@@ -71,12 +72,10 @@ class Agent(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
-        if not isinstance(value, list):
-            value = [value]
         return validate_convert_email(value)
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "foaf")
-    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.json"), file_format="json")
-    Agent.save_schema_to_file(path=Path(json_models_folder, "Agent.yaml"), file_format="yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
+    HRIAgent.save_schema_to_file(path=Path(json_models_folder, "HRIAgent.json"), file_format="json")
+    HRIAgent.save_schema_to_file(path=Path(json_models_folder, "HRIAgent.yaml"), file_format="yaml")

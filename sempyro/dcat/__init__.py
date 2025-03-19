@@ -1,8 +1,8 @@
 from .dcat_resource import DCATResource, Status, AccessRights
 from .dcat_dataset import DCATDataset, Frequency
 from .dcat_catalog import DCATCatalog
-from .dataset_series import DatasetSeries
-from .data_service import DataService
+from .dataset_series import DCATDatasetSeries
+from .data_service import DCATDataService
 from .dcat_distribution import DCATDistribution
 
 __all__ = (
@@ -11,8 +11,8 @@ __all__ = (
     "DCATDataset",
     "DCATCatalog",
     "DCATDistribution",
-    "DatasetSeries",
-    "DataService",
+    "DCATDatasetSeries",
+    "DCATDataService",
     # enum classes
     "Status",
     "AccessRights",

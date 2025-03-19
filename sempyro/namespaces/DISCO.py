@@ -12,21 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .ADMS import ADMS, ADMSStatus
-from .DCATv3 import DCATv3
-from .FREQ import FREQ
-from .GEOSPARQL import GeoSPARQL
-from .GREG import Greg
-from .LOCN import LOCN
-from .DISCO import DISCO
+from rdflib import URIRef
+from rdflib.namespace import DefinedNamespace, Namespace
 
-__all__ = (
-    "ADMS",
-    "ADMSStatus",
-    "DCATv3",
-    "FREQ",
-    "GeoSPARQL",
-    "LOCN",
-    "Greg",
-    "DISCO"
-)
+
+class DISCO(DefinedNamespace):
+    """
+    DDI-RDF Discovery Vocabulary
+
+    Generated based on https://rdf-vocabulary.ddialliance.org/discovery.html
+    """
+
+    Study: URIRef  # The event occurs every three years.
+
+    _NS = Namespace("http://rdf-vocabulary.ddialliance.org/discovery#")

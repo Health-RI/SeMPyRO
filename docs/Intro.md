@@ -136,7 +136,10 @@ dataset_graph = dataset.to_graph(URIRef("http://example.com/dataset/population")
 print(dataset_graph.serialize())
 ```
 
-This will result in the exact same output as before:
+Note how the title and description are *Lists*, to allow for additional languages to be added.
+Also note how it is mandatory to add an IRI when serializing the model to a Graph.
+
+This code using SeMPyRO will result in the exact same output as before:
 
 ```turtle
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -148,9 +151,6 @@ This will result in the exact same output as before:
   dcterms:description "This dataset provides statistics on the population of various countries."
   .
 ```
-
-Note how the title and description are *Lists*, to allow for additional languages to be added.
-Also note how it is mandatory to add an IRI when serializing the model to a Graph.
 
 The default serialization from RDFLib is *Turtle*. It is also possible to serialize to other
 representations:
@@ -165,9 +165,9 @@ print(dataset_graph.serialize(format="ntriples"))
 <http://example.com/dataset/population> <http://purl.org/dc/terms/description> "This is description of Test dataset" .
 ```
 
-### Extending with catalog
+### Extending with a Catalog
 
-To add the Catalog, it could be done as follows:
+Adding a Catalog could be done as follows:
 
 ```python
 from sempyro import LiteralField
@@ -215,4 +215,4 @@ Note how we add up the Graphs of the Catalog and the Dataset, the dataset subjec
 reference to connect catalog and dataset.
 
 
-The package supports a lot of advanced modelling. For more details, see [here](Models.md)
+This package, SeMPyRO, supports a lot of advanced modelling. For more details, see [here](Models.md).

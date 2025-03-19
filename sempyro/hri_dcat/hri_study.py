@@ -16,58 +16,57 @@ from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
-from rdflib.namespace import DCTERMS, FOAF
+from rdflib import DCAT, PROV, DCTERMS
 
-from sempyro import LiteralField, RDFModel
-from sempyro.foaf import Agent
+from sempyro import RDFModel, LiteralField
+from sempyro.hri_dcat import HRIDataset
+from sempyro.namespaces import DISCO
 from sempyro.utils.validator_functions import force_literal_field
 
 
-class Project(RDFModel):
+class HRIStudy(RDFModel):
     model_config = ConfigDict(
                               json_schema_extra={
-                                  "$ontology": ["http://xmlns.com/foaf/spec/",
+                                  "$ontology": ["https://rdf-vocabulary.ddialliance.org/discovery.html",
                                                 "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
                                                 "Metadata+Schema+Specification"],
-                                  "$namespace": str(FOAF),
-                                  "$IRI": FOAF.Project,
-                                  "$prefix": "foaf"
-                              }
-                              )
+                                  "$namespace": str(DISCO),
+                                  "$IRI": DISCO.Study,
+                                  "$prefix": "disco"
+                              })
+
+    dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
+        description="The dataset that was generated as a result of this study.",
+        json_schema_extra={
+            "rdf_term": PROV.generated,
+            "rdf_type": "uri"
+        }
+    )
+    title: List[LiteralField] = Field(
+        description="The title of the study.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.title,
+            "rdf_type": "rdfs_literal"
+        }
+    )
     description: List[LiteralField] = Field(
-        description="A free-text description of the project.",
+        description="A free text description of the study.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "literal"
         }
     )
     identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the resource being described or cataloged.",
+        description="A unique identifier of the study.",
         json_schema_extra={
             "rdf_term": DCTERMS.identifier,
             "rdf_type": "xsd:string"
         }
     )
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
+    project: AnyHttpUrl = Field(
+        description="The project of which this study is a part.",
         json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-    funded_by: List[Union[AnyHttpUrl, Agent]] = Field(
-        description="An organization funding a project or person.",
-        json_schema_extra={
-            "rdf_term": FOAF.fundedBy,
-            "rdf_type": "uri"
-        },
-        alias="funder"
-    )
-    relation: List[AnyHttpUrl] = Field(
-        default=None,
-        description="Link to the project datasets",
-        json_schema_extra={
-            "rdf_term": DCTERMS.relation,
+            "rdf_term": DCTERMS.isPartOf,
             "rdf_type": "uri"
         }
     )
@@ -79,6 +78,6 @@ class Project(RDFModel):
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "foaf")
-    Project.save_schema_to_file(Path(json_models_folder, "Project.json"), "json")
-    Project.save_schema_to_file(Path(json_models_folder, "Project.yaml"), "yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
+    HRIStudy.save_schema_to_file(Path(json_models_folder, "HRIStudy.json"), "json")
+    HRIStudy.save_schema_to_file(Path(json_models_folder, "HRIStudy.yaml"), "yaml")

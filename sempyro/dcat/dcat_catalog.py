@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List
+from typing import List, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, FOAF
@@ -28,8 +28,7 @@ class DCATCatalog(DCATDataset):
                                   "$namespace": str(DCAT),
                                   "$IRI": DCAT.Catalog,
                                   "$prefix": "dcat"
-                              }
-                              )
+                              })
 
     catalog_record: AnyHttpUrl = Field(
         default=None,
@@ -40,7 +39,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    dataset: List[AnyHttpUrl] = Field(
+    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
         default=None,
         description="A dataset that is listed in the catalog.",
         json_schema_extra={

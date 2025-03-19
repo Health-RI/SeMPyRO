@@ -269,6 +269,16 @@ $defs:
         rdf_type: uri
         title: Mbox
         type: array
+      homepage:
+        default:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
     required:
     - name
     - identifier
@@ -1026,6 +1036,87 @@ $defs:
         title: Hasserialization
     title: Geometry
     type: object
+  GeonovumLicences:
+    enum:
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/cc0
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen10
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen20
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen30
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen40
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/niet_open
+    - https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/public_domain_mark
+    title: GeonovumLicences
+    type: string
+  HRIAgent:
+    $IRI: http://xmlns.com/foaf/0.1/Agent
+    $namespace: http://xmlns.com/foaf/0.1/
+    $ontology:
+    - http://xmlns.com/foaf/spec/
+    - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+    $prefix: foaf
+    additionalProperties: false
+    properties:
+      name:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A name of the agent
+        rdf_term: http://xmlns.com/foaf/0.1/name
+        rdf_type: rdfs_literal
+        title: Name
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the agent.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+      mbox:
+        description: A personal mailbox, ie. an Internet mailbox associated with exactly
+          one owner, the first owner of this mailbox.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/mbox
+        rdf_type: uri
+        title: Mbox
+        type: string
+      homepage:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
+    required:
+    - name
+    - identifier
+    - mbox
+    - homepage
+    title: HRIAgent
+    type: object
   HRIDataset:
     $IRI: http://www.w3.org/ns/dcat#Dataset
     $namespace: http://www.w3.org/ns/dcat#
@@ -1037,7 +1128,6 @@ $defs:
     properties:
       access_rights:
         $ref: '#/$defs/AccessRights'
-        default:
         description: Information about who can access the resource or an indication
           of its security status.
         rdf_term: http://purl.org/dc/terms/accessRights
@@ -1056,7 +1146,7 @@ $defs:
         - format: uri
           minLength: 1
           type: string
-        - $ref: '#/$defs/VCard'
+        - $ref: '#/$defs/HRIVCard'
         description: Relevant contact information for the cataloged resource. HRI
           mandatory
         rdf_term: http://www.w3.org/ns/dcat#contactPoint
@@ -1070,7 +1160,7 @@ $defs:
           - format: uri
             minLength: 1
             type: string
-          - $ref: '#/$defs/Agent'
+          - $ref: '#/$defs/HRIAgent'
         rdf_term: http://purl.org/dc/terms/creator
         rdf_type: uri
         title: Creator
@@ -1124,8 +1214,7 @@ $defs:
         title: Is Referenced By
         type: array
       keyword:
-        default:
-        description: A keyword or tag describing the resource.
+        description: A keyword or tag describing the Dataset.
         items:
           $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#keyword
@@ -1147,7 +1236,6 @@ $defs:
       license:
         default:
         description: A legal document under which the resource is made available.
-          HRI recommended
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/license
@@ -1203,18 +1291,16 @@ $defs:
         title: Qualified Relation
         type: array
       publisher:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - $ref: '#/$defs/HRIAgent'
         description: The entity responsible for making the resource available. HRI
           mandatory
-        items:
-          anyOf:
-          - format: uri
-            minLength: 1
-            type: string
-          - $ref: '#/$defs/Agent'
         rdf_term: http://purl.org/dc/terms/publisher
         rdf_type: uri
         title: Publisher
-        type: array
       release_date:
         anyOf:
         - type: string
@@ -1493,16 +1579,61 @@ $defs:
         rdf_type: datetime_literal
         title: Modified
     required:
+    - access_rights
     - contact_point
     - creator
     - description
     - identifier
+    - keyword
     - publisher
     - theme
     - title
     - issued
     - modified
     title: HRIDataset
+    type: object
+  HRIVCard:
+    $IRI: http://www.w3.org/2006/vcard/ns#Kind
+    $namespace: http://www.w3.org/2006/vcard/ns#
+    $ontology:
+    - https://www.w3.org/TR/vcard-rdf/
+    - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+    $prefix: v
+    additionalProperties: false
+    description: "The vCard class is equivalent to the new Kind class, which is the
+      parent for the four explicit types\nof vCards (Individual, Organization, Location,
+      Group)"
+    properties:
+      hasEmail:
+        description: The email address as a mailto URI
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
+        rdf_type: uri
+        title: Hasemail
+        type: string
+      full_name:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: The full name of the object (as a single string). This is the
+          only mandatory property.
+        rdf_term: http://www.w3.org/2006/vcard/ns#fn
+        rdf_type: rdfs_literal
+        title: Full Name
+      hasUID:
+        description: A unique identifier for the object
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/vcard/ns#hasUID
+        rdf_type: uri
+        title: Hasuid
+        type: string
+    required:
+    - hasEmail
+    - full_name
+    - hasUID
+    title: HRIVCard
     type: object
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
@@ -2039,9 +2170,8 @@ description: A collection of operations that provides access to one or more data
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
-    default:
-    description: Information about who can access the resource or an indication of
-      its security status.
+    description: Information regarding access or restrictions based on privacy, security,
+      or other policies.
     rdf_term: http://purl.org/dc/terms/accessRights
     rdf_type: uri
   conforms_to:
@@ -2054,20 +2184,16 @@ properties:
     title: Conforms To
     type: string
   contact_point:
-    default:
-    description: Relevant contact information for the cataloged resource. Use of vCard
-      is recommended
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/VCard'
-      - $ref: '#/$defs/Agent'
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/HRIVCard'
+    description: Contact information that can be used for sending comments about the
+      Data Service
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
     title: Contact Point
-    type: array
   creator:
     default:
     description: The entity responsible for producing the resource. Resources of type
@@ -2111,16 +2237,13 @@ properties:
     rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
     rdf_type: uri
   identifier:
-    default:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     description: A unique identifier of the resource being described or cataloged.
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/identifier
     rdf_type: rdfs_literal
     title: Identifier
-    type: array
   is_referenced_by:
     default:
     description: A related resource, such as a publication, that references, cites,
@@ -2155,14 +2278,16 @@ properties:
     title: Landing Page
     type: array
   license:
-    default:
-    description: A legal document under which the resource is made available.
-    format: uri
-    minLength: 1
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/GeonovumLicences'
+    description: A legal document under which the resource is made available. HRI
+      mandatory
     rdf_term: http://purl.org/dc/terms/license
     rdf_type: uri
     title: License
-    type: string
   language:
     default:
     description: A language of the resource. This refers to the natural language used
@@ -2212,18 +2337,15 @@ properties:
     title: Qualified Relation
     type: array
   publisher:
-    default:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/HRIAgent'
     description: The entity responsible for making the resource available.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/Agent'
     rdf_term: http://purl.org/dc/terms/publisher
     rdf_type: uri
     title: Publisher
-    type: array
   release_date:
     anyOf:
     - type: string
@@ -2237,12 +2359,10 @@ properties:
     rdf_type: datetime_literal
     title: Release Date
   theme:
-    default:
     description: A main category of the resource. A resource can have multiple themes.
+      HRI mandatory
     items:
-      format: uri
-      minLength: 1
-      type: string
+      $ref: '#/$defs/DatasetTheme'
     rdf_term: http://www.w3.org/ns/dcat#theme
     rdf_type: uri
     title: Theme
@@ -2388,33 +2508,22 @@ properties:
     title: Previous
     type: array
   endpoint_description:
-    default:
+    $ref: '#/$defs/LiteralField'
     description: A description of the services available via the end-points, including
-      their operations, parameters etc. HRI recommended
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/DCATResource'
-      - $ref: '#/$defs/LiteralField'
+      their operations, parameters etc
     rdf_term: http://www.w3.org/ns/dcat#endpointDescription
-    rdf_type: uri
-    title: Endpoint Description
-    type: array
+    rdf_type: rdfs_literal
   endpoint_url:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/DCATResource'
     description: The root location or primary endpoint of the service (a Web-resolvable
       IRI). HRI mandatory
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/DCATResource'
     rdf_term: http://www.w3.org/ns/dcat#endpointURL
     rdf_type: uri
     title: Endpoint Url
-    type: array
   serves_dataset:
     default:
     description: A collection of data that this data service can distribute. HRI recommended
@@ -2429,8 +2538,15 @@ properties:
     title: Serves Dataset
     type: array
 required:
+- access_rights
+- contact_point
 - description
+- identifier
+- license
+- publisher
+- theme
 - title
+- endpoint_description
 - endpoint_url
 title: HRIDataService
 type: object

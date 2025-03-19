@@ -17,44 +17,44 @@ from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, AnyUrl, ConfigDict, Field, field_validator
-from pydantic.networks import validate_email
 from rdflib import Namespace
 
-from sempyro import LiteralField, RDFModel
+from sempyro import LiteralField
 from sempyro.utils.validator_functions import validate_convert_email
+from sempyro.vcard import VCard
 
 VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
 
 
-class VCard(RDFModel):
+class HRIVCard(VCard):
     """
     The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types
     of vCards (Individual, Organization, Location, Group)
     """
     model_config = ConfigDict(
                               json_schema_extra={
-                                  "$ontology": "https://www.w3.org/TR/vcard-rdf/",
+                                  "$ontology": ["https://www.w3.org/TR/vcard-rdf/",
+                                                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
+                                                "Metadata+Schema+Specification"],
                                   "$namespace": str(VCARD),
                                   "$IRI": VCARD.Kind,
                                   "$prefix": "v"
                               }
                               )
 
-    hasEmail: List[AnyUrl] = Field(default=None,
-                                   description="The email address as a mailto URI",
-                                   json_schema_extra={
-                                       "rdf_term": VCARD.hasEmail,
-                                       "rdf_type": "uri"
-                                   }
-                                   )
-    full_name: List[Union[str, LiteralField]] = Field(default=None,
-                                                      description="The full name of the object (as a single string). "
-                                                                  "This is the only mandatory property.",
-                                                      json_schema_extra={
-                                                          "rdf_term": VCARD.fn,
-                                                          "rdf_type": "rdfs_literal"
-                                                      }
-                                                      )
+    hasEmail: AnyUrl = Field(
+        description="The email address as a mailto URI",
+        json_schema_extra={
+            "rdf_term": VCARD.hasEmail,
+            "rdf_type": "uri"
+        })
+    full_name: Union[str, LiteralField] = Field(
+        description="The full name of the object (as a single string). " 
+                    "This is the only mandatory property.",
+        json_schema_extra={
+            "rdf_term": VCARD.fn,
+            "rdf_type": "rdfs_literal"
+        })
     hasUID: AnyHttpUrl = Field(description="A unique identifier for the object",
                                json_schema_extra={
                                    "rdf_term": VCARD.hasUID,
@@ -68,12 +68,10 @@ class VCard(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
-        if not isinstance(value, list):
-            value = [value]
         return validate_convert_email(value)
 
 
 if __name__ == "__main__":
-    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "vcard")
-    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.json"), file_format="json")
-    VCard.save_schema_to_file(path=Path(json_models_folder, "VCard.yaml"), file_format="yaml")
+    json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
+    HRIVCard.save_schema_to_file(path=Path(json_models_folder, "HRIVCard.json"), file_format="json")
+    HRIVCard.save_schema_to_file(path=Path(json_models_folder, "HRIVCard.yaml"), file_format="yaml")
