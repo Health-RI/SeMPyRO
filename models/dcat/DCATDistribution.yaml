@@ -779,12 +779,16 @@ $defs:
     additionalProperties: false
     properties:
       access_rights:
-        $ref: '#/$defs/AccessRights'
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
-        description: Information about who can access the resource or an indication
-          of its security status.
+        description: Information about who can access the dataset and under what conditions.
         rdf_term: http://purl.org/dc/terms/accessRights
         rdf_type: uri
+        title: Access Rights
       conforms_to:
         default:
         description: An established standard to which the described resource conforms.
@@ -2611,10 +2615,10 @@ properties:
     type: string
   format:
     default:
-    description: he file format of the distribution.
+    description: The file format of the distribution.
     format: uri
     minLength: 1
-    rdf_term: http://purl.org/dc/terms/MediaTypeOrExtent
+    rdf_term: http://purl.org/dc/terms/format
     rdf_type: uri
     title: Format
     type: string

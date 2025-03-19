@@ -1,15 +1,6 @@
 {
   "$IRI": "http://www.w3.org/ns/dcat#Dataset",
   "$defs": {
-    "AccessRights": {
-      "enum": [
-        "http://publications.europa.eu/resource/authority/access-right/PUBLIC",
-        "http://publications.europa.eu/resource/authority/access-right/RESTRICTED",
-        "http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC"
-      ],
-      "title": "AccessRights",
-      "type": "string"
-    },
     "Activity": {
       "$IRI": "http://www.w3.org/ns/prov#Activity",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -1260,11 +1251,21 @@
   "additionalProperties": false,
   "properties": {
     "access_rights": {
-      "$ref": "#/$defs/AccessRights",
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
-      "description": "Information about who can access the resource or an indication of its security status.",
+      "description": "Information about who can access the dataset and under what conditions.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
-      "rdf_type": "uri"
+      "rdf_type": "uri",
+      "title": "Access Rights"
     },
     "conforms_to": {
       "default": null,
