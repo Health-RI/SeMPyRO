@@ -134,7 +134,7 @@ class DCATDistribution(RDFModel):
         description="The size of a distribution in bytes.",
         json_schema_extra={
             "rdf_term": DCAT.byteSize,
-            "rdf_type": "xsd:nonNegativeInteger."
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
     spatial_resolution: List[Union[float, LiteralField]] = Field(

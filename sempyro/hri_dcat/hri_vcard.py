@@ -43,24 +43,17 @@ class HRIVCard(VCard):
                               )
 
     hasEmail: AnyUrl = Field(
-        description="The email address as a mailto URI",
+        description="To specify the electronic mail address for communication with the object.",
         json_schema_extra={
             "rdf_term": VCARD.hasEmail,
             "rdf_type": "uri"
         })
-    full_name: Union[str, LiteralField] = Field(
-        description="The full name of the object (as a single string). " 
-                    "This is the only mandatory property.",
+    formatted_name: Union[str, LiteralField] = Field(
+        description="The formatted text corresponding to the name of the object.",
         json_schema_extra={
             "rdf_term": VCARD.fn,
             "rdf_type": "rdfs_literal"
         })
-    hasUID: AnyHttpUrl = Field(description="A unique identifier for the object",
-                               json_schema_extra={
-                                   "rdf_term": VCARD.hasUID,
-                                   "rdf_type": "uri"
-                               }
-                               )
 
     @field_validator("hasEmail", mode="before")
     @classmethod

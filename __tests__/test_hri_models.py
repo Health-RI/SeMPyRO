@@ -24,9 +24,7 @@ from sempyro.hri_dcat import (
     HRIDataset,
     HRIDistribution,
     HRIDatasetSeries,
-    HRIAgent,
-    HRIProject,
-    HRIStudy
+    HRIAgent
 )
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
@@ -38,9 +36,7 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
                                         "HRICatalog",
                                         "HRIDistribution",
                                         "HRIDatasetSeries",
-                                        "HRIAgent",
-                                        "HRIProject",
-                                        "HRIStudy"
+                                        "HRIAgent"
                                         ])
 def test_hri_models(model_name):
     with open(Path(MODELS_JSON_DIRECTORY, "hri_dcat", f"{model_name}.json")) as model_file:

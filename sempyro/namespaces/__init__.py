@@ -19,6 +19,7 @@ from .GEOSPARQL import GeoSPARQL
 from .GREG import Greg
 from .LOCN import LOCN
 from .DISCO import DISCO
+from .DCATAPv3 import DCATAPv3
 
 __all__ = (
     "ADMS",
@@ -28,5 +29,6 @@ __all__ = (
     "GeoSPARQL",
     "LOCN",
     "Greg",
-    "DISCO"
+    "DISCO",
+    "DCATAPv3"
 )

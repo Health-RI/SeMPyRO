@@ -335,11 +335,21 @@
       "description": "A curated collection of metadata about resources.",
       "properties": {
         "access_rights": {
-          "$ref": "#/$defs/AccessRights",
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
+          "description": "Information about who can access the dataset and under what conditions.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
-          "rdf_type": "uri"
+          "rdf_type": "uri",
+          "title": "Access Rights"
         },
         "conforms_to": {
           "default": null,
@@ -972,510 +982,6 @@
       "title": "DCATCatalog",
       "type": "object"
     },
-    "DCATDataService": {
-      "$IRI": "http://www.w3.org/ns/dcat#DataService",
-      "$namespace": "http://www.w3.org/ns/dcat#",
-      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
-      "$prefix": "dcat",
-      "additionalProperties": false,
-      "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
-      "properties": {
-        "access_rights": {
-          "$ref": "#/$defs/AccessRights",
-          "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
-          "rdf_term": "http://purl.org/dc/terms/accessRights",
-          "rdf_type": "uri"
-        },
-        "conforms_to": {
-          "default": null,
-          "description": "An established standard to which the described resource conforms.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/conformsTo",
-          "rdf_type": "uri",
-          "title": "Conforms To",
-          "type": "string"
-        },
-        "contact_point": {
-          "default": null,
-          "description": "Relevant contact information for the cataloged resource. Use of vCard is recommended",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/VCard"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
-          "rdf_type": "uri",
-          "title": "Contact Point",
-          "type": "array"
-        },
-        "creator": {
-          "default": null,
-          "description": "The entity responsible for producing the resource. Resources of type foaf:Agent are recommended as values for this property.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/VCard"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/creator",
-          "rdf_type": "uri",
-          "title": "Creator",
-          "type": "array"
-        },
-        "description": {
-          "description": "A free-text account of the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://purl.org/dc/terms/description",
-          "rdf_type": "literal",
-          "title": "Description",
-          "type": "array"
-        },
-        "has_part": {
-          "default": null,
-          "description": "A related resource that is included either physically or logically in the described resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/hasPart",
-          "rdf_type": "uri",
-          "title": "Has Part",
-          "type": "array"
-        },
-        "has_policy": {
-          "$ref": "#/$defs/ODRLPolicy",
-          "default": null,
-          "description": "An ODRL conformant policy expressing the rights associated with the resource.",
-          "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
-          "rdf_type": "uri"
-        },
-        "identifier": {
-          "default": null,
-          "description": "A unique identifier of the resource being described or cataloged.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/identifier",
-          "rdf_type": "rdfs_literal",
-          "title": "Identifier",
-          "type": "array"
-        },
-        "is_referenced_by": {
-          "default": null,
-          "description": "A related resource, such as a publication, that references, cites, or otherwise points to the cataloged resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/isReferencedBy",
-          "rdf_type": "uri",
-          "title": "Is Referenced By",
-          "type": "array"
-        },
-        "keyword": {
-          "default": null,
-          "description": "A keyword or tag describing the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#keyword",
-          "rdf_type": "rdfs_literal",
-          "title": "Keyword",
-          "type": "array"
-        },
-        "landing_page": {
-          "default": null,
-          "description": "A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, its distributions and/or additional information.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#landingPage",
-          "rdf_type": "uri",
-          "title": "Landing Page",
-          "type": "array"
-        },
-        "license": {
-          "default": null,
-          "description": "A legal document under which the resource is made available.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/license",
-          "rdf_type": "uri",
-          "title": "License",
-          "type": "string"
-        },
-        "language": {
-          "default": null,
-          "description": "A language of the resource. This refers to the natural language used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the textual values of a dataset distribution",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/language",
-          "rdf_type": "uri",
-          "title": "Language",
-          "type": "array"
-        },
-        "relation": {
-          "default": null,
-          "description": "A resource with an unspecified relationship to the cataloged resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/relation",
-          "rdf_type": "uri",
-          "title": "Relation",
-          "type": "array"
-        },
-        "rights": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            },
-            {
-              "format": "uri",
-              "minLength": 1,
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Information about rights held in and over the distribution. Recommended practice is to refer to a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, or short text) may be provided.",
-          "rdf_term": "http://purl.org/dc/terms/rights",
-          "rdf_type": "uri",
-          "title": "Rights"
-        },
-        "qualified_relation": {
-          "default": null,
-          "description": "Link to a description of a relationship with another resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#qualifiedRelation",
-          "rdf_type": "uri",
-          "title": "Qualified Relation",
-          "type": "array"
-        },
-        "publisher": {
-          "default": null,
-          "description": "The entity responsible for making the resource available.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/publisher",
-          "rdf_type": "uri",
-          "title": "Publisher",
-          "type": "array"
-        },
-        "release_date": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date of formal issuance (e.g., publication) of the resource.",
-          "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
-          "title": "Release Date"
-        },
-        "theme": {
-          "default": null,
-          "description": "A main category of the resource. A resource can have multiple themes.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#theme",
-          "rdf_type": "uri",
-          "title": "Theme",
-          "type": "array"
-        },
-        "title": {
-          "description": "A name given to the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://purl.org/dc/terms/title",
-          "rdf_type": "rdfs_literal",
-          "title": "Title",
-          "type": "array"
-        },
-        "type": {
-          "default": null,
-          "description": "The nature or genre of the resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/type",
-          "rdf_type": "uri",
-          "title": "Type",
-          "type": "array"
-        },
-        "update_date": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Most recent date on which the resource was changed, updated or modified.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Update Date"
-        },
-        "qualified_attribution": {
-          "default": null,
-          "description": "Link to an Agent having some form of responsibility for the resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/prov#qualifiedAttribution",
-          "rdf_type": "uri",
-          "title": "Qualified Attribution",
-          "type": "array"
-        },
-        "has_current_version": {
-          "default": null,
-          "description": "This resource has a more specific, versioned resource with equivalent content [PAV].",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#hasCurrentVersion",
-          "rdf_type": "uri",
-          "title": "Has Current Version",
-          "type": "string"
-        },
-        "has_version": {
-          "default": null,
-          "description": "This resource has a more specific, versioned resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/hasVersion",
-          "rdf_type": "uri",
-          "title": "Has Version",
-          "type": "array"
-        },
-        "previous_version": {
-          "default": null,
-          "description": "The previous version of a resource in a lineage [PAV].",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#previousVersion",
-          "rdf_type": "uri",
-          "title": "Previous Version",
-          "type": "string"
-        },
-        "replaces": {
-          "default": null,
-          "description": "A related resource that is supplanted, displaced, or superseded by the described resource",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/replaces",
-          "rdf_type": "uri",
-          "title": "Replaces",
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/$defs/Status",
-          "default": null,
-          "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
-          "rdf_term": "http://www.w3.org/ns/adms#status",
-          "rdf_type": "uri"
-        },
-        "version": {
-          "default": null,
-          "description": "The version indicator (name or identifier) of a resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#version",
-          "rdf_type": "rdfs_literal",
-          "title": "Version",
-          "type": "array"
-        },
-        "version_notes": {
-          "default": null,
-          "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
-          "rdf_type": "rdfs_literal",
-          "title": "Version Notes",
-          "type": "array"
-        },
-        "first": {
-          "default": null,
-          "description": "The first resource in an ordered collection or series of resources, to which the current resource belongs.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#first",
-          "rdf_type": "uri",
-          "title": "First",
-          "type": "string"
-        },
-        "last": {
-          "default": null,
-          "description": "The last resource in an ordered collection or series of resources, to which the current resource belongs.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#last",
-          "rdf_type": "uri",
-          "title": "Last",
-          "type": "string"
-        },
-        "previous": {
-          "default": null,
-          "description": "The previous resource (before the current one) in an ordered collection or series of resources.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#prev",
-          "rdf_type": "uri",
-          "title": "Previous",
-          "type": "array"
-        },
-        "endpoint_description": {
-          "default": null,
-          "description": "A description of the services available via the end-points, including their operations, parameters etc.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/DCATResource"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#endpointDescription",
-          "rdf_type": "uri",
-          "title": "Endpoint Description",
-          "type": "array"
-        },
-        "endpoint_url": {
-          "description": "The root location or primary endpoint of the service (a Web-resolvable IRI).",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/DCATResource"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#endpointURL",
-          "rdf_type": "uri",
-          "title": "Endpoint Url",
-          "type": "array"
-        },
-        "serves_dataset": {
-          "default": null,
-          "description": "A collection of data that this data service can distribute.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/DCATDataset"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#servesDataset",
-          "rdf_type": "uri",
-          "title": "Serves Dataset",
-          "type": "array"
-        }
-      },
-      "required": [
-        "description",
-        "title",
-        "endpoint_url"
-      ],
-      "title": "DCATDataService",
-      "type": "object"
-    },
     "DCATDataset": {
       "$IRI": "http://www.w3.org/ns/dcat#Dataset",
       "$namespace": "http://www.w3.org/ns/dcat#",
@@ -1484,11 +990,21 @@
       "additionalProperties": false,
       "properties": {
         "access_rights": {
-          "$ref": "#/$defs/AccessRights",
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
+          "description": "Information about who can access the dataset and under what conditions.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
-          "rdf_type": "uri"
+          "rdf_type": "uri",
+          "title": "Access Rights"
         },
         "conforms_to": {
           "default": null,
@@ -2042,449 +1558,25 @@
       "title": "DCATDataset",
       "type": "object"
     },
-    "DCATResource": {
-      "$IRI": "http://www.w3.org/ns/dcat#Resource",
-      "$namespace": "http://www.w3.org/ns/dcat#",
-      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
-      "$prefix": "dcat",
-      "additionalProperties": false,
-      "description": "Resource published or curated by a single agent. Abstract class",
-      "properties": {
-        "access_rights": {
-          "$ref": "#/$defs/AccessRights",
-          "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
-          "rdf_term": "http://purl.org/dc/terms/accessRights",
-          "rdf_type": "uri"
-        },
-        "conforms_to": {
-          "default": null,
-          "description": "An established standard to which the described resource conforms.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/conformsTo",
-          "rdf_type": "uri",
-          "title": "Conforms To",
-          "type": "string"
-        },
-        "contact_point": {
-          "default": null,
-          "description": "Relevant contact information for the cataloged resource. Use of vCard is recommended",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/VCard"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
-          "rdf_type": "uri",
-          "title": "Contact Point",
-          "type": "array"
-        },
-        "creator": {
-          "default": null,
-          "description": "The entity responsible for producing the resource. Resources of type foaf:Agent are recommended as values for this property.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/VCard"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/creator",
-          "rdf_type": "uri",
-          "title": "Creator",
-          "type": "array"
-        },
-        "description": {
-          "description": "A free-text account of the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://purl.org/dc/terms/description",
-          "rdf_type": "literal",
-          "title": "Description",
-          "type": "array"
-        },
-        "has_part": {
-          "default": null,
-          "description": "A related resource that is included either physically or logically in the described resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/hasPart",
-          "rdf_type": "uri",
-          "title": "Has Part",
-          "type": "array"
-        },
-        "has_policy": {
-          "$ref": "#/$defs/ODRLPolicy",
-          "default": null,
-          "description": "An ODRL conformant policy expressing the rights associated with the resource.",
-          "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
-          "rdf_type": "uri"
-        },
-        "identifier": {
-          "default": null,
-          "description": "A unique identifier of the resource being described or cataloged.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/identifier",
-          "rdf_type": "rdfs_literal",
-          "title": "Identifier",
-          "type": "array"
-        },
-        "is_referenced_by": {
-          "default": null,
-          "description": "A related resource, such as a publication, that references, cites, or otherwise points to the cataloged resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/isReferencedBy",
-          "rdf_type": "uri",
-          "title": "Is Referenced By",
-          "type": "array"
-        },
-        "keyword": {
-          "default": null,
-          "description": "A keyword or tag describing the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#keyword",
-          "rdf_type": "rdfs_literal",
-          "title": "Keyword",
-          "type": "array"
-        },
-        "landing_page": {
-          "default": null,
-          "description": "A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, its distributions and/or additional information.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#landingPage",
-          "rdf_type": "uri",
-          "title": "Landing Page",
-          "type": "array"
-        },
-        "license": {
-          "default": null,
-          "description": "A legal document under which the resource is made available.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/license",
-          "rdf_type": "uri",
-          "title": "License",
-          "type": "string"
-        },
-        "language": {
-          "default": null,
-          "description": "A language of the resource. This refers to the natural language used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the textual values of a dataset distribution",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/language",
-          "rdf_type": "uri",
-          "title": "Language",
-          "type": "array"
-        },
-        "relation": {
-          "default": null,
-          "description": "A resource with an unspecified relationship to the cataloged resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/relation",
-          "rdf_type": "uri",
-          "title": "Relation",
-          "type": "array"
-        },
-        "rights": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            },
-            {
-              "format": "uri",
-              "minLength": 1,
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Information about rights held in and over the distribution. Recommended practice is to refer to a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, or short text) may be provided.",
-          "rdf_term": "http://purl.org/dc/terms/rights",
-          "rdf_type": "uri",
-          "title": "Rights"
-        },
-        "qualified_relation": {
-          "default": null,
-          "description": "Link to a description of a relationship with another resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#qualifiedRelation",
-          "rdf_type": "uri",
-          "title": "Qualified Relation",
-          "type": "array"
-        },
-        "publisher": {
-          "default": null,
-          "description": "The entity responsible for making the resource available.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/Agent"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/publisher",
-          "rdf_type": "uri",
-          "title": "Publisher",
-          "type": "array"
-        },
-        "release_date": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date of formal issuance (e.g., publication) of the resource.",
-          "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
-          "title": "Release Date"
-        },
-        "theme": {
-          "default": null,
-          "description": "A main category of the resource. A resource can have multiple themes.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#theme",
-          "rdf_type": "uri",
-          "title": "Theme",
-          "type": "array"
-        },
-        "title": {
-          "description": "A name given to the resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://purl.org/dc/terms/title",
-          "rdf_type": "rdfs_literal",
-          "title": "Title",
-          "type": "array"
-        },
-        "type": {
-          "default": null,
-          "description": "The nature or genre of the resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/type",
-          "rdf_type": "uri",
-          "title": "Type",
-          "type": "array"
-        },
-        "update_date": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Most recent date on which the resource was changed, updated or modified.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Update Date"
-        },
-        "qualified_attribution": {
-          "default": null,
-          "description": "Link to an Agent having some form of responsibility for the resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/prov#qualifiedAttribution",
-          "rdf_type": "uri",
-          "title": "Qualified Attribution",
-          "type": "array"
-        },
-        "has_current_version": {
-          "default": null,
-          "description": "This resource has a more specific, versioned resource with equivalent content [PAV].",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#hasCurrentVersion",
-          "rdf_type": "uri",
-          "title": "Has Current Version",
-          "type": "string"
-        },
-        "has_version": {
-          "default": null,
-          "description": "This resource has a more specific, versioned resource",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/hasVersion",
-          "rdf_type": "uri",
-          "title": "Has Version",
-          "type": "array"
-        },
-        "previous_version": {
-          "default": null,
-          "description": "The previous version of a resource in a lineage [PAV].",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#previousVersion",
-          "rdf_type": "uri",
-          "title": "Previous Version",
-          "type": "string"
-        },
-        "replaces": {
-          "default": null,
-          "description": "A related resource that is supplanted, displaced, or superseded by the described resource",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://purl.org/dc/terms/replaces",
-          "rdf_type": "uri",
-          "title": "Replaces",
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/$defs/Status",
-          "default": null,
-          "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
-          "rdf_term": "http://www.w3.org/ns/adms#status",
-          "rdf_type": "uri"
-        },
-        "version": {
-          "default": null,
-          "description": "The version indicator (name or identifier) of a resource.",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#version",
-          "rdf_type": "rdfs_literal",
-          "title": "Version",
-          "type": "array"
-        },
-        "version_notes": {
-          "default": null,
-          "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
-          "items": {
-            "$ref": "#/$defs/LiteralField"
-          },
-          "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
-          "rdf_type": "rdfs_literal",
-          "title": "Version Notes",
-          "type": "array"
-        },
-        "first": {
-          "default": null,
-          "description": "The first resource in an ordered collection or series of resources, to which the current resource belongs.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#first",
-          "rdf_type": "uri",
-          "title": "First",
-          "type": "string"
-        },
-        "last": {
-          "default": null,
-          "description": "The last resource in an ordered collection or series of resources, to which the current resource belongs.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/ns/dcat#last",
-          "rdf_type": "uri",
-          "title": "Last",
-          "type": "string"
-        },
-        "previous": {
-          "default": null,
-          "description": "The previous resource (before the current one) in an ordered collection or series of resources.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/ns/dcat#prev",
-          "rdf_type": "uri",
-          "title": "Previous",
-          "type": "array"
-        }
-      },
-      "required": [
-        "description",
-        "title"
+    "DatasetTheme": {
+      "enum": [
+        "http://publications.europa.eu/resource/authority/data-theme/AGRI",
+        "http://publications.europa.eu/resource/authority/data-theme/ECON",
+        "http://publications.europa.eu/resource/authority/data-theme/EDUC",
+        "http://publications.europa.eu/resource/authority/data-theme/ENER",
+        "http://publications.europa.eu/resource/authority/data-theme/ENVI",
+        "http://publications.europa.eu/resource/authority/data-theme/GOVE",
+        "http://publications.europa.eu/resource/authority/data-theme/HEAL",
+        "http://publications.europa.eu/resource/authority/data-theme/INTR",
+        "http://publications.europa.eu/resource/authority/data-theme/JUST",
+        "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO",
+        "http://publications.europa.eu/resource/authority/data-theme/REGI",
+        "http://publications.europa.eu/resource/authority/data-theme/SOCI",
+        "http://publications.europa.eu/resource/authority/data-theme/TECH",
+        "http://publications.europa.eu/resource/authority/data-theme/TRAN"
       ],
-      "title": "DCATResource",
-      "type": "object"
+      "title": "DatasetTheme",
+      "type": "string"
     },
     "End": {
       "$IRI": "http://www.w3.org/ns/prov#End",
@@ -2815,6 +1907,39 @@
       "title": "Geometry",
       "type": "object"
     },
+    "GeonovumLicences": {
+      "enum": [
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/cc0",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_geen_afgeleide_werken40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_gelijkdelen40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_geen_afgeleide_werken40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen10",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen20",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen30",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/naamsvermelding_niet_commercieel_gelijk_delen40",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/niet_open",
+        "https://definities.geostandaarden.nl/dcat-ap-nl/id/waardelijst/licenties/public_domain_mark"
+      ],
+      "title": "GeonovumLicences",
+      "type": "string"
+    },
     "HRIAgent": {
       "$IRI": "http://xmlns.com/foaf/0.1/Agent",
       "$namespace": "http://xmlns.com/foaf/0.1/",
@@ -2826,35 +1951,41 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
-          "description": "A name of the agent",
+          "description": "A name for some thing.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
           "rdf_term": "http://xmlns.com/foaf/0.1/name",
           "rdf_type": "rdfs_literal",
-          "title": "Name"
+          "title": "Name",
+          "type": "array"
         },
         "identifier": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
-          "description": "A unique identifier of the agent.",
+          "description": "An unambiguous reference to the resource within a given context.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
           "rdf_term": "http://purl.org/dc/terms/identifier",
           "rdf_type": "rdfs_literal",
-          "title": "Identifier"
+          "title": "Identifier",
+          "type": "array"
         },
         "mbox": {
-          "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
+          "description": "A email address via which contact can be made. This property SHOULD be used to provide the email address of the Agent, specified using fully qualified mailto: URI scheme [RFC6068].The email SHOULD be used to establish a communication channel to the agent.",
           "format": "uri",
           "minLength": 1,
           "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
@@ -2863,7 +1994,7 @@
           "type": "string"
         },
         "homepage": {
-          "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
+          "description": "A homepage for some thing.",
           "format": "uri",
           "minLength": 1,
           "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
@@ -2881,6 +2012,1085 @@
       "title": "HRIAgent",
       "type": "object"
     },
+    "HRIDataService": {
+      "$IRI": "http://www.w3.org/ns/dcat#DataService",
+      "$namespace": "http://www.w3.org/ns/dcat#",
+      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+      "$prefix": "dcat",
+      "additionalProperties": false,
+      "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
+      "properties": {
+        "access_rights": {
+          "$ref": "#/$defs/AccessRights",
+          "description": "Information about who access the resource or an indication of its security status.",
+          "rdf_term": "http://purl.org/dc/terms/accessRights",
+          "rdf_type": "uri"
+        },
+        "conforms_to": {
+          "default": null,
+          "description": "An established standard to which the described resource conforms.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/conformsTo",
+          "rdf_type": "uri",
+          "title": "Conforms To",
+          "type": "string"
+        },
+        "contact_point": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/HRIVCard"
+            }
+          ],
+          "description": "Relevant contact information for the cataloged resource.",
+          "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
+          "rdf_type": "uri",
+          "title": "Contact Point"
+        },
+        "creator": {
+          "default": null,
+          "description": "The entity responsible for producing the resource. Resources of type foaf:Agent are recommended as values for this property.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/VCard"
+              },
+              {
+                "$ref": "#/$defs/Agent"
+              }
+            ]
+          },
+          "rdf_term": "http://purl.org/dc/terms/creator",
+          "rdf_type": "uri",
+          "title": "Creator",
+          "type": "array"
+        },
+        "description": {
+          "description": "A free-text account of the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://purl.org/dc/terms/description",
+          "rdf_type": "literal",
+          "title": "Description",
+          "type": "array"
+        },
+        "has_part": {
+          "default": null,
+          "description": "A related resource that is included either physically or logically in the described resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/hasPart",
+          "rdf_type": "uri",
+          "title": "Has Part",
+          "type": "array"
+        },
+        "has_policy": {
+          "$ref": "#/$defs/ODRLPolicy",
+          "default": null,
+          "description": "An ODRL conformant policy expressing the rights associated with the resource.",
+          "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
+          "rdf_type": "uri"
+        },
+        "identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "description": "An unambiguous reference to the resource within a given context.",
+          "rdf_term": "http://purl.org/dc/terms/identifier",
+          "rdf_type": "rdfs_literal",
+          "title": "Identifier"
+        },
+        "is_referenced_by": {
+          "default": null,
+          "description": "A related resource, such as a publication, that references, cites, or otherwise points to the cataloged resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/isReferencedBy",
+          "rdf_type": "uri",
+          "title": "Is Referenced By",
+          "type": "array"
+        },
+        "keyword": {
+          "default": null,
+          "description": "A keyword or tag describing the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#keyword",
+          "rdf_type": "rdfs_literal",
+          "title": "Keyword",
+          "type": "array"
+        },
+        "landing_page": {
+          "default": null,
+          "description": "A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, its distributions and/or additional information.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#landingPage",
+          "rdf_type": "uri",
+          "title": "Landing Page",
+          "type": "array"
+        },
+        "license": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/GeonovumLicences"
+            }
+          ],
+          "description": "A legal document giving official permission to do something with the resource.",
+          "rdf_term": "http://purl.org/dc/terms/license",
+          "rdf_type": "uri",
+          "title": "License"
+        },
+        "language": {
+          "default": null,
+          "description": "A language of the resource. This refers to the natural language used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the textual values of a dataset distribution",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/language",
+          "rdf_type": "uri",
+          "title": "Language",
+          "type": "array"
+        },
+        "relation": {
+          "default": null,
+          "description": "A resource with an unspecified relationship to the cataloged resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/relation",
+          "rdf_type": "uri",
+          "title": "Relation",
+          "type": "array"
+        },
+        "rights": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Information about rights held in and over the distribution. Recommended practice is to refer to a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, or short text) may be provided.",
+          "rdf_term": "http://purl.org/dc/terms/rights",
+          "rdf_type": "uri",
+          "title": "Rights"
+        },
+        "qualified_relation": {
+          "default": null,
+          "description": "Link to a description of a relationship with another resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#qualifiedRelation",
+          "rdf_type": "uri",
+          "title": "Qualified Relation",
+          "type": "array"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/HRIAgent"
+            }
+          ],
+          "description": "The entity responsible for making the resource available.",
+          "rdf_term": "http://purl.org/dc/terms/publisher",
+          "rdf_type": "uri",
+          "title": "Publisher"
+        },
+        "release_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Date of formal issuance (e.g., publication) of the resource.",
+          "rdf_term": "http://purl.org/dc/terms/issued",
+          "rdf_type": "datetime_literal",
+          "title": "Release Date"
+        },
+        "theme": {
+          "description": "A main category of the resource. A resource can have multiple themes.",
+          "items": {
+            "$ref": "#/$defs/DatasetTheme"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#theme",
+          "rdf_type": "uri",
+          "title": "Theme",
+          "type": "array"
+        },
+        "title": {
+          "description": "A name given to the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://purl.org/dc/terms/title",
+          "rdf_type": "rdfs_literal",
+          "title": "Title",
+          "type": "array"
+        },
+        "type": {
+          "default": null,
+          "description": "The nature or genre of the resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/type",
+          "rdf_type": "uri",
+          "title": "Type",
+          "type": "array"
+        },
+        "update_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Most recent date on which the resource was changed, updated or modified.",
+          "rdf_term": "http://purl.org/dc/terms/modified",
+          "rdf_type": "datetime_literal",
+          "title": "Update Date"
+        },
+        "qualified_attribution": {
+          "default": null,
+          "description": "Link to an Agent having some form of responsibility for the resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/prov#qualifiedAttribution",
+          "rdf_type": "uri",
+          "title": "Qualified Attribution",
+          "type": "array"
+        },
+        "has_current_version": {
+          "default": null,
+          "description": "This resource has a more specific, versioned resource with equivalent content [PAV].",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#hasCurrentVersion",
+          "rdf_type": "uri",
+          "title": "Has Current Version",
+          "type": "string"
+        },
+        "has_version": {
+          "default": null,
+          "description": "This resource has a more specific, versioned resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/hasVersion",
+          "rdf_type": "uri",
+          "title": "Has Version",
+          "type": "array"
+        },
+        "previous_version": {
+          "default": null,
+          "description": "The previous version of a resource in a lineage [PAV].",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#previousVersion",
+          "rdf_type": "uri",
+          "title": "Previous Version",
+          "type": "string"
+        },
+        "replaces": {
+          "default": null,
+          "description": "A related resource that is supplanted, displaced, or superseded by the described resource",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/replaces",
+          "rdf_type": "uri",
+          "title": "Replaces",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "default": null,
+          "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
+          "rdf_term": "http://www.w3.org/ns/adms#status",
+          "rdf_type": "uri"
+        },
+        "version": {
+          "default": null,
+          "description": "The version indicator (name or identifier) of a resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#version",
+          "rdf_type": "rdfs_literal",
+          "title": "Version",
+          "type": "array"
+        },
+        "version_notes": {
+          "default": null,
+          "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
+          "rdf_type": "rdfs_literal",
+          "title": "Version Notes",
+          "type": "array"
+        },
+        "first": {
+          "default": null,
+          "description": "The first resource in an ordered collection or series of resources, to which the current resource belongs.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#first",
+          "rdf_type": "uri",
+          "title": "First",
+          "type": "string"
+        },
+        "last": {
+          "default": null,
+          "description": "The last resource in an ordered collection or series of resources, to which the current resource belongs.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#last",
+          "rdf_type": "uri",
+          "title": "Last",
+          "type": "string"
+        },
+        "previous": {
+          "default": null,
+          "description": "The previous resource (before the current one) in an ordered collection or series of resources.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#prev",
+          "rdf_type": "uri",
+          "title": "Previous",
+          "type": "array"
+        },
+        "endpoint_description": {
+          "$ref": "#/$defs/LiteralField",
+          "description": "A description of the services available via the end-points, including their operations, parameters etc.",
+          "rdf_term": "http://www.w3.org/ns/dcat#endpointDescription",
+          "rdf_type": "rdfs_literal"
+        },
+        "endpoint_url": {
+          "description": "The root location or primary endpoint of the service (a Web-resolvable IRI).",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#endpointURL",
+          "rdf_type": "uri",
+          "title": "Endpoint Url",
+          "type": "string"
+        },
+        "serves_dataset": {
+          "default": null,
+          "description": "A collection of data that this data service can distribute.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/HRIDataset"
+              }
+            ]
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#servesDataset",
+          "rdf_type": "uri",
+          "title": "Serves Dataset",
+          "type": "array"
+        }
+      },
+      "required": [
+        "access_rights",
+        "contact_point",
+        "description",
+        "identifier",
+        "license",
+        "publisher",
+        "theme",
+        "title",
+        "endpoint_description",
+        "endpoint_url"
+      ],
+      "title": "HRIDataService",
+      "type": "object"
+    },
+    "HRIDataset": {
+      "$IRI": "http://www.w3.org/ns/dcat#Dataset",
+      "$namespace": "http://www.w3.org/ns/dcat#",
+      "$ontology": [
+        "https://www.w3.org/TR/vocab-dcat-3/",
+        "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification"
+      ],
+      "$prefix": "dcat",
+      "additionalProperties": false,
+      "properties": {
+        "access_rights": {
+          "$ref": "#/$defs/AccessRights",
+          "description": "Information about who can access the resource or an indication of its security status.",
+          "rdf_term": "http://purl.org/dc/terms/accessRights",
+          "rdf_type": "uri"
+        },
+        "conforms_to": {
+          "default": null,
+          "description": "An established standard to which the described resource conforms.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/conformsTo",
+          "rdf_type": "uri",
+          "title": "Conforms To",
+          "type": "string"
+        },
+        "contact_point": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/HRIVCard"
+            }
+          ],
+          "description": "Relevant contact information for the cataloged resource.",
+          "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
+          "rdf_type": "uri",
+          "title": "Contact Point"
+        },
+        "creator": {
+          "description": "The entity responsible for producing the resource.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/HRIAgent"
+              }
+            ]
+          },
+          "rdf_term": "http://purl.org/dc/terms/creator",
+          "rdf_type": "uri",
+          "title": "Creator",
+          "type": "array"
+        },
+        "description": {
+          "description": "An account of the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://purl.org/dc/terms/description",
+          "rdf_type": "literal",
+          "title": "Description",
+          "type": "array"
+        },
+        "has_part": {
+          "default": null,
+          "description": "A related resource that is included either physically or logically in the described resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/hasPart",
+          "rdf_type": "uri",
+          "title": "Has Part",
+          "type": "array"
+        },
+        "has_policy": {
+          "$ref": "#/$defs/ODRLPolicy",
+          "default": null,
+          "description": "An ODRL conformant policy expressing the rights associated with the resource.",
+          "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
+          "rdf_type": "uri"
+        },
+        "identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "description": "An unambiguous reference to the resource within a given context.",
+          "rdf_term": "http://purl.org/dc/terms/identifier",
+          "rdf_type": "rdfs_literal",
+          "title": "Identifier"
+        },
+        "is_referenced_by": {
+          "default": null,
+          "description": "A related resource, such as a publication, that references, cites, or otherwise points to the cataloged resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/isReferencedBy",
+          "rdf_type": "uri",
+          "title": "Is Referenced By",
+          "type": "array"
+        },
+        "keyword": {
+          "description": "A keyword or tag describing the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#keyword",
+          "rdf_type": "rdfs_literal",
+          "title": "Keyword",
+          "type": "array"
+        },
+        "landing_page": {
+          "default": null,
+          "description": "A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, its distributions and/or additional information.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#landingPage",
+          "rdf_type": "uri",
+          "title": "Landing Page",
+          "type": "array"
+        },
+        "license": {
+          "default": null,
+          "description": "A legal document under which the resource is made available.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/license",
+          "rdf_type": "uri",
+          "title": "License",
+          "type": "string"
+        },
+        "language": {
+          "default": null,
+          "description": "A language of the resource. This refers to the natural language used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the textual values of a dataset distribution",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/language",
+          "rdf_type": "uri",
+          "title": "Language",
+          "type": "array"
+        },
+        "relation": {
+          "default": null,
+          "description": "A resource with an unspecified relationship to the cataloged resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/relation",
+          "rdf_type": "uri",
+          "title": "Relation",
+          "type": "array"
+        },
+        "rights": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Information about rights held in and over the distribution. Recommended practice is to refer to a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, or short text) may be provided.",
+          "rdf_term": "http://purl.org/dc/terms/rights",
+          "rdf_type": "uri",
+          "title": "Rights"
+        },
+        "qualified_relation": {
+          "default": null,
+          "description": "Link to a description of a relationship with another resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#qualifiedRelation",
+          "rdf_type": "uri",
+          "title": "Qualified Relation",
+          "type": "array"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/HRIAgent"
+            }
+          ],
+          "description": "An entity responsible for making the resource available.",
+          "rdf_term": "http://purl.org/dc/terms/publisher",
+          "rdf_type": "uri",
+          "title": "Publisher"
+        },
+        "release_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Date of formal issuance (e.g., publication) of the resource.",
+          "rdf_term": "http://purl.org/dc/terms/issued",
+          "rdf_type": "datetime_literal",
+          "title": "Release Date"
+        },
+        "theme": {
+          "description": "A main category of the resource. A resource can have multiple themes.",
+          "items": {
+            "$ref": "#/$defs/DatasetTheme"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#theme",
+          "rdf_type": "uri",
+          "title": "Theme",
+          "type": "array"
+        },
+        "title": {
+          "description": "A name given to the resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://purl.org/dc/terms/title",
+          "rdf_type": "rdfs_literal",
+          "title": "Title",
+          "type": "array"
+        },
+        "type": {
+          "default": null,
+          "description": "The nature or genre of the resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/type",
+          "rdf_type": "uri",
+          "title": "Type",
+          "type": "array"
+        },
+        "update_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Most recent date on which the resource was changed, updated or modified.",
+          "rdf_term": "http://purl.org/dc/terms/modified",
+          "rdf_type": "datetime_literal",
+          "title": "Update Date"
+        },
+        "qualified_attribution": {
+          "default": null,
+          "description": "Link to an Agent having some form of responsibility for the resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/prov#qualifiedAttribution",
+          "rdf_type": "uri",
+          "title": "Qualified Attribution",
+          "type": "array"
+        },
+        "has_current_version": {
+          "default": null,
+          "description": "This resource has a more specific, versioned resource with equivalent content [PAV].",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#hasCurrentVersion",
+          "rdf_type": "uri",
+          "title": "Has Current Version",
+          "type": "string"
+        },
+        "has_version": {
+          "default": null,
+          "description": "This resource has a more specific, versioned resource",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/hasVersion",
+          "rdf_type": "uri",
+          "title": "Has Version",
+          "type": "array"
+        },
+        "previous_version": {
+          "default": null,
+          "description": "The previous version of a resource in a lineage [PAV].",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#previousVersion",
+          "rdf_type": "uri",
+          "title": "Previous Version",
+          "type": "string"
+        },
+        "replaces": {
+          "default": null,
+          "description": "A related resource that is supplanted, displaced, or superseded by the described resource",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/replaces",
+          "rdf_type": "uri",
+          "title": "Replaces",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "default": null,
+          "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
+          "rdf_term": "http://www.w3.org/ns/adms#status",
+          "rdf_type": "uri"
+        },
+        "version": {
+          "default": null,
+          "description": "The version indicator (name or identifier) of a resource.",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#version",
+          "rdf_type": "rdfs_literal",
+          "title": "Version",
+          "type": "array"
+        },
+        "version_notes": {
+          "default": null,
+          "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
+          "items": {
+            "$ref": "#/$defs/LiteralField"
+          },
+          "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
+          "rdf_type": "rdfs_literal",
+          "title": "Version Notes",
+          "type": "array"
+        },
+        "first": {
+          "default": null,
+          "description": "The first resource in an ordered collection or series of resources, to which the current resource belongs.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#first",
+          "rdf_type": "uri",
+          "title": "First",
+          "type": "string"
+        },
+        "last": {
+          "default": null,
+          "description": "The last resource in an ordered collection or series of resources, to which the current resource belongs.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/ns/dcat#last",
+          "rdf_type": "uri",
+          "title": "Last",
+          "type": "string"
+        },
+        "previous": {
+          "default": null,
+          "description": "The previous resource (before the current one) in an ordered collection or series of resources.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#prev",
+          "rdf_type": "uri",
+          "title": "Previous",
+          "type": "array"
+        },
+        "distribution": {
+          "default": null,
+          "description": "The nature or genre of the resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#distribution",
+          "rdf_type": "uri",
+          "title": "Distribution",
+          "type": "array"
+        },
+        "temporal_coverage": {
+          "default": null,
+          "description": "The temporal period that the dataset covers.",
+          "items": {
+            "$ref": "#/$defs/PeriodOfTime"
+          },
+          "rdf_term": "http://purl.org/dc/terms/temporal",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+          "title": "Temporal Coverage",
+          "type": "array"
+        },
+        "frequency": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/Frequency"
+            }
+          ],
+          "default": null,
+          "description": "The frequency at which a dataset is published.",
+          "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
+          "rdf_type": "uri",
+          "title": "Frequency"
+        },
+        "in_series": {
+          "default": null,
+          "description": "A dataset series of which the dataset is part.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
+          "rdf_type": "uri",
+          "title": "In Series",
+          "type": "array"
+        },
+        "spatial": {
+          "default": null,
+          "description": "The geographical area covered by the dataset.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/Location"
+              }
+            ]
+          },
+          "rdf_term": "http://purl.org/dc/terms/spatial",
+          "rdf_type": "uri",
+          "title": "Spatial",
+          "type": "array"
+        },
+        "spatial_resolution": {
+          "default": null,
+          "description": "Minimum spatial separation resolvable in a dataset, measured in meters.",
+          "items": {
+            "type": "number"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
+          "rdf_type": "xsd:decimal",
+          "title": "Spatial Resolution",
+          "type": "array"
+        },
+        "temporal_resolution": {
+          "default": null,
+          "description": "Minimum time period resolvable in the dataset.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
+          "rdf_type": "xsd:duration",
+          "title": "Temporal Resolution",
+          "type": "array"
+        },
+        "was_generated_by": {
+          "default": null,
+          "description": "An activity that generated, or provides the business context for, the creation of the dataset.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/Activity"
+              }
+            ]
+          },
+          "rdf_term": "http://www.w3.org/ns/prov#wasGeneratedBy",
+          "rdf_type": "uri",
+          "title": "Was Generated By",
+          "type": "array"
+        },
+        "applicable_legislation": {
+          "description": "The legislation that is applicable to this resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://data.europa.eu/r5r/applicableLegislation",
+          "rdf_type": "uri",
+          "title": "Applicable Legislation",
+          "type": "array"
+        },
+        "issued": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Date of formal issuance of the resource.",
+          "rdf_term": "http://purl.org/dc/terms/issued",
+          "rdf_type": "datetime_literal",
+          "title": "Issued"
+        },
+        "modified": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "Date on which the resource was changed.",
+          "rdf_term": "http://purl.org/dc/terms/modified",
+          "rdf_type": "datetime_literal",
+          "title": "Modified"
+        }
+      },
+      "required": [
+        "access_rights",
+        "contact_point",
+        "creator",
+        "description",
+        "identifier",
+        "keyword",
+        "publisher",
+        "theme",
+        "title",
+        "applicable_legislation"
+      ],
+      "title": "HRIDataset",
+      "type": "object"
+    },
     "HRIVCard": {
       "$IRI": "http://www.w3.org/2006/vcard/ns#Kind",
       "$namespace": "http://www.w3.org/2006/vcard/ns#",
@@ -2893,7 +3103,7 @@
       "description": "The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types\nof vCards (Individual, Organization, Location, Group)",
       "properties": {
         "hasEmail": {
-          "description": "The email address as a mailto URI",
+          "description": "To specify the electronic mail address for communication with the object.",
           "format": "uri",
           "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasEmail",
@@ -2901,7 +3111,7 @@
           "title": "Hasemail",
           "type": "string"
         },
-        "full_name": {
+        "formatted_name": {
           "anyOf": [
             {
               "type": "string"
@@ -2910,12 +3120,13 @@
               "$ref": "#/$defs/LiteralField"
             }
           ],
-          "description": "The full name of the object (as a single string). This is the only mandatory property.",
+          "description": "The formatted text corresponding to the name of the object.",
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Full Name"
+          "title": "Formatted Name"
         },
         "hasUID": {
+          "default": null,
           "description": "A unique identifier for the object",
           "format": "uri",
           "minLength": 1,
@@ -2927,8 +3138,7 @@
       },
       "required": [
         "hasEmail",
-        "full_name",
-        "hasUID"
+        "formatted_name"
       ],
       "title": "HRIVCard",
       "type": "object"
@@ -3497,7 +3707,7 @@
           "title": "Hasemail",
           "type": "array"
         },
-        "full_name": {
+        "formatted_name": {
           "default": null,
           "description": "The full name of the object (as a single string). This is the only mandatory property.",
           "items": {
@@ -3512,10 +3722,11 @@
           },
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Full Name",
+          "title": "Formatted Name",
           "type": "array"
         },
         "hasUID": {
+          "default": null,
           "description": "A unique identifier for the object",
           "format": "uri",
           "minLength": 1,
@@ -3525,9 +3736,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "hasUID"
-      ],
       "title": "VCard",
       "type": "object"
     }
@@ -3541,11 +3749,21 @@
   "additionalProperties": false,
   "properties": {
     "access_rights": {
-      "$ref": "#/$defs/AccessRights",
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
-      "description": "Information about who can access the resource or an indication of its security status.",
+      "description": "Information about who can access the dataset and under what conditions.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
-      "rdf_type": "uri"
+      "rdf_type": "uri",
+      "title": "Access Rights"
     },
     "conforms_to": {
       "default": null,
@@ -3568,7 +3786,7 @@
           "$ref": "#/$defs/HRIVCard"
         }
       ],
-      "description": "Relevant contact information for the cataloged resource. HRI mandatory",
+      "description": "Relevant contact information for the cataloged resource.",
       "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
       "rdf_type": "uri",
       "title": "Contact Point"
@@ -3597,7 +3815,7 @@
       "type": "array"
     },
     "description": {
-      "description": "A free-text account of the resource. HRI mandatory",
+      "description": "An account of the resource.",
       "items": {
         "$ref": "#/$defs/LiteralField"
       },
@@ -3758,7 +3976,7 @@
           "$ref": "#/$defs/HRIAgent"
         }
       ],
-      "description": "The entity responsible for making the resource available. HRI mandatory",
+      "description": "An entity responsible for making the resource available.",
       "rdf_term": "http://purl.org/dc/terms/publisher",
       "rdf_type": "uri",
       "title": "Publisher"
@@ -3797,7 +4015,7 @@
       "type": "array"
     },
     "title": {
-      "description": "A name given to the resource. HRI mandatory",
+      "description": "A name given to the resource.",
       "items": {
         "$ref": "#/$defs/LiteralField"
       },
@@ -4091,7 +4309,7 @@
       "type": "string"
     },
     "dataset": {
-      "description": "A Dataset that is part of the Catalog. HRI recommended",
+      "description": "A dataset that is listed in the catalog.",
       "items": {
         "anyOf": [
           {
@@ -4111,7 +4329,7 @@
     },
     "service": {
       "default": null,
-      "description": "A service that is listed in the catalog. HRI recommended",
+      "description": "A service that is listed in the catalog.",
       "items": {
         "anyOf": [
           {
@@ -4120,7 +4338,7 @@
             "type": "string"
           },
           {
-            "$ref": "#/$defs/DCATDataService"
+            "$ref": "#/$defs/HRIDataService"
           }
         ]
       },

@@ -1,15 +1,6 @@
 {
   "$IRI": "http://www.w3.org/ns/dcat#Catalog",
   "$defs": {
-    "AccessRights": {
-      "enum": [
-        "http://publications.europa.eu/resource/authority/access-right/PUBLIC",
-        "http://publications.europa.eu/resource/authority/access-right/RESTRICTED",
-        "http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC"
-      ],
-      "title": "AccessRights",
-      "type": "string"
-    },
     "Activity": {
       "$IRI": "http://www.w3.org/ns/prov#Activity",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -334,11 +325,21 @@
       "additionalProperties": false,
       "properties": {
         "access_rights": {
-          "$ref": "#/$defs/AccessRights",
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
-          "description": "Information about who can access the resource or an indication of its security status.",
+          "description": "Information about who can access the dataset and under what conditions.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
-          "rdf_type": "uri"
+          "rdf_type": "uri",
+          "title": "Access Rights"
         },
         "conforms_to": {
           "default": null,
@@ -1785,7 +1786,7 @@
           "title": "Hasemail",
           "type": "array"
         },
-        "full_name": {
+        "formatted_name": {
           "default": null,
           "description": "The full name of the object (as a single string). This is the only mandatory property.",
           "items": {
@@ -1800,10 +1801,11 @@
           },
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Full Name",
+          "title": "Formatted Name",
           "type": "array"
         },
         "hasUID": {
+          "default": null,
           "description": "A unique identifier for the object",
           "format": "uri",
           "minLength": 1,
@@ -1813,9 +1815,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "hasUID"
-      ],
       "title": "VCard",
       "type": "object"
     }
@@ -1827,11 +1826,21 @@
   "description": "A curated collection of metadata about resources.",
   "properties": {
     "access_rights": {
-      "$ref": "#/$defs/AccessRights",
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
-      "description": "Information about who can access the resource or an indication of its security status.",
+      "description": "Information about who can access the dataset and under what conditions.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
-      "rdf_type": "uri"
+      "rdf_type": "uri",
+      "title": "Access Rights"
     },
     "conforms_to": {
       "default": null,

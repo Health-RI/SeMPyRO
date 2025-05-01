@@ -42,23 +42,24 @@ description: "The vCard class is equivalent to the new Kind class, which is the 
   for the four explicit types\nof vCards (Individual, Organization, Location, Group)"
 properties:
   hasEmail:
-    description: The email address as a mailto URI
+    description: To specify the electronic mail address for communication with the
+      object.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
     rdf_type: uri
     title: Hasemail
     type: string
-  full_name:
+  formatted_name:
     anyOf:
     - type: string
     - $ref: '#/$defs/LiteralField'
-    description: The full name of the object (as a single string). This is the only
-      mandatory property.
+    description: The formatted text corresponding to the name of the object.
     rdf_term: http://www.w3.org/2006/vcard/ns#fn
     rdf_type: rdfs_literal
-    title: Full Name
+    title: Formatted Name
   hasUID:
+    default:
     description: A unique identifier for the object
     format: uri
     minLength: 1
@@ -68,7 +69,6 @@ properties:
     type: string
 required:
 - hasEmail
-- full_name
-- hasUID
+- formatted_name
 title: HRIVCard
 type: object

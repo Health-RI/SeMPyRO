@@ -20,6 +20,7 @@ from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
+from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.utils.validator_functions import force_literal_field
@@ -37,43 +38,43 @@ class HRICatalog(DCATCatalog):
         }
     )
     title: List[LiteralField] = Field(
-        description="A name given to the resource. HRI mandatory",
+        description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
         }
     )
     description: List[LiteralField] = Field(
-        description="A free-text account of the resource. HRI mandatory",
+        description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "literal"
         }
     )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
-        description="The entity responsible for making the resource available. HRI mandatory",
+        description="An entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
             "rdf_type": "uri"
         }
     )
     contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
-        description="Relevant contact information for the cataloged resource. HRI mandatory",
+        description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
             "rdf_type": "uri"
         }
     )
     dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
-        description="A Dataset that is part of the Catalog. HRI recommended",
+        description="A dataset that is listed in the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.dataset,
             "rdf_type": "uri"
         }
     )
-    service: List[Union[AnyHttpUrl, DCATDataService]] = Field(
+    service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
         default=None,
-        description="A service that is listed in the catalog. HRI recommended",
+        description="A service that is listed in the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.DataService,
             "rdf_type": "uri"

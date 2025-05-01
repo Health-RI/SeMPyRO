@@ -36,7 +36,7 @@ class HRIDatasetSeries(DCATDatasetSeries):
     )
 
     title: List[LiteralField] = Field(
-        description="A name given to the Dataset Series. HRI mandatory",
+        description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
@@ -44,7 +44,7 @@ class HRIDatasetSeries(DCATDatasetSeries):
     )
 
     description: List[LiteralField] = Field(
-        description="A free-text account of the Dataset Series. HRI mandatory",
+        description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "rdfs_literal"
