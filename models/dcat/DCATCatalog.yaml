@@ -452,14 +452,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -1757,14 +1759,16 @@ properties:
     title: Landing Page
     type: array
   license:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: A legal document under which the resource is made available.
-    format: uri
-    minLength: 1
     rdf_term: http://purl.org/dc/terms/license
     rdf_type: uri
     title: License
-    type: string
   language:
     default:
     description: A language of the resource. This refers to the natural language used
