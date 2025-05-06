@@ -55,7 +55,8 @@ def test_vcard_email(email):
 
 @pytest.mark.parametrize("email", ["my:email@gmail.com",
                                    "myemailgmail.com",
-                                   "mailto:emailgmail.com"])
+                                   "mailto:emailgmail.com",
+                                   None])
 def test_vcard_email_validation(email):
     with pytest.raises(ValidationError):
         card_obj = VCard(hasEmail=email,

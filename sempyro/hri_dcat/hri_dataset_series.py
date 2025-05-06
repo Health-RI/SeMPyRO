@@ -54,6 +54,8 @@ class HRIDatasetSeries(DCATDatasetSeries):
     @field_validator("title", "description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        if not value:
+            return None
         return [force_literal_field(item) for item in value]
 
 if __name__ == "__main__":

@@ -52,10 +52,10 @@ class HRIDataset(DCATDataset):
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
             "rdf_term": DCATAPv3.applicableLegislation,
-            "rdf_type": "uri"
+            "rdf_type": "uri",
+            "bind_namespace": ['dcatap', DCATAPv3]
         }
     )
-
 
     contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource.",
@@ -164,7 +164,9 @@ class HRIDataset(DCATDataset):
 
     @field_validator("title", "description", "keyword", mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+    def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], None]) -> Union[List[LiteralField], None]:
+        if not value:
+            return None
         return [force_literal_field(item) for item in value]
 
     @field_validator("issued", mode="before")

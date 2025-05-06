@@ -68,13 +68,15 @@ def convert_to_mailto(value: str) -> AnyUrl:
     return AnyUrl(f"mailto:{mail_part}")
 
 
-def validate_convert_email(value: Union[str, AnyUrl, List[Union[str, AnyUrl]]]) -> Union[List[AnyUrl], AnyUrl]:
+def validate_convert_email(value: Union[str, None, AnyUrl, List[Union[str, AnyUrl]]]) -> Union[None, List[AnyUrl], AnyUrl]:
     """
     Iteratively applies the function `convert_to_mailto` over the (list of) input value(s).
     :param value: list or str, (list of) input value(s)
     :return: a list of validated emails with the `mailto:` prefix.
     """
-    if isinstance(value, list):
+    if isinstance(value, list) and value[0]:
         return [convert_to_mailto(item) for item in value]
-    else:
+    elif value:
         return convert_to_mailto(str(value))
+    else:
+        return None
