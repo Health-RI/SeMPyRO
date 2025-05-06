@@ -53,7 +53,7 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCATAPv3.applicableLegislation,
             "rdf_type": "uri",
-            "bind_namespace": ['dcatap', DCATAPv3]
+            # "bind_namespace": ['dcatap', DCATAPv3]
         }
     )
 
