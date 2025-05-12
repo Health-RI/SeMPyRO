@@ -36,7 +36,7 @@ class HRIDatasetSeries(DCATDatasetSeries):
     )
 
     title: List[LiteralField] = Field(
-        description="A name given to the Dataset Series. HRI mandatory",
+        description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
@@ -44,7 +44,7 @@ class HRIDatasetSeries(DCATDatasetSeries):
     )
 
     description: List[LiteralField] = Field(
-        description="A free-text account of the Dataset Series. HRI mandatory",
+        description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "rdfs_literal"
@@ -54,6 +54,8 @@ class HRIDatasetSeries(DCATDatasetSeries):
     @field_validator("title", "description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        if not value:
+            return None
         return [force_literal_field(item) for item in value]
 
 if __name__ == "__main__":

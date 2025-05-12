@@ -44,14 +44,16 @@ class HRIDistribution(DCATDistribution):
                               )
 
     title: List[LiteralField] = Field(
-        description="A name given to the distribution. HRI mandatory",
+        default=None,
+        description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
         }
     )
     description: List[LiteralField] = Field(
-        description="A free-text account of the distribution. HRI mandatory",
+        default=None,
+        description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "rdfs_literal"
@@ -59,30 +61,29 @@ class HRIDistribution(DCATDistribution):
     )
     access_url: AnyHttpUrl = Field(
         description="A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, "
-                    "feed, SPARQL endpoint. HRI mandatory",
+                    "feed, SPARQL endpoint.",
         json_schema_extra={
             "rdf_term": DCAT.accessURL,
             "rdf_type": "uri"
         }
     )
     media_type: AnyHttpUrl = Field(
-        description="The media type of the distribution as defined by IANA.  HRI mandatory",
+        default=None,
+        description="The media type of the distribution as defined by IANA.",
         json_schema_extra={
             "rdf_term": DCAT.mediaType,
             "rdf_type": "uri"
         }
     )
-    # FIXME: For format a controlled vocabulary is specified, but that is not complete.
-    # E.g., DICOM is not in there. In the usage note a reference is also made to the EDAM ontology.
     format: AnyHttpUrl = Field(
-        description="The file format of the distribution.",
+        description="The file format, physical medium, or dimensions of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.format,
             "rdf_type": "uri"
         }
     )
     license: Union[AnyHttpUrl, GeonovumLicences] = Field(
-        description="A legal document under which the resource is made available.",
+        description="A legal document giving official permission to do something with the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.license,
             "rdf_type": "uri"
@@ -90,7 +91,7 @@ class HRIDistribution(DCATDistribution):
     )
     access_service: Union[AnyHttpUrl, HRIDataService] = Field(
         default=None,
-        description="A data service that gives access to the distribution of the dataset. HRI recommended",
+        description="A data service that gives access to the distribution of the dataset.",
         json_schema_extra={
             "rdf_term": DCAT.accessService,
             "rdf_type": "uri"
@@ -99,15 +100,14 @@ class HRIDistribution(DCATDistribution):
     download_url: AnyHttpUrl = Field(
         default=None,
         description="The URL of the downloadable file in a given format. E.g., CSV file or RDF file. "
-                    "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType. "
-                    "HRI recommended",
+                    "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType.",
         json_schema_extra={
             "rdf_term": DCAT.downloadURL,
             "rdf_type": "uri"
         }
     )
     rights: AnyHttpUrl = Field(
-        description="Information about rights held in and over the distribution.",
+        description="Information about rights held in and over the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.rights,
             "rdf_type": "uri"
@@ -117,13 +117,15 @@ class HRIDistribution(DCATDistribution):
         description="The size of a distribution in bytes.",
         json_schema_extra={
             "rdf_term": DCAT.byteSize,
-            "rdf_type": "xsd:nonNegativeInteger"
+            "rdf_type": "xsd:integer"
         }
     )
 
     @field_validator("title", "description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        if not value:
+            return None
         return [force_literal_field(item) for item in value]
 
 

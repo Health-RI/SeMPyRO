@@ -490,14 +490,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -900,14 +902,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -1356,14 +1360,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -2420,7 +2426,7 @@ $defs:
         rdf_type: uri
         title: Hasemail
         type: array
-      full_name:
+      formatted_name:
         default:
         description: The full name of the object (as a single string). This is the
           only mandatory property.
@@ -2430,9 +2436,10 @@ $defs:
           - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/2006/vcard/ns#fn
         rdf_type: rdfs_literal
-        title: Full Name
+        title: Formatted Name
         type: array
       hasUID:
+        default:
         description: A unique identifier for the object
         format: uri
         minLength: 1
@@ -2440,8 +2447,6 @@ $defs:
         rdf_type: uri
         title: Hasuid
         type: string
-    required:
-    - hasUID
     title: VCard
     type: object
 $namespace: http://www.w3.org/ns/dcat#
@@ -2568,7 +2573,7 @@ properties:
     default:
     description: The size of a distribution in bytes.
     rdf_term: http://www.w3.org/ns/dcat#byteSize
-    rdf_type: xsd:nonNegativeInteger.
+    rdf_type: xsd:nonNegativeInteger
     title: Byte Size
   spatial_resolution:
     default:

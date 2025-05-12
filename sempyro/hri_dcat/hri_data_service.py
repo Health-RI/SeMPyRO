@@ -20,7 +20,7 @@ from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDataService, DCATResource, AccessRights
-from sempyro.hri_dcat import HRIDataset
+from sempyro.hri_dcat.hri_dataset import HRIDataset
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
@@ -38,28 +38,28 @@ class HRIDataService(DCATDataService):
                               }
                               )
     access_rights: AccessRights = Field(
-        description="Information regarding access or restrictions based on privacy, security, or other policies.",
+        description="Information about who access the resource or an indication of its security status.",
         json_schema_extra={
             "rdf_term": DCTERMS.accessRights,
             "rdf_type": "uri"
         }
     )
     contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
-        description="Contact information that can be used for sending comments about the Data Service",
+        description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
             "rdf_type": "uri"
         }
     )
-    endpoint_url: Union[AnyHttpUrl, DCATResource] = Field(
-        description="The root location or primary endpoint of the service (a Web-resolvable IRI). HRI mandatory",
+    endpoint_url: AnyHttpUrl = Field(
+        description="The root location or primary endpoint of the service (a Web-resolvable IRI).",
         json_schema_extra={
             "rdf_term": DCAT.endpointURL,
             "rdf_type": "uri"
         }
     )
     title: List[LiteralField] = Field(
-        description="A name given to the resource. HRI mandatory",
+        description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
@@ -67,7 +67,7 @@ class HRIDataService(DCATDataService):
     )
     serves_dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
         default=None,
-        description="A collection of data that this data service can distribute. HRI recommended",
+        description="A collection of data that this data service can distribute.",
         json_schema_extra={
             "rdf_term": DCAT.servesDataset,
             "rdf_type": "uri"
@@ -75,21 +75,21 @@ class HRIDataService(DCATDataService):
     )
     endpoint_description: LiteralField = Field(
         description="A description of the services available via the end-points, including their operations, "
-                    "parameters etc",
+                    "parameters etc.",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
             "rdf_type": "rdfs_literal"
         }
     )
     identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the resource being described or cataloged.",
+        description="An unambiguous reference to the resource within a given context.",
         json_schema_extra={
             "rdf_term": DCTERMS.identifier,
             "rdf_type": "rdfs_literal"
         }
     )
     license: Union[AnyHttpUrl, GeonovumLicences] = Field(
-        description="A legal document under which the resource is made available. HRI mandatory",
+        description="A legal document giving official permission to do something with the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.license,
             "rdf_type": "uri"
@@ -103,7 +103,7 @@ class HRIDataService(DCATDataService):
         }
     )
     theme: List[DatasetTheme] = Field(
-        description="A main category of the resource. A resource can have multiple themes. HRI mandatory",
+        description="A main category of the resource. A resource can have multiple themes.",
         json_schema_extra={
             "rdf_term": DCAT.theme,
             "rdf_type": "uri"

@@ -338,12 +338,16 @@ $defs:
     additionalProperties: false
     properties:
       access_rights:
-        $ref: '#/$defs/AccessRights'
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
-        description: Information about who can access the resource or an indication
-          of its security status.
+        description: Information about who can access the dataset and under what conditions.
         rdf_term: http://purl.org/dc/terms/accessRights
         rdf_type: uri
+        title: Access Rights
       conforms_to:
         default:
         description: An established standard to which the described resource conforms.
@@ -455,14 +459,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -911,14 +917,16 @@ $defs:
         title: Landing Page
         type: array
       license:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A legal document under which the resource is made available.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
-        type: string
       language:
         default:
         description: A language of the resource. This refers to the natural language
@@ -1975,7 +1983,7 @@ $defs:
         rdf_type: uri
         title: Hasemail
         type: array
-      full_name:
+      formatted_name:
         default:
         description: The full name of the object (as a single string). This is the
           only mandatory property.
@@ -1985,9 +1993,10 @@ $defs:
           - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/2006/vcard/ns#fn
         rdf_type: rdfs_literal
-        title: Full Name
+        title: Formatted Name
         type: array
       hasUID:
+        default:
         description: A unique identifier for the object
         format: uri
         minLength: 1
@@ -1995,8 +2004,6 @@ $defs:
         rdf_type: uri
         title: Hasuid
         type: string
-    required:
-    - hasUID
     title: VCard
     type: object
 $namespace: http://www.w3.org/ns/dcat#
@@ -2124,14 +2131,16 @@ properties:
     title: Landing Page
     type: array
   license:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: A legal document under which the resource is made available.
-    format: uri
-    minLength: 1
     rdf_term: http://purl.org/dc/terms/license
     rdf_type: uri
     title: License
-    type: string
   language:
     default:
     description: A language of the resource. This refers to the natural language used
