@@ -16,12 +16,13 @@ from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
-from rdflib.namespace import DCAT, DCTERMS
+from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDistribution
 from sempyro.hri_dcat import HRIDataService
-from sempyro.hri_dcat.vocabularies import GeonovumLicences
+from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
+from sempyro.namespaces import DCATAPv3, ADMS
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -120,6 +121,89 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "xsd:integer"
         }
     )
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri",
+            # "bind_namespace": ['dcatap', DCATAPv3]
+        }
+    )
+    documentation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="Additional documentation about the distribution.",
+        json_schema_extra={
+            "rdf_term": FOAF.Document,
+            "rdf_type": "uri"
+        }
+    )
+    access_rights: AnyHttpUrl = Field(
+        default=None,
+        description="A data service that gives access to the distribution of the dataset.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
+    language: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A language of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.language,
+            "rdf_type": "uri"
+        }
+    )
+    linked_schemas: List[AnyHttpUrl] = Field(
+        default=None,
+        description="An established standard to which the described resource conforms.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.Standard,
+            "rdf_type": "uri"
+        }
+    )
+    modification_date: str = Field(
+        default=None,
+        description="Date on which the resource was changed.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime"
+        }
+    )
+
+    release_date: str = Field(
+        default=None,
+        description="Date of formal issuance of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "xsd:dateTime"
+        }
+    )
+    retention_period: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A temporal period which the dataset is available for secondary use.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,  # consider `dct:PeriodOfTime` if defined elsewhere
+            "rdf_type": "uri"
+        }
+    )
+    status: Union[AnyHttpUrl, DistributionStatus] = Field(
+        default=None,
+        description="The status of the distribution (e.g., under development, completed, deprecated, withdrawn).",
+        json_schema_extra={
+            "rdf_term": ADMS.status,
+            "rdf_type": "uri"
+        }
+    )
+    temporal_resolution: List[Union[str, LiteralField]] = Field(
+        default=None,
+        description="Minimum time period resolvable in the dataset.",
+        json_schema_extra={
+            "rdf_term": DCAT.temporalResolution,
+            "rdf_type": "xsd:duration"
+        }
+    )
+
 
     @field_validator("title", "description", mode="before")
     @classmethod

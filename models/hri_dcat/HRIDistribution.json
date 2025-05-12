@@ -385,6 +385,17 @@
       "title": "DatasetTheme",
       "type": "string"
     },
+    "DistributionStatus": {
+      "enum": [
+        "http://publications.europa.eu/resource/authority/distribution-status/DEVELOP",
+        "http://publications.europa.eu/resource/authority/distribution-status/COMPLETED",
+        "http://publications.europa.eu/resource/authority/distribution-status/DEPRECATED",
+        "http://publications.europa.eu/resource/authority/distribution-status/WITHDRAWN",
+        "http://publications.europa.eu/resource/authority/distribution-status/OP_DATPRO"
+      ],
+      "title": "DistributionStatus",
+      "type": "string"
+    },
     "End": {
       "$IRI": "http://www.w3.org/ns/prov#End",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -2586,21 +2597,12 @@
       "type": "array"
     },
     "release_date": {
-      "anyOf": [
-        {
-          "format": "date",
-          "type": "string"
-        },
-        {
-          "format": "date-time",
-          "type": "string"
-        }
-      ],
       "default": null,
-      "description": "Date of formal issuance (e.g., publication) of the distribution.",
+      "description": "Date of formal issuance of the resource.",
       "rdf_term": "http://purl.org/dc/terms/issued",
-      "rdf_type": "datetime_literal",
-      "title": "Release Date"
+      "rdf_type": "xsd:dateTime",
+      "title": "Release Date",
+      "type": "string"
     },
     "update_date": {
       "anyOf": [
@@ -2640,7 +2642,7 @@
     },
     "access_rights": {
       "default": null,
-      "description": "A rights statement that concerns how the distribution is accessed.",
+      "description": "A data service that gives access to the distribution of the dataset.",
       "format": "uri",
       "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/accessRights",
@@ -2745,7 +2747,7 @@
           }
         ]
       },
-      "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
+      "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
       "rdf_type": "xsd:duration",
       "title": "Temporal Resolution",
       "type": "array"
@@ -2808,6 +2810,96 @@
       "description": "The checksum property provides a mechanism that can be used to verify that the contents of a file or package have not changed [SPDX].",
       "rdf_term": "http://spdx.org/rdf/terms#checksum",
       "rdf_type": "uri"
+    },
+    "applicable_legislation": {
+      "default": null,
+      "description": "The legislation that is applicable to this resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://data.europa.eu/r5r/applicableLegislation",
+      "rdf_type": "uri",
+      "title": "Applicable Legislation",
+      "type": "array"
+    },
+    "documentation": {
+      "default": null,
+      "description": "Additional documentation about the distribution.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://xmlns.com/foaf/0.1/Document",
+      "rdf_type": "uri",
+      "title": "Documentation",
+      "type": "array"
+    },
+    "language": {
+      "default": null,
+      "description": "A language of the resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/language",
+      "rdf_type": "uri",
+      "title": "Language",
+      "type": "array"
+    },
+    "linked_schemas": {
+      "default": null,
+      "description": "An established standard to which the described resource conforms.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/Standard",
+      "rdf_type": "uri",
+      "title": "Linked Schemas",
+      "type": "array"
+    },
+    "modification_date": {
+      "default": null,
+      "description": "Date on which the resource was changed.",
+      "rdf_term": "http://purl.org/dc/terms/modified",
+      "rdf_type": "xsd:dateTime",
+      "title": "Modification Date",
+      "type": "string"
+    },
+    "retention_period": {
+      "default": null,
+      "description": "A temporal period which the dataset is available for secondary use.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
+      "rdf_type": "uri",
+      "title": "Retention Period",
+      "type": "array"
+    },
+    "status": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/DistributionStatus"
+        }
+      ],
+      "default": null,
+      "description": "The status of the distribution (e.g., under development, completed, deprecated, withdrawn).",
+      "rdf_term": "http://www.w3.org/ns/adms#status",
+      "rdf_type": "uri",
+      "title": "Status"
     }
   },
   "required": [
