@@ -1782,15 +1782,13 @@ $defs:
         title: Contact Point
       creator:
         default:
-        description: The entity responsible for producing the resource. Resources
-          of type foaf:Agent are recommended as values for this property.
+        description: An entity responsible for making the resource.
         items:
           anyOf:
           - format: uri
             minLength: 1
             type: string
-          - $ref: '#/$defs/VCard'
-          - $ref: '#/$defs/Agent'
+          - $ref: '#/$defs/HRIAgent'
         rdf_term: http://purl.org/dc/terms/creator
         rdf_type: uri
         title: Creator
@@ -1900,18 +1898,16 @@ $defs:
         title: Relation
         type: array
       rights:
-        anyOf:
-        - $ref: '#/$defs/LiteralField'
-        - format: uri
+        default:
+        description: Information about rights held in and over the resource.
+        items:
+          format: uri
           minLength: 1
           type: string
-        default:
-        description: Information about rights held in and over the distribution. Recommended
-          practice is to refer to a rights statement with a URI. If this is not possible
-          or feasible, a literal value (name, label, or short text) may be provided.
         rdf_term: http://purl.org/dc/terms/rights
         rdf_type: uri
         title: Rights
+        type: array
       qualified_relation:
         default:
         description: Link to a description of a relationship with another resource
@@ -2122,6 +2118,64 @@ $defs:
         rdf_term: http://www.w3.org/ns/dcat#servesDataset
         rdf_type: uri
         title: Serves Dataset
+        type: array
+      applicable_legislation:
+        default:
+        description: The legislation that is applicable to this resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://data.europa.eu/r5r/applicableLegislation
+        rdf_type: uri
+        title: Applicable Legislation
+        type: array
+      application_profile:
+        default:
+        description: An established standard to which the described resource conforms.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/conformsTo
+        rdf_type: uri
+        title: Application Profile
+        type: array
+      format:
+        default:
+        description: The file format, physical medium, or dimensions of the resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/format
+        rdf_type: uri
+        title: Format
+        type: array
+      hvd_category:
+        default:
+        description: A data category defined in the High Value Dataset Implementing
+          Regulation.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://data.europa.eu/r5r/hvdCategory
+        rdf_type: uri
+        title: Hvd Category
+        type: array
+      other_identifier:
+        default:
+        description: Links a resource to an adms:Identifier class.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Identifier'
+        rdf_term: http://www.w3.org/ns/adms#identifier
+        rdf_type: uri
+        title: Other Identifier
         type: array
     required:
     - access_rights
@@ -2660,6 +2714,35 @@ $defs:
     - hasEmail
     - formatted_name
     title: HRIVCard
+    type: object
+  Identifier:
+    $IRI: http://www.w3.org/ns/adms#Identifier
+    $namespace: http://www.w3.org/ns/adms#
+    $ontology: http://www.w3.org/TR/vocab-adms/
+    $prefix: adms
+    additionalProperties: false
+    properties:
+      notation:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A string that is an identifier in the context of the identifier
+          scheme referenced by its datatype.
+        rdf_term: http://www.w3.org/2004/02/skos/core#notation
+        rdf_type: rdfs_literal
+        title: Notation
+      schema_agency:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        default:
+        description: The name of the agency that issued the identifier.
+        rdf_term: http://www.w3.org/ns/adms#schemaAgency
+        rdf_type: rdfs_literal
+        title: Schema Agency
+    required:
+    - notation
+    title: Identifier
     type: object
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
