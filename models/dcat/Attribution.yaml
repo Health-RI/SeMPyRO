@@ -1,0 +1,115 @@
+$IRI: http://www.w3.org/ns/prov#Activity
+$defs:
+  Agent:
+    $IRI: http://xmlns.com/foaf/0.1/Agent
+    $namespace: http://xmlns.com/foaf/0.1/
+    $ontology: http://xmlns.com/foaf/spec/
+    $prefix: foaf
+    additionalProperties: false
+    properties:
+      name:
+        description: A name of the agent
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
+        rdf_term: http://xmlns.com/foaf/0.1/name
+        rdf_type: rdfs_literal
+        title: Name
+        type: array
+      identifier:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A unique identifier of the agent.
+        rdf_term: http://purl.org/dc/terms/identifier
+        rdf_type: rdfs_literal
+        title: Identifier
+      mbox:
+        default:
+        description: A personal mailbox, ie. an Internet mailbox associated with exactly
+          one owner, the first owner of this mailbox.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://xmlns.com/foaf/0.1/mbox
+        rdf_type: uri
+        title: Mbox
+        type: array
+      homepage:
+        default:
+        description: A webpage that either allows to make contact (i.e. a webform)
+          or the information contains how to get into contact.
+        format: uri
+        minLength: 1
+        rdf_term: http://xmlns.com/foaf/0.1/homepage
+        rdf_type: uri
+        title: Homepage
+        type: string
+    required:
+    - name
+    - identifier
+    title: Agent
+    type: object
+  LiteralField:
+    description: "Model to handle literal fields\nAttributes\n----------\ndatatype
+      : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
+      see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
+      \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      value : str\n    literal value\neither datatype or language, or none of these
+      two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
+    properties:
+      datatype:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: string
+        default:
+        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        title: Datatype
+      language:
+        default:
+        description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
+          also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        title: Language
+        type: string
+      value:
+        description: Field value
+        title: Value
+        type: string
+    required:
+    - value
+    title: LiteralField
+    type: object
+$namespace: http://www.w3.org/ns/prov#
+$ontology: https://www.w3.org/TR/prov-o/
+$prefix: prov
+additionalProperties: false
+properties:
+  agent:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/Agent'
+    default:
+    description: The prov:agent property references an prov:Agent which influenced
+      a resource.
+    rdf_term: http://www.w3.org/ns/prov#agent
+    rdf_type: uri
+    title: Agent
+  role:
+    default:
+    description: The function of an entity or agent with respect to another entity
+      or resource.
+    format: uri
+    minLength: 1
+    rdf_term: http://www.w3.org/ns/dcat#hadRole
+    rdf_type: uri
+    title: Role
+    type: string
+title: Attribution
+type: object
