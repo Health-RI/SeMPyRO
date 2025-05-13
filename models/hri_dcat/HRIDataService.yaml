@@ -2164,6 +2164,13 @@ properties:
     rdf_type: uri
     title: Other Identifier
     type: array
+  modification_date:
+    default:
+    description: Date on which the resource was changed.
+    rdf_term: http://purl.org/dc/terms/modified
+    rdf_type: xsd:dateTime
+    title: Modification Date
+    type: string
 required:
 - access_rights
 - contact_point
