@@ -215,75 +215,6 @@
       "title": "Activity",
       "type": "object"
     },
-    "Agent": {
-      "$IRI": "http://xmlns.com/foaf/0.1/Agent",
-      "$namespace": "http://xmlns.com/foaf/0.1/",
-      "$ontology": "http://xmlns.com/foaf/spec/",
-      "$prefix": "foaf",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "description": "A name of the agent",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
-          "rdf_term": "http://xmlns.com/foaf/0.1/name",
-          "rdf_type": "rdfs_literal",
-          "title": "Name",
-          "type": "array"
-        },
-        "identifier": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
-          "description": "A unique identifier of the agent.",
-          "rdf_term": "http://purl.org/dc/terms/identifier",
-          "rdf_type": "rdfs_literal",
-          "title": "Identifier"
-        },
-        "mbox": {
-          "default": null,
-          "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
-          "rdf_type": "uri",
-          "title": "Mbox",
-          "type": "array"
-        },
-        "homepage": {
-          "default": null,
-          "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
-          "rdf_type": "uri",
-          "title": "Homepage",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name",
-        "identifier"
-      ],
-      "title": "Agent",
-      "type": "object"
-    },
     "Association": {
       "$IRI": "http://www.w3.org/ns/prov#Association",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -1444,6 +1375,49 @@
       "title": "HRIVCard",
       "type": "object"
     },
+    "Identifier": {
+      "$IRI": "http://www.w3.org/ns/adms#Identifier",
+      "$namespace": "http://www.w3.org/ns/adms#",
+      "$ontology": "http://www.w3.org/TR/vocab-adms/",
+      "$prefix": "adms",
+      "additionalProperties": false,
+      "properties": {
+        "notation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "description": "A string that is an identifier in the context of the identifier scheme referenced by its datatype.",
+          "rdf_term": "http://www.w3.org/2004/02/skos/core#notation",
+          "rdf_type": "rdfs_literal",
+          "title": "Notation"
+        },
+        "schema_agency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "default": null,
+          "description": "The name of the agency that issued the identifier.",
+          "rdf_term": "http://www.w3.org/ns/adms#schemaAgency",
+          "rdf_type": "rdfs_literal",
+          "title": "Schema Agency"
+        }
+      },
+      "required": [
+        "notation"
+      ],
+      "title": "Identifier",
+      "type": "object"
+    },
     "LiteralField": {
       "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
       "properties": {
@@ -1986,59 +1960,6 @@
       ],
       "title": "TimePosition",
       "type": "object"
-    },
-    "VCard": {
-      "$IRI": "http://www.w3.org/2006/vcard/ns#Kind",
-      "$namespace": "http://www.w3.org/2006/vcard/ns#",
-      "$ontology": "https://www.w3.org/TR/vcard-rdf/",
-      "$prefix": "v",
-      "additionalProperties": false,
-      "description": "The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types\nof vCards (Individual, Organization, Location, Group)",
-      "properties": {
-        "hasEmail": {
-          "default": null,
-          "description": "The email address as a mailto URI",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://www.w3.org/2006/vcard/ns#hasEmail",
-          "rdf_type": "uri",
-          "title": "Hasemail",
-          "type": "array"
-        },
-        "formatted_name": {
-          "default": null,
-          "description": "The full name of the object (as a single string). This is the only mandatory property.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
-          "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
-          "rdf_type": "rdfs_literal",
-          "title": "Formatted Name",
-          "type": "array"
-        },
-        "hasUID": {
-          "default": null,
-          "description": "A unique identifier for the object",
-          "format": "uri",
-          "minLength": 1,
-          "rdf_term": "http://www.w3.org/2006/vcard/ns#hasUID",
-          "rdf_type": "uri",
-          "title": "Hasuid",
-          "type": "string"
-        }
-      },
-      "title": "VCard",
-      "type": "object"
     }
   },
   "$namespace": "http://www.w3.org/ns/dcat#",
@@ -2081,7 +2002,7 @@
     },
     "creator": {
       "default": null,
-      "description": "The entity responsible for producing the resource. Resources of type foaf:Agent are recommended as values for this property.",
+      "description": "An entity responsible for making the resource.",
       "items": {
         "anyOf": [
           {
@@ -2090,10 +2011,7 @@
             "type": "string"
           },
           {
-            "$ref": "#/$defs/VCard"
-          },
-          {
-            "$ref": "#/$defs/Agent"
+            "$ref": "#/$defs/HRIAgent"
           }
         ]
       },
@@ -2226,21 +2144,17 @@
       "type": "array"
     },
     "rights": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/LiteralField"
-        },
-        {
-          "format": "uri",
-          "minLength": 1,
-          "type": "string"
-        }
-      ],
       "default": null,
-      "description": "Information about rights held in and over the distribution. Recommended practice is to refer to a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, or short text) may be provided.",
+      "description": "Information about rights held in and over the resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
       "rdf_term": "http://purl.org/dc/terms/rights",
       "rdf_type": "uri",
-      "title": "Rights"
+      "title": "Rights",
+      "type": "array"
     },
     "qualified_relation": {
       "default": null,
@@ -2496,6 +2410,98 @@
       "rdf_type": "uri",
       "title": "Serves Dataset",
       "type": "array"
+    },
+    "applicable_legislation": {
+      "default": null,
+      "description": "The legislation that is applicable to this resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://data.europa.eu/r5r/applicableLegislation",
+      "rdf_type": "uri",
+      "title": "Applicable Legislation",
+      "type": "array"
+    },
+    "application_profile": {
+      "default": null,
+      "description": "An established standard to which the described resource conforms.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/conformsTo",
+      "rdf_type": "uri",
+      "title": "Application Profile",
+      "type": "array"
+    },
+    "format": {
+      "default": null,
+      "description": "The file format, physical medium, or dimensions of the resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/format",
+      "rdf_type": "uri",
+      "title": "Format",
+      "type": "array"
+    },
+    "hvd_category": {
+      "default": null,
+      "description": "A data category defined in the High Value Dataset Implementing Regulation.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://data.europa.eu/r5r/hvdCategory",
+      "rdf_type": "uri",
+      "title": "Hvd Category",
+      "type": "array"
+    },
+    "other_identifier": {
+      "default": null,
+      "description": "Links a resource to an adms:Identifier class.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Identifier"
+          }
+        ]
+      },
+      "rdf_term": "http://www.w3.org/ns/adms#identifier",
+      "rdf_type": "uri",
+      "title": "Other Identifier",
+      "type": "array"
+    },
+    "modified": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ],
+      "default": null,
+      "description": "Date on which the resource was changed.",
+      "rdf_term": "http://purl.org/dc/terms/modified",
+      "rdf_type": "datetime_literal",
+      "title": "Modified"
     }
   },
   "required": [
