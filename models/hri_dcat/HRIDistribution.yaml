@@ -2458,7 +2458,7 @@ properties:
       format: uri
       minLength: 1
       type: string
-    rdf_term: http://xmlns.com/foaf/0.1/Document
+    rdf_term: http://xmlns.com/foaf/0.1/page
     rdf_type: uri
     title: Documentation
     type: array
@@ -2480,7 +2480,7 @@ properties:
       format: uri
       minLength: 1
       type: string
-    rdf_term: http://purl.org/dc/terms/Standard
+    rdf_term: http://purl.org/dc/terms/conformsTo
     rdf_type: uri
     title: Linked Schemas
     type: array
@@ -2495,9 +2495,11 @@ properties:
     default:
     description: A temporal period which the dataset is available for secondary use.
     items:
-      format: uri
-      minLength: 1
-      type: string
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/PeriodOfTime'
     rdf_term: http://purl.org/dc/terms/accrualPeriodicity
     rdf_type: uri
     title: Retention Period

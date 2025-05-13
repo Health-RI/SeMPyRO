@@ -159,7 +159,7 @@ class HRIDistribution(DCATDistribution):
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
-            "rdf_term": DCTERMS.ConformsTo,
+            "rdf_term": DCTERMS.conformsTo,
             "rdf_type": "uri"
         }
     )
