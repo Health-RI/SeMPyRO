@@ -23,6 +23,7 @@ from sempyro.dcat import DCATDistribution
 from sempyro.hri_dcat import HRIDataService
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
 from sempyro.namespaces import DCATAPv3, ADMS
+from sempyro.time import PeriodOfTime
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -134,7 +135,7 @@ class HRIDistribution(DCATDistribution):
         default=None,
         description="Additional documentation about the distribution.",
         json_schema_extra={
-            "rdf_term": FOAF.Document,
+            "rdf_term": FOAF.page,
             "rdf_type": "uri"
         }
     )
@@ -158,7 +159,7 @@ class HRIDistribution(DCATDistribution):
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
-            "rdf_term": DCTERMS.Standard,
+            "rdf_term": DCTERMS.ConformsTo,
             "rdf_type": "uri"
         }
     )
@@ -179,7 +180,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "xsd:dateTime"
         }
     )
-    retention_period: List[AnyHttpUrl] = Field(
+    retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
