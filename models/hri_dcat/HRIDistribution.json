@@ -1273,13 +1273,25 @@
           "title": "Other Identifier",
           "type": "array"
         },
-        "modification_date": {
+        "modified": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            }
+          ],
           "default": null,
           "description": "Date on which the resource was changed.",
           "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "xsd:dateTime",
-          "title": "Modification Date",
-          "type": "string"
+          "rdf_type": "datetime_literal",
+          "title": "Modified"
         }
       },
       "required": [

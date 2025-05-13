@@ -11,11 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from datetime import date
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
@@ -168,12 +168,12 @@ class HRIDataService(DCATDataService):
         }
     )
 
-    modification_date: str = Field(
+    modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Date on which the resource was changed.",
         json_schema_extra={
             "rdf_term": DCTERMS.modified,
-            "rdf_type": "xsd:dateTime"
+            "rdf_type": "datetime_literal"
         }
     )
 
