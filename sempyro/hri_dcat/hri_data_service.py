@@ -168,6 +168,15 @@ class HRIDataService(DCATDataService):
         }
     )
 
+    modification_date: str = Field(
+        default=None,
+        description="Date on which the resource was changed.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime"
+        }
+    )
+
     @field_validator("title", "endpoint_description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]) -> Union[LiteralField, List[LiteralField]]:
