@@ -25,7 +25,7 @@ class Relationship(RDFModel):
             "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
             "$namespace": str(DCAT),
             "$IRI": DCAT.Relationship,
-            "$prefix": "prov"
+            "$prefix": "dcat"
         }
     )
 

@@ -2,7 +2,7 @@
   "$IRI": "http://www.w3.org/ns/dcat#Relationship",
   "$namespace": "http://www.w3.org/ns/dcat#",
   "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
-  "$prefix": "prov",
+  "$prefix": "dcat",
   "additionalProperties": false,
   "properties": {
     "had_role": {
