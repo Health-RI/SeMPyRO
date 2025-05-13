@@ -30,6 +30,7 @@ class DCATAPv3(DefinedNamespace):
     """
 
     applicableLegislation: URIRef
+    availability: URIRef
     hvdCategory: URIRef
 
     _NS = Namespace("http://data.europa.eu/r5r/")
