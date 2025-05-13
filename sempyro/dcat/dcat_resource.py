@@ -24,8 +24,10 @@ from rdflib import DCAT, DCTERMS, ODRL2, PROV, URIRef
 
 from sempyro import LiteralField, RDFModel
 from sempyro.foaf import Agent
+from sempyro.geo import Location
 from sempyro.namespaces import ADMS, ADMSStatus, DCATv3
 from sempyro.odrl import ODRLPolicy
+from sempyro.time import PeriodOfTime
 from sempyro.utils.validator_functions import date_handler, force_literal_field
 from sempyro.vcard import VCard
 
@@ -229,7 +231,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    update_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
@@ -328,6 +330,22 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
+    temporal_coverage: List[PeriodOfTime] = Field(
+        default=None,
+        description="The temporal period that the dataset covers.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.temporal,
+            "rdf_type": DCTERMS.PeriodOfTime
+        }
+    )
+    spatial: List[Union[AnyHttpUrl, Location]] = Field(
+        default=None,
+        description="The geographical area covered by the dataset.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.spatial,
+            "rdf_type": "uri"
+        }
+    )
 
     @field_validator("title", "description", "keyword", "version", "version_notes", mode="before")
     @classmethod
@@ -336,7 +354,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             return None
         return [force_literal_field(item) for item in value]
 
-    @field_validator("release_date", "update_date", mode="before")
+    @field_validator("release_date", "modification_date", mode="before")
     @classmethod
     def date_validator(cls, value):
         return date_handler(value)

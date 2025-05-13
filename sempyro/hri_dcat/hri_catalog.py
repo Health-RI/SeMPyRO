@@ -23,6 +23,7 @@ from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.namespaces import DCATAPv3
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -88,6 +89,32 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri",
+            # "bind_namespace": ['dcatap', DCATAPv3]
+        }
+    )
+    modification_date: str = Field(
+        default=None,
+        description="Date of last update to the catalog.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime"
+        }
+    )
+    release_date: str = Field(
+        default=None,
+        description="Date the catalog was first published.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "xsd:dateTime"
+        }
+    )
+
 
     @field_validator("title", "description", mode="before")
     @classmethod

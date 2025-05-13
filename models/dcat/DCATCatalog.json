@@ -631,7 +631,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -649,7 +649,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -769,6 +769,37 @@
           "title": "Previous",
           "type": "array"
         },
+        "temporal_coverage": {
+          "default": null,
+          "description": "The temporal period that the dataset covers.",
+          "items": {
+            "$ref": "#/$defs/PeriodOfTime"
+          },
+          "rdf_term": "http://purl.org/dc/terms/temporal",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+          "title": "Temporal Coverage",
+          "type": "array"
+        },
+        "spatial": {
+          "default": null,
+          "description": "The geographical area covered by the dataset.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/Location"
+              }
+            ]
+          },
+          "rdf_term": "http://purl.org/dc/terms/spatial",
+          "rdf_type": "uri",
+          "title": "Spatial",
+          "type": "array"
+        },
         "distribution": {
           "default": null,
           "description": "An available distribution of the dataset.",
@@ -780,17 +811,6 @@
           "rdf_term": "http://www.w3.org/ns/dcat#distribution",
           "rdf_type": "uri",
           "title": "Distribution",
-          "type": "array"
-        },
-        "temporal_coverage": {
-          "default": null,
-          "description": "The temporal period that the dataset covers.",
-          "items": {
-            "$ref": "#/$defs/PeriodOfTime"
-          },
-          "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
-          "title": "Temporal Coverage",
           "type": "array"
         },
         "frequency": {
@@ -821,26 +841,6 @@
           "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
           "rdf_type": "uri",
           "title": "In Series",
-          "type": "array"
-        },
-        "spatial": {
-          "default": null,
-          "description": "The geographical area covered by the dataset.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/Location"
-              }
-            ]
-          },
-          "rdf_term": "http://purl.org/dc/terms/spatial",
-          "rdf_type": "uri",
-          "title": "Spatial",
           "type": "array"
         },
         "spatial_resolution": {
@@ -2139,7 +2139,7 @@
       "title": "Type",
       "type": "array"
     },
-    "update_date": {
+    "modification_date": {
       "anyOf": [
         {
           "type": "string"
@@ -2157,7 +2157,7 @@
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Update Date"
+      "title": "Modification Date"
     },
     "qualified_attribution": {
       "default": null,
@@ -2277,6 +2277,37 @@
       "title": "Previous",
       "type": "array"
     },
+    "temporal_coverage": {
+      "default": null,
+      "description": "The temporal period that the dataset covers.",
+      "items": {
+        "$ref": "#/$defs/PeriodOfTime"
+      },
+      "rdf_term": "http://purl.org/dc/terms/temporal",
+      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+      "title": "Temporal Coverage",
+      "type": "array"
+    },
+    "spatial": {
+      "default": null,
+      "description": "The geographical area covered by the dataset.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Location"
+          }
+        ]
+      },
+      "rdf_term": "http://purl.org/dc/terms/spatial",
+      "rdf_type": "uri",
+      "title": "Spatial",
+      "type": "array"
+    },
     "distribution": {
       "default": null,
       "description": "An available distribution of the dataset.",
@@ -2288,17 +2319,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#distribution",
       "rdf_type": "uri",
       "title": "Distribution",
-      "type": "array"
-    },
-    "temporal_coverage": {
-      "default": null,
-      "description": "The temporal period that the dataset covers.",
-      "items": {
-        "$ref": "#/$defs/PeriodOfTime"
-      },
-      "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
-      "title": "Temporal Coverage",
       "type": "array"
     },
     "frequency": {
@@ -2329,26 +2349,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
       "rdf_type": "uri",
       "title": "In Series",
-      "type": "array"
-    },
-    "spatial": {
-      "default": null,
-      "description": "The geographical area covered by the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/Location"
-          }
-        ]
-      },
-      "rdf_term": "http://purl.org/dc/terms/spatial",
-      "rdf_type": "uri",
-      "title": "Spatial",
       "type": "array"
     },
     "spatial_resolution": {
@@ -2400,14 +2400,14 @@
       "title": "Was Generated By",
       "type": "array"
     },
-    "catalog_record": {
+    "record": {
       "default": null,
-      "description": "A record describing the registration of a single resource (e.g., a dataset, a data service) that is part of the catalog.",
+      "description": "A Catalogue Record that is part of the Catalogue.",
       "format": "uri",
       "minLength": 1,
       "rdf_term": "http://www.w3.org/ns/dcat#record",
       "rdf_type": "uri",
-      "title": "Catalog Record",
+      "title": "Record",
       "type": "string"
     },
     "dataset": {
