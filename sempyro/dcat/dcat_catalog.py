@@ -30,9 +30,10 @@ class DCATCatalog(DCATDataset):
                                   "$prefix": "dcat"
                               })
 
-    record: AnyHttpUrl = Field(
+    catalog_record: AnyHttpUrl = Field(
         default=None,
-        description="A Catalogue Record that is part of the Catalogue.",
+        description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
+                     "is part of the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.record,
             "rdf_type": "uri"
