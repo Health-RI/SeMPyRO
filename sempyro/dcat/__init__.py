@@ -4,6 +4,8 @@ from .dcat_catalog import DCATCatalog
 from .dataset_series import DCATDatasetSeries
 from .data_service import DCATDataService
 from .dcat_distribution import DCATDistribution
+from .dcat_relationship import Relationship
+from .dcat_attribution import Attribution
 
 __all__ = (
     # dcat rdf model classes
@@ -13,6 +15,8 @@ __all__ = (
     "DCATDistribution",
     "DCATDatasetSeries",
     "DCATDataService",
+    "Relationship",
+    "Attribution",
     # enum classes
     "Status",
     "AccessRights",
