@@ -23,7 +23,9 @@ from sempyro.dcat import DCATDataService, DCATResource, AccessRights
 from sempyro.hri_dcat.hri_dataset import HRIDataset
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.adms.identifier import Identifier
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
+from sempyro.namespaces import DCATAPv3, ADMS
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -44,6 +46,22 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri"
+        }
+    )
+    application_profile: List[AnyHttpUrl] = Field(
+        default=None,
+        description="An established standard to which the described resource conforms.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.conformsTo,
+            "rdf_type": "uri"
+        }
+    )
     contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
@@ -51,10 +69,50 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
+    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+        default=None,
+        description="An entity responsible for making the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.creator,
+            "rdf_type": "uri"
+        }
+    )
+    rights: List[AnyHttpUrl] = Field(
+        default=None,
+        description="Information about rights held in and over the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.rights,
+            "rdf_type": "uri"
+        }
+    )
     endpoint_url: AnyHttpUrl = Field(
         description="The root location or primary endpoint of the service (a Web-resolvable IRI).",
         json_schema_extra={
             "rdf_term": DCAT.endpointURL,
+            "rdf_type": "uri"
+        }
+    )
+    format: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The file format, physical medium, or dimensions of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.format,
+            "rdf_type": "uri"
+        }
+    )
+    hvd_category: List[AnyHttpUrl] = Field( # IRI or skos:Concept
+        default=None,
+        description="A data category defined in the High Value Dataset Implementing Regulation.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.hvdCategory,
+            "rdf_type": "uri"
+        }
+    )
+    other_identifier: List[Union[AnyHttpUrl, Identifier]] = Field(
+        default=None,
+        description="Links a resource to an adms:Identifier class.",
+        json_schema_extra={
+            "rdf_term": ADMS.identifier,
             "rdf_type": "uri"
         }
     )
