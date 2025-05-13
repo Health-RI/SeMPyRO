@@ -12,29 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .ADMS import ADMS, ADMSStatus
-from .DCATv3 import DCATv3
-from .FREQ import FREQ
-from .GEOSPARQL import GeoSPARQL
-from .GREG import Greg
-from .LOCN import LOCN
-from .DISCO import DISCO
-from .DCATAPv3 import DCATAPv3
-from .HEALTHDCATAP import HEALTHDCATAP
-from .DPV import DPV
-from .DQV import DQV
+from rdflib import URIRef
+from rdflib.namespace import DefinedNamespace, Namespace
 
-__all__ = (
-    "ADMS",
-    "ADMSStatus",
-    "DCATv3",
-    "FREQ",
-    "GeoSPARQL",
-    "LOCN",
-    "Greg",
-    "DISCO",
-    "DCATAPv3",
-    "HEALTHDCATAP",
-    "DPV",
-    "DQV"
-)
+
+class DPV(DefinedNamespace):
+    """
+    Namespace for the Data Privacy Vocabulary
+
+    Generated based on https://w3c.github.io/dpv/2.1/dpv/
+    Date: 2025-05-12
+    """
+
+    hasLegalBasis: URIRef
+    hasPersonalData: URIRef
+    hasPurpose: URIRef
+
+
+    _NS = Namespace("https://w3id.org/dpv#")
