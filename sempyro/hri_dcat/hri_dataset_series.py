@@ -14,12 +14,14 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field, field_validator
+from pydantic import ConfigDict, Field, field_validator, AnyHttpUrl
 from rdflib import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
-from sempyro.namespaces import DCATv3
+from sempyro.time import PeriodOfTime
+from sempyro.vcard import VCard
+from sempyro.namespaces import DCATv3, DCATAPv3
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -32,6 +34,24 @@ class HRIDatasetSeries(DCATDatasetSeries):
             "$namespace": str(DCAT),
             "$IRI": DCATv3.DatasetSeries,
             "$prefix": "dcat"
+        }
+    )
+
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri"
+        }
+    )
+
+    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+        default=None,
+        description="Relevant contact information for the cataloged resource.",
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
         }
     )
 
@@ -48,6 +68,33 @@ class HRIDatasetSeries(DCATDatasetSeries):
         json_schema_extra={
             "rdf_term": DCTERMS.description,
             "rdf_type": "rdfs_literal"
+        }
+    )
+
+    frequency: AnyHttpUrl = Field(
+        default=None,
+        description="The frequency with which items are added to a collection.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,
+            "rdf_type": "uri"
+        }
+    )
+
+    geographical_coverage: List[AnyHttpUrl] = Field(
+        default=None,
+        description="Spatial characteristics of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.spatial,
+            "rdf_type": "uri"
+        }
+    )
+
+    temporal_coverage: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
+        default=None,
+        description="Temporal characteristics of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.temporal,
+            "rdf_type": "uri"
         }
     )
 
