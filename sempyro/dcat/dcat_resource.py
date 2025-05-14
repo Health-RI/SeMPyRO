@@ -335,7 +335,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         description="The temporal period that the dataset covers.",
         json_schema_extra={
             "rdf_term": DCTERMS.temporal,
-            "rdf_type": DCTERMS.PeriodOfTime
+            "rdf_type": "uri"
         }
     )
     spatial: List[Union[AnyHttpUrl, Location]] = Field(

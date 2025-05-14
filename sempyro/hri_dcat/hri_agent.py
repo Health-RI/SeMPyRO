@@ -70,14 +70,14 @@ class HRIAgent(Agent):
     )
     spatial: List[Union[AnyHttpUrl, Location]] = Field(
         default=None,
-        description="The geographical area covered by the dataset.",
+        description="Spatial characteristics of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.spatial,
             "rdf_type": "uri"
         }
     )
     #TODO: add the correct namespace for HEALTHDCAT
-    publisher_note: List[Union[str, LiteralField]] = Field(
+    publisher_note: Union[str, LiteralField] = Field(
         default=None,
         description="A description of the publisher activities.",
         json_schema_extra={
@@ -94,7 +94,7 @@ class HRIAgent(Agent):
             "rdf_type": "uri"
         }
     )
-    type: List[AnyHttpUrl] = Field(
+    type: AnyHttpUrl = Field(
         default=None,
         description="The nature or genre of the resource.",
         json_schema_extra={
