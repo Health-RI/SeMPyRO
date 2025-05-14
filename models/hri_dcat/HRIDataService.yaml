@@ -751,7 +751,7 @@ $defs:
         type: string
       spatial:
         default:
-        description: The geographical area covered by the dataset.
+        description: Spatial characteristics of the resource.
         items:
           anyOf:
           - format: uri
@@ -763,16 +763,14 @@ $defs:
         title: Spatial
         type: array
       publisher_note:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: A description of the publisher activities.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: REPLACE_WITH_ACTUAL_NAMESPACE:publisherNote
         rdf_type: rdfs_literal
         title: Publisher Note
-        type: array
       publisher_type:
         default:
         description: A type of organisation that makes the Dataset available.
@@ -785,14 +783,12 @@ $defs:
       type:
         default:
         description: The nature or genre of the resource.
-        items:
-          format: uri
-          minLength: 1
-          type: string
+        format: uri
+        minLength: 1
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
         title: Type
-        type: array
+        type: string
     required:
     - name
     - identifier
@@ -1151,7 +1147,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: http://purl.org/dc/terms/PeriodOfTime
+        rdf_type: uri
         title: Temporal Coverage
         type: array
       spatial:
@@ -2212,7 +2208,7 @@ properties:
     items:
       $ref: '#/$defs/PeriodOfTime'
     rdf_term: http://purl.org/dc/terms/temporal
-    rdf_type: http://purl.org/dc/terms/PeriodOfTime
+    rdf_type: uri
     title: Temporal Coverage
     type: array
   spatial:

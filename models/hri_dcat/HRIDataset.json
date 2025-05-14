@@ -670,7 +670,7 @@
         },
         "spatial": {
           "default": null,
-          "description": "The geographical area covered by the dataset.",
+          "description": "Spatial characteristics of the resource.",
           "items": {
             "anyOf": [
               {
@@ -689,22 +689,19 @@
           "type": "array"
         },
         "publisher_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "A description of the publisher activities.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "REPLACE_WITH_ACTUAL_NAMESPACE:publisherNote",
           "rdf_type": "rdfs_literal",
-          "title": "Publisher Note",
-          "type": "array"
+          "title": "Publisher Note"
         },
         "publisher_type": {
           "default": null,
@@ -719,15 +716,12 @@
         "type": {
           "default": null,
           "description": "The nature or genre of the resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
+          "format": "uri",
+          "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/type",
           "rdf_type": "uri",
           "title": "Type",
-          "type": "array"
+          "type": "string"
         }
       },
       "required": [
@@ -1774,7 +1768,7 @@
         "$ref": "#/$defs/PeriodOfTime"
       },
       "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+      "rdf_type": "uri",
       "title": "Temporal Coverage",
       "type": "array"
     },

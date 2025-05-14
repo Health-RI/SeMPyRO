@@ -815,7 +815,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+          "rdf_type": "uri",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -1366,7 +1366,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+          "rdf_type": "uri",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -1940,7 +1940,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
+          "rdf_type": "uri",
           "title": "Temporal Coverage",
           "type": "array"
         },
