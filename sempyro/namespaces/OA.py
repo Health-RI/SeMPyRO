@@ -16,7 +16,7 @@ from rdflib.namespace import DefinedNamespace, Namespace
 
 
 class OA(DefinedNamespace):
-    hasTarget: URIRef
-    hasBody: URIRef
+    hasTarget: URIRef # The relationship between an Annotation and its Target.
+    hasBody: URIRef # The object of the relationship is a resource that is a body of the Annotation.
 
     _NS = Namespace("http://www.w3.org/ns/oa#")
