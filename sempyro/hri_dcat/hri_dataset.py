@@ -137,7 +137,15 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    #TODO: Frequency with European vocabulary or AnyHttpURL
+    # Frequency uses another vocabulary then the DCAT Dataset.
+    frequency: AnyHttpUrl = Field(
+        default=None,
+        description="The frequency at which a dataset is published.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,
+            "rdf_type": "uri"
+        }
+    )
 
     geographical_coverage: List[AnyHttpUrl] = Field(
         default=None,

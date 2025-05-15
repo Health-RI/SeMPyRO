@@ -4067,21 +4067,14 @@
           "type": "array"
         },
         "frequency": {
-          "anyOf": [
-            {
-              "format": "uri",
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/Frequency"
-            }
-          ],
           "default": null,
           "description": "The frequency at which a dataset is published.",
+          "format": "uri",
+          "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
           "rdf_type": "uri",
-          "title": "Frequency"
+          "title": "Frequency",
+          "type": "string"
         },
         "in_series": {
           "default": null,

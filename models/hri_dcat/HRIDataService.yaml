@@ -3003,16 +3003,14 @@ $defs:
         title: Temporal Coverage
         type: array
       frequency:
-        anyOf:
-        - format: uri
-          minLength: 1
-          type: string
-        - $ref: '#/$defs/Frequency'
         default:
         description: The frequency at which a dataset is published.
+        format: uri
+        minLength: 1
         rdf_term: http://purl.org/dc/terms/accrualPeriodicity
         rdf_type: uri
         title: Frequency
+        type: string
       in_series:
         default:
         description: A dataset series of which the dataset is part.
