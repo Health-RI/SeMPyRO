@@ -2401,14 +2401,16 @@
       "type": "array"
     },
     "catalog_record": {
-      "default": null,
       "description": "A record describing the registration of a single resource (e.g., a dataset, a data service) that is part of the catalog.",
-      "format": "uri",
-      "minLength": 1,
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
       "rdf_term": "http://www.w3.org/ns/dcat#record",
       "rdf_type": "uri",
       "title": "Catalog Record",
-      "type": "string"
+      "type": "array"
     },
     "dataset": {
       "default": null,
@@ -2482,7 +2484,8 @@
   },
   "required": [
     "description",
-    "title"
+    "title",
+    "catalog_record"
   ],
   "title": "DCATCatalog",
   "type": "object"
