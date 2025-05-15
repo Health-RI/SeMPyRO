@@ -389,11 +389,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -559,7 +561,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title
@@ -919,11 +923,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -1089,7 +1095,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title
@@ -1836,11 +1844,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -2475,7 +2485,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title

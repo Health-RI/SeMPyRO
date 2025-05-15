@@ -15,16 +15,14 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro import LiteralField
 from sempyro.dcat import DCATCatalog, DCATDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.namespaces import DCATAPv3
-from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRICatalog(DCATCatalog):
@@ -36,20 +34,6 @@ class HRICatalog(DCATCatalog):
             "$namespace": str(DCAT),
             "$IRI": DCAT.catalog,
             "$prefix": "dcat"
-        }
-    )
-    title: List[Union[LiteralField, str]] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-    description: List[Union[LiteralField, str]] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "rdfs_literal"
         }
     )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
@@ -115,14 +99,6 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-
-
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":

@@ -70,13 +70,6 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    description: List[Union[str, LiteralField]] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "rdfs_literal"
-        }
-    )
     identifier: Union[str, LiteralField] = Field(
         description="An unambiguous reference to the resource within a given context.",
         json_schema_extra={
@@ -96,13 +89,6 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCAT.theme,
             "rdf_type": "uri"
-        }
-    )
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
         }
     )
     type: List[AnyHttpUrl] = Field(
@@ -145,7 +131,7 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    @field_validator("title", "description", "keyword", mode="before")
+    @field_validator("keyword", mode="before")
     @classmethod
     def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], None]) -> Union[List[LiteralField], None]:
         if not value:

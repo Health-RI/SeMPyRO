@@ -91,11 +91,11 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    description: List[LiteralField] = Field(
-        description="A free-text account of the resource.",
+    description: List[Union[LiteralField, str]] = Field(
+        description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
+            "rdf_type": "rdfs_literal"
         }
     )
     has_part: List[AnyHttpUrl] = Field(
@@ -216,7 +216,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    title: List[LiteralField] = Field(
+    title: List[Union[LiteralField, str]] = Field(
         description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
