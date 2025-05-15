@@ -2377,7 +2377,14 @@
         "title": {
           "description": "A name given to the resource.",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://purl.org/dc/terms/title",
           "rdf_type": "rdfs_literal",
@@ -2672,26 +2679,6 @@
           "rdf_type": "uri",
           "title": "Other Identifier",
           "type": "array"
-        },
-        "modified": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date on which the resource was changed.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Modified"
         }
       },
       "required": [
