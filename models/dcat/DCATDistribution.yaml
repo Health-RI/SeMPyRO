@@ -419,11 +419,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -589,7 +591,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title
@@ -605,7 +609,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -617,7 +621,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -726,6 +730,28 @@ $defs:
         rdf_term: http://www.w3.org/ns/dcat#prev
         rdf_type: uri
         title: Previous
+        type: array
+      temporal_coverage:
+        default:
+        description: The temporal period that the dataset covers.
+        items:
+          $ref: '#/$defs/PeriodOfTime'
+        rdf_term: http://purl.org/dc/terms/temporal
+        rdf_type: uri
+        title: Temporal Coverage
+        type: array
+      spatial:
+        default:
+        description: The geographical area covered by the dataset.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Location'
+        rdf_term: http://purl.org/dc/terms/spatial
+        rdf_type: uri
+        title: Spatial
         type: array
       endpoint_description:
         default:
@@ -831,11 +857,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -1001,7 +1029,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title
@@ -1017,7 +1047,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -1029,7 +1059,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -1139,6 +1169,28 @@ $defs:
         rdf_type: uri
         title: Previous
         type: array
+      temporal_coverage:
+        default:
+        description: The temporal period that the dataset covers.
+        items:
+          $ref: '#/$defs/PeriodOfTime'
+        rdf_term: http://purl.org/dc/terms/temporal
+        rdf_type: uri
+        title: Temporal Coverage
+        type: array
+      spatial:
+        default:
+        description: The geographical area covered by the dataset.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Location'
+        rdf_term: http://purl.org/dc/terms/spatial
+        rdf_type: uri
+        title: Spatial
+        type: array
       distribution:
         default:
         description: An available distribution of the dataset.
@@ -1149,15 +1201,6 @@ $defs:
         rdf_term: http://www.w3.org/ns/dcat#distribution
         rdf_type: uri
         title: Distribution
-        type: array
-      temporal_coverage:
-        default:
-        description: The temporal period that the dataset covers.
-        items:
-          $ref: '#/$defs/PeriodOfTime'
-        rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: http://purl.org/dc/terms/PeriodOfTime
-        title: Temporal Coverage
         type: array
       frequency:
         anyOf:
@@ -1180,19 +1223,6 @@ $defs:
         rdf_term: http://www.w3.org/ns/dcat#inSeries
         rdf_type: uri
         title: In Series
-        type: array
-      spatial:
-        default:
-        description: The geographical area covered by the dataset.
-        items:
-          anyOf:
-          - format: uri
-            minLength: 1
-            type: string
-          - $ref: '#/$defs/Location'
-        rdf_term: http://purl.org/dc/terms/spatial
-        rdf_type: uri
-        title: Spatial
         type: array
       spatial_resolution:
         default:
@@ -1289,11 +1319,13 @@ $defs:
         title: Creator
         type: array
       description:
-        description: A free-text account of the resource.
+        description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -1459,7 +1491,9 @@ $defs:
       title:
         description: A name given to the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/title
         rdf_type: rdfs_literal
         title: Title
@@ -1475,7 +1509,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -1487,7 +1521,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -1596,6 +1630,28 @@ $defs:
         rdf_term: http://www.w3.org/ns/dcat#prev
         rdf_type: uri
         title: Previous
+        type: array
+      temporal_coverage:
+        default:
+        description: The temporal period that the dataset covers.
+        items:
+          $ref: '#/$defs/PeriodOfTime'
+        rdf_term: http://purl.org/dc/terms/temporal
+        rdf_type: uri
+        title: Temporal Coverage
+        type: array
+      spatial:
+        default:
+        description: The geographical area covered by the dataset.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Location'
+        rdf_term: http://purl.org/dc/terms/spatial
+        rdf_type: uri
+        title: Spatial
         type: array
     required:
     - description

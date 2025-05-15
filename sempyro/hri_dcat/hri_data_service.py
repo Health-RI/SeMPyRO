@@ -116,13 +116,6 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
-        }
-    )
     serves_dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
         default=None,
         description="A collection of data that this data service can distribute.",
@@ -168,16 +161,7 @@ class HRIDataService(DCATDataService):
         }
     )
 
-    modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
-        default=None,
-        description="Date on which the resource was changed.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.modified,
-            "rdf_type": "datetime_literal"
-        }
-    )
-
-    @field_validator("title", "endpoint_description", mode="before")
+    @field_validator( "endpoint_description", mode="before")
     @classmethod
     def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]) -> Union[LiteralField, List[LiteralField]]:
         if isinstance(value, list):

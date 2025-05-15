@@ -65,14 +65,6 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    temporal_coverage: List[PeriodOfTime] = Field(
-        default=None,
-        description="The temporal period that the dataset covers.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.temporal,
-            "rdf_type": DCTERMS.PeriodOfTime
-        }
-    )
     frequency: Union[AnyHttpUrl, Frequency] = Field(
         default=None,
         description="The frequency at which a dataset is published.",
@@ -86,14 +78,6 @@ class DCATDataset(DCATResource):
         description="A dataset series of which the dataset is part.",
         json_schema_extra={
             "rdf_term": DCATv3.inSeries,
-            "rdf_type": "uri"
-        }
-    )
-    spatial: List[Union[AnyHttpUrl, Location]] = Field(
-        default=None,
-        description="The geographical area covered by the dataset.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.spatial,
             "rdf_type": "uri"
         }
     )

@@ -667,6 +667,61 @@
           "rdf_type": "uri",
           "title": "Homepage",
           "type": "string"
+        },
+        "spatial": {
+          "default": null,
+          "description": "Spatial characteristics of the resource.",
+          "items": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/Location"
+              }
+            ]
+          },
+          "rdf_term": "http://purl.org/dc/terms/spatial",
+          "rdf_type": "uri",
+          "title": "Spatial",
+          "type": "array"
+        },
+        "publisher_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "default": null,
+          "description": "A description of the publisher activities.",
+          "rdf_term": "REPLACE_WITH_ACTUAL_NAMESPACE:publisherNote",
+          "rdf_type": "rdfs_literal",
+          "title": "Publisher Note"
+        },
+        "publisher_type": {
+          "default": null,
+          "description": "A type of organisation that makes the Dataset available.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "REPLACE_WITH_ACTUAL_NAMESPACE:publisherType",
+          "rdf_type": "uri",
+          "title": "Publisher Type",
+          "type": "string"
+        },
+        "type": {
+          "default": null,
+          "description": "The nature or genre of the resource.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://purl.org/dc/terms/type",
+          "rdf_type": "uri",
+          "title": "Type",
+          "type": "string"
         }
       },
       "required": [
@@ -721,6 +776,19 @@
           "rdf_type": "uri",
           "title": "Hasuid",
           "type": "string"
+        },
+        "contact_page": {
+          "default": null,
+          "description": "A webpage that either allows to make contact (e.g. a webform) or provides information on how to get in touch.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/2006/vcard/ns#hasURL",
+          "rdf_type": "uri",
+          "title": "Contact Page",
+          "type": "array"
         }
       },
       "required": [
@@ -1336,10 +1404,17 @@
     "description": {
       "description": "An account of the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/description",
-      "rdf_type": "literal",
+      "rdf_type": "rdfs_literal",
       "title": "Description",
       "type": "array"
     },
@@ -1535,7 +1610,14 @@
     "title": {
       "description": "A name given to the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/title",
       "rdf_type": "rdfs_literal",
@@ -1555,7 +1637,7 @@
       "title": "Type",
       "type": "array"
     },
-    "update_date": {
+    "modification_date": {
       "anyOf": [
         {
           "type": "string"
@@ -1573,7 +1655,7 @@
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Update Date"
+      "title": "Modification Date"
     },
     "qualified_attribution": {
       "default": null,
@@ -1693,6 +1775,37 @@
       "title": "Previous",
       "type": "array"
     },
+    "temporal_coverage": {
+      "default": null,
+      "description": "The temporal period that the dataset covers.",
+      "items": {
+        "$ref": "#/$defs/PeriodOfTime"
+      },
+      "rdf_term": "http://purl.org/dc/terms/temporal",
+      "rdf_type": "uri",
+      "title": "Temporal Coverage",
+      "type": "array"
+    },
+    "spatial": {
+      "default": null,
+      "description": "The geographical area covered by the dataset.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Location"
+          }
+        ]
+      },
+      "rdf_term": "http://purl.org/dc/terms/spatial",
+      "rdf_type": "uri",
+      "title": "Spatial",
+      "type": "array"
+    },
     "distribution": {
       "default": null,
       "description": "The nature or genre of the resource.",
@@ -1704,17 +1817,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#distribution",
       "rdf_type": "uri",
       "title": "Distribution",
-      "type": "array"
-    },
-    "temporal_coverage": {
-      "default": null,
-      "description": "The temporal period that the dataset covers.",
-      "items": {
-        "$ref": "#/$defs/PeriodOfTime"
-      },
-      "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
-      "title": "Temporal Coverage",
       "type": "array"
     },
     "frequency": {
@@ -1745,26 +1847,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
       "rdf_type": "uri",
       "title": "In Series",
-      "type": "array"
-    },
-    "spatial": {
-      "default": null,
-      "description": "The geographical area covered by the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/Location"
-          }
-        ]
-      },
-      "rdf_term": "http://purl.org/dc/terms/spatial",
-      "rdf_type": "uri",
-      "title": "Spatial",
       "type": "array"
     },
     "spatial_resolution": {
@@ -1827,46 +1909,6 @@
       "rdf_type": "uri",
       "title": "Applicable Legislation",
       "type": "array"
-    },
-    "issued": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "format": "date",
-          "type": "string"
-        }
-      ],
-      "default": null,
-      "description": "Date of formal issuance of the resource.",
-      "rdf_term": "http://purl.org/dc/terms/issued",
-      "rdf_type": "datetime_literal",
-      "title": "Issued"
-    },
-    "modified": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "format": "date",
-          "type": "string"
-        },
-        {
-          "format": "date-time",
-          "type": "string"
-        }
-      ],
-      "default": null,
-      "description": "Date on which the resource was changed.",
-      "rdf_term": "http://purl.org/dc/terms/modified",
-      "rdf_type": "datetime_literal",
-      "title": "Modified"
     }
   },
   "required": [

@@ -15,15 +15,14 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro import LiteralField
-from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
+from sempyro.dcat import DCATCatalog, DCATDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.namespaces import DCATAPv3
 
 
 class HRICatalog(DCATCatalog):
@@ -37,24 +36,19 @@ class HRICatalog(DCATCatalog):
             "$prefix": "dcat"
         }
     )
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-    description: List[LiteralField] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
-        }
-    )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="An entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
+    )
+    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+        default=None,
+        description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
+                    "recommended as values for this property.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.creator,
             "rdf_type": "uri"
         }
     )
@@ -76,7 +70,7 @@ class HRICatalog(DCATCatalog):
         default=None,
         description="A service that is listed in the catalog.",
         json_schema_extra={
-            "rdf_term": DCAT.DataService,
+            "rdf_term": DCAT.service,
             "rdf_type": "uri"
         }
     )
@@ -84,17 +78,27 @@ class HRICatalog(DCATCatalog):
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={
-            "rdf_term": DCAT.Catalog,
+            "rdf_term": DCAT.catalog,
             "rdf_type": "uri"
         }
     )
-
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri",
+            # "bind_namespace": ['dcatap', DCATAPv3]
+        }
+    )
+    has_part: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
+        default=None,
+        description="A related resource that is included either physically or logically in the described resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.hasPart,
+            "rdf_type": "uri"
+        }
+    )
 
 
 if __name__ == "__main__":
