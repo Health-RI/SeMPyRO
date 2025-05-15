@@ -19,7 +19,7 @@ from pydantic import AnyUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField, RDFModel
-from sempyro.utils.validator_functions import validate_convert_email
+from sempyro.utils.validator_functions import validate_convert_email, force_literal_field
 
 
 class Agent(RDFModel):
@@ -64,6 +64,7 @@ class Agent(RDFModel):
             "rdf_type": "uri",
         }
     )
+
 
     @field_validator("mbox", mode="before")
     @classmethod

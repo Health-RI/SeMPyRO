@@ -51,6 +51,8 @@ class HEALTHDCATAP(DefinedNamespace):
     numberOfRecords: int
     numberOfUniqueIndividuals: int
     populationCoverage: str
+    publisherType: URIRef
+    publisherNote: URIRef
 
     _NS = Namespace("http://healthdataportal.eu/ns/health#")
 

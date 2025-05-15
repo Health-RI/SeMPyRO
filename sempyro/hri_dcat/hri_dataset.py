@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
-from rdflib import PROV
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
@@ -110,15 +108,6 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-
-    description: List[LiteralField] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
-        }
-    )
-
     distribution: List[Union[AnyHttpUrl, DCATDistribution]] = Field(
         default=None,
         description="An available Distribution for the Dataset.",
@@ -329,7 +318,6 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-
     identifier: Union[str, LiteralField] = Field(
         description="An unambiguous reference to the resource within a given context.",
         json_schema_extra={
@@ -337,7 +325,6 @@ class HRIDataset(DCATDataset):
             "rdf_type": "rdfs_literal"
         }
     )
-
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="An entity responsible for making the resource available.",
         json_schema_extra={
@@ -350,13 +337,6 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCAT.theme,
             "rdf_type": "uri"
-        }
-    )
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
         }
     )
     type: List[AnyHttpUrl] = Field(
@@ -385,7 +365,7 @@ class HRIDataset(DCATDataset):
     )
 
 
-    @field_validator("title", "description", "keyword", "population_coverage", mode="before")
+    @field_validator("keyword", "population_coverage", mode="before")
     @classmethod
     def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], None]) -> Union[List[LiteralField], None]:
         if not value:

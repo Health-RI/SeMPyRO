@@ -15,11 +15,14 @@ import re
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyUrl, ConfigDict, Field, field_validator
+from pydantic import AnyUrl, AnyHttpUrl, ConfigDict, Field, field_validator
+from rdflib import URIRef
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField
 from sempyro.foaf import Agent
+from sempyro.geo import Location
+from sempyro.namespaces import HEALTHDCATAP
 from sempyro.utils.validator_functions import validate_convert_email
 
 
@@ -64,6 +67,38 @@ class HRIAgent(Agent):
         json_schema_extra={
             "rdf_term": FOAF.homepage,
             "rdf_type": "uri",
+        }
+    )
+    spatial: List[Union[AnyHttpUrl, Location]] = Field(
+        default=None,
+        description="Spatial characteristics of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.spatial,
+            "rdf_type": "uri"
+        }
+    )
+    publisher_note: Union[str, LiteralField] = Field(
+        default=None,
+        description="A description of the publisher activities.",
+        json_schema_extra={
+            "rdf_term": HEALTHDCATAP.publisherNote,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    publisher_type: Union[AnyUrl, URIRef] = Field(
+        default=None,
+        description="A type of organisation that makes the Dataset available.",
+        json_schema_extra={
+            "rdf_term": HEALTHDCATAP.publisherType,
+            "rdf_type": "uri"
+        }
+    )
+    type: AnyHttpUrl = Field(
+        default=None,
+        description="The nature or genre of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.type,
+            "rdf_type": "uri"
         }
     )
 

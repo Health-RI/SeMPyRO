@@ -1322,12 +1322,19 @@
       "type": "array"
     },
     "description": {
-      "description": "A free-text account of the resource.",
+      "description": "An account of the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/description",
-      "rdf_type": "literal",
+      "rdf_type": "rdfs_literal",
       "title": "Description",
       "type": "array"
     },
@@ -1535,7 +1542,14 @@
     "title": {
       "description": "A name given to the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/title",
       "rdf_type": "rdfs_literal",
@@ -1700,6 +1714,37 @@
       "title": "Previous",
       "type": "array"
     },
+    "temporal_coverage": {
+      "default": null,
+      "description": "The temporal period that the dataset covers.",
+      "items": {
+        "$ref": "#/$defs/PeriodOfTime"
+      },
+      "rdf_term": "http://purl.org/dc/terms/temporal",
+      "rdf_type": "uri",
+      "title": "Temporal Coverage",
+      "type": "array"
+    },
+    "spatial": {
+      "default": null,
+      "description": "The geographical area covered by the dataset.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Location"
+          }
+        ]
+      },
+      "rdf_term": "http://purl.org/dc/terms/spatial",
+      "rdf_type": "uri",
+      "title": "Spatial",
+      "type": "array"
+    },
     "distribution": {
       "default": null,
       "description": "An available distribution of the dataset.",
@@ -1711,17 +1756,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#distribution",
       "rdf_type": "uri",
       "title": "Distribution",
-      "type": "array"
-    },
-    "temporal_coverage": {
-      "default": null,
-      "description": "The temporal period that the dataset covers.",
-      "items": {
-        "$ref": "#/$defs/PeriodOfTime"
-      },
-      "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
-      "title": "Temporal Coverage",
       "type": "array"
     },
     "frequency": {
@@ -1752,26 +1786,6 @@
       "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
       "rdf_type": "uri",
       "title": "In Series",
-      "type": "array"
-    },
-    "spatial": {
-      "default": null,
-      "description": "The geographical area covered by the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/Location"
-          }
-        ]
-      },
-      "rdf_term": "http://purl.org/dc/terms/spatial",
-      "rdf_type": "uri",
-      "title": "Spatial",
       "type": "array"
     },
     "spatial_resolution": {

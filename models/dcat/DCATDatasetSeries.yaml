@@ -59,6 +59,224 @@ $defs:
     - identifier
     title: Agent
     type: object
+  GeneralDateTimeDescription:
+    $IRI: http://www.w3.org/2006/time#GeneralDateTimeDescription
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: Description of date and time structured with separate values for
+      the various elements of a calendar-clock system
+    properties:
+      timeZone:
+        default:
+        description: The time zone for clock elements in the temporal position
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#timeZone
+        rdf_type: uri
+        title: Timezone
+        type: string
+      unitType:
+        description: The temporal unit which provides the precision of a date-time
+          value or scale of a temporal extent
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#unitType
+        rdf_type: uri
+        title: Unittype
+        type: string
+      hasTRS:
+        description: The temporal reference system used by a temporal position or
+          extent description
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#hasTRS
+        rdf_type: uri
+        title: Hastrs
+        type: string
+      year:
+        default:
+        description: Year position in a calendar-clock system. The range of this property
+          is not specified, so can be replaced by any specific representation of a
+          calendar year from any calendar.
+        rdf_term: http://www.w3.org/2006/time#year
+        rdf_type: xsd:gYear
+        title: Year
+        type: string
+      month:
+        default:
+        description: Month position in a calendar-clock system. The range of this
+          property is not specified, so can be replaced by any specific representation
+          of a calendar month from any calendar.
+        rdf_term: http://www.w3.org/2006/time#month
+        rdf_type: xsd:gMonth
+        title: Month
+        type: string
+      day:
+        default:
+        description: Day position in a calendar-clock system. The range of this property
+          is not specified, so can be replaced by any specific representation of a
+          calendar day from any calendar.
+        rdf_term: http://www.w3.org/2006/time#day
+        rdf_type: xsd:gDay
+        title: Day
+        type: string
+      hour:
+        default:
+        description: Hour position in a calendar-clock system
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#hour
+        rdf_type: xsd:nonNegativeInteger
+        title: Hour
+        type: integer
+      minute:
+        default:
+        description: Minute position in a calendar-clock system
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#minute
+        rdf_type: xsd:nonNegativeInteger
+        title: Minute
+        type: integer
+      second:
+        default:
+        description: Second position in a calendar-clock system.
+        rdf_term: http://www.w3.org/2006/time#second
+        rdf_type: xsd:decimal
+        title: Second
+        type: number
+      week:
+        default:
+        description: Week number within the year.
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#week
+        rdf_type: xsd:nonNegativeInteger
+        title: Week
+        type: integer
+      dayOfYear:
+        default:
+        description: The number of the day within the year
+        minimum: 0
+        rdf_term: http://www.w3.org/2006/time#dayOfYear
+        rdf_type: xsd:nonNegativeInteger
+        title: Dayofyear
+        type: integer
+      dayOfWeek:
+        default:
+        description: The day of week, whose value is a member of the class time:DayOfWeek
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#dayOfWeek
+        rdf_type: uri
+        title: Dayofweek
+        type: string
+      monthOfYear:
+        default:
+        description: The month of the year, whose value is a member of the class time:MonthOfYear
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#monthOfYear
+        rdf_type: uri
+        title: Monthofyear
+        type: string
+    required:
+    - unitType
+    - hasTRS
+    title: GeneralDateTimeDescription
+    type: object
+  Geometry:
+    $IRI: http://www.opengis.net/ont/geosparql#Geometry
+    $namespace: http://www.opengis.net/ont/geosparql#
+    $ontology: https://docs.ogc.org/is/22-047r1/22-047r1.html
+    $prefix: geo
+    additionalProperties: false
+    description: Geometry class for GeoSPARQL Geometry specification
+    properties:
+      dimension:
+        default:
+        description: The topological dimension of this geometric object, which must
+          be less than or equal to the coordinate dimension. In non-homogeneous collections,
+          this is the largest topological dimension of the contained objects.
+        rdf_term: http://www.opengis.net/ont/geosparql#dimension
+        rdf_type: xsd:integer
+        title: Dimension
+        type: integer
+      coordinateDimension:
+        default:
+        description: The number of measurements or axes needed to describe the position
+          of this Geometry in a coordinate system.
+        rdf_term: http://www.opengis.net/ont/geosparql#coordinateDimension
+        rdf_type: xsd:integer
+        title: Coordinatedimension
+        type: integer
+      spatialDimension:
+        default:
+        description: The number of measurements or axes needed to describe the spatial
+          position of this Geometry in a coordinate system.
+        rdf_term: http://www.opengis.net/ont/geosparql#spatialDimension
+        rdf_type: xsd:integer
+        title: Spatialdimension
+        type: integer
+      hasSpatialResolution:
+        default:
+        description: The spatial resolution of a Geometry
+        format: uri
+        minLength: 1
+        rdf_term: http://www.opengis.net/ont/geosparql#hasSpatialResolution
+        rdf_type: uri
+        title: Hasspatialresolution
+        type: string
+      hasMetricSpatialResolution:
+        default:
+        description: The spatial resolution of a Geometry in meters.
+        rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution
+        rdf_type: xsd:double
+        title: Hasmetricspatialresolution
+        type: number
+      hasSpatialAccuracy:
+        default:
+        description: The positional accuracy of the coordinates of a Geometry
+        format: uri
+        minLength: 1
+        rdf_term: http://www.opengis.net/ont/geosparql#hasSpatialAccuracy
+        rdf_type: uri
+        title: Hasspatialaccuracy
+        type: string
+      hasMetricSpatialAccuracy:
+        default:
+        description: The positional accuracy of the coordinates of a Geometry in meters.
+        rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy
+        rdf_type: xsd:double
+        title: Hasmetricspatialaccuracy
+        type: number
+      isEmpty:
+        default:
+        description: (true) if this geometric object is the empty Geometry. If true,
+          then this geometric object represents the empty point set for the coordinate
+          space.
+        rdf_term: http://www.opengis.net/ont/geosparql#isEmpty
+        rdf_type: xsd:boolean
+        title: Isempty
+        type: boolean
+      isSimple:
+        default:
+        description: (true) if this geometric object has no anomalous geometric points,
+          such as self intersection or self tangency.
+        rdf_term: http://www.opengis.net/ont/geosparql#isSimple
+        rdf_type: xsd:boolean
+        title: Issimple
+        type: boolean
+      hasSerialization:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        default:
+        description: Connects a Geometry object with its text-based serialization.
+        rdf_term: http://www.opengis.net/ont/geosparql#hasSerialization
+        rdf_type: rdfs_literal
+        title: Hasserialization
+    title: Geometry
+    type: object
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
@@ -90,6 +308,43 @@ $defs:
     required:
     - value
     title: LiteralField
+    type: object
+  Location:
+    $IRI: http://purl.org/dc/terms/Location
+    $namespace: http://purl.org/dc/terms/
+    $ontology: https://www.w3.org/TR/vocab-dcat-3/
+    $prefix: dcterms
+    additionalProperties: false
+    description: A spatial region or named place.
+    properties:
+      geometry:
+        anyOf:
+        - $ref: '#/$defs/LiteralField'
+        - $ref: '#/$defs/Geometry'
+        bind_namespace:
+        - locn
+        - http://www.w3.org/ns/locn#
+        default:
+        description: Associates a spatial thing [SDW-BP] with a corresponding geometry.
+        rdf_term: http://www.w3.org/ns/locn#geometry
+        rdf_type: geosparql:wktLiteral
+        title: Geometry
+      bounding_box:
+        anyOf:
+        - $ref: '#/$defs/LiteralField'
+        - type: string
+        default:
+        description: The geographic bounding box of a spatial thing [SDW-BP].
+        rdf_term: http://www.w3.org/ns/dcat#bbox
+        rdf_type: rdfs_literal
+        title: Bounding Box
+      centroid:
+        $ref: '#/$defs/LiteralField'
+        default:
+        description: The geographic center (centroid) of a spatial thing [SDW-BP].
+        rdf_term: http://www.w3.org/ns/dcat#centroid
+        rdf_type: geosparql:wktLiteral
+    title: http://purl.org/dc/terms/Location
     type: object
   ODRLPolicy:
     $IRI: http://www.w3.org/ns/odrl/2/Policy
@@ -268,6 +523,39 @@ $defs:
         type: array
     title: ODRLPolicy
     type: object
+  PeriodOfTime:
+    $IRI: http://purl.org/dc/terms/PeriodOfTime
+    $namespace: http://purl.org/dc/terms/
+    $ontology: https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time
+    $prefix: dcterms
+    additionalProperties: false
+    properties:
+      start_date:
+        $ref: '#/$defs/LiteralField'
+        default:
+        description: The start of the period
+        rdf_term: http://www.w3.org/ns/dcat#startDate
+        rdf_type: rdfs_literal
+      end_date:
+        $ref: '#/$defs/LiteralField'
+        default:
+        description: The end of the period
+        rdf_term: http://www.w3.org/ns/dcat#endDate
+        rdf_type: rdfs_literal
+      beginning:
+        $ref: '#/$defs/TimeInstant'
+        default:
+        description: Beginning of a period or interval
+        rdf_term: http://www.w3.org/2006/time#hasBeginning
+        rdf_type: http://www.w3.org/2006/time#Instant
+      end:
+        $ref: '#/$defs/TimeInstant'
+        default:
+        description: End of a period or interval
+        rdf_term: http://www.w3.org/2006/time#hasEnd
+        rdf_type: http://www.w3.org/2006/time#Instant
+    title: PeriodOfTime
+    type: object
   RDFModel:
     additionalProperties: false
     description: Base class for creating pydantic models convertible to RDF graph
@@ -282,6 +570,111 @@ $defs:
     - http://purl.org/adms/status/Withdrawn
     title: Status
     type: string
+  TimeInstant:
+    $IRI: http://www.w3.org/2006/time#Instant
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: A temporal entity with zero extent or duration
+    properties:
+      inXSDDate:
+        default:
+        description: Position of an instant, expressed using xsd:date
+        format: date
+        rdf_term: http://www.w3.org/2006/time#inXSDDate
+        rdf_type: xsd:date
+        title: Inxsddate
+        type: string
+      inXSDDateTime:
+        default:
+        deprecated: true
+        description: (deprecated) Position of an instant, expressed using xsd:dateTime
+        format: date-time
+        rdf_term: http://www.w3.org/2006/time#inXSDDateTime
+        rdf_type: xsd:dateTime
+        title: Inxsddatetime
+        type: string
+      inXSDDateTimeStamp:
+        default:
+        description: Position of an instant, expressed using xsd:dateTimeStamp, in
+          which the time-zone field is mandatory
+        format: date-time
+        rdf_term: http://www.w3.org/2006/time#inXSDDateTimeStamp
+        rdf_type: xsd:dateTimeStamp
+        title: Inxsddatetimestamp
+        type: string
+      inXSDgYear:
+        default:
+        description: Position of an instant, expressed using xsd:gYear
+        pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        rdf_term: http://www.w3.org/2006/time#inXSDgYear
+        rdf_type: xsd:gYear
+        title: Inxsdgyear
+        type: string
+      inXSDgYearMonth:
+        default:
+        description: Position of an instant, expressed using xsd:gYearMonth
+        pattern: 
+          -?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        rdf_term: http://www.w3.org/2006/time#inXSDgYearMonth
+        rdf_type: xsd:gYearMonth
+        title: Inxsdgyearmonth
+        type: string
+      inTimePosition:
+        $ref: '#/$defs/TimePosition'
+        default:
+        description: Position of an instant, expressed as a temporal coordinate or
+          nominal val
+        rdf_term: http://www.w3.org/2006/time#inTimePosition
+        rdf_type: http://www.w3.org/2006/time#TimePosition
+      inDateTime:
+        $ref: '#/$defs/GeneralDateTimeDescription'
+        default:
+        description: Position of an instant, expressed using a structured description
+        rdf_term: http://www.w3.org/2006/time#inDateTime
+        rdf_type: http://www.w3.org/2006/time#GeneralDateTimeDescription
+    title: TimeInstant
+    type: object
+  TimePosition:
+    $IRI: http://www.w3.org/2006/time#TimePosition
+    $namespace: http://www.w3.org/2006/time#
+    $ontology: https://www.w3.org/TR/owl-time/
+    $prefix: time
+    additionalProperties: false
+    description: "A temporal position described using either a (nominal) value from
+      an ordinal reference system,\nor a (numeric) value in a temporal coordinate
+      system."
+    properties:
+      nominalPosition:
+        default:
+        description: The (nominal) value indicating temporal position in an ordinal
+          reference system
+        rdf_term: http://www.w3.org/2006/time#nominalPosition
+        rdf_type: xsd:string
+        title: Nominalposition
+        type: string
+      numericPosition:
+        default:
+        description: The (numeric) value indicating position within a temporal coordinate
+          system
+        rdf_term: http://www.w3.org/2006/time#numericPosition
+        rdf_type: xsd:decimal
+        title: Numericposition
+        type: number
+      hasTRS:
+        description: The temporal reference system used by a temporal position or
+          extent description
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/2006/time#hasTRS
+        rdf_type: uri
+        title: Hastrs
+        type: string
+    required:
+    - hasTRS
+    title: TimePosition
+    type: object
   VCard:
     $IRI: http://www.w3.org/2006/vcard/ns#Kind
     $namespace: http://www.w3.org/2006/vcard/ns#
@@ -380,11 +773,13 @@ properties:
     title: Creator
     type: array
   description:
-    description: A free-text account of the resource.
+    description: An account of the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/description
-    rdf_type: literal
+    rdf_type: rdfs_literal
     title: Description
     type: array
   has_part:
@@ -548,7 +943,9 @@ properties:
   title:
     description: A name given to the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/title
     rdf_type: rdfs_literal
     title: Title
@@ -686,6 +1083,28 @@ properties:
     rdf_term: http://www.w3.org/ns/dcat#prev
     rdf_type: uri
     title: Previous
+    type: array
+  temporal_coverage:
+    default:
+    description: The temporal period that the dataset covers.
+    items:
+      $ref: '#/$defs/PeriodOfTime'
+    rdf_term: http://purl.org/dc/terms/temporal
+    rdf_type: uri
+    title: Temporal Coverage
+    type: array
+  spatial:
+    default:
+    description: The geographical area covered by the dataset.
+    items:
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/Location'
+    rdf_term: http://purl.org/dc/terms/spatial
+    rdf_type: uri
+    title: Spatial
     type: array
 required:
 - description

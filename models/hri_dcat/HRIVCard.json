@@ -79,6 +79,19 @@
       "rdf_type": "uri",
       "title": "Hasuid",
       "type": "string"
+    },
+    "contact_page": {
+      "default": null,
+      "description": "A webpage that either allows to make contact (e.g. a webform) or provides information on how to get in touch.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/2006/vcard/ns#hasURL",
+      "rdf_type": "uri",
+      "title": "Contact Page",
+      "type": "array"
     }
   },
   "required": [

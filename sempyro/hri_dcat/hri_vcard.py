@@ -53,6 +53,14 @@ class HRIVCard(VCard):
             "rdf_term": VCARD.fn,
             "rdf_type": "rdfs_literal"
         })
+    contact_page: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A webpage that either allows to make contact (e.g. a webform) or provides information on how to get in touch.",
+        json_schema_extra={
+            "rdf_term": VCARD.hasURL,
+            "rdf_type": "uri"
+        }
+    )
 
     @field_validator("hasEmail", mode="before")
     @classmethod
