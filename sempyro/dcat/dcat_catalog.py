@@ -30,8 +30,7 @@ class DCATCatalog(DCATDataset):
                                   "$prefix": "dcat"
                               })
 
-    catalog_record: AnyHttpUrl = Field(
-        default=None,
+    catalog_record: List[AnyHttpUrl] = Field(
         description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
                      "is part of the catalog.",
         json_schema_extra={
