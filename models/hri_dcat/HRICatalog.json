@@ -1,5 +1,5 @@
 {
-  "$IRI": "http://www.w3.org/ns/dcat#catalog",
+  "$IRI": "http://www.w3.org/ns/dcat#Catalog",
   "$defs": {
     "AccessRights": {
       "enum": [
@@ -4636,7 +4636,7 @@
           }
         ]
       },
-      "rdf_term": "http://www.w3.org/ns/dcat#Catalog",
+      "rdf_term": "http://www.w3.org/ns/dcat#catalog",
       "rdf_type": "uri",
       "title": "Catalog",
       "type": "array"

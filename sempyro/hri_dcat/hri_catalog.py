@@ -32,7 +32,7 @@ class HRICatalog(DCATCatalog):
                           "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
                           "Metadata+Schema+Specification"],
             "$namespace": str(DCAT),
-            "$IRI": DCAT.catalog,
+            "$IRI": DCAT.Catalog,
             "$prefix": "dcat"
         }
     )
@@ -78,7 +78,7 @@ class HRICatalog(DCATCatalog):
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={
-            "rdf_term": DCAT.Catalog,
+            "rdf_term": DCAT.catalog,
             "rdf_type": "uri"
         }
     )
