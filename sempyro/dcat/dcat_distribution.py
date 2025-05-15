@@ -112,7 +112,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    access_service: List[Union[AnyHttpUrl]] = Field(
+    access_service: List[Union[AnyHttpUrl, DCATDataService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset",
         json_schema_extra={
