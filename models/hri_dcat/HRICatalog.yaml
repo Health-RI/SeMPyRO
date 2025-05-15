@@ -608,7 +608,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -620,7 +620,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -693,7 +693,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -1134,7 +1136,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -1146,7 +1148,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -1219,7 +1221,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -1546,7 +1550,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -1558,7 +1562,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -1631,7 +1635,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -2005,7 +2011,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -2017,7 +2023,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -2090,7 +2096,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -2589,7 +2597,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -2601,7 +2609,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -2674,7 +2682,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -3379,7 +3389,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -3391,7 +3401,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -3464,7 +3474,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -3627,8 +3639,8 @@ $defs:
         title: Identifier
       is_referenced_by:
         default:
-        description: A related resource, such as a publication, that references, cites,
-          or otherwise points to the cataloged resource.
+        description: A related resource that references, cites, or otherwise points
+          to the described resource.
         items:
           format: uri
           minLength: 1
@@ -3767,7 +3779,7 @@ $defs:
         rdf_type: uri
         title: Type
         type: array
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -3779,7 +3791,7 @@ $defs:
           modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       qualified_attribution:
         default:
         description: Link to an Agent having some form of responsibility for the resource
@@ -3852,7 +3864,9 @@ $defs:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -4061,18 +4075,6 @@ $defs:
         rdf_type: uri
         title: Health Theme
         type: array
-      in_referenced_by:
-        default:
-        description: A related resource that references, cites, or otherwise points
-          to the described resource.
-        items:
-          format: uri
-          minLength: 1
-          type: string
-        rdf_term: http://purl.org/dc/terms/isReferencedBy
-        rdf_type: uri
-        title: In Referenced By
-        type: array
       legal_basis:
         default:
         description: Indicates use or applicability of a Legal Basis.
@@ -4135,6 +4137,7 @@ $defs:
         anyOf:
         - type: string
         - $ref: '#/$defs/LiteralField'
+        default:
         description: A definition of the population within the dataset
         rdf_term: http://healthdataportal.eu/ns/health#populationCoverage
         rdf_type: rdfs_literal
@@ -4150,25 +4153,13 @@ $defs:
         rdf_type: uri
         title: Purpose
         type: array
-      issued:
-        anyOf:
-        - type: string
-        - format: date-time
-          type: string
-        - format: date
-          type: string
-        default:
-        description: Date of formal issuance of the resource.
-        rdf_term: http://purl.org/dc/terms/issued
-        rdf_type: datetime_literal
-        title: Issued
       retention_period:
         $ref: '#/$defs/PeriodOfTime'
         default:
         description: A temporal period which the dataset is available for secondary
           use.
         rdf_term: http://healthdataportal.eu/ns/health#retentionPeriod
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
       sample:
         default:
         description: Links to a sample of an Asset (which is itself an Asset).
@@ -4195,18 +4186,6 @@ $defs:
         rdf_type: uri
         title: Source
         type: array
-      modified:
-        anyOf:
-        - type: string
-        - format: date
-          type: string
-        - format: date-time
-          type: string
-        default:
-        description: Date on which the resource was changed.
-        rdf_term: http://purl.org/dc/terms/modified
-        rdf_type: datetime_literal
-        title: Modified
     required:
     - access_rights
     - contact_point
@@ -4218,7 +4197,6 @@ $defs:
     - theme
     - title
     - applicable_legislation
-    - population_coverage
     title: HRIDataset
     type: object
   HRIVCard:
@@ -5023,7 +5001,7 @@ properties:
     rdf_type: uri
     title: Type
     type: array
-  update_date:
+  modification_date:
     anyOf:
     - type: string
     - format: date
@@ -5034,7 +5012,7 @@ properties:
     description: Most recent date on which the resource was changed, updated or modified.
     rdf_term: http://purl.org/dc/terms/modified
     rdf_type: datetime_literal
-    title: Update Date
+    title: Modification Date
   qualified_attribution:
     default:
     description: Link to an Agent having some form of responsibility for the resource
@@ -5107,7 +5085,9 @@ properties:
     description: A description of changes between this version and the previous version
       of the resource [VOCAB-ADMS].
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/adms#versionNotes
     rdf_type: rdfs_literal
     title: Version Notes

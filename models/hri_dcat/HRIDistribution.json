@@ -670,7 +670,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -688,7 +688,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -768,7 +768,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -1190,7 +1197,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -1208,7 +1215,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -1288,7 +1295,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -1764,7 +1778,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -1782,7 +1796,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -1862,7 +1876,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -2479,7 +2500,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -2497,7 +2518,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -2577,7 +2598,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -3376,7 +3404,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -3394,7 +3422,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -3474,7 +3502,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -3675,7 +3710,7 @@
         },
         "is_referenced_by": {
           "default": null,
-          "description": "A related resource, such as a publication, that references, cites, or otherwise points to the cataloged resource.",
+          "description": "A related resource that references, cites, or otherwise points to the described resource.",
           "items": {
             "format": "uri",
             "minLength": 1,
@@ -3851,7 +3886,7 @@
           "title": "Type",
           "type": "array"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -3869,7 +3904,7 @@
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "qualified_attribution": {
           "default": null,
@@ -3953,7 +3988,14 @@
           "default": null,
           "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
           "rdf_type": "rdfs_literal",
@@ -4227,19 +4269,6 @@
           "title": "Health Theme",
           "type": "array"
         },
-        "in_referenced_by": {
-          "default": null,
-          "description": "A related resource that references, cites, or otherwise points to the described resource.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          "rdf_term": "http://purl.org/dc/terms/isReferencedBy",
-          "rdf_type": "uri",
-          "title": "In Referenced By",
-          "type": "array"
-        },
         "legal_basis": {
           "default": null,
           "description": "Indicates use or applicability of a Legal Basis.",
@@ -4335,6 +4364,7 @@
               "$ref": "#/$defs/LiteralField"
             }
           ],
+          "default": null,
           "description": "A definition of the population within the dataset",
           "rdf_term": "http://healthdataportal.eu/ns/health#populationCoverage",
           "rdf_type": "rdfs_literal",
@@ -4353,32 +4383,12 @@
           "title": "Purpose",
           "type": "array"
         },
-        "issued": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date of formal issuance of the resource.",
-          "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
-          "title": "Issued"
-        },
         "retention_period": {
           "$ref": "#/$defs/PeriodOfTime",
           "default": null,
           "description": "A temporal period which the dataset is available for secondary use.",
           "rdf_term": "http://healthdataportal.eu/ns/health#retentionPeriod",
-          "rdf_type": "uri"
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime"
         },
         "sample": {
           "default": null,
@@ -4419,26 +4429,6 @@
           "rdf_type": "uri",
           "title": "Source",
           "type": "array"
-        },
-        "modified": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date on which the resource was changed.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Modified"
         }
       },
       "required": [
@@ -4451,8 +4441,7 @@
         "publisher",
         "theme",
         "title",
-        "applicable_legislation",
-        "population_coverage"
+        "applicable_legislation"
       ],
       "title": "HRIDataset",
       "type": "object"

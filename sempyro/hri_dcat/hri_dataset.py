@@ -137,6 +137,8 @@ class HRIDataset(DCATDataset):
         }
     )
 
+    #TODO: Frequency with European vocabulary or AnyHttpURL
+
     geographical_coverage: List[AnyHttpUrl] = Field(
         default=None,
         description="Spatial characteristics of the resource.",
@@ -159,12 +161,12 @@ class HRIDataset(DCATDataset):
         default=None,
         description="A dataset series of which the dataset is part.",
         json_schema_extra={
-            "rdf_term": DCAT.inSeries,
+            "rdf_term": DCATv3.inSeries,
             "rdf_type": "uri"
         }
     )
 
-    in_referenced_by: List[AnyHttpUrl] = Field(
+    is_referenced_by: List[AnyHttpUrl] = Field(
         default=None,
         description="A related resource that references, cites, or otherwise points to the described resource.",
         json_schema_extra={
@@ -238,6 +240,7 @@ class HRIDataset(DCATDataset):
     )
 
     population_coverage: Union[str, LiteralField] = Field(
+        default=None,
         description="A definition of the population within the dataset",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.populationCoverage,
@@ -283,21 +286,12 @@ class HRIDataset(DCATDataset):
     #     }
     # )
 
-    issued: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
-        default=None,
-        description="Date of formal issuance of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.issued,
-            "rdf_type": "datetime_literal"
-        }
-    )
-
     retention_period: PeriodOfTime = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.retentionPeriod,
-            "rdf_type": "uri"
+            "rdf_type": DCTERMS.PeriodOfTime,
         }
     )
 
@@ -335,14 +329,7 @@ class HRIDataset(DCATDataset):
             "rdf_type": "rdfs_literal"
         }
     )
-    modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
-        default=None,
-        description="Date on which the resource was changed.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.modified,
-            "rdf_type": "datetime_literal"
-        }
-    )
+
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="An entity responsible for making the resource available.",
         json_schema_extra={
@@ -390,17 +377,12 @@ class HRIDataset(DCATDataset):
     )
 
 
-    @field_validator("title", "description", "keyword", mode="before")
+    @field_validator("title", "description", "keyword", "population_coverage", mode="before")
     @classmethod
     def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], None]) -> Union[List[LiteralField], None]:
         if not value:
             return None
         return [force_literal_field(item) for item in value]
-
-    @field_validator("issued", "modified", mode="before")
-    @classmethod
-    def date_validator(cls, value):
-        return date_handler(value)
 
 
 if __name__ == "__main__":

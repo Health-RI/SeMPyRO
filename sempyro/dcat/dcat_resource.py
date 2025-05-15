@@ -229,7 +229,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    update_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
@@ -293,7 +293,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    version_notes: List[LiteralField] = Field(
+    version_notes: List[Union[str, LiteralField]] = Field(
         default=None,
         description="A description of changes between this version and the previous version of the resource "
                     "[VOCAB-ADMS].",
@@ -336,7 +336,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             return None
         return [force_literal_field(item) for item in value]
 
-    @field_validator("release_date", "update_date", mode="before")
+    @field_validator("release_date", "modification_date", mode="before")
     @classmethod
     def date_validator(cls, value):
         return date_handler(value)
