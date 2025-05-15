@@ -40,24 +40,30 @@ $prefix: foaf
 additionalProperties: false
 properties:
   name:
-    anyOf:
-    - type: string
-    - $ref: '#/$defs/LiteralField'
-    description: A name of the agent
+    description: A name for some thing.
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://xmlns.com/foaf/0.1/name
     rdf_type: rdfs_literal
     title: Name
+    type: array
   identifier:
-    anyOf:
-    - type: string
-    - $ref: '#/$defs/LiteralField'
-    description: A unique identifier of the agent.
+    description: An unambiguous reference to the resource within a given context.
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/identifier
     rdf_type: rdfs_literal
     title: Identifier
+    type: array
   mbox:
-    description: A personal mailbox, ie. an Internet mailbox associated with exactly
-      one owner, the first owner of this mailbox.
+    description: 'A email address via which contact can be made. This property SHOULD
+      be used to provide the email address of the Agent, specified using fully qualified
+      mailto: URI scheme [RFC6068].The email SHOULD be used to establish a communication
+      channel to the agent.'
     format: uri
     minLength: 1
     rdf_term: http://xmlns.com/foaf/0.1/mbox
@@ -65,8 +71,7 @@ properties:
     title: Mbox
     type: string
   homepage:
-    description: A webpage that either allows to make contact (i.e. a webform) or
-      the information contains how to get into contact.
+    description: A homepage for some thing.
     format: uri
     minLength: 1
     rdf_term: http://xmlns.com/foaf/0.1/homepage

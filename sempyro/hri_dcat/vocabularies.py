@@ -48,3 +48,12 @@ class DatasetTheme(Enum):
     soci = URIRef("http://publications.europa.eu/resource/authority/data-theme/SOCI")
     tech = URIRef("http://publications.europa.eu/resource/authority/data-theme/TECH")
     tran = URIRef("http://publications.europa.eu/resource/authority/data-theme/TRAN")
+
+class DistributionStatus(Enum):
+    develop = URIRef("http://publications.europa.eu/resource/authority/distribution-status/DEVELOP")
+    completed = URIRef("http://publications.europa.eu/resource/authority/distribution-status/COMPLETED")
+    deprecated = URIRef("http://publications.europa.eu/resource/authority/distribution-status/DEPRECATED")
+    withdrawn = URIRef("http://publications.europa.eu/resource/authority/distribution-status/WITHDRAWN")
+    op_datpro = URIRef("http://publications.europa.eu/resource/authority/distribution-status/OP_DATPRO")
+
+

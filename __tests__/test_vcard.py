@@ -48,27 +48,26 @@ def test_vcard_agent(model_name, test_path):
                                    ["exampleemail@domain.com"]
                                    ])
 def test_vcard_email(email):
-    card_obj = VCard(hasEmail=email, full_name=["I am example"], hasUID="https://orcid.org/0009-0000-xxxx-xxxx")
+    card_obj = VCard(hasEmail=email, formatted_name=["I am example"])
     expected = [AnyUrl("mailto:exampleemail@domain.com")]
     assert card_obj.hasEmail == expected
 
 
 @pytest.mark.parametrize("email", ["my:email@gmail.com",
                                    "myemailgmail.com",
-                                   "mailto:emailgmail.com"])
+                                   "mailto:emailgmail.com",
+                                   None])
 def test_vcard_email_validation(email):
     with pytest.raises(ValidationError):
         card_obj = VCard(hasEmail=email,
-                         full_name=["I am example"],
-                         hasUID="https://orcid.org/0009-0000-xxxx-xxxx")
+                         formatted_name=["I am example"])
 
 
 def test_vcard_serialization():
     names = [LiteralField(value="Emir Kusturica", language="en"),
              LiteralField(value="Емир Кустурица", language="sr")]
     film_director = VCard(hasEmail="exampleemail@domain.com",
-                          full_name=names,
-                          hasUID="https://en.wikipedia.org/wiki/Emir_Kusturica")
+                          formatted_name=names)
     actual_graph = film_director.to_graph(URIRef("http:example.com/Emir_Kusturica"))
     expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "vCard.ttl"))
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
@@ -115,8 +114,7 @@ def test_vcard_namespace():
     names = [LiteralField(value="Emir Kusturica", language="en"),
              LiteralField(value="Емир Кустурица", language="sr")]
     film_director = VCard(hasEmail="exampleemail@domain.com",
-                          full_name=names,
-                          hasUID="https://en.wikipedia.org/wiki/Emir_Kusturica")
+                          formatted_name=names)
     film_director.to_graph_node(graph=actual_graph,
                                 subject=subject,
                                 node_predicate=DCTERMS.creator,

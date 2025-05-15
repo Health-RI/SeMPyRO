@@ -35,31 +35,32 @@ class HRIAgent(Agent):
         }
     )
 
-    name: Union[str, LiteralField] = Field(
-        description="A name of the agent",
+    name: List[Union[str, LiteralField]] = Field(
+        description="A name for some thing.",
         json_schema_extra={
             "rdf_term": FOAF.name,
             "rdf_type": "rdfs_literal"
         }
     )
-    identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the agent.",
+    identifier: List[Union[str, LiteralField]] = Field(
+        description="An unambiguous reference to the resource within a given context.",
         json_schema_extra={
             "rdf_term": DCTERMS.identifier,
             "rdf_type": "rdfs_literal"
         }
     )
     mbox: AnyUrl = Field(
-        description="A personal mailbox, ie. an Internet mailbox associated "
-        "with exactly one owner, the first owner of this mailbox.",
+        description="A email address via which contact can be made. " 
+                    "This property SHOULD be used to provide the email address of the Agent, " 
+                    "specified using fully qualified mailto: URI scheme [RFC6068]." 
+                    "The email SHOULD be used to establish a communication channel to the agent.",
         json_schema_extra={
             "rdf_term": FOAF.mbox,
             "rdf_type": "uri",
         }
     )
     homepage: AnyUrl = Field(
-        description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
-                    "how to get into contact.",
+        description="A homepage for some thing.",
         json_schema_extra={
             "rdf_term": FOAF.homepage,
             "rdf_type": "uri",

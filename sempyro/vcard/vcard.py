@@ -47,20 +47,23 @@ class VCard(RDFModel):
                                        "rdf_type": "uri"
                                    }
                                    )
-    full_name: List[Union[str, LiteralField]] = Field(default=None,
-                                                      description="The full name of the object (as a single string). "
-                                                                  "This is the only mandatory property.",
-                                                      json_schema_extra={
-                                                          "rdf_term": VCARD.fn,
-                                                          "rdf_type": "rdfs_literal"
-                                                      }
-                                                      )
-    hasUID: AnyHttpUrl = Field(description="A unique identifier for the object",
-                               json_schema_extra={
-                                   "rdf_term": VCARD.hasUID,
-                                   "rdf_type": "uri"
-                               }
-                               )
+    formatted_name: List[Union[str, LiteralField]] = Field(
+        default=None,
+        description="The full name of the object (as a single string). " 
+                    "This is the only mandatory property.",
+        json_schema_extra={
+            "rdf_term": VCARD.fn,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    hasUID: AnyHttpUrl = Field(
+        default=None,
+        description="A unique identifier for the object", 
+        json_schema_extra={ 
+            "rdf_term": VCARD.hasUID, 
+            "rdf_type": "uri" 
+        }
+    )
 
     @field_validator("hasEmail", mode="before")
     @classmethod

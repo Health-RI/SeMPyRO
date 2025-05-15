@@ -368,7 +368,7 @@
           "title": "Hasemail",
           "type": "array"
         },
-        "full_name": {
+        "formatted_name": {
           "default": null,
           "description": "The full name of the object (as a single string). This is the only mandatory property.",
           "items": {
@@ -383,10 +383,11 @@
           },
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Full Name",
+          "title": "Formatted Name",
           "type": "array"
         },
         "hasUID": {
+          "default": null,
           "description": "A unique identifier for the object",
           "format": "uri",
           "minLength": 1,
@@ -396,9 +397,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "hasUID"
-      ],
       "title": "VCard",
       "type": "object"
     }
@@ -558,14 +556,21 @@
       "type": "array"
     },
     "license": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A legal document under which the resource is made available.",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/license",
       "rdf_type": "uri",
-      "title": "License",
-      "type": "string"
+      "title": "License"
     },
     "language": {
       "default": null,

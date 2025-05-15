@@ -17,7 +17,7 @@ from abc import ABCMeta
 from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
 from rdflib import DCAT, DCTERMS, ODRL2, PROV, URIRef
@@ -146,7 +146,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    license: AnyHttpUrl = Field(
+    license: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A legal document under which the resource is made available.",
         json_schema_extra={
@@ -332,6 +332,8 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
     @field_validator("title", "description", "keyword", "version", "version_notes", mode="before")
     @classmethod
     def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        if not value:
+            return None
         return [force_literal_field(item) for item in value]
 
     @field_validator("release_date", "update_date", mode="before")
