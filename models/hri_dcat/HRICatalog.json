@@ -1,5 +1,5 @@
 {
-  "$IRI": "http://www.w3.org/ns/dcat#Catalog",
+  "$IRI": "http://www.w3.org/ns/dcat#catalog",
   "$defs": {
     "AccessRights": {
       "enum": [
@@ -2735,10 +2735,17 @@
         "description": {
           "description": "An account of the resource.",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://purl.org/dc/terms/description",
-          "rdf_type": "literal",
+          "rdf_type": "rdfs_literal",
           "title": "Description",
           "type": "array"
         },
@@ -3226,46 +3233,6 @@
           "rdf_type": "uri",
           "title": "Applicable Legislation",
           "type": "array"
-        },
-        "issued": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date of formal issuance of the resource.",
-          "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
-          "title": "Issued"
-        },
-        "modified": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date on which the resource was changed.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Modified"
         }
       },
       "required": [
@@ -4050,10 +4017,7 @@
             "type": "string"
           },
           {
-            "$ref": "#/$defs/VCard"
-          },
-          {
-            "$ref": "#/$defs/Agent"
+            "$ref": "#/$defs/HRIAgent"
           }
         ]
       },
@@ -4065,10 +4029,17 @@
     "description": {
       "description": "An account of the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/description",
-      "rdf_type": "literal",
+      "rdf_type": "rdfs_literal",
       "title": "Description",
       "type": "array"
     },
@@ -4076,9 +4047,16 @@
       "default": null,
       "description": "A related resource that is included either physically or logically in the described resource.",
       "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/DCATCatalog"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/hasPart",
       "rdf_type": "uri",
@@ -4237,12 +4215,24 @@
       "title": "Publisher"
     },
     "release_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "format": "date",
+          "type": "string"
+        }
+      ],
       "default": null,
-      "description": "Date the catalog was first published.",
+      "description": "Date of formal issuance (e.g., publication) of the resource.",
       "rdf_term": "http://purl.org/dc/terms/issued",
-      "rdf_type": "xsd:dateTime",
-      "title": "Release Date",
-      "type": "string"
+      "rdf_type": "datetime_literal",
+      "title": "Release Date"
     },
     "theme": {
       "default": null,
@@ -4260,7 +4250,14 @@
     "title": {
       "description": "A name given to the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/title",
       "rdf_type": "rdfs_literal",
@@ -4281,12 +4278,24 @@
       "type": "array"
     },
     "modification_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ],
       "default": null,
-      "description": "Date of last update to the catalog.",
+      "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
-      "rdf_type": "xsd:dateTime",
-      "title": "Modification Date",
-      "type": "string"
+      "rdf_type": "datetime_literal",
+      "title": "Modification Date"
     },
     "qualified_attribution": {
       "default": null,
@@ -4573,7 +4582,7 @@
           }
         ]
       },
-      "rdf_term": "http://www.w3.org/ns/dcat#DataService",
+      "rdf_term": "http://www.w3.org/ns/dcat#service",
       "rdf_type": "uri",
       "title": "Service",
       "type": "array"

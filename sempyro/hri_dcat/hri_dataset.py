@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
@@ -71,19 +70,11 @@ class HRIDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    description: List[LiteralField] = Field(
+    description: List[Union[str, LiteralField]] = Field(
         description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
-        }
-    )
-    issued: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
-        default=None,
-        description="Date of formal issuance of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.issued,
-            "rdf_type": "datetime_literal"
+            "rdf_type": "rdfs_literal"
         }
     )
     identifier: Union[str, LiteralField] = Field(
@@ -91,14 +82,6 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCTERMS.identifier,
             "rdf_type": "rdfs_literal"
-        }
-    )
-    modified: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
-        default=None,
-        description="Date on which the resource was changed.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.modified,
-            "rdf_type": "datetime_literal"
         }
     )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
@@ -168,11 +151,6 @@ class HRIDataset(DCATDataset):
         if not value:
             return None
         return [force_literal_field(item) for item in value]
-
-    @field_validator("issued", mode="before")
-    @classmethod
-    def date_validator(cls, value):
-        return date_handler(value)
 
 
 if __name__ == "__main__":

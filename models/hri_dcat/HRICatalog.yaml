@@ -1,4 +1,4 @@
-$IRI: http://www.w3.org/ns/dcat#Catalog
+$IRI: http://www.w3.org/ns/dcat#catalog
 $defs:
   AccessRights:
     enum:
@@ -2313,9 +2313,11 @@ $defs:
       description:
         description: An account of the resource.
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
-        rdf_type: literal
+        rdf_type: rdfs_literal
         title: Description
         type: array
       has_part:
@@ -2709,30 +2711,6 @@ $defs:
         rdf_type: uri
         title: Applicable Legislation
         type: array
-      issued:
-        anyOf:
-        - type: string
-        - format: date-time
-          type: string
-        - format: date
-          type: string
-        default:
-        description: Date of formal issuance of the resource.
-        rdf_term: http://purl.org/dc/terms/issued
-        rdf_type: datetime_literal
-        title: Issued
-      modified:
-        anyOf:
-        - type: string
-        - format: date
-          type: string
-        - format: date-time
-          type: string
-        default:
-        description: Date on which the resource was changed.
-        rdf_term: http://purl.org/dc/terms/modified
-        rdf_type: datetime_literal
-        title: Modified
     required:
     - access_rights
     - contact_point
@@ -3401,8 +3379,7 @@ properties:
       - format: uri
         minLength: 1
         type: string
-      - $ref: '#/$defs/VCard'
-      - $ref: '#/$defs/Agent'
+      - $ref: '#/$defs/HRIAgent'
     rdf_term: http://purl.org/dc/terms/creator
     rdf_type: uri
     title: Creator
@@ -3410,9 +3387,11 @@ properties:
   description:
     description: An account of the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/description
-    rdf_type: literal
+    rdf_type: rdfs_literal
     title: Description
     type: array
   has_part:
@@ -3420,9 +3399,11 @@ properties:
     description: A related resource that is included either physically or logically
       in the described resource.
     items:
-      format: uri
-      minLength: 1
-      type: string
+      anyOf:
+      - format: uri
+        minLength: 1
+        type: string
+      - $ref: '#/$defs/DCATCatalog'
     rdf_term: http://purl.org/dc/terms/hasPart
     rdf_type: uri
     title: Has Part
@@ -3548,12 +3529,17 @@ properties:
     rdf_type: uri
     title: Publisher
   release_date:
+    anyOf:
+    - type: string
+    - format: date-time
+      type: string
+    - format: date
+      type: string
     default:
-    description: Date the catalog was first published.
+    description: Date of formal issuance (e.g., publication) of the resource.
     rdf_term: http://purl.org/dc/terms/issued
-    rdf_type: xsd:dateTime
+    rdf_type: datetime_literal
     title: Release Date
-    type: string
   theme:
     default:
     description: A main category of the resource. A resource can have multiple themes.
@@ -3568,7 +3554,9 @@ properties:
   title:
     description: A name given to the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/title
     rdf_type: rdfs_literal
     title: Title
@@ -3585,12 +3573,17 @@ properties:
     title: Type
     type: array
   modification_date:
+    anyOf:
+    - type: string
+    - format: date
+      type: string
+    - format: date-time
+      type: string
     default:
-    description: Date of last update to the catalog.
+    description: Most recent date on which the resource was changed, updated or modified.
     rdf_term: http://purl.org/dc/terms/modified
-    rdf_type: xsd:dateTime
+    rdf_type: datetime_literal
     title: Modification Date
-    type: string
   qualified_attribution:
     default:
     description: Link to an Agent having some form of responsibility for the resource
@@ -3820,7 +3813,7 @@ properties:
         minLength: 1
         type: string
       - $ref: '#/$defs/HRIDataService'
-    rdf_term: http://www.w3.org/ns/dcat#DataService
+    rdf_term: http://www.w3.org/ns/dcat#service
     rdf_type: uri
     title: Service
     type: array

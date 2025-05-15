@@ -1470,10 +1470,17 @@
         "description": {
           "description": "An account of the resource.",
           "items": {
-            "$ref": "#/$defs/LiteralField"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
           },
           "rdf_term": "http://purl.org/dc/terms/description",
-          "rdf_type": "literal",
+          "rdf_type": "rdfs_literal",
           "title": "Description",
           "type": "array"
         },
@@ -1961,46 +1968,6 @@
           "rdf_type": "uri",
           "title": "Applicable Legislation",
           "type": "array"
-        },
-        "issued": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date of formal issuance of the resource.",
-          "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
-          "title": "Issued"
-        },
-        "modified": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "format": "date-time",
-              "type": "string"
-            }
-          ],
-          "default": null,
-          "description": "Date on which the resource was changed.",
-          "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
-          "title": "Modified"
         }
       },
       "required": [

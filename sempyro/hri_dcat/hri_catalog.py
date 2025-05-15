@@ -19,7 +19,7 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATCatalog, DCATDataService, DCATDataset
+from sempyro.dcat import DCATCatalog, DCATDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
@@ -34,28 +34,37 @@ class HRICatalog(DCATCatalog):
                           "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
                           "Metadata+Schema+Specification"],
             "$namespace": str(DCAT),
-            "$IRI": DCAT.Catalog,
+            "$IRI": DCAT.catalog,
             "$prefix": "dcat"
         }
     )
-    title: List[LiteralField] = Field(
+    title: List[Union[LiteralField, str]] = Field(
         description="A name given to the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.title,
             "rdf_type": "rdfs_literal"
         }
     )
-    description: List[LiteralField] = Field(
+    description: List[Union[LiteralField, str]] = Field(
         description="An account of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
+            "rdf_type": "rdfs_literal"
         }
     )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="An entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
+        }
+    )
+    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+        default=None,
+        description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
+                    "recommended as values for this property.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.creator,
             "rdf_type": "uri"
         }
     )
@@ -77,7 +86,7 @@ class HRICatalog(DCATCatalog):
         default=None,
         description="A service that is listed in the catalog.",
         json_schema_extra={
-            "rdf_term": DCAT.DataService,
+            "rdf_term": DCAT.service,
             "rdf_type": "uri"
         }
     )
@@ -98,20 +107,12 @@ class HRICatalog(DCATCatalog):
             # "bind_namespace": ['dcatap', DCATAPv3]
         }
     )
-    modification_date: str = Field(
+    has_part: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
         default=None,
-        description="Date of last update to the catalog.",
+        description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={
-            "rdf_term": DCTERMS.modified,
-            "rdf_type": "xsd:dateTime"
-        }
-    )
-    release_date: str = Field(
-        default=None,
-        description="Date the catalog was first published.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.issued,
-            "rdf_type": "xsd:dateTime"
+            "rdf_term": DCTERMS.hasPart,
+            "rdf_type": "uri"
         }
     )
 
