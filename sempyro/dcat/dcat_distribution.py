@@ -53,7 +53,7 @@ class DCATDistribution(RDFModel):
         description="A free-text account of the distribution.",
         json_schema_extra={
             "rdf_term": DCTERMS.description,
-            "rdf_type": "literal"
+            "rdf_type": "rdfs_literal"
         }
     )
     release_date: Union[date, AwareDatetime, NaiveDatetime] = Field(
@@ -134,7 +134,7 @@ class DCATDistribution(RDFModel):
         description="The size of a distribution in bytes.",
         json_schema_extra={
             "rdf_term": DCAT.byteSize,
-            "rdf_type": "xsd:nonNegativeInteger"
+            "rdf_type": "xsd:integer"
         }
     )
     spatial_resolution: List[Union[float, LiteralField]] = Field(
