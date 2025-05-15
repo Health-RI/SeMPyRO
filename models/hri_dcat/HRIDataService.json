@@ -215,6 +215,75 @@
       "title": "Activity",
       "type": "object"
     },
+    "Agent": {
+      "$IRI": "http://xmlns.com/foaf/0.1/Agent",
+      "$namespace": "http://xmlns.com/foaf/0.1/",
+      "$ontology": "http://xmlns.com/foaf/spec/",
+      "$prefix": "foaf",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "A name of the agent",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
+          "rdf_term": "http://xmlns.com/foaf/0.1/name",
+          "rdf_type": "rdfs_literal",
+          "title": "Name",
+          "type": "array"
+        },
+        "identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "description": "A unique identifier of the agent.",
+          "rdf_term": "http://purl.org/dc/terms/identifier",
+          "rdf_type": "rdfs_literal",
+          "title": "Identifier"
+        },
+        "mbox": {
+          "default": null,
+          "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
+          "rdf_type": "uri",
+          "title": "Mbox",
+          "type": "array"
+        },
+        "homepage": {
+          "default": null,
+          "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
+          "rdf_type": "uri",
+          "title": "Homepage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "identifier"
+      ],
+      "title": "Agent",
+      "type": "object"
+    },
     "Association": {
       "$IRI": "http://www.w3.org/ns/prov#Association",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -4525,6 +4594,59 @@
         "hasTRS"
       ],
       "title": "TimePosition",
+      "type": "object"
+    },
+    "VCard": {
+      "$IRI": "http://www.w3.org/2006/vcard/ns#Kind",
+      "$namespace": "http://www.w3.org/2006/vcard/ns#",
+      "$ontology": "https://www.w3.org/TR/vcard-rdf/",
+      "$prefix": "v",
+      "additionalProperties": false,
+      "description": "The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types\nof vCards (Individual, Organization, Location, Group)",
+      "properties": {
+        "hasEmail": {
+          "default": null,
+          "description": "The email address as a mailto URI",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/2006/vcard/ns#hasEmail",
+          "rdf_type": "uri",
+          "title": "Hasemail",
+          "type": "array"
+        },
+        "formatted_name": {
+          "default": null,
+          "description": "The full name of the object (as a single string). This is the only mandatory property.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
+          "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
+          "rdf_type": "rdfs_literal",
+          "title": "Formatted Name",
+          "type": "array"
+        },
+        "hasUID": {
+          "default": null,
+          "description": "A unique identifier for the object",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.w3.org/2006/vcard/ns#hasUID",
+          "rdf_type": "uri",
+          "title": "Hasuid",
+          "type": "string"
+        }
+      },
+      "title": "VCard",
       "type": "object"
     }
   },
