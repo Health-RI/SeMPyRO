@@ -21,10 +21,8 @@ from rdflib.namespace import DCAT, DCTERMS, PROV
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATResource
-from sempyro.geo import Location
 from sempyro.namespaces import FREQ, DCATv3
 from sempyro.prov import Activity
-from sempyro.time import PeriodOfTime
 
 
 class Frequency(Enum):

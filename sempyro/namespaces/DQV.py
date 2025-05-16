@@ -11,30 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from rdflib import URIRef
+from rdflib.namespace import DefinedNamespace, Namespace
 
-from .ADMS import ADMS, ADMSStatus
-from .DCATv3 import DCATv3
-from .FREQ import FREQ
-from .GEOSPARQL import GeoSPARQL
-from .GREG import Greg
-from .LOCN import LOCN
-from .DISCO import DISCO
-from .DCATAPv3 import DCATAPv3
-from .HEALTHDCATAP import HEALTHDCATAP
-from .DPV import DPV
-from .DQV import DQV
 
-__all__ = (
-    "ADMS",
-    "ADMSStatus",
-    "DCATv3",
-    "FREQ",
-    "GeoSPARQL",
-    "LOCN",
-    "Greg",
-    "DISCO",
-    "DCATAPv3",
-    "HEALTHDCATAP",
-    "DPV",
-    "DQV"
-)
+class DQV(DefinedNamespace):
+    """
+    Namespace for the Data Quality Vocabulary
+
+    Generated based on https://www.w3.org/TR/vocab-dqv/
+    Date: 2025-05-13
+    """
+
+    hasQualityAnnotation: URIRef
+
+    _NS = Namespace("http://www.w3.org/ns/dqv#")

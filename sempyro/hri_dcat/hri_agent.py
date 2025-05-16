@@ -22,6 +22,7 @@ from rdflib.namespace import DCTERMS, FOAF
 from sempyro import LiteralField
 from sempyro.foaf import Agent
 from sempyro.geo import Location
+from sempyro.namespaces import HEALTHDCATAP
 from sempyro.utils.validator_functions import validate_convert_email
 
 
@@ -76,21 +77,19 @@ class HRIAgent(Agent):
             "rdf_type": "uri"
         }
     )
-    #TODO: add the correct namespace for HEALTHDCAT
     publisher_note: Union[str, LiteralField] = Field(
         default=None,
         description="A description of the publisher activities.",
         json_schema_extra={
-            "rdf_term": "REPLACE_WITH_ACTUAL_NAMESPACE:publisherNote",
+            "rdf_term": HEALTHDCATAP.publisherNote,
             "rdf_type": "rdfs_literal"
         }
     )
-    #TODO: add the correct namespace for HEALTHDCAT
     publisher_type: Union[AnyUrl, URIRef] = Field(
         default=None,
         description="A type of organisation that makes the Dataset available.",
         json_schema_extra={
-            "rdf_term": "REPLACE_WITH_ACTUAL_NAMESPACE:publisherType",
+            "rdf_term": HEALTHDCATAP.publisherType,
             "rdf_type": "uri"
         }
     )

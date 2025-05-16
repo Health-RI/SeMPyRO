@@ -681,20 +681,22 @@ $defs:
         rdf_term: http://www.w3.org/ns/adms#status
         rdf_type: uri
       version:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: The version indicator (name or identifier) of a resource.
-        items:
-          $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#version
         rdf_type: rdfs_literal
         title: Version
-        type: array
       version_notes:
         default:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -740,7 +742,7 @@ $defs:
         rdf_type: uri
         title: Temporal Coverage
         type: array
-      spatial:
+      geographical_coverage:
         default:
         description: The geographical area covered by the dataset.
         items:
@@ -751,7 +753,7 @@ $defs:
           - $ref: '#/$defs/Location'
         rdf_term: http://purl.org/dc/terms/spatial
         rdf_type: uri
-        title: Spatial
+        title: Geographical Coverage
         type: array
       endpoint_description:
         default:
@@ -1119,20 +1121,22 @@ $defs:
         rdf_term: http://www.w3.org/ns/adms#status
         rdf_type: uri
       version:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: The version indicator (name or identifier) of a resource.
-        items:
-          $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#version
         rdf_type: rdfs_literal
         title: Version
-        type: array
       version_notes:
         default:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -1178,7 +1182,7 @@ $defs:
         rdf_type: uri
         title: Temporal Coverage
         type: array
-      spatial:
+      geographical_coverage:
         default:
         description: The geographical area covered by the dataset.
         items:
@@ -1189,7 +1193,7 @@ $defs:
           - $ref: '#/$defs/Location'
         rdf_term: http://purl.org/dc/terms/spatial
         rdf_type: uri
-        title: Spatial
+        title: Geographical Coverage
         type: array
       distribution:
         default:
@@ -1581,20 +1585,22 @@ $defs:
         rdf_term: http://www.w3.org/ns/adms#status
         rdf_type: uri
       version:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: The version indicator (name or identifier) of a resource.
-        items:
-          $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#version
         rdf_type: rdfs_literal
         title: Version
-        type: array
       version_notes:
         default:
         description: A description of changes between this version and the previous
           version of the resource [VOCAB-ADMS].
         items:
-          $ref: '#/$defs/LiteralField'
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/adms#versionNotes
         rdf_type: rdfs_literal
         title: Version Notes
@@ -1640,7 +1646,7 @@ $defs:
         rdf_type: uri
         title: Temporal Coverage
         type: array
-      spatial:
+      geographical_coverage:
         default:
         description: The geographical area covered by the dataset.
         items:
@@ -1651,7 +1657,7 @@ $defs:
           - $ref: '#/$defs/Location'
         rdf_term: http://purl.org/dc/terms/spatial
         rdf_type: uri
-        title: Spatial
+        title: Geographical Coverage
         type: array
     required:
     - description

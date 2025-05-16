@@ -227,7 +227,7 @@ properties:
     - $ref: '#/$defs/LiteralField'
     default:
     description: A description of the publisher activities.
-    rdf_term: REPLACE_WITH_ACTUAL_NAMESPACE:publisherNote
+    rdf_term: http://healthdataportal.eu/ns/health#publisherNote
     rdf_type: rdfs_literal
     title: Publisher Note
   publisher_type:
@@ -235,7 +235,7 @@ properties:
     description: A type of organisation that makes the Dataset available.
     format: uri
     minLength: 1
-    rdf_term: REPLACE_WITH_ACTUAL_NAMESPACE:publisherType
+    rdf_term: http://healthdataportal.eu/ns/health#publisherType
     rdf_type: uri
     title: Publisher Type
     type: string
