@@ -136,15 +136,6 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    geographical_coverage: List[AnyHttpUrl] = Field(
-        default=None,
-        description="Spatial characteristics of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.spatial,
-            "rdf_type": "uri"
-        }
-    )
-
     health_theme: List[AnyHttpUrl] = Field(
         default=None,
         description="A category of the Dataset or tag describing the Dataset.",
@@ -348,14 +339,6 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    version: Union[str, LiteralField] = Field(
-        default=None,
-        description="The version indicator (name or identifier) of a resource.",
-        json_schema_extra={
-            "rdf_term": DCATv3.version,
-            "rdf_type": "rdfs_literal"
-        }
-    )
     keyword: List[LiteralField] = Field(
         description="A keyword or tag describing the resource.",
         json_schema_extra={

@@ -287,7 +287,8 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    version: List[LiteralField] = Field(
+
+    version: Union[str, LiteralField] = Field(
         default=None,
         description="The version indicator (name or identifier) of a resource.",
         json_schema_extra={
@@ -338,7 +339,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    spatial: List[Union[AnyHttpUrl, Location]] = Field(
+    geographical_coverage: List[Union[AnyHttpUrl, Location]] = Field(
         default=None,
         description="The geographical area covered by the dataset.",
         json_schema_extra={

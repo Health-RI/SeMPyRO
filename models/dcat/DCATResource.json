@@ -1241,15 +1241,19 @@
       "rdf_type": "uri"
     },
     "version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "The version indicator (name or identifier) of a resource.",
-      "items": {
-        "$ref": "#/$defs/LiteralField"
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#version",
       "rdf_type": "rdfs_literal",
-      "title": "Version",
-      "type": "array"
+      "title": "Version"
     },
     "version_notes": {
       "default": null,
@@ -1313,7 +1317,7 @@
       "title": "Temporal Coverage",
       "type": "array"
     },
-    "spatial": {
+    "geographical_coverage": {
       "default": null,
       "description": "The geographical area covered by the dataset.",
       "items": {
@@ -1330,7 +1334,7 @@
       },
       "rdf_term": "http://purl.org/dc/terms/spatial",
       "rdf_type": "uri",
-      "title": "Spatial",
+      "title": "Geographical Coverage",
       "type": "array"
     }
   },
