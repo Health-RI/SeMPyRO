@@ -46,11 +46,11 @@ class HEALTHDCATAP(DefinedNamespace):
     hasCodeValues: URIRef
     hasCodingSystem: URIRef
     healthTheme: URIRef
-    maxTypicalAge: int
-    minTypicalAge: int
-    numberOfRecords: int
-    numberOfUniqueIndividuals: int
-    populationCoverage: str
+    maxTypicalAge: URIRef
+    minTypicalAge: URIRef
+    numberOfRecords: URIRef
+    numberOfUniqueIndividuals: URIRef
+    populationCoverage: URIRef
     publisherType: URIRef
     publisherNote: URIRef
 
