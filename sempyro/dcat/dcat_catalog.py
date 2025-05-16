@@ -31,6 +31,7 @@ class DCATCatalog(DCATDataset):
                               })
 
     catalog_record: List[AnyHttpUrl] = Field(
+        default=None,
         description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
                      "is part of the catalog.",
         json_schema_extra={
