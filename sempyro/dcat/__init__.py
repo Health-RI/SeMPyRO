@@ -4,6 +4,7 @@ from .dcat_catalog import DCATCatalog
 from .dataset_series import DCATDatasetSeries
 from .data_service import DCATDataService
 from .dcat_distribution import DCATDistribution
+from .dcat_catalog_record import DCATCatalogRecord
 
 __all__ = (
     # dcat rdf model classes
@@ -13,6 +14,7 @@ __all__ = (
     "DCATDistribution",
     "DCATDatasetSeries",
     "DCATDataService",
+    "DCATCatalogRecord",
     # enum classes
     "Status",
     "AccessRights",
