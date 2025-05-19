@@ -15,7 +15,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
