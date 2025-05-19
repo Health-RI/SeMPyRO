@@ -163,21 +163,22 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    modification_date: str = Field(
+
+    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
-        description="Date on which the resource was changed.",
+        description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
             "rdf_term": DCTERMS.modified,
-            "rdf_type": "xsd:dateTime"
+            "rdf_type": "datetime_literal"
         }
     )
 
-    release_date: str = Field(
+    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
-        description="Date of formal issuance of the resource.",
+        description="Date of formal issuance (e.g., publication) of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.issued,
-            "rdf_type": "xsd:dateTime"
+            "rdf_type": "datetime_literal"
         }
     )
     retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(

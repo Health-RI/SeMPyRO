@@ -64,7 +64,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "datetime_literal"
         }
     )
-    update_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the distribution was changed, updated or modified.",
         json_schema_extra={
@@ -220,6 +220,11 @@ class DCATDistribution(RDFModel):
         if isinstance(value, LiteralField) and value.datatype is not "xsd:duration":
             return LiteralField(value=value.value, datatype="xsd:duration")
         return value
+
+    @field_validator("release_date", "modification_date", mode="before")
+    @classmethod
+    def date_validator(cls, value):
+        return date_handler(value)
 
 
 if __name__ == "__main__":

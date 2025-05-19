@@ -336,7 +336,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         description="The temporal period that the dataset covers.",
         json_schema_extra={
             "rdf_term": DCTERMS.temporal,
-            "rdf_type": "uri"
+            "rdf_type": DCTERMS.PeriodOfTime
         }
     )
     geographical_coverage: List[Union[AnyHttpUrl, Location]] = Field(
