@@ -5,7 +5,7 @@ from .hri_data_service import HRIDataService
 from .hri_dataset_series import HRIDatasetSeries
 from .hri_distribution import HRIDistribution
 from .hri_vcard import HRIVCard
-from .vocabularies import GeonovumLicences, DatasetTheme
+from .vocabularies import GeonovumLicences, DatasetTheme, DatasetStatus, DistributionStatus
 
 __all__ = (
     "HRICatalog",
@@ -17,5 +17,7 @@ __all__ = (
     "HRIDatasetSeries",
     # Enum classes
     "DatasetTheme",
-    "GeonovumLicences"
+    "GeonovumLicences",
+    "DatasetStatus",
+    "DistributionStatus"
 )
