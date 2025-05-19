@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, ClassVar, Set
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
@@ -21,12 +21,13 @@ from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
 from sempyro import LiteralField
 from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution
 from sempyro.dqv import QualityCertificate
+from sempyro.adms import Identifier
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import DatasetTheme, DatasetStatus
 from sempyro.namespaces import DCATv3, DCATAPv3, HEALTHDCATAP, DPV, ADMS, DQV
 from sempyro.time import PeriodOfTime
-from sempyro.utils.validator_functions import date_handler, force_literal_field
+from sempyro.utils.validator_functions import convert_to_literal
 
 
 class HRIDataset(DCATDataset):
@@ -347,12 +348,12 @@ class HRIDataset(DCATDataset):
     )
 
 
-    @field_validator("keyword", "population_coverage", mode="before")
+    _validate_literal_fields: ClassVar[Set[str]] = DCATDataset._validate_literal_fields | {"keyword", "population_coverage"}
+
+    @field_validator(*_validate_literal_fields, mode="before")
     @classmethod
-    def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], None]) -> Union[List[LiteralField], None]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
 
 
 if __name__ == "__main__":

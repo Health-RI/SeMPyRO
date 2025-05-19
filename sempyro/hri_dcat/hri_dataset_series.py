@@ -22,7 +22,6 @@ from sempyro.dcat import DCATDatasetSeries
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.namespaces import DCATv3, DCATAPv3
-from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRIDatasetSeries(DCATDatasetSeries):
@@ -70,12 +69,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
 
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")
