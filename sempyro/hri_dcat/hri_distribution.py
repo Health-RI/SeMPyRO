@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
@@ -24,7 +24,6 @@ from sempyro.hri_dcat import HRIDataService
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
 from sempyro.namespaces import DCATAPv3, ADMS
 from sempyro.time import PeriodOfTime
-from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRIDistribution(DCATDistribution):
@@ -198,13 +197,6 @@ class HRIDistribution(DCATDistribution):
         }
     )
 
-
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ from sempyro import LiteralField, RDFModel
 from sempyro.dcat import DCATDataService
 from sempyro.odrl import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.utils.validator_functions import convert_to_literal, date_handler
 
 
 class DCATDistribution(RDFModel):
@@ -208,10 +208,9 @@ class DCATDistribution(RDFModel):
 
     @field_validator("title", "description", mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
+
     @field_validator("temporal_resolution", mode="after")
     @classmethod
     def validate_xsd_duration(cls, value: Union[str, LiteralField]) -> LiteralField:

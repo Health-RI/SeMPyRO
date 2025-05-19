@@ -13,7 +13,7 @@
 # limitations under the License.
 from datetime import date
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, ClassVar, Set
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS
@@ -26,7 +26,7 @@ from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.adms import Identifier
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.namespaces import DCATAPv3, ADMS
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.utils.validator_functions import convert_to_literal
 
 
 class HRIDataService(DCATDataService):
@@ -160,13 +160,12 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
+    _validate_literal_fields: ClassVar[Set[str]] = DCATDataService._validate_literal_fields | {"endpoint_description"}
 
-    @field_validator( "endpoint_description", mode="before")
+    @field_validator(*_validate_literal_fields, mode="before")
     @classmethod
-    def convert_to_literal(cls, value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]) -> Union[LiteralField, List[LiteralField]]:
-        if isinstance(value, list):
-            return [force_literal_field(item) for item in value]
-        return force_literal_field(value)
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
 
 
 if __name__ == "__main__":

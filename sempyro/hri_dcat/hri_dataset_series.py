@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, ClassVar, Set
 
 from pydantic import ConfigDict, Field, field_validator
 from rdflib import DCAT, DCTERMS
@@ -20,7 +20,7 @@ from rdflib import DCAT, DCTERMS
 from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
 from sempyro.namespaces import DCATv3
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.utils.validator_functions import convert_to_literal
 
 
 class HRIDatasetSeries(DCATDatasetSeries):
@@ -51,12 +51,13 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
 
-    @field_validator("title", "description", mode="before")
+    _validate_literal_fields: ClassVar[Set[str]] = DCATDatasetSeries._validate_literal_fields | {"title", "description"}
+
+    @field_validator(*_validate_literal_fields, mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
+
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")

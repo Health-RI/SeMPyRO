@@ -17,7 +17,7 @@ from abc import ABCMeta
 from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
-from typing import List, Union, Optional
+from typing import List, Union, Optional, ClassVar, Set
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator
 from rdflib import DCAT, DCTERMS, ODRL2, PROV, URIRef
@@ -28,7 +28,7 @@ from sempyro.geo import Location
 from sempyro.namespaces import ADMS, ADMSStatus, DCATv3
 from sempyro.odrl import ODRLPolicy
 from sempyro.time import PeriodOfTime
-from sempyro.utils.validator_functions import date_handler, force_literal_field
+from sempyro.utils.validator_functions import date_handler, convert_to_literal
 from sempyro.vcard import VCard
 
 logger = logging.getLogger("__name__")
@@ -348,12 +348,12 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         }
     )
 
-    @field_validator("title", "description", "keyword", "version", "version_notes", mode="before")
+    _validate_literal_fields: ClassVar[Set[str]] = {"title", "description", "keyword", "version", "version_notes"}
+
+    @field_validator(*_validate_literal_fields, mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
 
     @field_validator("release_date", "modification_date", mode="before")
     @classmethod
