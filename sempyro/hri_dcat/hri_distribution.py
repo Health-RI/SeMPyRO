@@ -196,14 +196,6 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    temporal_resolution: List[Union[str, LiteralField]] = Field(
-        default=None,
-        description="Minimum time period resolvable in the dataset.",
-        json_schema_extra={
-            "rdf_term": DCAT.temporalResolution,
-            "rdf_type": "xsd:duration"
-        }
-    )
 
 
     @field_validator("title", "description", mode="before")

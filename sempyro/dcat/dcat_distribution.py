@@ -137,7 +137,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "xsd:integer"
         }
     )
-    spatial_resolution: List[Union[float, LiteralField]] = Field(
+    spatial_resolution: Union[float, LiteralField] = Field(
         default=None,
         description="Minimum spatial separation resolvable in a dataset distribution, "
                     "measured in meters.",
@@ -146,7 +146,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "xsd:decimal"
         }
     )
-    temporal_resolution: List[Union[str, LiteralField]] = Field(
+    temporal_resolution: Union[str, LiteralField] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
         json_schema_extra={
@@ -212,6 +212,14 @@ class DCATDistribution(RDFModel):
         if not value:
             return None
         return [force_literal_field(item) for item in value]
+    @field_validator("temporal_resolution", mode="after")
+    @classmethod
+    def validate_xsd_duration(cls, value: Union[str, LiteralField]) -> LiteralField:
+        if isinstance(value, str):
+            return LiteralField(value=value, datatype="xsd:duration")
+        if isinstance(value, LiteralField) and value.datatype is not "xsd:duration":
+            return LiteralField(value=value.value, datatype="xsd:duration")
+        return value
 
 
 if __name__ == "__main__":

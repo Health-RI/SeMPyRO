@@ -16,7 +16,7 @@ from enum import Enum
 from pathlib import Path
 from typing import List, Union, Optional
 
-from pydantic import AnyHttpUrl, ConfigDict, Field
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, PROV
 
 from sempyro import LiteralField
@@ -88,7 +88,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "xsd:decimal"
         }
     )
-    temporal_resolution: List[Union[str, LiteralField]] = Field(
+    temporal_resolution: Union[str, LiteralField] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
         json_schema_extra={
@@ -112,6 +112,15 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
+
+    @field_validator("temporal_resolution", mode="after")
+    @classmethod
+    def validate_xsd_duration(cls, value: Union[str, LiteralField]) -> LiteralField:
+        if isinstance(value, str):
+            return LiteralField(value=value, datatype="xsd:duration")
+        if isinstance(value, LiteralField) and value.datatype is not "xsd:duration":
+            return LiteralField(value=value.value, datatype="xsd:duration")
+        return value
 
 
 if __name__ == "__main__":
