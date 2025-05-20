@@ -14,12 +14,14 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field, field_validator
+from pydantic import ConfigDict, Field, field_validator, AnyHttpUrl
 from rdflib import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
-from sempyro.namespaces import DCATv3
+from sempyro.foaf import Agent
+from sempyro.vcard import VCard
+from sempyro.namespaces import DCATv3, DCATAPv3
 from sempyro.utils.validator_functions import force_literal_field
 
 
@@ -35,19 +37,36 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
 
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
         json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri"
         }
     )
-
-    description: List[LiteralField] = Field(
-        description="An account of the resource.",
+    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+        default=None,
+        description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "rdfs_literal"
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
+    )
+    frequency: AnyHttpUrl = Field(
+        default=None,
+        description="The frequency with which items are added to a collection.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,
+            "rdf_type": "uri"
+        }
+    )
+    publisher: Union[AnyHttpUrl, Agent] = Field(
+        default=None,
+        description="The entity responsible for making the resource available.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
         }
     )
 

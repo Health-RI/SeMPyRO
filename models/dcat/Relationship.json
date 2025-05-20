@@ -1,0 +1,39 @@
+{
+  "$IRI": "http://www.w3.org/ns/dcat#Relationship",
+  "$namespace": "http://www.w3.org/ns/dcat#",
+  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+  "$prefix": "dcat",
+  "additionalProperties": false,
+  "properties": {
+    "had_role": {
+      "description": "The function of an entity or agent with respect to another entity or resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/dcat#hadRole",
+      "rdf_type": "uri",
+      "title": "Had Role",
+      "type": "array"
+    },
+    "relation": {
+      "description": "A related resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://purl.org/dc/terms/relation",
+      "rdf_type": "uri",
+      "title": "Relation",
+      "type": "array"
+    }
+  },
+  "required": [
+    "had_role",
+    "relation"
+  ],
+  "title": "Relationship",
+  "type": "object"
+}

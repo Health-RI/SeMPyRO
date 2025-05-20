@@ -867,7 +867,7 @@
     },
     "contact_point": {
       "default": null,
-      "description": "Relevant contact information for the cataloged resource. Use of vCard is recommended",
+      "description": "Relevant contact information for the cataloged resource.",
       "items": {
         "anyOf": [
           {
@@ -877,9 +877,6 @@
           },
           {
             "$ref": "#/$defs/VCard"
-          },
-          {
-            "$ref": "#/$defs/Agent"
           }
         ]
       },
@@ -914,7 +911,14 @@
     "description": {
       "description": "An account of the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/description",
       "rdf_type": "rdfs_literal",
@@ -1070,24 +1074,21 @@
       "type": "array"
     },
     "publisher": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/Agent"
+        }
+      ],
       "default": null,
       "description": "The entity responsible for making the resource available.",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/Agent"
-          }
-        ]
-      },
       "rdf_term": "http://purl.org/dc/terms/publisher",
       "rdf_type": "uri",
-      "title": "Publisher",
-      "type": "array"
+      "title": "Publisher"
     },
     "release_date": {
       "anyOf": [
@@ -1125,7 +1126,14 @@
     "title": {
       "description": "A name given to the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/title",
       "rdf_type": "rdfs_literal",
@@ -1324,6 +1332,29 @@
       "rdf_type": "uri",
       "title": "Geographical Coverage",
       "type": "array"
+    },
+    "applicable_legislation": {
+      "default": null,
+      "description": "The legislation that is applicable to this resource.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://data.europa.eu/r5r/applicableLegislation",
+      "rdf_type": "uri",
+      "title": "Applicable Legislation",
+      "type": "array"
+    },
+    "frequency": {
+      "default": null,
+      "description": "The frequency with which items are added to a collection.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
+      "rdf_type": "uri",
+      "title": "Frequency",
+      "type": "string"
     }
   },
   "required": [

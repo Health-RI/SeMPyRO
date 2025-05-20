@@ -16,10 +16,11 @@ from pathlib import Path
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
-from rdflib.namespace import DCAT, DCTERMS, FOAF
+from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries
+from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution
+from sempyro.dqv import QualityCertificate
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import DatasetTheme, DatasetStatus
@@ -245,15 +246,14 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    # TODO: Commented out due to Attribution in other branch
-    # qualified_attribution: List[Union[AnyHttpUrl, Attribution]] = Field(
-    #     default=None,
-    #     description="Attribution is the ascribing of an entity to an agent.",
-    #     json_schema_extra={
-    #         "rdf_term": PROV.qualifiedAttribution,
-    #         "rdf_type": "uri"
-    #     }
-    # )
+    qualified_attribution: List[Union[AnyHttpUrl, Attribution]] = Field(
+        default=None,
+        description="Attribution is the ascribing of an entity to an agent.",
+        json_schema_extra={
+            "rdf_term": PROV.qualifiedAttribution,
+            "rdf_type": "uri"
+        }
+    )
 
     qualified_relation: List[AnyHttpUrl] = Field(
         default=None,
@@ -264,15 +264,14 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    # TODO: Commented out due to QualityCertificate in other branch
-    # quality_annotation: List[Union[AnyHttpUrl, QualityCertificate]] = Field(
-    #     default=None,
-    #     description="Refers to a quality annotation.",
-    #     json_schema_extra={
-    #         "rdf_term": DQV.hasQualityAnnotation,
-    #         "rdf_type": "uri"
-    #     }
-    # )
+    quality_annotation: List[Union[AnyHttpUrl, QualityCertificate]] = Field(
+        default=None,
+        description="Refers to a quality annotation.",
+        json_schema_extra={
+            "rdf_term": DQV.hasQualityAnnotation,
+            "rdf_type": "uri"
+        }
+    )
 
     retention_period: PeriodOfTime = Field(
         default=None,
