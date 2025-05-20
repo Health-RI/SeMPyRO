@@ -840,7 +840,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -1416,7 +1416,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -1495,22 +1495,19 @@
           "type": "array"
         },
         "temporal_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "Minimum time period resolvable in the dataset.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
           "rdf_type": "xsd:duration",
-          "title": "Temporal Resolution",
-          "type": "array"
+          "title": "Temporal Resolution"
         },
         "was_generated_by": {
           "default": null,
@@ -2015,7 +2012,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -2092,7 +2089,7 @@
           "rdf_type": "datetime_literal",
           "title": "Release Date"
         },
-        "update_date": {
+        "modification_date": {
           "anyOf": [
             {
               "type": "string"
@@ -2110,7 +2107,7 @@
           "description": "Most recent date on which the distribution was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
           "rdf_type": "datetime_literal",
-          "title": "Update Date"
+          "title": "Modification Date"
         },
         "license": {
           "default": null,
@@ -2207,40 +2204,34 @@
           "title": "Byte Size"
         },
         "spatial_resolution": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "Minimum spatial separation resolvable in a dataset distribution, measured in meters.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
           "rdf_type": "xsd:decimal",
-          "title": "Spatial Resolution",
-          "type": "array"
+          "title": "Spatial Resolution"
         },
         "temporal_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "Minimum time period resolvable in the dataset.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
           "rdf_type": "xsd:duration",
-          "title": "Temporal Resolution",
-          "type": "array"
+          "title": "Temporal Resolution"
         },
         "conforms_to": {
           "default": null,
@@ -2786,7 +2777,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -3798,7 +3789,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -4401,7 +4392,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -4487,22 +4478,19 @@
           "type": "array"
         },
         "temporal_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "Minimum time period resolvable in the dataset.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
           "rdf_type": "xsd:duration",
-          "title": "Temporal Resolution",
-          "type": "array"
+          "title": "Temporal Resolution"
         },
         "was_generated_by": {
           "default": null,
@@ -4633,7 +4621,7 @@
           "default": null,
           "description": "Maximum typical age of the population within the dataset.",
           "rdf_term": "http://healthdataportal.eu/ns/health#maxTypicalAge",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Maximum Typical Age"
         },
         "minimum_typical_age": {
@@ -4648,7 +4636,7 @@
           "default": null,
           "description": "Minimum typical age of the population within the dataset",
           "rdf_term": "http://healthdataportal.eu/ns/health#minTypicalAge",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Minimum Typical Age"
         },
         "number_of_records": {
@@ -4663,7 +4651,7 @@
           "default": null,
           "description": "Size of the dataset in terms of the number of records",
           "rdf_term": "http://healthdataportal.eu/ns/health#numberOfRecords",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Number Of Records"
         },
         "number_of_unique_individuals": {
@@ -4678,8 +4666,19 @@
           "default": null,
           "description": "Number of records for unique individuals.",
           "rdf_term": "http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Number Of Unique Individuals"
+        },
+        "other_identifier": {
+          "default": null,
+          "description": "Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
+          "items": {
+            "$ref": "#/$defs/Identifier"
+          },
+          "rdf_term": "http://www.w3.org/ns/adms#identifier",
+          "rdf_type": "uri",
+          "title": "Other Identifier",
+          "type": "array"
         },
         "personal_data": {
           "default": null,
@@ -5522,14 +5521,26 @@
       "type": "array"
     },
     "release_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "format": "date",
+          "type": "string"
+        }
+      ],
       "default": null,
-      "description": "Date of formal issuance of the resource.",
+      "description": "Date of formal issuance (e.g., publication) of the resource.",
       "rdf_term": "http://purl.org/dc/terms/issued",
-      "rdf_type": "xsd:dateTime",
-      "title": "Release Date",
-      "type": "string"
+      "rdf_type": "datetime_literal",
+      "title": "Release Date"
     },
-    "update_date": {
+    "modification_date": {
       "anyOf": [
         {
           "type": "string"
@@ -5544,10 +5555,10 @@
         }
       ],
       "default": null,
-      "description": "Most recent date on which the distribution was changed, updated or modified.",
+      "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Update Date"
+      "title": "Modification Date"
     },
     "license": {
       "anyOf": [
@@ -5642,40 +5653,34 @@
       "title": "Byte Size"
     },
     "spatial_resolution": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "Minimum spatial separation resolvable in a dataset distribution, measured in meters.",
-      "items": {
-        "anyOf": [
-          {
-            "type": "number"
-          },
-          {
-            "$ref": "#/$defs/LiteralField"
-          }
-        ]
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
       "rdf_type": "xsd:decimal",
-      "title": "Spatial Resolution",
-      "type": "array"
+      "title": "Spatial Resolution"
     },
     "temporal_resolution": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "Minimum time period resolvable in the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/LiteralField"
-          }
-        ]
-      },
-      "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
+      "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
       "rdf_type": "xsd:duration",
-      "title": "Temporal Resolution",
-      "type": "array"
+      "title": "Temporal Resolution"
     },
     "conforms_to": {
       "default": null,
@@ -5787,14 +5792,6 @@
       "rdf_type": "uri",
       "title": "Linked Schemas",
       "type": "array"
-    },
-    "modification_date": {
-      "default": null,
-      "description": "Date on which the resource was changed.",
-      "rdf_term": "http://purl.org/dc/terms/modified",
-      "rdf_type": "xsd:dateTime",
-      "title": "Modification Date",
-      "type": "string"
     },
     "retention_period": {
       "default": null,
