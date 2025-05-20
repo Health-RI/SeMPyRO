@@ -19,7 +19,7 @@ from rdflib import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
-from sempyro.time import PeriodOfTime
+from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.namespaces import DCATv3, DCATAPv3
 from sempyro.utils.validator_functions import force_literal_field
@@ -45,7 +45,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
             "rdf_type": "uri"
         }
     )
-
     contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
         default=None,
         description="Relevant contact information for the cataloged resource.",
@@ -54,23 +53,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
             "rdf_type": "uri"
         }
     )
-
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-
-    description: List[LiteralField] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-
     frequency: AnyHttpUrl = Field(
         default=None,
         description="The frequency with which items are added to a collection.",
@@ -79,21 +61,11 @@ class HRIDatasetSeries(DCATDatasetSeries):
             "rdf_type": "uri"
         }
     )
-
-    geographical_coverage: List[AnyHttpUrl] = Field(
+    publisher: Union[AnyHttpUrl, Agent] = Field(
         default=None,
-        description="Spatial characteristics of the resource.",
+        description="The entity responsible for making the resource available.",
         json_schema_extra={
-            "rdf_term": DCTERMS.spatial,
-            "rdf_type": "uri"
-        }
-    )
-
-    temporal_coverage: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
-        default=None,
-        description="Temporal characteristics of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.temporal,
+            "rdf_term": DCTERMS.publisher,
             "rdf_type": "uri"
         }
     )
