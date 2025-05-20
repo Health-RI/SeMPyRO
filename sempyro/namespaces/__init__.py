@@ -23,6 +23,7 @@ from .DCATAPv3 import DCATAPv3
 from .HEALTHDCATAP import HEALTHDCATAP
 from .DPV import DPV
 from .DQV import DQV
+from .OA import OA
 
 __all__ = (
     "ADMS",
@@ -36,5 +37,6 @@ __all__ = (
     "DCATAPv3",
     "HEALTHDCATAP",
     "DPV",
-    "DQV"
+    "DQV",
+    "OA"
 )

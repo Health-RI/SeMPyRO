@@ -29,9 +29,8 @@ class DCATAPv3(DefinedNamespace):
     Date: 2025-04-30
     """
 
-    applicableLegislation: URIRef
-    hvdCategory: URIRef
+    applicableLegislation: URIRef # The legislation that is applicable to this resource.
+    availability: URIRef # An indication how long it is planned to keep the Distribution of the Dataset available.
+    hvdCategory: URIRef # A data category defined in the High Value Dataset Implementing Regulation.
 
     _NS = Namespace("http://data.europa.eu/r5r/")
-
-

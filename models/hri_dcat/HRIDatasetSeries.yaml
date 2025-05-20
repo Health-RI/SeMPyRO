@@ -744,15 +744,13 @@ properties:
     type: string
   contact_point:
     default:
-    description: Relevant contact information for the cataloged resource. Use of vCard
-      is recommended
+    description: Relevant contact information for the cataloged resource.
     items:
       anyOf:
       - format: uri
         minLength: 1
         type: string
       - $ref: '#/$defs/VCard'
-      - $ref: '#/$defs/Agent'
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
     title: Contact Point
@@ -775,7 +773,9 @@ properties:
   description:
     description: An account of the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/description
     rdf_type: rdfs_literal
     title: Description
@@ -903,18 +903,16 @@ properties:
     title: Qualified Relation
     type: array
   publisher:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/Agent'
     default:
     description: The entity responsible for making the resource available.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/Agent'
     rdf_term: http://purl.org/dc/terms/publisher
     rdf_type: uri
     title: Publisher
-    type: array
   release_date:
     anyOf:
     - type: string
@@ -941,7 +939,9 @@ properties:
   title:
     description: A name given to the resource.
     items:
-      $ref: '#/$defs/LiteralField'
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
     rdf_term: http://purl.org/dc/terms/title
     rdf_type: rdfs_literal
     title: Title
@@ -1102,6 +1102,26 @@ properties:
     rdf_type: uri
     title: Geographical Coverage
     type: array
+  applicable_legislation:
+    default:
+    description: The legislation that is applicable to this resource.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://data.europa.eu/r5r/applicableLegislation
+    rdf_type: uri
+    title: Applicable Legislation
+    type: array
+  frequency:
+    default:
+    description: The frequency with which items are added to a collection.
+    format: uri
+    minLength: 1
+    rdf_term: http://purl.org/dc/terms/accrualPeriodicity
+    rdf_type: uri
+    title: Frequency
+    type: string
 required:
 - description
 - title

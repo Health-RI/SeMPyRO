@@ -12,15 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import List, Union, ClassVar, Set
+from typing import List, Union
 
-from pydantic import ConfigDict, Field, field_validator
+from pydantic import ConfigDict, Field, field_validator, AnyHttpUrl
 from rdflib import DCAT, DCTERMS
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
-from sempyro.namespaces import DCATv3
-from sempyro.utils.validator_functions import convert_to_literal
+from sempyro.foaf import Agent
+from sempyro.vcard import VCard
+from sempyro.namespaces import DCATv3, DCATAPv3
+from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRIDatasetSeries(DCATDatasetSeries):
@@ -35,29 +37,45 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
 
-    title: List[LiteralField] = Field(
-        description="A name given to the resource.",
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
         json_schema_extra={
-            "rdf_term": DCTERMS.title,
-            "rdf_type": "rdfs_literal"
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri"
+        }
+    )
+    contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
+        default=None,
+        description="Relevant contact information for the cataloged resource.",
+        json_schema_extra={
+            "rdf_term": DCAT.contactPoint,
+            "rdf_type": "uri"
+        }
+    )
+    frequency: AnyHttpUrl = Field(
+        default=None,
+        description="The frequency with which items are added to a collection.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,
+            "rdf_type": "uri"
+        }
+    )
+    publisher: Union[AnyHttpUrl, Agent] = Field(
+        default=None,
+        description="The entity responsible for making the resource available.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.publisher,
+            "rdf_type": "uri"
         }
     )
 
-    description: List[LiteralField] = Field(
-        description="An account of the resource.",
-        json_schema_extra={
-            "rdf_term": DCTERMS.description,
-            "rdf_type": "rdfs_literal"
-        }
-    )
-
-    _validate_literal_fields: ClassVar[Set[str]] = DCATDatasetSeries._validate_literal_fields | {"title", "description"}
-
-    @field_validator(*_validate_literal_fields, mode="before")
+    @field_validator("title", "description", mode="before")
     @classmethod
-    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        return convert_to_literal(value)
-
+    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        if not value:
+            return None
+        return [force_literal_field(item) for item in value]
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")

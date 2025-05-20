@@ -1,4 +1,4 @@
-# Copyright 2024 Stichting Health-RI
+# Copyright 2025 Stichting Health-RI
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,32 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from .quality_certificate import QualityCertificate
 
-from importlib.metadata import version
-
-from .rdf_model import LiteralField, RDFModel
-from .utils import validator_functions
-
-__version__ = version("sempyro")
-
-__all__ = (
-    "LiteralField",
-    "RDFModel",
-    "adms",
-    "dcat",
-    "dqv",
-    "foaf",
-    "geo",
-    "hri_dcat",
-    "namespaces",
-    "odrl",
-    "prov",
-    "spdx",
-    "time",
-    "vcard",
-    "validator_functions"
-    )
-
-
-def __dir__() -> "list[str]":
-    return list(__all__)
+__all__ = [
+    "QualityCertificate"
+]

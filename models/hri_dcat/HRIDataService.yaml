@@ -330,6 +330,37 @@ $defs:
         type: string
     title: Association
     type: object
+  Attribution:
+    $IRI: http://www.w3.org/ns/prov#Activity
+    $namespace: http://www.w3.org/ns/prov#
+    $ontology: https://www.w3.org/TR/prov-o/
+    $prefix: prov
+    additionalProperties: false
+    properties:
+      agent:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - $ref: '#/$defs/Agent'
+        default:
+        description: The prov:agent property references an prov:Agent which influenced
+          a resource.
+        rdf_term: http://www.w3.org/ns/prov#agent
+        rdf_type: uri
+        title: Agent
+      role:
+        default:
+        description: The function of an entity or agent with respect to another entity
+          or resource.
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/dcat#hadRole
+        rdf_type: uri
+        title: Role
+        type: string
+    title: Attribution
+    type: object
   Checksum:
     $IRI: http://spdx.org/rdf/terms#Checksum
     $namespace: http://spdx.org/rdf/terms#
@@ -2991,11 +3022,13 @@ $defs:
         title: Modification Date
       qualified_attribution:
         default:
-        description: Link to an Agent having some form of responsibility for the resource
+        description: Attribution is the ascribing of an entity to an agent.
         items:
-          format: uri
-          minLength: 1
-          type: string
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Attribution'
         rdf_term: http://www.w3.org/ns/prov#qualifiedAttribution
         rdf_type: uri
         title: Qualified Attribution
@@ -3344,6 +3377,19 @@ $defs:
         rdf_term: https://w3id.org/dpv#hasPurpose
         rdf_type: uri
         title: Purpose
+        type: array
+      quality_annotation:
+        default:
+        description: Refers to a quality annotation.
+        items:
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/QualityCertificate'
+        rdf_term: http://www.w3.org/ns/dqv#hasQualityAnnotation
+        rdf_type: uri
+        title: Quality Annotation
         type: array
       retention_period:
         $ref: '#/$defs/PeriodOfTime'
@@ -3753,6 +3799,34 @@ $defs:
         rdf_term: http://www.w3.org/2006/time#hasEnd
         rdf_type: http://www.w3.org/2006/time#Instant
     title: PeriodOfTime
+    type: object
+  QualityCertificate:
+    $IRI: http://www.w3.org/ns/dqv#QualityCertificate
+    $namespace: http://www.w3.org/ns/dqv#
+    $ontology: https://www.w3.org/TR/vocab-dqv/
+    $prefix: dqv
+    additionalProperties: false
+    properties:
+      target:
+        default:
+        description: The relationship between an Annotation and its Target.
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/oa#hasTarget
+        rdf_type: uri
+        title: Target
+        type: string
+      body:
+        default:
+        description: The object of the relationship is a resource that is a body of
+          the Annotation.
+        format: uri
+        minLength: 1
+        rdf_term: http://www.w3.org/ns/oa#hasBody
+        rdf_type: uri
+        title: Body
+        type: string
+    title: QualityCertificate
     type: object
   RDFModel:
     additionalProperties: false
