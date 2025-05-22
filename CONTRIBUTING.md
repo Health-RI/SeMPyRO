@@ -31,9 +31,9 @@ that has a range of `DCATDistribution`, should have the type `Union[AnyHttpUrl, 
 the `DCATDataset` class to be used by directly assigning the `DCATDistribution` class or by supplying the URI 
 for the Distribution class.
 
-If a property has the range `rdfs:Literal`, use the type `LiteralField` when a language tag might be
-supplied with this property. To support users providing values without defining a `LiteralField`,
-the property type should be defined as `Union[str, LiteralField]`.
+If a property has the range rdfs:Literal, and it may include a language tag (e.g., "text"@en), then its type should be 
+defined as LiteralField. However, to accommodate users who might provide a plain string without specifying a language 
+tag, the property should accept both types. Therefore, use the union type Union[str, LiteralField].
 
 Properties with the range `rdfs:Literal` should have `rdf_type` in `json_schema_extra` equal to `rdfs_literal`, 
 `datetime_literal` or an `xsd` type. If the range is a URI, `rdf_type` should be `uri`.
