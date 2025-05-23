@@ -24,5 +24,6 @@ class DQV(DefinedNamespace):
     """
 
     hasQualityAnnotation: URIRef
+    QualityCertificate: URIRef
 
     _NS = Namespace("http://www.w3.org/ns/dqv#")
