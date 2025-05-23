@@ -44,7 +44,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
     contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
-        default=None,
         description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
