@@ -743,7 +743,6 @@ properties:
     title: Conforms To
     type: string
   contact_point:
-    default:
     description: Relevant contact information for the cataloged resource.
     items:
       anyOf:
@@ -1123,6 +1122,7 @@ properties:
     title: Frequency
     type: string
 required:
+- contact_point
 - description
 - title
 title: http://www.w3.org/ns/dcat#DatasetSeries

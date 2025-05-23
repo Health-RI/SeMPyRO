@@ -3991,9 +3991,11 @@ $defs:
         default:
         description: Link to a description of a relationship with another resource.
         items:
-          format: uri
-          minLength: 1
-          type: string
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Relationship'
         rdf_term: http://www.w3.org/ns/dcat#qualifiedRelation
         rdf_type: uri
         title: Qualified Relation
@@ -4351,7 +4353,7 @@ $defs:
         default:
         description: Maximum typical age of the population within the dataset.
         rdf_term: http://healthdataportal.eu/ns/health#maxTypicalAge
-        rdf_type: xsd:nonNegativeInteger
+        rdf_type: xsd:integer
         title: Maximum Typical Age
       minimum_typical_age:
         anyOf:
@@ -4360,7 +4362,7 @@ $defs:
         default:
         description: Minimum typical age of the population within the dataset
         rdf_term: http://healthdataportal.eu/ns/health#minTypicalAge
-        rdf_type: xsd:nonNegativeInteger
+        rdf_type: xsd:integer
         title: Minimum Typical Age
       number_of_records:
         anyOf:
@@ -4369,7 +4371,7 @@ $defs:
         default:
         description: Size of the dataset in terms of the number of records
         rdf_term: http://healthdataportal.eu/ns/health#numberOfRecords
-        rdf_type: xsd:nonNegativeInteger
+        rdf_type: xsd:integer
         title: Number Of Records
       number_of_unique_individuals:
         anyOf:
@@ -4378,18 +4380,8 @@ $defs:
         default:
         description: Number of records for unique individuals.
         rdf_term: http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals
-        rdf_type: xsd:nonNegativeInteger
+        rdf_type: xsd:integer
         title: Number Of Unique Individuals
-      other_identifier:
-        default:
-        description: Number of records forLinks a resource to an adms:Identifier class.
-          unique individuals.
-        items:
-          $ref: '#/$defs/Identifier'
-        rdf_term: http://www.w3.org/ns/adms#identifier
-        rdf_type: uri
-        title: Other Identifier
-        type: array
       personal_data:
         default:
         description: Indicates association with Personal Data.
@@ -4876,6 +4868,39 @@ $defs:
     description: Base class for creating pydantic models convertible to RDF graph
     properties: {}
     title: RDFModel
+    type: object
+  Relationship:
+    $IRI: http://www.w3.org/ns/dcat#Relationship
+    $namespace: http://www.w3.org/ns/dcat#
+    $ontology: https://www.w3.org/TR/vocab-dcat-3/
+    $prefix: dcat
+    additionalProperties: false
+    properties:
+      had_role:
+        description: The function of an entity or agent with respect to another entity
+          or resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#hadRole
+        rdf_type: uri
+        title: Had Role
+        type: array
+      relation:
+        description: A related resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/relation
+        rdf_type: uri
+        title: Relation
+        type: array
+    required:
+    - had_role
+    - relation
+    title: Relationship
     type: object
   Start:
     $IRI: http://www.w3.org/ns/prov#Start

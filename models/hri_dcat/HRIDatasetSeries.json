@@ -866,7 +866,6 @@
       "type": "string"
     },
     "contact_point": {
-      "default": null,
       "description": "Relevant contact information for the cataloged resource.",
       "items": {
         "anyOf": [
@@ -1358,6 +1357,7 @@
     }
   },
   "required": [
+    "contact_point",
     "description",
     "title"
   ],

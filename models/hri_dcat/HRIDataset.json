@@ -3400,49 +3400,6 @@
       "title": "HRIVCard",
       "type": "object"
     },
-    "Identifier": {
-      "$IRI": "http://www.w3.org/ns/adms#Identifier",
-      "$namespace": "http://www.w3.org/ns/adms#",
-      "$ontology": "http://www.w3.org/TR/vocab-adms/",
-      "$prefix": "adms",
-      "additionalProperties": false,
-      "properties": {
-        "notation": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
-          "description": "A string that is an identifier in the context of the identifier scheme referenced by its datatype.",
-          "rdf_term": "http://www.w3.org/2004/02/skos/core#notation",
-          "rdf_type": "rdfs_literal",
-          "title": "Notation"
-        },
-        "schema_agency": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
-          "default": null,
-          "description": "The name of the agency that issued the identifier.",
-          "rdf_term": "http://www.w3.org/ns/adms#schemaAgency",
-          "rdf_type": "rdfs_literal",
-          "title": "Schema Agency"
-        }
-      },
-      "required": [
-        "notation"
-      ],
-      "title": "Identifier",
-      "type": "object"
-    },
     "LiteralField": {
       "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
       "properties": {
@@ -3822,6 +3779,45 @@
       "description": "Base class for creating pydantic models convertible to RDF graph",
       "properties": {},
       "title": "RDFModel",
+      "type": "object"
+    },
+    "Relationship": {
+      "$IRI": "http://www.w3.org/ns/dcat#Relationship",
+      "$namespace": "http://www.w3.org/ns/dcat#",
+      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+      "$prefix": "dcat",
+      "additionalProperties": false,
+      "properties": {
+        "had_role": {
+          "description": "The function of an entity or agent with respect to another entity or resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://www.w3.org/ns/dcat#hadRole",
+          "rdf_type": "uri",
+          "title": "Had Role",
+          "type": "array"
+        },
+        "relation": {
+          "description": "A related resource.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "rdf_term": "http://purl.org/dc/terms/relation",
+          "rdf_type": "uri",
+          "title": "Relation",
+          "type": "array"
+        }
+      },
+      "required": [
+        "had_role",
+        "relation"
+      ],
+      "title": "Relationship",
       "type": "object"
     },
     "Start": {
@@ -4284,9 +4280,16 @@
       "default": null,
       "description": "Link to a description of a relationship with another resource.",
       "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Relationship"
+          }
+        ]
       },
       "rdf_term": "http://www.w3.org/ns/dcat#qualifiedRelation",
       "rdf_type": "uri",
@@ -4761,7 +4764,7 @@
       "default": null,
       "description": "Maximum typical age of the population within the dataset.",
       "rdf_term": "http://healthdataportal.eu/ns/health#maxTypicalAge",
-      "rdf_type": "xsd:nonNegativeInteger",
+      "rdf_type": "xsd:integer",
       "title": "Maximum Typical Age"
     },
     "minimum_typical_age": {
@@ -4776,7 +4779,7 @@
       "default": null,
       "description": "Minimum typical age of the population within the dataset",
       "rdf_term": "http://healthdataportal.eu/ns/health#minTypicalAge",
-      "rdf_type": "xsd:nonNegativeInteger",
+      "rdf_type": "xsd:integer",
       "title": "Minimum Typical Age"
     },
     "number_of_records": {
@@ -4791,7 +4794,7 @@
       "default": null,
       "description": "Size of the dataset in terms of the number of records",
       "rdf_term": "http://healthdataportal.eu/ns/health#numberOfRecords",
-      "rdf_type": "xsd:nonNegativeInteger",
+      "rdf_type": "xsd:integer",
       "title": "Number Of Records"
     },
     "number_of_unique_individuals": {
@@ -4806,19 +4809,8 @@
       "default": null,
       "description": "Number of records for unique individuals.",
       "rdf_term": "http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals",
-      "rdf_type": "xsd:nonNegativeInteger",
+      "rdf_type": "xsd:integer",
       "title": "Number Of Unique Individuals"
-    },
-    "other_identifier": {
-      "default": null,
-      "description": "Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
-      "items": {
-        "$ref": "#/$defs/Identifier"
-      },
-      "rdf_term": "http://www.w3.org/ns/adms#identifier",
-      "rdf_type": "uri",
-      "title": "Other Identifier",
-      "type": "array"
     },
     "personal_data": {
       "default": null,
