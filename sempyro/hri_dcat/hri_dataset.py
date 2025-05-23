@@ -19,7 +19,7 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution
+from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution, Relationship
 from sempyro.dqv import QualityCertificate
 from sempyro.adms import Identifier
 from sempyro.hri_dcat.hri_agent import HRIAgent
@@ -256,7 +256,7 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    qualified_relation: List[AnyHttpUrl] = Field(
+    qualified_relation: List[Union[AnyHttpUrl, Relationship]] = Field(
         default=None,
         description="Link to a description of a relationship with another resource.",
         json_schema_extra={
