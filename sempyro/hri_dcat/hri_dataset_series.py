@@ -14,10 +14,9 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field, field_validator, AnyHttpUrl
+from pydantic import ConfigDict, Field, AnyHttpUrl
 from rdflib import DCAT, DCTERMS
 
-from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard

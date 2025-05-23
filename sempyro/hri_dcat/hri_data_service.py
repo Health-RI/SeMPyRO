@@ -15,11 +15,11 @@ from datetime import date
 from pathlib import Path
 from typing import List, Union, ClassVar, Set
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator, AwareDatetime, NaiveDatetime
+from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataService, DCATResource, AccessRights
+from sempyro.dcat import DCATDataService, AccessRights
 from sempyro.hri_dcat.hri_dataset import HRIDataset
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
