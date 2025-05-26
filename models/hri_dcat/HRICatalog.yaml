@@ -4353,7 +4353,7 @@ $defs:
         default:
         description: Maximum typical age of the population within the dataset.
         rdf_term: http://healthdataportal.eu/ns/health#maxTypicalAge
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Maximum Typical Age
       minimum_typical_age:
         anyOf:
@@ -4362,7 +4362,7 @@ $defs:
         default:
         description: Minimum typical age of the population within the dataset
         rdf_term: http://healthdataportal.eu/ns/health#minTypicalAge
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Minimum Typical Age
       number_of_records:
         anyOf:
@@ -4371,7 +4371,7 @@ $defs:
         default:
         description: Size of the dataset in terms of the number of records
         rdf_term: http://healthdataportal.eu/ns/health#numberOfRecords
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Number Of Records
       number_of_unique_individuals:
         anyOf:
@@ -4380,8 +4380,15 @@ $defs:
         default:
         description: Number of records for unique individuals.
         rdf_term: http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Number Of Unique Individuals
+      other_identifier:
+        $ref: '#/$defs/Identifier'
+        default:
+        description: Number of records forLinks a resource to an adms:Identifier class.
+          unique individuals.
+        rdf_term: http://www.w3.org/ns/adms#identifier
+        rdf_type: uri
       personal_data:
         default:
         description: Indicates association with Personal Data.
@@ -5634,11 +5641,9 @@ properties:
     default:
     description: A catalog that is listed in the catalog. HRI recommended
     items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/DCATCatalog'
+      format: uri
+      minLength: 1
+      type: string
     rdf_term: http://www.w3.org/ns/dcat#catalog
     rdf_type: uri
     title: Catalog

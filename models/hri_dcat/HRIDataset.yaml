@@ -2802,6 +2802,35 @@ $defs:
     - formatted_name
     title: HRIVCard
     type: object
+  Identifier:
+    $IRI: http://www.w3.org/ns/adms#Identifier
+    $namespace: http://www.w3.org/ns/adms#
+    $ontology: http://www.w3.org/TR/vocab-adms/
+    $prefix: adms
+    additionalProperties: false
+    properties:
+      notation:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        description: A string that is an identifier in the context of the identifier
+          scheme referenced by its datatype.
+        rdf_term: http://www.w3.org/2004/02/skos/core#notation
+        rdf_type: rdfs_literal
+        title: Notation
+      schema_agency:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
+        default:
+        description: The name of the agency that issued the identifier.
+        rdf_term: http://www.w3.org/ns/adms#schemaAgency
+        rdf_type: rdfs_literal
+        title: Schema Agency
+    required:
+    - notation
+    title: Identifier
+    type: object
   LiteralField:
     description: "Model to handle literal fields\nAttributes\n----------\ndatatype
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
@@ -3913,7 +3942,7 @@ properties:
     default:
     description: Maximum typical age of the population within the dataset.
     rdf_term: http://healthdataportal.eu/ns/health#maxTypicalAge
-    rdf_type: xsd:integer
+    rdf_type: xsd:nonNegativeInteger
     title: Maximum Typical Age
   minimum_typical_age:
     anyOf:
@@ -3922,7 +3951,7 @@ properties:
     default:
     description: Minimum typical age of the population within the dataset
     rdf_term: http://healthdataportal.eu/ns/health#minTypicalAge
-    rdf_type: xsd:integer
+    rdf_type: xsd:nonNegativeInteger
     title: Minimum Typical Age
   number_of_records:
     anyOf:
@@ -3931,7 +3960,7 @@ properties:
     default:
     description: Size of the dataset in terms of the number of records
     rdf_term: http://healthdataportal.eu/ns/health#numberOfRecords
-    rdf_type: xsd:integer
+    rdf_type: xsd:nonNegativeInteger
     title: Number Of Records
   number_of_unique_individuals:
     anyOf:
@@ -3940,8 +3969,15 @@ properties:
     default:
     description: Number of records for unique individuals.
     rdf_term: http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals
-    rdf_type: xsd:integer
+    rdf_type: xsd:nonNegativeInteger
     title: Number Of Unique Individuals
+  other_identifier:
+    $ref: '#/$defs/Identifier'
+    default:
+    description: Number of records forLinks a resource to an adms:Identifier class.
+      unique individuals.
+    rdf_term: http://www.w3.org/ns/adms#identifier
+    rdf_type: uri
   personal_data:
     default:
     description: Indicates association with Personal Data.
