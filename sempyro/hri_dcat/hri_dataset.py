@@ -179,7 +179,7 @@ class HRIDataset(DCATDataset):
         description="Maximum typical age of the population within the dataset.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.maxTypicalAge,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 
@@ -188,7 +188,7 @@ class HRIDataset(DCATDataset):
         description="Minimum typical age of the population within the dataset",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.minTypicalAge,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 
@@ -197,7 +197,7 @@ class HRIDataset(DCATDataset):
         description="Size of the dataset in terms of the number of records",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.numberOfRecords,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 
@@ -206,19 +206,18 @@ class HRIDataset(DCATDataset):
         description="Number of records for unique individuals.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.numberOfUniqueIndividuals,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
 
-    # TODO: Commented out due to Identifier in other branch
-    # other_identifier: Identifier = Field(
-    #     default=None,
-    #     description="Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
-    #     json_schema_extra={
-    #         "rdf_term": ADMS.identifier,
-    #         "rdf_type": "uri"
-    #     }
-    # )
+    other_identifier: Identifier = Field(
+        default=None,
+        description="Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
+        json_schema_extra={
+            "rdf_term": ADMS.identifier,
+            "rdf_type": "uri"
+        }
+    )
 
     personal_data: List[AnyHttpUrl] = Field(
         default=None,
