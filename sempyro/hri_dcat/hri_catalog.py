@@ -74,7 +74,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    catalog: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
+    catalog: List[AnyHttpUrl] = Field(
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={
