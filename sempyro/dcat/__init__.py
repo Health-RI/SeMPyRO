@@ -22,6 +22,7 @@ from .dcat_relationship import Relationship
 from .dcat_attribution import Attribution
 from .dcat_catalog_record import DCATCatalogRecord
 
+
 __all__ = (
     # dcat rdf model classes
     "DCATResource",
