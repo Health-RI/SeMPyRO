@@ -72,6 +72,7 @@ class DatasetStatus(Enum):
     op_datpro = URIRef("http://publications.europa.eu/resource/authority/dataset-status/OP_DATPRO")
     discontinued = URIRef("http://publications.europa.eu/resource/authority/dataset-status/DISCONT")
 
+
 class DistributionStatus(Enum):
     develop = URIRef("http://publications.europa.eu/resource/authority/distribution-status/DEVELOP")
     completed = URIRef("http://publications.europa.eu/resource/authority/distribution-status/COMPLETED")

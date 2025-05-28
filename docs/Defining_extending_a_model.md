@@ -20,20 +20,29 @@ from sempyro.time import DateTimeDescription
 from typing import Literal
 
 class CustomAgent(Agent):
-    name: str = Field(description="A name of the agent",
-                                                 rdf_term=FOAF.name,
-                                                 rdf_type="rdfs_literal"
-                                                 )
+    name: str = Field(
+        description="A name of the agent",
+        json_schema_extra={
+            "rdf_term": FOAF.name,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    
     birthday: DateTimeDescription = Field(
         description="The birthday of this Agent",
-        rdf_term=FOAF.birthday,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": FOAF.birthday,
+            "rdf_type": "uri"
+        }
     )
+    
     gender: Literal["Male", "Female", "Other", "Ambiguous", "Unknown"] = Field(
         default=None,
         description="Gender as per Athena classification",
-        rdf_term=FOAF.gender,
-        rdf_type="xsd:string"
+        json_schema_extra={
+            "rdf_term": FOAF.gender,
+            "rdf_type": "xsd:string"
+        }
     )
 
 wizard = CustomAgent(name="Harry Potter",
@@ -112,15 +121,27 @@ class MagicWand(RDFModel):
                               }
                               )
     
-    magic_wand_wood: str = Field(description="Wood a magic wand is made of",
-                                 rdf_term=HPS.magic_wand_wood,
-                                 rdf_type="xsd:string")
-    magic_wand_core: str = Field(description="Core material of a magic wand",
-                                 rdf_term=HPS.magic_wand_core,
-                                 rdf_type="xsd:string")
-    magic_wand_length: float = Field(description="Magic wand length in inches",
-                                 rdf_term=HPS.magic_wand_length,
-                                 rdf_type="xsd:decimal")
+    magic_wand_wood: str = Field(
+        description="Wood a magic wand is made of",
+        json_schema_extra={
+            "rdf_term": HPS.magic_wand_wood,
+            "rdf_type": "xsd:string" 
+        }
+    )
+    magic_wand_core: str = Field(
+        description="Core material of a magic wand", 
+        json_schema_extra={
+            "rdf_term": HPS.magic_wand_core,
+            "rdf_type": "xsd:string"
+        }
+    )
+    magic_wand_length: float = Field(
+        description="Magic wand length in inches", 
+        json_schema_extra={
+            "rdf_term": HPS.magic_wand_length, 
+            "rdf_type": "xsd:decimal"
+        }
+    )
     # it is considered wands are rarely longer than 14 inches, it's add a validation and warning
     @field_validator("magic_wand_length", mode="before")
     @classmethod
@@ -150,26 +171,36 @@ class Wizard(Agent):
     animagus: bool = Field(
         default=False,
         description="Ability to turn to an animal",
-        rdf_term=HPS.animagus,
-        rdf_type="xsd:boolean"
+        json_schema_extra={
+            "rdf_term": HPS.animagus,
+            "rdf_type": "xsd:boolean"
+        }
     )
     wagic_wand: MagicWand = Field(
         description="Ability to turn to an animal",
-        rdf_term=HPS.magic_wand,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": HPS.magic_wand,
+            "rdf_type": "uri"
+        }
     )
     patronus_form: str = Field(
         default=None,
         description="Form of patronus",
-        rdf_term=HPS.patronus_form,
-        rdf_type="xsd:string"
+        json_schema_extra={
+            "rdf_term": HPS.patronus_form,
+            "rdf_type": "xsd:string"
+        }
     )
     # For house we put a union of url type and RDFModel: it can be an external url as well as you can define a class 
     # House and then put its subject as an internal reference or put a whole object as a node. This notation can be used
     # when you are not sure or not care about the exact structure of the object
-    house: Union[AnyUrl, RDFModel] = Field(description="Hogwarts house",
-                                           rdf_term=HPS.hogwarts_house,
-                                           rdf_type="uri")
+    house: Union[AnyUrl, RDFModel] = Field(
+        description="Hogwarts house", 
+        json_schema_extra={
+            "rdf_term": HPS.hogwarts_house,
+            "rdf_type": "uri"
+        }
+    )
 ```
 Now let's create a Wizard class instance with Hermione Granger data:
 ```python
