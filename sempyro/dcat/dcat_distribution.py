@@ -216,7 +216,7 @@ class DCATDistribution(RDFModel):
     def validate_xsd_duration(cls, value: Union[str, LiteralField]) -> LiteralField:
         if isinstance(value, str):
             return LiteralField(value=value, datatype="xsd:duration")
-        if isinstance(value, LiteralField) and value.datatype is not "xsd:duration":
+        if isinstance(value, LiteralField) and value.datatype != "xsd:duration":
             return LiteralField(value=value.value, datatype="xsd:duration")
         return value
 
