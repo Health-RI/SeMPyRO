@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import List, Union
 
 from pydantic import ConfigDict, Field, AnyHttpUrl
+
 from rdflib import DCAT, DCTERMS
 
 from sempyro.dcat import DCATDatasetSeries
