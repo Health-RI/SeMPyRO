@@ -739,7 +739,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -1179,7 +1179,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -1239,16 +1239,14 @@ $defs:
         title: Spatial Resolution
         type: array
       temporal_resolution:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: Minimum time period resolvable in the dataset.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#temporalResolution
         rdf_type: xsd:duration
         title: Temporal Resolution
-        type: array
       was_generated_by:
         default:
         description: An activity that generated, or provides the business context
@@ -1643,7 +1641,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -2547,7 +2545,7 @@ properties:
     rdf_term: http://purl.org/dc/terms/issued
     rdf_type: datetime_literal
     title: Release Date
-  update_date:
+  modification_date:
     anyOf:
     - type: string
     - format: date
@@ -2559,7 +2557,7 @@ properties:
       modified.
     rdf_term: http://purl.org/dc/terms/modified
     rdf_type: datetime_literal
-    title: Update Date
+    title: Modification Date
   license:
     default:
     description: A legal document under which the distribution is made available.
@@ -2638,28 +2636,24 @@ properties:
     rdf_type: xsd:integer
     title: Byte Size
   spatial_resolution:
+    anyOf:
+    - type: number
+    - $ref: '#/$defs/LiteralField'
     default:
     description: Minimum spatial separation resolvable in a dataset distribution,
       measured in meters.
-    items:
-      anyOf:
-      - type: number
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
     rdf_type: xsd:decimal
     title: Spatial Resolution
-    type: array
   temporal_resolution:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     default:
     description: Minimum time period resolvable in the dataset.
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
     rdf_type: xsd:duration
     title: Temporal Resolution
-    type: array
   conforms_to:
     default:
     description: An established standard to which the distribution conforms.

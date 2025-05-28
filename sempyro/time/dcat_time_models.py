@@ -451,12 +451,13 @@ class PeriodOfTime(RDFModel):
     @model_validator(mode="before")
     @classmethod
     def validate(cls, data: Dict) -> Dict[str, Any]:
-        if (data.get("start_date") and
-            (data.get("beginning") or data.get("end"))
-        ) or (data.get("end_date") and (data.get("end") or data.get("beginning"))):
-            raise ValueError("The start and end of the interval SHOULD be given by using properties dcat:startDate "
-                             "or time:hasBeginning, and dcat:endDate or time:hasEnd, respectively, see "
-                             "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time.")
+        if isinstance(data, dict):
+            if (data.get("start_date") and
+                (data.get("beginning") or data.get("end"))
+            ) or (data.get("end_date") and (data.get("end") or data.get("beginning"))):
+                raise ValueError("The start and end of the interval SHOULD be given by using properties dcat:startDate "
+                                 "or time:hasBeginning, and dcat:endDate or time:hasEnd, respectively, see "
+                                 "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time.")
         return data
 
 

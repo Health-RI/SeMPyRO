@@ -317,6 +317,50 @@
       "title": "Association",
       "type": "object"
     },
+    "DCATCatalogRecord": {
+      "$IRI": "http://www.w3.org/ns/dcat#CatalogRecord",
+      "$namespace": "http://www.w3.org/ns/dcat#",
+      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+      "$prefix": "dcat",
+      "additionalProperties": false,
+      "description": "A description of a Catalogued Resource's entry in the Catalogue. ",
+      "properties": {
+        "modification_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "format": "date-time",
+              "type": "string"
+            }
+          ],
+          "description": "The most recent date on which the Catalogue entry was changed or modified. ",
+          "rdf_term": "http://purl.org/dc/terms/modified",
+          "rdf_type": "datetime_literal",
+          "title": "Modification Date"
+        },
+        "primary_topic": {
+          "description": "A link to the Dataset, Data service or Catalog described in the record. ",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://xmlns.com/foaf/0.1/primaryTopic",
+          "rdf_type": "uri",
+          "title": "Primary Topic",
+          "type": "string"
+        }
+      },
+      "required": [
+        "modification_date",
+        "primary_topic"
+      ],
+      "title": "DCATCatalogRecord",
+      "type": "object"
+    },
     "DCATDataset": {
       "$IRI": "http://www.w3.org/ns/dcat#Dataset",
       "$namespace": "http://www.w3.org/ns/dcat#",
@@ -801,7 +845,7 @@
             "$ref": "#/$defs/PeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
-          "rdf_type": "uri",
+          "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
           "title": "Temporal Coverage",
           "type": "array"
         },
@@ -880,22 +924,19 @@
           "type": "array"
         },
         "temporal_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
           "default": null,
           "description": "Minimum time period resolvable in the dataset.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
           "rdf_type": "xsd:duration",
-          "title": "Temporal Resolution",
-          "type": "array"
+          "title": "Temporal Resolution"
         },
         "was_generated_by": {
           "default": null,
@@ -2334,7 +2375,7 @@
         "$ref": "#/$defs/PeriodOfTime"
       },
       "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "uri",
+      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
       "title": "Temporal Coverage",
       "type": "array"
     },
@@ -2413,22 +2454,19 @@
       "type": "array"
     },
     "temporal_resolution": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "Minimum time period resolvable in the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/LiteralField"
-          }
-        ]
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
       "rdf_type": "xsd:duration",
-      "title": "Temporal Resolution",
-      "type": "array"
+      "title": "Temporal Resolution"
     },
     "was_generated_by": {
       "default": null,
@@ -2451,11 +2489,19 @@
       "type": "array"
     },
     "catalog_record": {
+      "default": null,
       "description": "A record describing the registration of a single resource (e.g., a dataset, a data service) that is part of the catalog.",
       "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/DCATCatalogRecord"
+          }
+        ]
       },
       "rdf_term": "http://www.w3.org/ns/dcat#record",
       "rdf_type": "uri",
@@ -2534,8 +2580,7 @@
   },
   "required": [
     "description",
-    "title",
-    "catalog_record"
+    "title"
   ],
   "title": "DCATCatalog",
   "type": "object"

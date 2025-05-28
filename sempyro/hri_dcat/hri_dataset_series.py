@@ -14,15 +14,14 @@
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field, field_validator, AnyHttpUrl
+from pydantic import ConfigDict, Field, AnyHttpUrl
+
 from rdflib import DCAT, DCTERMS
 
-from sempyro import LiteralField
 from sempyro.dcat import DCATDatasetSeries
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.namespaces import DCATv3, DCATAPv3
-from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRIDatasetSeries(DCATDatasetSeries):
@@ -46,7 +45,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
     contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
-        default=None,
         description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
@@ -70,12 +68,6 @@ class HRIDatasetSeries(DCATDatasetSeries):
         }
     )
 
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
 
 if __name__ == "__main__":
     json_models_folder = Path(Path(__file__).parents[2].resolve(), "models", "hri_dcat")

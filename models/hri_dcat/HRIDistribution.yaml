@@ -770,7 +770,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -1210,7 +1210,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -1270,16 +1270,14 @@ $defs:
         title: Spatial Resolution
         type: array
       temporal_resolution:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: Minimum time period resolvable in the dataset.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#temporalResolution
         rdf_type: xsd:duration
         title: Temporal Resolution
-        type: array
       was_generated_by:
         default:
         description: An activity that generated, or provides the business context
@@ -1675,7 +1673,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -1735,7 +1733,7 @@ $defs:
         rdf_term: http://purl.org/dc/terms/issued
         rdf_type: datetime_literal
         title: Release Date
-      update_date:
+      modification_date:
         anyOf:
         - type: string
         - format: date
@@ -1747,7 +1745,7 @@ $defs:
           or modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
-        title: Update Date
+        title: Modification Date
       license:
         default:
         description: A legal document under which the distribution is made available.
@@ -1826,28 +1824,24 @@ $defs:
         rdf_type: xsd:integer
         title: Byte Size
       spatial_resolution:
+        anyOf:
+        - type: number
+        - $ref: '#/$defs/LiteralField'
         default:
         description: Minimum spatial separation resolvable in a dataset distribution,
           measured in meters.
-        items:
-          anyOf:
-          - type: number
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
         rdf_type: xsd:decimal
         title: Spatial Resolution
-        type: array
       temporal_resolution:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: Minimum time period resolvable in the dataset.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
         rdf_type: xsd:duration
         title: Temporal Resolution
-        type: array
       conforms_to:
         default:
         description: An established standard to which the distribution conforms.
@@ -2287,7 +2281,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -3150,7 +3144,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -3435,9 +3429,11 @@ $defs:
         default:
         description: Link to a description of a relationship with another resource.
         items:
-          format: uri
-          minLength: 1
-          type: string
+          anyOf:
+          - format: uri
+            minLength: 1
+            type: string
+          - $ref: '#/$defs/Relationship'
         rdf_term: http://www.w3.org/ns/dcat#qualifiedRelation
         rdf_type: uri
         title: Qualified Relation
@@ -3626,7 +3622,7 @@ $defs:
         items:
           $ref: '#/$defs/PeriodOfTime'
         rdf_term: http://purl.org/dc/terms/temporal
-        rdf_type: uri
+        rdf_type: http://purl.org/dc/terms/PeriodOfTime
         title: Temporal Coverage
         type: array
       geographical_coverage:
@@ -3688,16 +3684,14 @@ $defs:
         title: Spatial Resolution
         type: array
       temporal_resolution:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/LiteralField'
         default:
         description: Minimum time period resolvable in the dataset.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://www.w3.org/ns/dcat#temporalResolution
         rdf_type: xsd:duration
         title: Temporal Resolution
-        type: array
       was_generated_by:
         default:
         description: An activity that generated, or provides the business context
@@ -3797,7 +3791,7 @@ $defs:
         default:
         description: Maximum typical age of the population within the dataset.
         rdf_term: http://healthdataportal.eu/ns/health#maxTypicalAge
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Maximum Typical Age
       minimum_typical_age:
         anyOf:
@@ -3806,7 +3800,7 @@ $defs:
         default:
         description: Minimum typical age of the population within the dataset
         rdf_term: http://healthdataportal.eu/ns/health#minTypicalAge
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Minimum Typical Age
       number_of_records:
         anyOf:
@@ -3815,7 +3809,7 @@ $defs:
         default:
         description: Size of the dataset in terms of the number of records
         rdf_term: http://healthdataportal.eu/ns/health#numberOfRecords
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Number Of Records
       number_of_unique_individuals:
         anyOf:
@@ -3824,8 +3818,15 @@ $defs:
         default:
         description: Number of records for unique individuals.
         rdf_term: http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals
-        rdf_type: xsd:integer
+        rdf_type: xsd:nonNegativeInteger
         title: Number Of Unique Individuals
+      other_identifier:
+        $ref: '#/$defs/Identifier'
+        default:
+        description: Number of records forLinks a resource to an adms:Identifier class.
+          unique individuals.
+        rdf_term: http://www.w3.org/ns/adms#identifier
+        rdf_type: uri
       personal_data:
         default:
         description: Indicates association with Personal Data.
@@ -4313,6 +4314,39 @@ $defs:
     properties: {}
     title: RDFModel
     type: object
+  Relationship:
+    $IRI: http://www.w3.org/ns/dcat#Relationship
+    $namespace: http://www.w3.org/ns/dcat#
+    $ontology: https://www.w3.org/TR/vocab-dcat-3/
+    $prefix: dcat
+    additionalProperties: false
+    properties:
+      had_role:
+        description: The function of an entity or agent with respect to another entity
+          or resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://www.w3.org/ns/dcat#hadRole
+        rdf_type: uri
+        title: Had Role
+        type: array
+      relation:
+        description: A related resource.
+        items:
+          format: uri
+          minLength: 1
+          type: string
+        rdf_term: http://purl.org/dc/terms/relation
+        rdf_type: uri
+        title: Relation
+        type: array
+    required:
+    - had_role
+    - relation
+    title: Relationship
+    type: object
   Start:
     $IRI: http://www.w3.org/ns/prov#Start
     $namespace: http://www.w3.org/ns/prov#
@@ -4583,13 +4617,18 @@ properties:
     title: Description
     type: array
   release_date:
+    anyOf:
+    - type: string
+    - format: date-time
+      type: string
+    - format: date
+      type: string
     default:
-    description: Date of formal issuance of the resource.
+    description: Date of formal issuance (e.g., publication) of the resource.
     rdf_term: http://purl.org/dc/terms/issued
-    rdf_type: xsd:dateTime
+    rdf_type: datetime_literal
     title: Release Date
-    type: string
-  update_date:
+  modification_date:
     anyOf:
     - type: string
     - format: date
@@ -4597,11 +4636,10 @@ properties:
     - format: date-time
       type: string
     default:
-    description: Most recent date on which the distribution was changed, updated or
-      modified.
+    description: Most recent date on which the resource was changed, updated or modified.
     rdf_term: http://purl.org/dc/terms/modified
     rdf_type: datetime_literal
-    title: Update Date
+    title: Modification Date
   license:
     anyOf:
     - format: uri
@@ -4677,28 +4715,24 @@ properties:
     rdf_type: xsd:integer
     title: Byte Size
   spatial_resolution:
+    anyOf:
+    - type: number
+    - $ref: '#/$defs/LiteralField'
     default:
     description: Minimum spatial separation resolvable in a dataset distribution,
       measured in meters.
-    items:
-      anyOf:
-      - type: number
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
     rdf_type: xsd:decimal
     title: Spatial Resolution
-    type: array
   temporal_resolution:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     default:
     description: Minimum time period resolvable in the dataset.
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
-    rdf_term: http://www.w3.org/ns/dcat#temporalResolution
+    rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
     rdf_type: xsd:duration
     title: Temporal Resolution
-    type: array
   conforms_to:
     default:
     description: An established standard to which the distribution conforms.
@@ -4799,13 +4833,6 @@ properties:
     rdf_type: uri
     title: Linked Schemas
     type: array
-  modification_date:
-    default:
-    description: Date on which the resource was changed.
-    rdf_term: http://purl.org/dc/terms/modified
-    rdf_type: xsd:dateTime
-    title: Modification Date
-    type: string
   retention_period:
     default:
     description: A temporal period which the dataset is available for secondary use.

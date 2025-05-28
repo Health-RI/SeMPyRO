@@ -23,7 +23,7 @@ from sempyro import LiteralField, RDFModel
 from sempyro.dcat import DCATDataService
 from sempyro.odrl import ODRLPolicy
 from sempyro.spdx import SPDX, Checksum
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.utils.validator_functions import convert_to_literal, date_handler
 
 
 class DCATDistribution(RDFModel):
@@ -64,7 +64,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "datetime_literal"
         }
     )
-    update_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Union[str, date, datetime, AwareDatetime, NaiveDatetime] = Field(
         default=None,
         description="Most recent date on which the distribution was changed, updated or modified.",
         json_schema_extra={
@@ -137,7 +137,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "xsd:integer"
         }
     )
-    spatial_resolution: List[Union[float, LiteralField]] = Field(
+    spatial_resolution: Union[float, LiteralField] = Field(
         default=None,
         description="Minimum spatial separation resolvable in a dataset distribution, "
                     "measured in meters.",
@@ -146,7 +146,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "xsd:decimal"
         }
     )
-    temporal_resolution: List[Union[str, LiteralField]] = Field(
+    temporal_resolution: Union[str, LiteralField] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
         json_schema_extra={
@@ -208,10 +208,22 @@ class DCATDistribution(RDFModel):
 
     @field_validator("title", "description", mode="before")
     @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
+    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
+        return convert_to_literal(value)
+
+    @field_validator("temporal_resolution", mode="after")
+    @classmethod
+    def validate_xsd_duration(cls, value: Union[str, LiteralField]) -> LiteralField:
+        if isinstance(value, str):
+            return LiteralField(value=value, datatype="xsd:duration")
+        if isinstance(value, LiteralField) and value.datatype != "xsd:duration":
+            return LiteralField(value=value.value, datatype="xsd:duration")
+        return value
+
+    @field_validator("release_date", "modification_date", mode="before")
+    @classmethod
+    def date_validator(cls, value):
+        return date_handler(value)
 
 
 if __name__ == "__main__":

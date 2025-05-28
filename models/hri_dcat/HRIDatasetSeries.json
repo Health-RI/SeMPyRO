@@ -866,7 +866,6 @@
       "type": "string"
     },
     "contact_point": {
-      "default": null,
       "description": "Relevant contact information for the cataloged resource.",
       "items": {
         "anyOf": [
@@ -1309,7 +1308,7 @@
         "$ref": "#/$defs/PeriodOfTime"
       },
       "rdf_term": "http://purl.org/dc/terms/temporal",
-      "rdf_type": "uri",
+      "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
       "title": "Temporal Coverage",
       "type": "array"
     },
@@ -1358,6 +1357,7 @@
     }
   },
   "required": [
+    "contact_point",
     "description",
     "title"
   ],

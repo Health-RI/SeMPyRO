@@ -19,6 +19,7 @@ from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, FOAF
 
 from sempyro.dcat import DCATDataset
+from sempyro.dcat.dcat_catalog_record import DCATCatalogRecord
 
 
 class DCATCatalog(DCATDataset):
@@ -30,7 +31,8 @@ class DCATCatalog(DCATDataset):
                                   "$prefix": "dcat"
                               })
 
-    catalog_record: List[AnyHttpUrl] = Field(
+    catalog_record: List[Union[AnyHttpUrl, DCATCatalogRecord]] = Field(
+        default=None,
         description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
                      "is part of the catalog.",
         json_schema_extra={

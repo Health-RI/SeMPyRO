@@ -1543,7 +1543,7 @@ properties:
     items:
       $ref: '#/$defs/PeriodOfTime'
     rdf_term: http://purl.org/dc/terms/temporal
-    rdf_type: uri
+    rdf_type: http://purl.org/dc/terms/PeriodOfTime
     title: Temporal Coverage
     type: array
   geographical_coverage:
@@ -1602,16 +1602,14 @@ properties:
     title: Spatial Resolution
     type: array
   temporal_resolution:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
     default:
     description: Minimum time period resolvable in the dataset.
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/LiteralField'
     rdf_term: http://www.w3.org/ns/dcat#temporalResolution
     rdf_type: xsd:duration
     title: Temporal Resolution
-    type: array
   was_generated_by:
     default:
     description: An activity that generated, or provides the business context for,

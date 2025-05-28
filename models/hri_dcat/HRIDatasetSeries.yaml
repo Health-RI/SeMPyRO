@@ -743,7 +743,6 @@ properties:
     title: Conforms To
     type: string
   contact_point:
-    default:
     description: Relevant contact information for the cataloged resource.
     items:
       anyOf:
@@ -1086,7 +1085,7 @@ properties:
     items:
       $ref: '#/$defs/PeriodOfTime'
     rdf_term: http://purl.org/dc/terms/temporal
-    rdf_type: uri
+    rdf_type: http://purl.org/dc/terms/PeriodOfTime
     title: Temporal Coverage
     type: array
   geographical_coverage:
@@ -1123,6 +1122,7 @@ properties:
     title: Frequency
     type: string
 required:
+- contact_point
 - description
 - title
 title: http://www.w3.org/ns/dcat#DatasetSeries

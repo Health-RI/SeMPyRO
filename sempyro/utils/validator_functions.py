@@ -24,6 +24,15 @@ from sempyro import LiteralField
 from sempyro.utils.constants import year_month_pattern, year_pattern
 
 
+def convert_to_literal(value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]
+                       ) -> Union[Union[LiteralField, List[LiteralField]], None]:
+    if not value:
+        return None
+    if isinstance(value, list):
+        return [force_literal_field(item) for item in value]
+    return force_literal_field(value)
+
+
 def force_literal_field(value: Union[str, LiteralField]) -> LiteralField:
     """
     Converts string values to LiteralField object with none as datatype and language

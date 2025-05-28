@@ -11,11 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
@@ -24,7 +24,6 @@ from sempyro.hri_dcat import HRIDataService
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
 from sempyro.namespaces import DCATAPv3, ADMS
 from sempyro.time import PeriodOfTime
-from sempyro.utils.validator_functions import force_literal_field
 
 
 class HRIDistribution(DCATDistribution):
@@ -163,21 +162,22 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    modification_date: str = Field(
+
+    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
-        description="Date on which the resource was changed.",
+        description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
             "rdf_term": DCTERMS.modified,
-            "rdf_type": "xsd:dateTime"
+            "rdf_type": "datetime_literal"
         }
     )
 
-    release_date: str = Field(
+    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
         default=None,
-        description="Date of formal issuance of the resource.",
+        description="Date of formal issuance (e.g., publication) of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.issued,
-            "rdf_type": "xsd:dateTime"
+            "rdf_type": "datetime_literal"
         }
     )
     retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
@@ -196,22 +196,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    temporal_resolution: List[Union[str, LiteralField]] = Field(
-        default=None,
-        description="Minimum time period resolvable in the dataset.",
-        json_schema_extra={
-            "rdf_term": DCAT.temporalResolution,
-            "rdf_type": "xsd:duration"
-        }
-    )
 
-
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        if not value:
-            return None
-        return [force_literal_field(item) for item in value]
 
 
 if __name__ == "__main__":
