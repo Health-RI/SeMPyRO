@@ -124,12 +124,12 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    endpoint_description: LiteralField = Field(
+    endpoint_description: AnyHttpUrl = Field(
         description="A description of the services available via the end-points, including their operations, "
                     "parameters etc.",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
-            "rdf_type": "rdfs_literal"
+            "rdf_type": "uri"
         }
     )
     identifier: Union[str, LiteralField] = Field(
@@ -160,7 +160,7 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    _validate_literal_fields: ClassVar[Set[str]] = DCATDataService._validate_literal_fields | {"endpoint_description"}
+    _validate_literal_fields: ClassVar[Set[str]] = DCATDataService._validate_literal_fields
 
     @field_validator(*_validate_literal_fields, mode="before")
     @classmethod

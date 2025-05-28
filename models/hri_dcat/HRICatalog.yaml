@@ -3723,11 +3723,14 @@ $defs:
         title: Geographical Coverage
         type: array
       endpoint_description:
-        $ref: '#/$defs/LiteralField'
         description: A description of the services available via the end-points, including
           their operations, parameters etc.
+        format: uri
+        minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#endpointDescription
-        rdf_type: rdfs_literal
+        rdf_type: uri
+        title: Endpoint Description
+        type: string
       endpoint_url:
         description: The root location or primary endpoint of the service (a Web-resolvable
           IRI).
