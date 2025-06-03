@@ -42,19 +42,28 @@ class VCard(RDFModel):
 
     hasEmail: List[AnyUrl] = Field(default=None,
                                    description="The email address as a mailto URI",
-                                   rdf_term=VCARD.hasEmail,
-                                   rdf_type="uri"
+                                   json_schema_extra={
+                                       "rdf_term": VCARD.hasEmail,
+                                       "rdf_type": "uri"
+                                   }
                                    )
-    full_name: List[Union[str, LiteralField]] = Field(default=None,
-                                                      description="The full name of the object (as a single string). "
-                                                                  "This is the only mandatory property.",
-                                                      rdf_term=VCARD.fn,
-                                                      rdf_type="rdfs_literal"
-                                                      )
-    hasUID: AnyHttpUrl = Field(description="A unique identifier for the object",
-                               rdf_term=VCARD.hasUID,
-                               rdf_type="uri"
-                               )
+    formatted_name: List[Union[str, LiteralField]] = Field(
+        default=None,
+        description="The full name of the object (as a single string). " 
+                    "This is the only mandatory property.",
+        json_schema_extra={
+            "rdf_term": VCARD.fn,
+            "rdf_type": "rdfs_literal"
+        }
+    )
+    hasUID: AnyHttpUrl = Field(
+        default=None,
+        description="A unique identifier for the object", 
+        json_schema_extra={ 
+            "rdf_term": VCARD.hasUID, 
+            "rdf_type": "uri" 
+        }
+    )
 
     @field_validator("hasEmail", mode="before")
     @classmethod
@@ -62,6 +71,8 @@ class VCard(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
+        if not isinstance(value, list):
+            value = [value]
         return validate_convert_email(value)
 
 

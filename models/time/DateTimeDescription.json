@@ -64,7 +64,8 @@
       "description": "The temporal reference system used by a temporal position or extent description",
       "rdf_term": "http://www.w3.org/2006/time#hasTRS",
       "rdf_type": "uri",
-      "title": "Hastrs"
+      "title": "Hastrs",
+      "type": "string"
     },
     "year": {
       "default": null,
@@ -144,22 +145,14 @@
       "type": "integer"
     },
     "dayOfWeek": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/DayOfWeek"
-        }
-      ],
+      "$ref": "#/$defs/DayOfWeek",
       "default": null,
       "description": "The day of week, whose value is a member of the class time:DayOfWeek",
       "rdf_term": "http://www.w3.org/2006/time#dayOfWeek",
       "rdf_type": "uri"
     },
     "monthOfYear": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/MonthOfYear"
-        }
-      ],
+      "$ref": "#/$defs/MonthOfYear",
       "default": null,
       "description": "The month of the year, whose value is a member of the class time:MonthOfYear",
       "rdf_term": "http://www.w3.org/2006/time#monthOfYear",

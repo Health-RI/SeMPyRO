@@ -24,6 +24,15 @@ from sempyro import LiteralField
 from sempyro.utils.constants import year_month_pattern, year_pattern
 
 
+def convert_to_literal(value: Union[List[Union[str, LiteralField]], Union[str, LiteralField]]
+                       ) -> Union[Union[LiteralField, List[LiteralField]], None]:
+    if not value:
+        return None
+    if isinstance(value, list):
+        return [force_literal_field(item) for item in value]
+    return force_literal_field(value)
+
+
 def force_literal_field(value: Union[str, LiteralField]) -> LiteralField:
     """
     Converts string values to LiteralField object with none as datatype and language
@@ -68,13 +77,15 @@ def convert_to_mailto(value: str) -> AnyUrl:
     return AnyUrl(f"mailto:{mail_part}")
 
 
-def validate_convert_email(value: Union[str, AnyUrl, List[Union[str, AnyUrl]]]) -> List[AnyUrl]:
+def validate_convert_email(value: Union[str, None, AnyUrl, List[Union[str, AnyUrl]]]) -> Union[None, List[AnyUrl], AnyUrl]:
     """
     Iteratively applies the function `convert_to_mailto` over the (list of) input value(s).
     :param value: list or str, (list of) input value(s)
     :return: a list of validated emails with the `mailto:` prefix.
     """
-    if not isinstance(value, list):
-        value = [value]
-    new_list = [convert_to_mailto(item) for item in value]
-    return new_list
+    if isinstance(value, list) and value[0]:
+        return [convert_to_mailto(item) for item in value]
+    elif value:
+        return convert_to_mailto(str(value))
+    else:
+        return None

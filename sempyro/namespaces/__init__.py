@@ -18,6 +18,12 @@ from .FREQ import FREQ
 from .GEOSPARQL import GeoSPARQL
 from .GREG import Greg
 from .LOCN import LOCN
+from .DISCO import DISCO
+from .DCATAPv3 import DCATAPv3
+from .HEALTHDCATAP import HEALTHDCATAP
+from .DPV import DPV
+from .DQV import DQV
+from .OA import OA
 
 __all__ = (
     "ADMS",
@@ -26,5 +32,11 @@ __all__ = (
     "FREQ",
     "GeoSPARQL",
     "LOCN",
-    "Greg"
+    "Greg",
+    "DISCO",
+    "DCATAPv3",
+    "HEALTHDCATAP",
+    "DPV",
+    "DQV",
+    "OA"
 )

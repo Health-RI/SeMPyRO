@@ -13,12 +13,13 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List
+from typing import List, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, FOAF
 
 from sempyro.dcat import DCATDataset
+from sempyro.dcat.dcat_catalog_record import DCATCatalogRecord
 
 
 class DCATCatalog(DCATDataset):
@@ -28,46 +29,57 @@ class DCATCatalog(DCATDataset):
                                   "$namespace": str(DCAT),
                                   "$IRI": DCAT.Catalog,
                                   "$prefix": "dcat"
-                              }
-                              )
+                              })
 
-    catalog_record: AnyHttpUrl = Field(
+    catalog_record: List[Union[AnyHttpUrl, DCATCatalogRecord]] = Field(
         default=None,
         description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
-                    "is part of the catalog.",
-        rdf_term=DCAT.record,
-        rdf_type="uri"
+                     "is part of the catalog.",
+        json_schema_extra={
+            "rdf_term": DCAT.record,
+            "rdf_type": "uri"
+        }
     )
-    dataset: List[AnyHttpUrl] = Field(
+    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
         default=None,
         description="A dataset that is listed in the catalog.",
-        rdf_term=DCAT.dataset,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.dataset,
+            "rdf_type": "uri"
+        }
     )
     service: List[AnyHttpUrl] = Field(
         default=None,
         description="A service that is listed in the catalog.",
-        rdf_term=DCAT.service,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.service,
+            "rdf_type": "uri"
+        }
     )
     catalog: List[AnyHttpUrl] = Field(
         default=None,
         description="A catalog that is listed in the catalog.",
-        rdf_term=DCAT.catalog,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.catalog,
+            "rdf_type": "uri"
+        }
     )
     homepage: AnyHttpUrl = Field(
         default=None,
         description="A homepage of the catalog (a public Web document usually available in HTML).",
-        rdf_term=FOAF.homepage,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": FOAF.homepage,
+            "rdf_type": "uri"
+        }
     )
     themes: List[AnyHttpUrl] = Field(
         default=None,
         description="A knowledge organization system (KOS) used to classify the resources documented in the catalog "
                     "(e.g., datasets and services).",
-        rdf_term=DCAT.themeTaxonomy,
-        rdf_type="uri"
+        json_schema_extra={
+            "rdf_term": DCAT.themeTaxonomy,
+            "rdf_type": "uri"
+        }
     )
 
 

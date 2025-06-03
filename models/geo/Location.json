@@ -182,11 +182,7 @@
       "title": "Bounding Box"
     },
     "centroid": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/LiteralField"
-        }
-      ],
+      "$ref": "#/$defs/LiteralField",
       "default": null,
       "description": "The geographic center (centroid) of a spatial thing [SDW-BP].",
       "rdf_term": "http://www.w3.org/ns/dcat#centroid",

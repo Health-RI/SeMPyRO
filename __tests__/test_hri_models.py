@@ -18,7 +18,14 @@ from pathlib import Path
 import pytest
 
 from sempyro.foaf import Project
-from sempyro.hri_dcat import HRICatalog, HRIDataService, HRIDataset, HRIDistribution
+from sempyro.hri_dcat import (
+    HRICatalog,
+    HRIDataService,
+    HRIDataset,
+    HRIDistribution,
+    HRIDatasetSeries,
+    HRIAgent
+)
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
 
@@ -27,7 +34,9 @@ MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
                                         "HRIDataset",
                                         "HRIDataService",
                                         "HRICatalog",
-                                        "HRIDistribution"
+                                        "HRIDistribution",
+                                        "HRIDatasetSeries",
+                                        "HRIAgent"
                                         ])
 def test_hri_models(model_name):
     with open(Path(MODELS_JSON_DIRECTORY, "hri_dcat", f"{model_name}.json")) as model_file:

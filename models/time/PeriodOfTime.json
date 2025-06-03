@@ -224,22 +224,14 @@
           "type": "string"
         },
         "inTimePosition": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimePosition"
-            }
-          ],
+          "$ref": "#/$defs/TimePosition",
           "default": null,
           "description": "Position of an instant, expressed as a temporal coordinate or nominal val",
           "rdf_term": "http://www.w3.org/2006/time#inTimePosition",
           "rdf_type": "http://www.w3.org/2006/time#TimePosition"
         },
         "inDateTime": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/GeneralDateTimeDescription"
-            }
-          ],
+          "$ref": "#/$defs/GeneralDateTimeDescription",
           "default": null,
           "description": "Position of an instant, expressed using a structured description",
           "rdf_term": "http://www.w3.org/2006/time#inDateTime",
@@ -296,44 +288,28 @@
   "additionalProperties": false,
   "properties": {
     "start_date": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/LiteralField"
-        }
-      ],
+      "$ref": "#/$defs/LiteralField",
       "default": null,
       "description": "The start of the period",
       "rdf_term": "http://www.w3.org/ns/dcat#startDate",
       "rdf_type": "rdfs_literal"
     },
     "end_date": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/LiteralField"
-        }
-      ],
+      "$ref": "#/$defs/LiteralField",
       "default": null,
       "description": "The end of the period",
       "rdf_term": "http://www.w3.org/ns/dcat#endDate",
       "rdf_type": "rdfs_literal"
     },
     "beginning": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/TimeInstant"
-        }
-      ],
+      "$ref": "#/$defs/TimeInstant",
       "default": null,
       "description": "Beginning of a period or interval",
       "rdf_term": "http://www.w3.org/2006/time#hasBeginning",
       "rdf_type": "http://www.w3.org/2006/time#Instant"
     },
     "end": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/TimeInstant"
-        }
-      ],
+      "$ref": "#/$defs/TimeInstant",
       "default": null,
       "description": "End of a period or interval",
       "rdf_term": "http://www.w3.org/2006/time#hasEnd",

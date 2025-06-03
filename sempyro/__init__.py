@@ -22,7 +22,9 @@ __version__ = version("sempyro")
 __all__ = (
     "LiteralField",
     "RDFModel",
+    "adms",
     "dcat",
+    "dqv",
     "foaf",
     "geo",
     "hri_dcat",

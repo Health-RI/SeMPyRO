@@ -1,15 +1,6 @@
 {
   "$IRI": "http://www.w3.org/ns/dcat#Dataset",
   "$defs": {
-    "AccessRights": {
-      "enum": [
-        "http://publications.europa.eu/resource/authority/access-right/PUBLIC",
-        "http://publications.europa.eu/resource/authority/access-right/RESTRICTED",
-        "http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC"
-      ],
-      "title": "AccessRights",
-      "type": "string"
-    },
     "Activity": {
       "$IRI": "http://www.w3.org/ns/prov#Activity",
       "$namespace": "http://www.w3.org/ns/prov#",
@@ -62,15 +53,11 @@
           "type": "string"
         },
         "qualifiedEnd": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/End"
-            }
-          ],
+          "$ref": "#/$defs/End",
           "default": null,
           "description": "End is when an activity is deemed to have been ended by an entity, known as trigger. The activity no longer exists after its end. Any usage, generation, or invalidation involving an activity precedes the activity's end. An end may refer to a trigger entity that terminated the activity, or to an activity, known as ender that generated the trigger.",
-          "edf_type": "http://www.w3.org/ns/prov#End",
-          "rdf_term": "http://www.w3.org/ns/prov#qualifiedEnd"
+          "rdf_term": "http://www.w3.org/ns/prov#qualifiedEnd",
+          "rdf_type": "http://www.w3.org/ns/prov#End"
         },
         "wasEndedBy": {
           "default": null,
@@ -128,11 +115,7 @@
           "type": "string"
         },
         "qualifiedStart": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Start"
-            }
-          ],
+          "$ref": "#/$defs/Start",
           "default": null,
           "description": "Start is when an activity is deemed to have been started by an entity, known as trigger. The activity did not exist before its start. Any usage, generation, or invalidation involving an activity follows the activity's start. A start may refer to a trigger entity that set off the activity, or to an activity, known as starter, that generated the trigger.",
           "rdf_term": "http://www.w3.org/ns/prov#qualifiedStart",
@@ -273,6 +256,16 @@
           "rdf_type": "uri",
           "title": "Mbox",
           "type": "array"
+        },
+        "homepage": {
+          "default": null,
+          "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
+          "rdf_type": "uri",
+          "title": "Homepage",
+          "type": "string"
         }
       },
       "required": [
@@ -732,11 +725,7 @@
           "title": "Bounding Box"
         },
         "centroid": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The geographic center (centroid) of a spatial thing [SDW-BP].",
           "rdf_term": "http://www.w3.org/ns/dcat#centroid",
@@ -969,44 +958,28 @@
       "additionalProperties": false,
       "properties": {
         "start_date": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The start of the period",
           "rdf_term": "http://www.w3.org/ns/dcat#startDate",
           "rdf_type": "rdfs_literal"
         },
         "end_date": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
+          "$ref": "#/$defs/LiteralField",
           "default": null,
           "description": "The end of the period",
           "rdf_term": "http://www.w3.org/ns/dcat#endDate",
           "rdf_type": "rdfs_literal"
         },
         "beginning": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimeInstant"
-            }
-          ],
+          "$ref": "#/$defs/TimeInstant",
           "default": null,
           "description": "Beginning of a period or interval",
           "rdf_term": "http://www.w3.org/2006/time#hasBeginning",
           "rdf_type": "http://www.w3.org/2006/time#Instant"
         },
         "end": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimeInstant"
-            }
-          ],
+          "$ref": "#/$defs/TimeInstant",
           "default": null,
           "description": "End of a period or interval",
           "rdf_term": "http://www.w3.org/2006/time#hasEnd",
@@ -1159,22 +1132,14 @@
           "type": "string"
         },
         "inTimePosition": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TimePosition"
-            }
-          ],
+          "$ref": "#/$defs/TimePosition",
           "default": null,
           "description": "Position of an instant, expressed as a temporal coordinate or nominal val",
           "rdf_term": "http://www.w3.org/2006/time#inTimePosition",
           "rdf_type": "http://www.w3.org/2006/time#TimePosition"
         },
         "inDateTime": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/GeneralDateTimeDescription"
-            }
-          ],
+          "$ref": "#/$defs/GeneralDateTimeDescription",
           "default": null,
           "description": "Position of an instant, expressed using a structured description",
           "rdf_term": "http://www.w3.org/2006/time#inDateTime",
@@ -1245,7 +1210,7 @@
           "title": "Hasemail",
           "type": "array"
         },
-        "full_name": {
+        "formatted_name": {
           "default": null,
           "description": "The full name of the object (as a single string). This is the only mandatory property.",
           "items": {
@@ -1260,10 +1225,11 @@
           },
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Full Name",
+          "title": "Formatted Name",
           "type": "array"
         },
         "hasUID": {
+          "default": null,
           "description": "A unique identifier for the object",
           "format": "uri",
           "minLength": 1,
@@ -1273,9 +1239,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "hasUID"
-      ],
       "title": "VCard",
       "type": "object"
     }
@@ -1286,15 +1249,21 @@
   "additionalProperties": false,
   "properties": {
     "access_rights": {
-      "allOf": [
+      "anyOf": [
         {
-          "$ref": "#/$defs/AccessRights"
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
         }
       ],
       "default": null,
-      "description": "Information about who can access the resource or an indication of its security status.",
+      "description": "Information about who can access the dataset and under what conditions.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
-      "rdf_type": "uri"
+      "rdf_type": "uri",
+      "title": "Access Rights"
     },
     "conforms_to": {
       "default": null,
@@ -1353,12 +1322,19 @@
       "type": "array"
     },
     "description": {
-      "description": "A free-text account of the resource.",
+      "description": "An account of the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/description",
-      "rdf_type": "literal",
+      "rdf_type": "rdfs_literal",
       "title": "Description",
       "type": "array"
     },
@@ -1376,11 +1352,7 @@
       "type": "array"
     },
     "has_policy": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/ODRLPolicy"
-        }
-      ],
+      "$ref": "#/$defs/ODRLPolicy",
       "default": null,
       "description": "An ODRL conformant policy expressing the rights associated with the resource.",
       "rdf_term": "http://www.w3.org/ns/odrl/2/hasPolicy",
@@ -1442,14 +1414,21 @@
       "type": "array"
     },
     "license": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A legal document under which the resource is made available.",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/license",
       "rdf_type": "uri",
-      "title": "License",
-      "type": "string"
+      "title": "License"
     },
     "language": {
       "default": null,
@@ -1563,7 +1542,14 @@
     "title": {
       "description": "A name given to the resource.",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://purl.org/dc/terms/title",
       "rdf_type": "rdfs_literal",
@@ -1583,7 +1569,7 @@
       "title": "Type",
       "type": "array"
     },
-    "update_date": {
+    "modification_date": {
       "anyOf": [
         {
           "type": "string"
@@ -1601,7 +1587,7 @@
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
       "rdf_type": "datetime_literal",
-      "title": "Update Date"
+      "title": "Modification Date"
     },
     "qualified_attribution": {
       "default": null,
@@ -1660,32 +1646,39 @@
       "type": "string"
     },
     "status": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/Status"
-        }
-      ],
+      "$ref": "#/$defs/Status",
       "default": null,
       "description": "The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
       "rdf_term": "http://www.w3.org/ns/adms#status",
       "rdf_type": "uri"
     },
     "version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "The version indicator (name or identifier) of a resource.",
-      "items": {
-        "$ref": "#/$defs/LiteralField"
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#version",
       "rdf_type": "rdfs_literal",
-      "title": "Version",
-      "type": "array"
+      "title": "Version"
     },
     "version_notes": {
       "default": null,
       "description": "A description of changes between this version and the previous version of the resource [VOCAB-ADMS].",
       "items": {
-        "$ref": "#/$defs/LiteralField"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
       },
       "rdf_term": "http://www.w3.org/ns/adms#versionNotes",
       "rdf_type": "rdfs_literal",
@@ -1725,19 +1718,6 @@
       "title": "Previous",
       "type": "array"
     },
-    "distribution": {
-      "default": null,
-      "description": "An available distribution of the dataset.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
-      "rdf_term": "http://www.w3.org/ns/dcat#distribution",
-      "rdf_type": "uri",
-      "title": "Distribution",
-      "type": "array"
-    },
     "temporal_coverage": {
       "default": null,
       "description": "The temporal period that the dataset covers.",
@@ -1749,37 +1729,7 @@
       "title": "Temporal Coverage",
       "type": "array"
     },
-    "frequency": {
-      "anyOf": [
-        {
-          "format": "uri",
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "$ref": "#/$defs/Frequency"
-        }
-      ],
-      "default": null,
-      "description": "The frequency at which a dataset is published.",
-      "rdf_type": "uri",
-      "rfd_term": "http://purl.org/dc/terms/accrualPeriodicity",
-      "title": "Frequency"
-    },
-    "in_series": {
-      "default": null,
-      "description": "A dataset series of which the dataset is part.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
-      "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
-      "rdf_type": "uri",
-      "title": "In Series",
-      "type": "array"
-    },
-    "spatial": {
+    "geographical_coverage": {
       "default": null,
       "description": "The geographical area covered by the dataset.",
       "items": {
@@ -1796,7 +1746,50 @@
       },
       "rdf_term": "http://purl.org/dc/terms/spatial",
       "rdf_type": "uri",
-      "title": "Spatial",
+      "title": "Geographical Coverage",
+      "type": "array"
+    },
+    "distribution": {
+      "default": null,
+      "description": "An available distribution of the dataset.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/dcat#distribution",
+      "rdf_type": "uri",
+      "title": "Distribution",
+      "type": "array"
+    },
+    "frequency": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/Frequency"
+        }
+      ],
+      "default": null,
+      "description": "The frequency at which a dataset is published.",
+      "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
+      "rdf_type": "uri",
+      "title": "Frequency"
+    },
+    "in_series": {
+      "default": null,
+      "description": "A dataset series of which the dataset is part.",
+      "items": {
+        "format": "uri",
+        "minLength": 1,
+        "type": "string"
+      },
+      "rdf_term": "http://www.w3.org/ns/dcat#inSeries",
+      "rdf_type": "uri",
+      "title": "In Series",
       "type": "array"
     },
     "spatial_resolution": {
@@ -1811,22 +1804,19 @@
       "type": "array"
     },
     "temporal_resolution": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
       "default": null,
       "description": "Minimum time period resolvable in the dataset.",
-      "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/LiteralField"
-          }
-        ]
-      },
       "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
       "rdf_type": "xsd:duration",
-      "title": "Temporal Resolution",
-      "type": "array"
+      "title": "Temporal Resolution"
     },
     "was_generated_by": {
       "default": null,

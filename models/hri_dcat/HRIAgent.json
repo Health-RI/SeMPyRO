@@ -1,0 +1,321 @@
+{
+  "$IRI": "http://xmlns.com/foaf/0.1/Agent",
+  "$defs": {
+    "Geometry": {
+      "$IRI": "http://www.opengis.net/ont/geosparql#Geometry",
+      "$namespace": "http://www.opengis.net/ont/geosparql#",
+      "$ontology": "https://docs.ogc.org/is/22-047r1/22-047r1.html",
+      "$prefix": "geo",
+      "additionalProperties": false,
+      "description": "Geometry class for GeoSPARQL Geometry specification",
+      "properties": {
+        "dimension": {
+          "default": null,
+          "description": "The topological dimension of this geometric object, which must be less than or equal to the coordinate dimension. In non-homogeneous collections, this is the largest topological dimension of the contained objects.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#dimension",
+          "rdf_type": "xsd:integer",
+          "title": "Dimension",
+          "type": "integer"
+        },
+        "coordinateDimension": {
+          "default": null,
+          "description": "The number of measurements or axes needed to describe the position of this Geometry in a coordinate system.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#coordinateDimension",
+          "rdf_type": "xsd:integer",
+          "title": "Coordinatedimension",
+          "type": "integer"
+        },
+        "spatialDimension": {
+          "default": null,
+          "description": "The number of measurements or axes needed to describe the spatial position of this Geometry in a coordinate system.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#spatialDimension",
+          "rdf_type": "xsd:integer",
+          "title": "Spatialdimension",
+          "type": "integer"
+        },
+        "hasSpatialResolution": {
+          "default": null,
+          "description": "The spatial resolution of a Geometry",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialResolution",
+          "rdf_type": "uri",
+          "title": "Hasspatialresolution",
+          "type": "string"
+        },
+        "hasMetricSpatialResolution": {
+          "default": null,
+          "description": "The spatial resolution of a Geometry in meters.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution",
+          "rdf_type": "xsd:double",
+          "title": "Hasmetricspatialresolution",
+          "type": "number"
+        },
+        "hasSpatialAccuracy": {
+          "default": null,
+          "description": "The positional accuracy of the coordinates of a Geometry",
+          "format": "uri",
+          "minLength": 1,
+          "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialAccuracy",
+          "rdf_type": "uri",
+          "title": "Hasspatialaccuracy",
+          "type": "string"
+        },
+        "hasMetricSpatialAccuracy": {
+          "default": null,
+          "description": "The positional accuracy of the coordinates of a Geometry in meters.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy",
+          "rdf_type": "xsd:double",
+          "title": "Hasmetricspatialaccuracy",
+          "type": "number"
+        },
+        "isEmpty": {
+          "default": null,
+          "description": "(true) if this geometric object is the empty Geometry. If true, then this geometric object represents the empty point set for the coordinate space.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#isEmpty",
+          "rdf_type": "xsd:boolean",
+          "title": "Isempty",
+          "type": "boolean"
+        },
+        "isSimple": {
+          "default": null,
+          "description": "(true) if this geometric object has no anomalous geometric points, such as self intersection or self tangency.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#isSimple",
+          "rdf_type": "xsd:boolean",
+          "title": "Issimple",
+          "type": "boolean"
+        },
+        "hasSerialization": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/LiteralField"
+            }
+          ],
+          "default": null,
+          "description": "Connects a Geometry object with its text-based serialization.",
+          "rdf_term": "http://www.opengis.net/ont/geosparql#hasSerialization",
+          "rdf_type": "rdfs_literal",
+          "title": "Hasserialization"
+        }
+      },
+      "title": "Geometry",
+      "type": "object"
+    },
+    "LiteralField": {
+      "description": "Model to handle literal fields\nAttributes\n----------\ndatatype : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date' see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html, and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\nvalue : str\n    literal value\neither datatype or language, or none of these two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal",
+      "properties": {
+        "datatype": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes",
+          "title": "Datatype"
+        },
+        "language": {
+          "default": null,
+          "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+          "title": "Language",
+          "type": "string"
+        },
+        "value": {
+          "description": "Field value",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "LiteralField",
+      "type": "object"
+    },
+    "Location": {
+      "$IRI": "http://purl.org/dc/terms/Location",
+      "$namespace": "http://purl.org/dc/terms/",
+      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+      "$prefix": "dcterms",
+      "additionalProperties": false,
+      "description": "A spatial region or named place.",
+      "properties": {
+        "geometry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "$ref": "#/$defs/Geometry"
+            }
+          ],
+          "bind_namespace": [
+            "locn",
+            "http://www.w3.org/ns/locn#"
+          ],
+          "default": null,
+          "description": "Associates a spatial thing [SDW-BP] with a corresponding geometry.",
+          "rdf_term": "http://www.w3.org/ns/locn#geometry",
+          "rdf_type": "geosparql:wktLiteral",
+          "title": "Geometry"
+        },
+        "bounding_box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "default": null,
+          "description": "The geographic bounding box of a spatial thing [SDW-BP].",
+          "rdf_term": "http://www.w3.org/ns/dcat#bbox",
+          "rdf_type": "rdfs_literal",
+          "title": "Bounding Box"
+        },
+        "centroid": {
+          "$ref": "#/$defs/LiteralField",
+          "default": null,
+          "description": "The geographic center (centroid) of a spatial thing [SDW-BP].",
+          "rdf_term": "http://www.w3.org/ns/dcat#centroid",
+          "rdf_type": "geosparql:wktLiteral"
+        }
+      },
+      "title": "http://purl.org/dc/terms/Location",
+      "type": "object"
+    }
+  },
+  "$namespace": "http://xmlns.com/foaf/0.1/",
+  "$ontology": [
+    "http://xmlns.com/foaf/spec/",
+    "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification"
+  ],
+  "$prefix": "foaf",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "A name for some thing.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
+      },
+      "rdf_term": "http://xmlns.com/foaf/0.1/name",
+      "rdf_type": "rdfs_literal",
+      "title": "Name",
+      "type": "array"
+    },
+    "identifier": {
+      "description": "An unambiguous reference to the resource within a given context.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/LiteralField"
+          }
+        ]
+      },
+      "rdf_term": "http://purl.org/dc/terms/identifier",
+      "rdf_type": "rdfs_literal",
+      "title": "Identifier",
+      "type": "array"
+    },
+    "mbox": {
+      "description": "A email address via which contact can be made. This property SHOULD be used to provide the email address of the Agent, specified using fully qualified mailto: URI scheme [RFC6068].The email SHOULD be used to establish a communication channel to the agent.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
+      "rdf_type": "uri",
+      "title": "Mbox",
+      "type": "string"
+    },
+    "homepage": {
+      "description": "A homepage for some thing.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
+      "rdf_type": "uri",
+      "title": "Homepage",
+      "type": "string"
+    },
+    "spatial": {
+      "default": null,
+      "description": "Spatial characteristics of the resource.",
+      "items": {
+        "anyOf": [
+          {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/Location"
+          }
+        ]
+      },
+      "rdf_term": "http://purl.org/dc/terms/spatial",
+      "rdf_type": "uri",
+      "title": "Spatial",
+      "type": "array"
+    },
+    "publisher_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/LiteralField"
+        }
+      ],
+      "default": null,
+      "description": "A description of the publisher activities.",
+      "rdf_term": "http://healthdataportal.eu/ns/health#publisherNote",
+      "rdf_type": "rdfs_literal",
+      "title": "Publisher Note"
+    },
+    "publisher_type": {
+      "default": null,
+      "description": "A type of organisation that makes the Dataset available.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://healthdataportal.eu/ns/health#publisherType",
+      "rdf_type": "uri",
+      "title": "Publisher Type",
+      "type": "string"
+    },
+    "type": {
+      "default": null,
+      "description": "The nature or genre of the resource.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://purl.org/dc/terms/type",
+      "rdf_type": "uri",
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "identifier",
+    "mbox",
+    "homepage"
+  ],
+  "title": "HRIAgent",
+  "type": "object"
+}

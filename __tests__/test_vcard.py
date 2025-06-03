@@ -16,7 +16,8 @@ import json
 from pathlib import Path
 
 import pytest
-from pydantic_core import Url, ValidationError
+from pydantic import AnyUrl
+from pydantic_core import ValidationError
 from rdflib import DCAT, DCTERMS, RDF, Graph, Namespace, URIRef
 from rdflib.compare import to_isomorphic
 
@@ -47,27 +48,26 @@ def test_vcard_agent(model_name, test_path):
                                    ["exampleemail@domain.com"]
                                    ])
 def test_vcard_email(email):
-    card_obj = VCard(hasEmail=email, full_name=["I am example"], hasUID="https://orcid.org/0009-0000-xxxx-xxxx")
-    expected = [Url("mailto:exampleemail@domain.com")]
+    card_obj = VCard(hasEmail=email, formatted_name=["I am example"])
+    expected = [AnyUrl("mailto:exampleemail@domain.com")]
     assert card_obj.hasEmail == expected
 
 
 @pytest.mark.parametrize("email", ["my:email@gmail.com",
                                    "myemailgmail.com",
-                                   "mailto:emailgmail.com"])
+                                   "mailto:emailgmail.com",
+                                   None])
 def test_vcard_email_validation(email):
     with pytest.raises(ValidationError):
         card_obj = VCard(hasEmail=email,
-                         full_name=["I am example"],
-                         hasUID="https://orcid.org/0009-0000-xxxx-xxxx")
+                         formatted_name=["I am example"])
 
 
 def test_vcard_serialization():
     names = [LiteralField(value="Emir Kusturica", language="en"),
              LiteralField(value="Емир Кустурица", language="sr")]
     film_director = VCard(hasEmail="exampleemail@domain.com",
-                          full_name=names,
-                          hasUID="https://en.wikipedia.org/wiki/Emir_Kusturica")
+                          formatted_name=names)
     actual_graph = film_director.to_graph(URIRef("http:example.com/Emir_Kusturica"))
     expected_graph = Graph().parse(Path(TEST_DATA_DIRECTORY, "vCard.ttl"))
     assert to_isomorphic(actual_graph) == to_isomorphic(expected_graph)
@@ -89,7 +89,7 @@ def test_agent():
                                    ])
 def test_agent_email(email):
     card_obj = Agent(mbox=email, name=["I am example"], identifier="https://orcid.org/0009-0000-xxxx-xxxx")
-    expected = [Url("mailto:exampleemail@domain.com")]
+    expected = [AnyUrl("mailto:exampleemail@domain.com")]
     assert card_obj.mbox == expected
 
 
@@ -114,8 +114,7 @@ def test_vcard_namespace():
     names = [LiteralField(value="Emir Kusturica", language="en"),
              LiteralField(value="Емир Кустурица", language="sr")]
     film_director = VCard(hasEmail="exampleemail@domain.com",
-                          full_name=names,
-                          hasUID="https://en.wikipedia.org/wiki/Emir_Kusturica")
+                          formatted_name=names)
     film_director.to_graph_node(graph=actual_graph,
                                 subject=subject,
                                 node_predicate=DCTERMS.creator,

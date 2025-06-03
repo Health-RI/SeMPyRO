@@ -11,17 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
-from rdflib.namespace import DCAT, DCTERMS
+from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
+from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDistribution
 from sempyro.hri_dcat import HRIDataService
-from sempyro.utils.validator_functions import force_literal_field
+from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
+from sempyro.namespaces import DCATAPv3, ADMS
+from sempyro.time import PeriodOfTime
 
 
 class HRIDistribution(DCATDistribution):
@@ -43,45 +45,158 @@ class HRIDistribution(DCATDistribution):
                               )
 
     title: List[LiteralField] = Field(
-        description="A name given to the distribution. HRI mandatory",
-        rdf_term=DCTERMS.title,
-        rdf_type="rdfs_literal"
+        default=None,
+        description="A name given to the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.title,
+            "rdf_type": "rdfs_literal"
+        }
     )
     description: List[LiteralField] = Field(
-        description="A free-text account of the distribution. HRI mandatory",
-        rdf_term=DCTERMS.description,
-        rdf_type="rdfs_literal"
+        default=None,
+        description="An account of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.description,
+            "rdf_type": "rdfs_literal"
+        }
     )
-    access_url: List[AnyHttpUrl] = Field(
+    access_url: AnyHttpUrl = Field(
         description="A URL of the resource that gives access to a distribution of the dataset. E.g., landing page, "
-                    "feed, SPARQL endpoint. HRI mandatory",
-        rdf_term=DCAT.accessURL,
-        rdf_type="uri"
+                    "feed, SPARQL endpoint.",
+        json_schema_extra={
+            "rdf_term": DCAT.accessURL,
+            "rdf_type": "uri"
+        }
     )
     media_type: AnyHttpUrl = Field(
-        description="The media type of the distribution as defined by IANA.  HRI mandatory",
-        rdf_term=DCAT.mediaType,
-        rdf_type="uri"
-    )
-    access_service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
         default=None,
-        description="A data service that gives access to the distribution of the dataset. HRI recommended",
-        rdf_term=DCAT.accessService,
-        rdf_type="uri"
+        description="The media type of the distribution as defined by IANA.",
+        json_schema_extra={
+            "rdf_term": DCAT.mediaType,
+            "rdf_type": "uri"
+        }
     )
-    download_url: List[AnyHttpUrl] = Field(
+    format: AnyHttpUrl = Field(
+        description="The file format, physical medium, or dimensions of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.format,
+            "rdf_type": "uri"
+        }
+    )
+    license: Union[AnyHttpUrl, GeonovumLicences] = Field(
+        description="A legal document giving official permission to do something with the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.license,
+            "rdf_type": "uri"
+        }
+    )
+    access_service: Union[AnyHttpUrl, HRIDataService] = Field(
+        default=None,
+        description="A data service that gives access to the distribution of the dataset.",
+        json_schema_extra={
+            "rdf_term": DCAT.accessService,
+            "rdf_type": "uri"
+        }
+    )
+    download_url: AnyHttpUrl = Field(
         default=None,
         description="The URL of the downloadable file in a given format. E.g., CSV file or RDF file. "
-                    "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType. "
-                    "HRI recommended",
-        rdf_term=DCAT.downloadURL,
-        rdf_type="uri"
+                    "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType.",
+        json_schema_extra={
+            "rdf_term": DCAT.downloadURL,
+            "rdf_type": "uri"
+        }
+    )
+    rights: AnyHttpUrl = Field(
+        description="Information about rights held in and over the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.rights,
+            "rdf_type": "uri"
+        }
+    )
+    byte_size: Union[int, LiteralField] = Field(
+        description="The size of a distribution in bytes.",
+        json_schema_extra={
+            "rdf_term": DCAT.byteSize,
+            "rdf_type": "xsd:integer"
+        }
+    )
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that is applicable to this resource.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri",
+            # "bind_namespace": ['dcatap', DCATAPv3]
+        }
+    )
+    documentation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="Additional documentation about the distribution.",
+        json_schema_extra={
+            "rdf_term": FOAF.page,
+            "rdf_type": "uri"
+        }
+    )
+    access_rights: AnyHttpUrl = Field(
+        default=None,
+        description="A data service that gives access to the distribution of the dataset.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accessRights,
+            "rdf_type": "uri"
+        }
+    )
+    language: List[AnyHttpUrl] = Field(
+        default=None,
+        description="A language of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.language,
+            "rdf_type": "uri"
+        }
+    )
+    linked_schemas: List[AnyHttpUrl] = Field(
+        default=None,
+        description="An established standard to which the described resource conforms.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.conformsTo,
+            "rdf_type": "uri"
+        }
     )
 
-    @field_validator("title", "description", mode="before")
-    @classmethod
-    def convert_to_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        return [force_literal_field(item) for item in value]
+    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+        default=None,
+        description="Most recent date on which the resource was changed, updated or modified.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "datetime_literal"
+        }
+    )
+
+    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
+        default=None,
+        description="Date of formal issuance (e.g., publication) of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "datetime_literal"
+        }
+    )
+    retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
+        default=None,
+        description="A temporal period which the dataset is available for secondary use.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.accrualPeriodicity,  # consider `dct:PeriodOfTime` if defined elsewhere
+            "rdf_type": "uri"
+        }
+    )
+    status: Union[AnyHttpUrl, DistributionStatus] = Field(
+        default=None,
+        description="The status of the distribution (e.g., under development, completed, deprecated, withdrawn).",
+        json_schema_extra={
+            "rdf_term": ADMS.status,
+            "rdf_type": "uri"
+        }
+    )
+
 
 
 if __name__ == "__main__":

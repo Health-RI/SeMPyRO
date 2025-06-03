@@ -19,7 +19,7 @@ from pydantic import AnyUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField, RDFModel
-from sempyro.utils.validator_functions import validate_convert_email
+from sempyro.utils.validator_functions import validate_convert_email, force_literal_field
 
 
 class Agent(RDFModel):
@@ -33,18 +33,38 @@ class Agent(RDFModel):
     )
 
     name: List[Union[str, LiteralField]] = Field(
-        description="A name of the agent", rdf_term=FOAF.name, rdf_type="rdfs_literal"
+        description="A name of the agent",
+        json_schema_extra={
+            "rdf_term": FOAF.name,
+            "rdf_type": "rdfs_literal"
+        }
     )
     identifier: Union[str, LiteralField] = Field(
-        description="A unique identifier of the agent.", rdf_term=DCTERMS.identifier, rdf_type="rdfs_literal"
+        description="A unique identifier of the agent.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.identifier,
+            "rdf_type": "rdfs_literal"
+        }
     )
     mbox: List[AnyUrl] = Field(
         default=None,
         description="A personal mailbox, ie. an Internet mailbox associated "
         "with exactly one owner, the first owner of this mailbox.",
-        rdf_term=FOAF.mbox,
-        rdf_type="uri",
+        json_schema_extra={
+            "rdf_term": FOAF.mbox,
+            "rdf_type": "uri",
+        }
     )
+    homepage: AnyUrl = Field(
+        default=None,
+        description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
+                    "how to get into contact.",
+        json_schema_extra={
+            "rdf_term": FOAF.homepage,
+            "rdf_type": "uri",
+        }
+    )
+
 
     @field_validator("mbox", mode="before")
     @classmethod
@@ -52,6 +72,8 @@ class Agent(RDFModel):
         """
         Checks if provided value is a valid email or mailto URI, fulfills an email to mailto URI
         """
+        if not isinstance(value, list):
+            value = [value]
         return validate_convert_email(value)
 
 
