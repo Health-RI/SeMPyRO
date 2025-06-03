@@ -160,12 +160,6 @@ class HRIDataService(DCATDataService):
             "rdf_type": "uri"
         }
     )
-    _validate_literal_fields: ClassVar[Set[str]] = DCATDataService._validate_literal_fields
-
-    @field_validator(*_validate_literal_fields, mode="before")
-    @classmethod
-    def validate_literal(cls, value: List[Union[str, LiteralField]]) -> List[LiteralField]:
-        return convert_to_literal(value)
 
 
 if __name__ == "__main__":
