@@ -34,7 +34,7 @@ jobs:
       run: |
         hatch run +py=${{ matrix.python-version }} test:cov --doctest-modules --junitxml=junit/test-results.xml
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@v5
+      uses: SonarSource/sonarqube-scan-action@v5.2.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
