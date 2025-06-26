@@ -1,0 +1,80 @@
+# SPDX-FileCopyrightText: 2024 PNED G.I.E.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Generate Changelog
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          fetch-depth: 0
+
+      - name: Generate changelog entry
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "Health-RI-admin@users.noreply.github.com"
+          git config --local user.name "Health-RI Admin" 
+          git pull
+          
+          CHANGELOG_FILE="CHANGELOG.md"
+          LATEST_TAG="${{ inputs.tag }}"
+          PREVIOUS_TAG=$(git tag --sort=-creatordate | sed -n '2p')
+          
+          CHANGELOG_BRANCH="chore/$LATEST_TAG"
+          git checkout -b "$CHANGELOG_BRANCH"
+
+          echo "📢 Generating changelog for $LATEST_TAG (since $PREVIOUS_TAG)..."
+
+          COMMITS=$(git log "$PREVIOUS_TAG".."$LATEST_TAG" --no-merges --pretty=format:"%s by @%an in %h")
+
+          ADDED=""; CHANGED=""; FIXED=""; REMOVED=""; SECURITY=""
+          while IFS= read -r line; do
+            case "$line" in
+              *feat*|*implement*) ADDED+="- $line\n" ;;
+              *fix*|*bug*|*resolve*|*patch*) FIXED+="- $line\n" ;;
+              *update*|*modify*|*change*|*refactor*|*chore*) CHANGED+="- $line\n" ;;
+              *decommission*|*delete*|*remove*) REMOVED+="- $line\n" ;;
+              *security*|*vuln*|*"patch security"*) SECURITY+="- $line\n" ;;
+              *) CHANGED+="- $line\n" ;;
+            esac
+          done <<< "$COMMITS"
+
+          {
+            echo -e "## [$LATEST_TAG] - $(date +'%Y-%m-%d')\n"
+            [[ -n "$ADDED" ]] && echo -e "### Added\n$ADDED\n"
+            [[ -n "$CHANGED" ]] && echo -e "### Changed\n$CHANGED\n"
+            [[ -n "$FIXED" ]] && echo -e "### Fixed\n$FIXED\n"
+            [[ -n "$REMOVED" ]] && echo -e "### Removed\n$REMOVED\n"
+            [[ -n "$SECURITY" ]] && echo -e "### Security\n$SECURITY\n"
+          } > temp_changelog.md
+
+          if [[ ! -f "$CHANGELOG_FILE" ]]; then
+            echo -e "# Changelog\n\nAll notable changes to this project will be documented here.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n" > "$CHANGELOG_FILE"
+          fi
+
+          sed -i '7r temp_changelog.md' "$CHANGELOG_FILE"
+          rm temp_changelog.md
+
+          git add "$CHANGELOG_FILE"
+          git commit -m "doc: update CHANGELOG.md for $LATEST_TAG"
+          git push origin "$CHANGELOG_BRANCH"
+          
+          gh pr create \
+            --title "chore: update changelog for $LATEST_TAG" \
+            --body "This PR updates the changelog for release $LATEST_TAG." \
+            --base main \
+            --draft \
+            --head "$CHANGELOG_BRANCH"
