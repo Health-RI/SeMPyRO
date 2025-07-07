@@ -7,7 +7,7 @@ name = "sempyro"
 dynamic = ["version"]
 description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
-requires-python = ">= 3.8"
+requires-python = ">= 3.8.1"
 authors = [
   { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
   { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
