@@ -1,8 +1,9 @@
 name: Build and Publish to PyPI
 
 on:
-  release:
-    types: [published]
+  # release:
+  #   types: [published]
+  workflow_dispatch:
 
 env:
     PYTHON_VERSION: "3.12"
