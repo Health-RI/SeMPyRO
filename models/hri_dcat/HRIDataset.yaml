@@ -3972,12 +3972,15 @@ properties:
     rdf_type: xsd:nonNegativeInteger
     title: Number Of Unique Individuals
   other_identifier:
-    $ref: '#/$defs/Identifier'
     default:
     description: Number of records forLinks a resource to an adms:Identifier class.
       unique individuals.
+    items:
+      $ref: '#/$defs/Identifier'
     rdf_term: http://www.w3.org/ns/adms#identifier
     rdf_type: uri
+    title: Other Identifier
+    type: array
   personal_data:
     default:
     description: Indicates association with Personal Data.
