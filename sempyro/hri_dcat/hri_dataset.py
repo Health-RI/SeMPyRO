@@ -210,7 +210,7 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    other_identifier: Identifier = Field(
+    other_identifier: List[Identifier] = Field(
         default=None,
         description="Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
         json_schema_extra={
