@@ -4116,11 +4116,15 @@
           "title": "Number Of Unique Individuals"
         },
         "other_identifier": {
-          "$ref": "#/$defs/Identifier",
           "default": null,
-          "description": "Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
+          "description": "Links a resource to an adms:Identifier class. Examples for secondary identifiers are MAST/ADS, DataCite, DOI, EZID or W3ID (if not used for the original identifier).",
+          "items": {
+            "$ref": "#/$defs/Identifier"
+          },
           "rdf_term": "http://www.w3.org/ns/adms#identifier",
-          "rdf_type": "uri"
+          "rdf_type": "uri",
+          "title": "Other Identifier",
+          "type": "array"
         },
         "personal_data": {
           "default": null,

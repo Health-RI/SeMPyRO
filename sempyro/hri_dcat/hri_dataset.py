@@ -210,9 +210,9 @@ class HRIDataset(DCATDataset):
         }
     )
 
-    other_identifier: Identifier = Field(
+    other_identifier: List[Identifier] = Field(
         default=None,
-        description="Number of records forLinks a resource to an adms:Identifier class. unique individuals.",
+        description="Links a resource to an adms:Identifier class. Examples for secondary identifiers are MAST/ADS, DataCite, DOI, EZID or W3ID (if not used for the original identifier).",
         json_schema_extra={
             "rdf_term": ADMS.identifier,
             "rdf_type": "uri"
