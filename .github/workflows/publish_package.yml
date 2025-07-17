@@ -1,4 +1,4 @@
-name: Test - Build and Publish to PyPI
+name: Build and Publish to PyPI
 
 on:
   # release:
@@ -22,48 +22,46 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: Check version
-      run: hatch version
-    # - name: Set up Python ${{ env.PYTHON_VERSION }}
-    #   uses: actions/setup-python@v5
-    #   with:
-    #     python-version: ${{ env.PYTHON_VERSION }}
-    #     cache: 'pip'
-    # - name: Install Hatch
-    #   uses: pypa/hatch@install
-    # - name: Test package
-    #   run: hatch run +py=${{ env.PYTHON_VERSION }} test:test
-    # # It's better to separate these steps, but the project is pretty small for now
-    # - name: Build package
-    #   run: hatch build
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: python-artifacts
-    #     path: dist/*
-    #     if-no-files-found: error
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    - name: Install Hatch
+      uses: pypa/hatch@install
+    - name: Test package
+      run: hatch run +py=${{ env.PYTHON_VERSION }} test:test
+    # It's better to separate these steps, but the project is pretty small for now
+    - name: Build package
+      run: hatch build
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-artifacts
+        path: dist/*
+        if-no-files-found: error
     
-    # - name: Push Python artifacts to PyPI
-    #   uses: pypa/gh-action-pypi-publish@v1.12.4
-    #   with:
-    #     skip-existing: true
+    - name: Push Python artifacts to PyPI
+      uses: pypa/gh-action-pypi-publish@v1.12.4
+      with:
+        skip-existing: true
 
-  # publish-pypi:
-  #   name: Publish to PyPI
-  #   needs: build
-  #   runs-on: ubuntu-latest
+  publish-pypi:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
 
-  #   permissions:
-  #     id-token: write
+    permissions:
+      id-token: write
 
-  #   steps:
-  #       - name: Download Python artifacts
-  #         uses: actions/download-artifact@v4
-  #         with:
-  #             name: python-artifacts
-  #             path: dist
+    steps:
+        - name: Download Python artifacts
+          uses: actions/download-artifact@v4
+          with:
+              name: python-artifacts
+              path: dist
 
-  #       - name: Push Python artifacts to PyPI
-  #         uses: pypa/gh-action-pypi-publish@v1.12.4
-  #         with:
-  #             skip-existing: true
+        - name: Push Python artifacts to PyPI
+          uses: pypa/gh-action-pypi-publish@v1.12.4
+          with:
+              skip-existing: true
