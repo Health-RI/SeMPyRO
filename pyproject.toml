@@ -29,7 +29,7 @@ dependencies = [
   "rdflib >= 7.0.0",
   "pydantic ~= 2.10.6",
   "ruamel.yaml ~= 0.18.5",
-  "email-validator == 2.2.0",
+  "email-validator == 2.3.0",
   "python-dateutil ~= 2.8",
 ]
 
