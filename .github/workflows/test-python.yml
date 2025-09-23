@@ -17,7 +17,7 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -31,7 +31,7 @@ jobs:
       run: |
         hatch run +py=${{ matrix.python-version }} test:cov --doctest-modules --junitxml=junit/test-results.xml
     - name: SonarCloud Scan
-      uses: SonarSource/sonarqube-scan-action@v5.2.0
+      uses: SonarSource/sonarqube-scan-action@v5.3.1
       if: matrix.python-version == '3.10'
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
