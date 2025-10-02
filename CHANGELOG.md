@@ -5,6 +5,34 @@ All notable changes to this project will be documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [v2.1.0] - 2025-10-02
+
+### Added
+- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in cec947f
+- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 7631b1a
+- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in e0ea286
+- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 3da78cd
+- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 174db08
+
+
+### Changed
+- docs: adds prompts for username and password by @Alexander Harms in 4d42c73
+- restructure test run by @Hans-christian in 2187736
+- build(deps): bump email-validator from 2.2.0 to 2.3.0 by @dependabot[bot] in aa3fd1a
+- build(deps): bump actions/setup-python from 5 to 6 by @dependabot[bot] in ec8de5f
+- build(deps): bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0 by @dependabot[bot] in 0c37d6e
+
+
+### Fixed
+- fix(ci): changes version increment method by @Alexander Harms in 5a8e990
+- fix: removes commented out code by @Alexander Harms in 09d7aa9
+- fix sonar cloud by @Hans-christian in 43ec448
+- fix test yml by @Hans-christian in 70488e7
+- fix(ci): removes fetch-depth:0 by @Alexander Harms in 7a85ccd
+- fix(ci): align ci with main branch by @Alexander Harms in 6c9b084
+- fix(ci): fix ci dependencies by @Alexander Harms in 6ae54e6
+
+
 ## [v2.0.3] - 2025-07-17
 
 ### Changed
