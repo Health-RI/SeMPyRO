@@ -20,8 +20,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Set up Python ${{ env.PYTHON_VERSION }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         cache: 'pip'
@@ -40,7 +42,7 @@ jobs:
         if-no-files-found: error
     
     - name: Push Python artifacts to PyPI
-      uses: pypa/gh-action-pypi-publish@v1.12.4
+      uses: pypa/gh-action-pypi-publish@v1.13.0
       with:
         skip-existing: true
 
@@ -54,12 +56,12 @@ jobs:
 
     steps:
         - name: Download Python artifacts
-          uses: actions/download-artifact@v4
+          uses: actions/download-artifact@v5
           with:
               name: python-artifacts
               path: dist
 
         - name: Push Python artifacts to PyPI
-          uses: pypa/gh-action-pypi-publish@v1.12.4
+          uses: pypa/gh-action-pypi-publish@v1.13.0
           with:
               skip-existing: true
