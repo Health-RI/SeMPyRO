@@ -9,10 +9,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 - feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in cec947f
-- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 7631b1a
-- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in e0ea286
-- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 3da78cd
-- feature: update GDI-notebook to include AF-beacon and fix some values. by @PatrickDekkerHealthRI in 174db08
 
 
 ### Changed
@@ -27,9 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - fix(ci): changes version increment method by @Alexander Harms in 5a8e990
 - fix: removes commented out code by @Alexander Harms in 09d7aa9
 - fix sonar cloud by @Hans-christian in 43ec448
-- fix test yml by @Hans-christian in 70488e7
-- fix(ci): removes fetch-depth:0 by @Alexander Harms in 7a85ccd
-- fix(ci): align ci with main branch by @Alexander Harms in 6c9b084
 - fix(ci): fix ci dependencies by @Alexander Harms in 6ae54e6
 
 
