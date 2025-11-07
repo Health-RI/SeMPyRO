@@ -118,7 +118,7 @@ class HRIDistribution(DCATDistribution):
         description="The size of a distribution in bytes.",
         json_schema_extra={
             "rdf_term": DCAT.byteSize,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
     applicable_legislation: List[AnyHttpUrl] = Field(
