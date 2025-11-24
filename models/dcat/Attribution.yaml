@@ -27,8 +27,8 @@ $defs:
         title: Identifier
       mbox:
         default:
-        description: A personal mailbox, ie. an Internet mailbox associated with exactly
-          one owner, the first owner of this mailbox.
+        description: A personal mailbox, ie. an Internet mailbox associated with
+          exactly one owner, the first owner of this mailbox.
         items:
           format: uri
           minLength: 1
@@ -39,8 +39,8 @@ $defs:
         type: array
       homepage:
         default:
-        description: A webpage that either allows to make contact (i.e. a webform)
-          or the information contains how to get into contact.
+        description: A webpage that either allows to make contact (i.e. a 
+          webform) or the information contains how to get into contact.
         format: uri
         minLength: 1
         rdf_term: http://xmlns.com/foaf/0.1/homepage
@@ -57,7 +57,7 @@ $defs:
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
       see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
       \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
-      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n\
       value : str\n    literal value\neither datatype or language, or none of these
       two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
     properties:
@@ -68,7 +68,8 @@ $defs:
           type: string
         - type: string
         default:
-        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        description: datatype,see 
+          https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
         default:
@@ -96,15 +97,15 @@ properties:
       type: string
     - $ref: '#/$defs/Agent'
     default:
-    description: The prov:agent property references an prov:Agent which influenced
-      a resource.
+    description: The prov:agent property references an prov:Agent which 
+      influenced a resource.
     rdf_term: http://www.w3.org/ns/prov#agent
     rdf_type: uri
     title: Agent
   role:
     default:
-    description: The function of an entity or agent with respect to another entity
-      or resource.
+    description: The function of an entity or agent with respect to another 
+      entity or resource.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/dcat#hadRole
