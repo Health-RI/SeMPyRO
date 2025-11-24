@@ -2238,7 +2238,7 @@
           "default": null,
           "description": "The size of a distribution in bytes.",
           "rdf_term": "http://www.w3.org/ns/dcat#byteSize",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Byte Size"
         },
         "spatial_resolution": {
@@ -5794,7 +5794,7 @@
       ],
       "description": "The size of a distribution in bytes.",
       "rdf_term": "http://www.w3.org/ns/dcat#byteSize",
-      "rdf_type": "xsd:integer",
+      "rdf_type": "xsd:nonNegativeInteger",
       "title": "Byte Size"
     },
     "spatial_resolution": {
