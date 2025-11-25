@@ -30,7 +30,7 @@ class HRIAgent(Agent):
     model_config = ConfigDict(
         json_schema_extra={
             "$ontology": [
-                "http://xmlns.com/foaf/spec/",
+                "https://xmlns.com/foaf/spec/",
                 "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification",
             ],
             "$namespace": str(FOAF),
