@@ -2753,7 +2753,7 @@ $defs:
     $IRI: http://xmlns.com/foaf/0.1/Agent
     $namespace: http://xmlns.com/foaf/0.1/
     $ontology:
-    - http://xmlns.com/foaf/spec/
+    - https://xmlns.com/foaf/spec/
     - https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
     $prefix: foaf
     additionalProperties: false
