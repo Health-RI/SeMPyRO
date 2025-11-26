@@ -229,7 +229,7 @@ class HRIDataset(DCATDataset):
         },
     )
 
-    population_coverage: Union[str, LiteralField] = Field(
+    population_coverage: List[Union[str, LiteralField]] = Field(
         default=None,
         description="A definition of the population within the dataset",
         json_schema_extra={

@@ -22,7 +22,7 @@ from sempyro import LiteralField
 from sempyro.dcat import DCATDistribution
 from sempyro.hri_dcat import HRIDataService
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
-from sempyro.namespaces import DCATAPv3, ADMS
+from sempyro.namespaces import DCATAPv3, ADMS, HEALTHDCATAP
 from sempyro.time import PeriodOfTime
 
 
@@ -187,7 +187,7 @@ class HRIDistribution(DCATDistribution):
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
-            "rdf_term": DCTERMS.accrualPeriodicity,  # consider `dct:PeriodOfTime` if defined elsewhere
+            "rdf_term": HEALTHDCATAP.retentionPeriod,
             "rdf_type": "uri",
         },
     )

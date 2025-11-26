@@ -4504,14 +4504,16 @@ $defs:
         title: Personal Data
         type: array
       population_coverage:
-        anyOf:
-        - type: string
-        - $ref: '#/$defs/LiteralField'
         default:
         description: A definition of the population within the dataset
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/LiteralField'
         rdf_term: http://healthdataportal.eu/ns/health#populationCoverage
         rdf_type: rdfs_literal
         title: Population Coverage
+        type: array
       purpose:
         default:
         description: Indicates association with Purpose.
