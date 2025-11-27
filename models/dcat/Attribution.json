@@ -1,5 +1,5 @@
 {
-  "$IRI": "http://www.w3.org/ns/prov#Activity",
+  "$IRI": "http://www.w3.org/ns/prov#Attribution",
   "$defs": {
     "Agent": {
       "$IRI": "http://xmlns.com/foaf/0.1/Agent",

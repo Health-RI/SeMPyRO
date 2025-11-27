@@ -2238,7 +2238,7 @@
           "default": null,
           "description": "The size of a distribution in bytes.",
           "rdf_term": "http://www.w3.org/ns/dcat#byteSize",
-          "rdf_type": "xsd:nonNegativeInteger",
+          "rdf_type": "xsd:integer",
           "title": "Byte Size"
         },
         "spatial_resolution": {
@@ -3212,7 +3212,7 @@
       "$IRI": "http://xmlns.com/foaf/0.1/Agent",
       "$namespace": "http://xmlns.com/foaf/0.1/",
       "$ontology": [
-        "https://xmlns.com/foaf/spec/",
+        "http://xmlns.com/foaf/spec/",
         "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification"
       ],
       "$prefix": "foaf",
