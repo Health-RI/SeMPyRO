@@ -46,8 +46,8 @@ properties:
     title: Timezone
     type: string
   unitType:
-    description: The temporal unit which provides the precision of a date-time value
-      or scale of a temporal extent
+    description: The temporal unit which provides the precision of a date-time 
+      value or scale of a temporal extent
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/2006/time#unitType
@@ -57,27 +57,28 @@ properties:
   hasTRS:
     const: http://www.opengis.net/def/uom/ISO-8601/0/Gregorian
     default: http://www.opengis.net/def/uom/ISO-8601/0/Gregorian
-    description: The temporal reference system used by a temporal position or extent
-      description
+    description: The temporal reference system used by a temporal position or 
+      extent description
     rdf_term: http://www.w3.org/2006/time#hasTRS
     rdf_type: uri
     title: Hastrs
     type: string
   year:
     default:
-    description: Year position in a calendar-clock system. The range of this property
-      is not specified, so can be replaced by any specific representation of a calendar
-      year from any calendar.
-    pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+    description: Year position in a calendar-clock system. The range of this 
+      property is not specified, so can be replaced by any specific 
+      representation of a calendar year from any calendar.
+    pattern: 
+      -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#year
     rdf_type: xsd:gYear
     title: Year
     type: string
   month:
     default:
-    description: Month position in a calendar-clock system. The range of this property
-      is not specified, so can be replaced by any specific representation of a calendar
-      month from any calendar.
+    description: Month position in a calendar-clock system. The range of this 
+      property is not specified, so can be replaced by any specific 
+      representation of a calendar month from any calendar.
     pattern: --(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#month
     rdf_type: xsd:gMonth
@@ -85,9 +86,9 @@ properties:
     type: string
   day:
     default:
-    description: Day position in a calendar-clock system. The range of this property
-      is not specified, so can be replaced by any specific representation of a calendar
-      day from any calendar.
+    description: Day position in a calendar-clock system. The range of this 
+      property is not specified, so can be replaced by any specific 
+      representation of a calendar day from any calendar.
     pattern: '---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?'
     rdf_term: http://www.w3.org/2006/time#day
     rdf_type: xsd:gDay
@@ -141,13 +142,15 @@ properties:
   dayOfWeek:
     $ref: '#/$defs/DayOfWeek'
     default:
-    description: The day of week, whose value is a member of the class time:DayOfWeek
+    description: The day of week, whose value is a member of the class 
+      time:DayOfWeek
     rdf_term: http://www.w3.org/2006/time#dayOfWeek
     rdf_type: uri
   monthOfYear:
     $ref: '#/$defs/MonthOfYear'
     default:
-    description: The month of the year, whose value is a member of the class time:MonthOfYear
+    description: The month of the year, whose value is a member of the class 
+      time:MonthOfYear
     rdf_term: http://www.w3.org/2006/time#monthOfYear
     rdf_type: uri
 required:

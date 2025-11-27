@@ -19,9 +19,9 @@ $defs:
     properties:
       generated:
         default:
-        description: Generation is the completion of production of a new entity by
-          an activity. This entity did not exist before generation and becomes available
-          for usage after this generation.
+        description: Generation is the completion of production of a new entity 
+          by an activity. This entity did not exist before generation and 
+          becomes available for usage after this generation.
         items:
           format: uri
           minLength: 1
@@ -32,10 +32,11 @@ $defs:
         type: array
       qualifiedAssociation:
         default:
-        description: An activity association is an assignment of responsibility to
-          an agent for an activity, indicating that the agent had a role in the activity.
-          It further allows for a plan to be specified, which is the plan intended
-          by the agent to achieve some goals in the context of this activity.
+        description: An activity association is an assignment of responsibility 
+          to an agent for an activity, indicating that the agent had a role in 
+          the activity. It further allows for a plan to be specified, which is 
+          the plan intended by the agent to achieve some goals in the context of
+          this activity.
         items:
           anyOf:
           - format: uri
@@ -48,10 +49,11 @@ $defs:
         type: array
       wasAssociatedWith:
         default:
-        description: An activity association is an assignment of responsibility to
-          an agent for an activity, indicating that the agent had a role in the activity.
-          It further allows for a plan to be specified, which is the plan intended
-          by the agent to achieve some goals in the context of this activity.
+        description: An activity association is an assignment of responsibility 
+          to an agent for an activity, indicating that the agent had a role in 
+          the activity. It further allows for a plan to be specified, which is 
+          the plan intended by the agent to achieve some goals in the context of
+          this activity.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#wasAssociatedWith
@@ -61,20 +63,22 @@ $defs:
       qualifiedEnd:
         $ref: '#/$defs/End'
         default:
-        description: End is when an activity is deemed to have been ended by an entity,
-          known as trigger. The activity no longer exists after its end. Any usage,
-          generation, or invalidation involving an activity precedes the activity's
-          end. An end may refer to a trigger entity that terminated the activity,
-          or to an activity, known as ender that generated the trigger.
+        description: End is when an activity is deemed to have been ended by an 
+          entity, known as trigger. The activity no longer exists after its end.
+          Any usage, generation, or invalidation involving an activity precedes 
+          the activity's end. An end may refer to a trigger entity that 
+          terminated the activity, or to an activity, known as ender that 
+          generated the trigger.
         rdf_term: http://www.w3.org/ns/prov#qualifiedEnd
         rdf_type: http://www.w3.org/ns/prov#End
       wasEndedBy:
         default:
-        description: End is when an activity is deemed to have been ended by an entity,
-          known as trigger. The activity no longer exists after its end. Any usage,
-          generation, or invalidation involving an activity precedes the activity's
-          end. An end may refer to a trigger entity that terminated the activity,
-          or to an activity, known as ender that generated the trigger.
+        description: End is when an activity is deemed to have been ended by an 
+          entity, known as trigger. The activity no longer exists after its end.
+          Any usage, generation, or invalidation involving an activity precedes 
+          the activity's end. An end may refer to a trigger entity that 
+          terminated the activity, or to an activity, known as ender that 
+          generated the trigger.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#wasEndedBy
@@ -83,9 +87,9 @@ $defs:
         type: string
       qualifiedUsage:
         default:
-        description: Usage is the beginning of utilizing an entity by an activity.
-          Before usage, the activity had not begun to utilize this entity and could
-          not have been affected by the entity.
+        description: Usage is the beginning of utilizing an entity by an 
+          activity. Before usage, the activity had not begun to utilize this 
+          entity and could not have been affected by the entity.
         items:
           format: uri
           minLength: 1
@@ -96,9 +100,9 @@ $defs:
         type: array
       used:
         default:
-        description: Usage is the beginning of utilizing an entity by an activity.
-          Before usage, the activity had not begun to utilize this entity and could
-          not have been affected by the entity.
+        description: Usage is the beginning of utilizing an entity by an 
+          activity. Before usage, the activity had not begun to utilize this 
+          entity and could not have been affected by the entity.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#used
@@ -107,10 +111,10 @@ $defs:
         type: string
       invalidated:
         default:
-        description: Invalidation is the start of the destruction, cessation, or expiry
-          of an existing entity by an activity. The entity is no longer available
-          for use (or further invalidation) after invalidation. Any generation or
-          usage of an entity precedes its invalidation.
+        description: Invalidation is the start of the destruction, cessation, or
+          expiry of an existing entity by an activity. The entity is no longer 
+          available for use (or further invalidation) after invalidation. Any 
+          generation or usage of an entity precedes its invalidation.
         items:
           format: uri
           minLength: 1
@@ -121,11 +125,12 @@ $defs:
         type: array
       endedAtTime:
         default:
-        description: End is when an activity is deemed to have been ended by an entity,
-          known as trigger. The activity no longer exists after its end. Any usage,
-          generation, or invalidation involving an activity precedes the activity's
-          end. An end may refer to a trigger entity that terminated the activity,
-          or to an activity, known as ender that generated the trigger.
+        description: End is when an activity is deemed to have been ended by an 
+          entity, known as trigger. The activity no longer exists after its end.
+          Any usage, generation, or invalidation involving an activity precedes 
+          the activity's end. An end may refer to a trigger entity that 
+          terminated the activity, or to an activity, known as ender that 
+          generated the trigger.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#endedAtTime
         rdf_type: xsd:dateTime
@@ -134,17 +139,18 @@ $defs:
       qualifiedStart:
         $ref: '#/$defs/Start'
         default:
-        description: Start is when an activity is deemed to have been started by an
-          entity, known as trigger. The activity did not exist before its start. Any
-          usage, generation, or invalidation involving an activity follows the activity's
-          start. A start may refer to a trigger entity that set off the activity,
-          or to an activity, known as starter, that generated the trigger.
+        description: Start is when an activity is deemed to have been started by
+          an entity, known as trigger. The activity did not exist before its 
+          start. Any usage, generation, or invalidation involving an activity 
+          follows the activity's start. A start may refer to a trigger entity 
+          that set off the activity, or to an activity, known as starter, that 
+          generated the trigger.
         rdf_term: http://www.w3.org/ns/prov#qualifiedStart
         rdf_type: http://www.w3.org/ns/prov#Start
       wasInformedBy:
         default:
-        description: Communication is the exchange of an entity by two activities,
-          one activity using the entity generated by the other.
+        description: Communication is the exchange of an entity by two 
+          activities, one activity using the entity generated by the other.
         items:
           format: uri
           minLength: 1
@@ -155,11 +161,12 @@ $defs:
         type: array
       wasStartedBy:
         default:
-        description: Start is when an activity is deemed to have been started by an
-          entity, known as trigger. The activity did not exist before its start. Any
-          usage, generation, or invalidation involving an activity follows the activity's
-          start. A start may refer to a trigger entity that set off the activity,
-          or to an activity, known as starter, that generated the trigger.
+        description: Start is when an activity is deemed to have been started by
+          an entity, known as trigger. The activity did not exist before its 
+          start. Any usage, generation, or invalidation involving an activity 
+          follows the activity's start. A start may refer to a trigger entity 
+          that set off the activity, or to an activity, known as starter, that 
+          generated the trigger.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#wasStartedBy
@@ -168,11 +175,12 @@ $defs:
         type: string
       startedAtTime:
         default:
-        description: Start is when an activity is deemed to have been started by an
-          entity, known as trigger. The activity did not exist before its start. Any
-          usage, generation, or invalidation involving an activity follows the activity's
-          start. A start may refer to a trigger entity that set off the activity,
-          or to an activity, known as starter, that generated the trigger.
+        description: Start is when an activity is deemed to have been started by
+          an entity, known as trigger. The activity did not exist before its 
+          start. Any usage, generation, or invalidation involving an activity 
+          follows the activity's start. A start may refer to a trigger entity 
+          that set off the activity, or to an activity, known as starter, that 
+          generated the trigger.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#startedAtTime
         rdf_type: xsd:dateTime
@@ -180,8 +188,8 @@ $defs:
         type: string
       qualifiedCommunication:
         default:
-        description: Communication is the exchange of an entity by two activities,
-          one activity using the entity generated by the other.
+        description: Communication is the exchange of an entity by two 
+          activities, one activity using the entity generated by the other.
         items:
           format: uri
           minLength: 1
@@ -192,10 +200,10 @@ $defs:
         type: array
       wasInfluencedBy:
         default:
-        description: Influence is the capacity of an entity, activity, or agent to
-          have an effect on the character, development, or behavior of another by
-          means of usage, start, end, generation, invalidation, communication, derivation,
-          attribution, association, or delegation.
+        description: Influence is the capacity of an entity, activity, or agent 
+          to have an effect on the character, development, or behavior of 
+          another by means of usage, start, end, generation, invalidation, 
+          communication, derivation, attribution, association, or delegation.
         items:
           format: uri
           minLength: 1
@@ -206,10 +214,10 @@ $defs:
         type: array
       qualifiedInfluence:
         default:
-        description: Influence is the capacity of an entity, activity, or agent to
-          have an effect on the character, development, or behavior of another by
-          means of usage, start, end, generation, invalidation, communication, derivation,
-          attribution, association, or delegation.
+        description: Influence is the capacity of an entity, activity, or agent 
+          to have an effect on the character, development, or behavior of 
+          another by means of usage, start, end, generation, invalidation, 
+          communication, derivation, attribution, association, or delegation.
         items:
           format: uri
           minLength: 1
@@ -220,10 +228,11 @@ $defs:
         type: array
       atLocation:
         default:
-        description: A location can be an identifiable geographic place (ISO 19112),
-          but it can also be a non-geographic place such as a directory, row, or column.
-          As such, there are numerous ways in which location can be expressed, such
-          as by a coordinate, address, landmark, and so forth.
+        description: A location can be an identifiable geographic place (ISO 
+          19112), but it can also be a non-geographic place such as a directory,
+          row, or column. As such, there are numerous ways in which location can
+          be expressed, such as by a coordinate, address, landmark, and so 
+          forth.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#atLocation
@@ -259,8 +268,8 @@ $defs:
         title: Identifier
       mbox:
         default:
-        description: A personal mailbox, ie. an Internet mailbox associated with exactly
-          one owner, the first owner of this mailbox.
+        description: A personal mailbox, ie. an Internet mailbox associated with
+          exactly one owner, the first owner of this mailbox.
         items:
           format: uri
           minLength: 1
@@ -271,8 +280,8 @@ $defs:
         type: array
       homepage:
         default:
-        description: A webpage that either allows to make contact (i.e. a webform)
-          or the information contains how to get into contact.
+        description: A webpage that either allows to make contact (i.e. a 
+          webform) or the information contains how to get into contact.
         format: uri
         minLength: 1
         rdf_term: http://xmlns.com/foaf/0.1/homepage
@@ -297,8 +306,8 @@ $defs:
     properties:
       hadPlan:
         default:
-        description: A plan is an entity that represents a set of actions or steps
-          intended by one or more agents to achieve some goals.
+        description: A plan is an entity that represents a set of actions or 
+          steps intended by one or more agents to achieve some goals.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadPlan
@@ -307,9 +316,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect to
-          an activity, in the context of a usage, generation, invalidation, association,
-          start, and end.
+        description: A role is the function of an entity or agent with respect 
+          to an activity, in the context of a usage, generation, invalidation, 
+          association, start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -318,10 +327,11 @@ $defs:
         type: string
       agent:
         default:
-        description: The prov:agent property references an prov:Agent which influenced
-          a resource. This property applies to an prov:AgentInfluence, which is given
-          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
-          prov:Activity or prov:Agent.
+        description: The prov:agent property references an prov:Agent which 
+          influenced a resource. This property applies to an 
+          prov:AgentInfluence, which is given by a subproperty of 
+          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
+          or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Agent
@@ -344,13 +354,15 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: Information about who can access the dataset and under what conditions.
+        description: Information about who can access the dataset and under what
+          conditions.
         rdf_term: http://purl.org/dc/terms/accessRights
         rdf_type: uri
         title: Access Rights
       conforms_to:
         default:
-        description: An established standard to which the described resource conforms.
+        description: An established standard to which the described resource 
+          conforms.
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/conformsTo
@@ -359,8 +371,8 @@ $defs:
         type: string
       contact_point:
         default:
-        description: Relevant contact information for the cataloged resource. Use
-          of vCard is recommended
+        description: Relevant contact information for the cataloged resource. 
+          Use of vCard is recommended
         items:
           anyOf:
           - format: uri
@@ -374,8 +386,9 @@ $defs:
         type: array
       creator:
         default:
-        description: The entity responsible for producing the resource. Resources
-          of type foaf:Agent are recommended as values for this property.
+        description: The entity responsible for producing the resource. 
+          Resources of type foaf:Agent are recommended as values for this 
+          property.
         items:
           anyOf:
           - format: uri
@@ -399,8 +412,8 @@ $defs:
         type: array
       has_part:
         default:
-        description: A related resource that is included either physically or logically
-          in the described resource.
+        description: A related resource that is included either physically or 
+          logically in the described resource.
         items:
           format: uri
           minLength: 1
@@ -412,13 +425,14 @@ $defs:
       has_policy:
         $ref: '#/$defs/ODRLPolicy'
         default:
-        description: An ODRL conformant policy expressing the rights associated with
-          the resource.
+        description: An ODRL conformant policy expressing the rights associated 
+          with the resource.
         rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
         rdf_type: uri
       identifier:
         default:
-        description: A unique identifier of the resource being described or cataloged.
+        description: A unique identifier of the resource being described or 
+          cataloged.
         items:
           anyOf:
           - type: string
@@ -429,8 +443,8 @@ $defs:
         type: array
       is_referenced_by:
         default:
-        description: A related resource, such as a publication, that references, cites,
-          or otherwise points to the cataloged resource.
+        description: A related resource, such as a publication, that references,
+          cites, or otherwise points to the cataloged resource.
         items:
           format: uri
           minLength: 1
@@ -450,8 +464,9 @@ $defs:
         type: array
       landing_page:
         default:
-        description: A Web page that can be navigated to in a Web browser to gain
-          access to the catalog, a dataset, its distributions and/or additional information.
+        description: A Web page that can be navigated to in a Web browser to 
+          gain access to the catalog, a dataset, its distributions and/or 
+          additional information.
         items:
           format: uri
           minLength: 1
@@ -467,15 +482,17 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: A legal document under which the resource is made available.
+        description: A legal document under which the resource is made 
+          available.
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
       language:
         default:
-        description: A language of the resource. This refers to the natural language
-          used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged
-          resource (i.e., dataset or service) or the textual values of a dataset distribution
+        description: A language of the resource. This refers to the natural 
+          language used for textual metadata (i.e., titles, descriptions, etc.) 
+          of a cataloged resource (i.e., dataset or service) or the textual 
+          values of a dataset distribution
         items:
           format: uri
           minLength: 1
@@ -486,8 +503,8 @@ $defs:
         type: array
       relation:
         default:
-        description: A resource with an unspecified relationship to the cataloged
-          resource.
+        description: A resource with an unspecified relationship to the 
+          cataloged resource.
         items:
           format: uri
           minLength: 1
@@ -503,15 +520,17 @@ $defs:
           minLength: 1
           type: string
         default:
-        description: Information about rights held in and over the distribution. Recommended
-          practice is to refer to a rights statement with a URI. If this is not possible
-          or feasible, a literal value (name, label, or short text) may be provided.
+        description: Information about rights held in and over the distribution.
+          Recommended practice is to refer to a rights statement with a URI. If 
+          this is not possible or feasible, a literal value (name, label, or 
+          short text) may be provided.
         rdf_term: http://purl.org/dc/terms/rights
         rdf_type: uri
         title: Rights
       qualified_relation:
         default:
-        description: Link to a description of a relationship with another resource
+        description: Link to a description of a relationship with another 
+          resource
         items:
           format: uri
           minLength: 1
@@ -541,14 +560,15 @@ $defs:
         - format: date
           type: string
         default:
-        description: Date of formal issuance (e.g., publication) of the resource.
+        description: Date of formal issuance (e.g., publication) of the 
+          resource.
         rdf_term: http://purl.org/dc/terms/issued
         rdf_type: datetime_literal
         title: Release Date
       theme:
         default:
-        description: A main category of the resource. A resource can have multiple
-          themes.
+        description: A main category of the resource. A resource can have 
+          multiple themes.
         items:
           format: uri
           minLength: 1
@@ -586,14 +606,15 @@ $defs:
         - format: date-time
           type: string
         default:
-        description: Most recent date on which the resource was changed, updated or
-          modified.
+        description: Most recent date on which the resource was changed, updated
+          or modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
         title: Modification Date
       qualified_attribution:
         default:
-        description: Link to an Agent having some form of responsibility for the resource
+        description: Link to an Agent having some form of responsibility for the
+          resource
         items:
           format: uri
           minLength: 1
@@ -604,8 +625,8 @@ $defs:
         type: array
       has_current_version:
         default:
-        description: This resource has a more specific, versioned resource with equivalent
-          content [PAV].
+        description: This resource has a more specific, versioned resource with 
+          equivalent content [PAV].
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#hasCurrentVersion
@@ -634,8 +655,8 @@ $defs:
         type: string
       replaces:
         default:
-        description: A related resource that is supplanted, displaced, or superseded
-          by the described resource
+        description: A related resource that is supplanted, displaced, or 
+          superseded by the described resource
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/replaces
@@ -645,8 +666,8 @@ $defs:
       status:
         $ref: '#/$defs/Status'
         default:
-        description: The status of the resource in the context of a particular workflow
-          process [VOCAB-ADMS].
+        description: The status of the resource in the context of a particular 
+          workflow process [VOCAB-ADMS].
         rdf_term: http://www.w3.org/ns/adms#status
         rdf_type: uri
       version:
@@ -660,8 +681,8 @@ $defs:
         title: Version
       version_notes:
         default:
-        description: A description of changes between this version and the previous
-          version of the resource [VOCAB-ADMS].
+        description: A description of changes between this version and the 
+          previous version of the resource [VOCAB-ADMS].
         items:
           anyOf:
           - type: string
@@ -672,8 +693,8 @@ $defs:
         type: array
       first:
         default:
-        description: The first resource in an ordered collection or series of resources,
-          to which the current resource belongs.
+        description: The first resource in an ordered collection or series of 
+          resources, to which the current resource belongs.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#first
@@ -682,8 +703,8 @@ $defs:
         type: string
       last:
         default:
-        description: The last resource in an ordered collection or series of resources,
-          to which the current resource belongs.
+        description: The last resource in an ordered collection or series of 
+          resources, to which the current resource belongs.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#last
@@ -692,8 +713,8 @@ $defs:
         type: string
       previous:
         default:
-        description: The previous resource (before the current one) in an ordered
-          collection or series of resources.
+        description: The previous resource (before the current one) in an 
+          ordered collection or series of resources.
         items:
           format: uri
           minLength: 1
@@ -759,8 +780,8 @@ $defs:
         type: array
       spatial_resolution:
         default:
-        description: Minimum spatial separation resolvable in a dataset, measured
-          in meters.
+        description: Minimum spatial separation resolvable in a dataset, 
+          measured in meters.
         items:
           type: number
         rdf_term: http://www.w3.org/ns/dcat#spatialResolutionInMeters
@@ -778,8 +799,8 @@ $defs:
         title: Temporal Resolution
       was_generated_by:
         default:
-        description: An activity that generated, or provides the business context
-          for, the creation of the dataset.
+        description: An activity that generated, or provides the business 
+          context for, the creation of the dataset.
         items:
           anyOf:
           - format: uri
@@ -806,13 +827,14 @@ $defs:
       access_rights:
         $ref: '#/$defs/AccessRights'
         default:
-        description: Information about who can access the resource or an indication
-          of its security status.
+        description: Information about who can access the resource or an 
+          indication of its security status.
         rdf_term: http://purl.org/dc/terms/accessRights
         rdf_type: uri
       conforms_to:
         default:
-        description: An established standard to which the described resource conforms.
+        description: An established standard to which the described resource 
+          conforms.
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/conformsTo
@@ -821,8 +843,8 @@ $defs:
         type: string
       contact_point:
         default:
-        description: Relevant contact information for the cataloged resource. Use
-          of vCard is recommended
+        description: Relevant contact information for the cataloged resource. 
+          Use of vCard is recommended
         items:
           anyOf:
           - format: uri
@@ -836,8 +858,9 @@ $defs:
         type: array
       creator:
         default:
-        description: The entity responsible for producing the resource. Resources
-          of type foaf:Agent are recommended as values for this property.
+        description: The entity responsible for producing the resource. 
+          Resources of type foaf:Agent are recommended as values for this 
+          property.
         items:
           anyOf:
           - format: uri
@@ -861,8 +884,8 @@ $defs:
         type: array
       has_part:
         default:
-        description: A related resource that is included either physically or logically
-          in the described resource.
+        description: A related resource that is included either physically or 
+          logically in the described resource.
         items:
           format: uri
           minLength: 1
@@ -874,13 +897,14 @@ $defs:
       has_policy:
         $ref: '#/$defs/ODRLPolicy'
         default:
-        description: An ODRL conformant policy expressing the rights associated with
-          the resource.
+        description: An ODRL conformant policy expressing the rights associated 
+          with the resource.
         rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
         rdf_type: uri
       identifier:
         default:
-        description: A unique identifier of the resource being described or cataloged.
+        description: A unique identifier of the resource being described or 
+          cataloged.
         items:
           anyOf:
           - type: string
@@ -891,8 +915,8 @@ $defs:
         type: array
       is_referenced_by:
         default:
-        description: A related resource, such as a publication, that references, cites,
-          or otherwise points to the cataloged resource.
+        description: A related resource, such as a publication, that references,
+          cites, or otherwise points to the cataloged resource.
         items:
           format: uri
           minLength: 1
@@ -912,8 +936,9 @@ $defs:
         type: array
       landing_page:
         default:
-        description: A Web page that can be navigated to in a Web browser to gain
-          access to the catalog, a dataset, its distributions and/or additional information.
+        description: A Web page that can be navigated to in a Web browser to 
+          gain access to the catalog, a dataset, its distributions and/or 
+          additional information.
         items:
           format: uri
           minLength: 1
@@ -929,15 +954,17 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: A legal document under which the resource is made available.
+        description: A legal document under which the resource is made 
+          available.
         rdf_term: http://purl.org/dc/terms/license
         rdf_type: uri
         title: License
       language:
         default:
-        description: A language of the resource. This refers to the natural language
-          used for textual metadata (i.e., titles, descriptions, etc.) of a cataloged
-          resource (i.e., dataset or service) or the textual values of a dataset distribution
+        description: A language of the resource. This refers to the natural 
+          language used for textual metadata (i.e., titles, descriptions, etc.) 
+          of a cataloged resource (i.e., dataset or service) or the textual 
+          values of a dataset distribution
         items:
           format: uri
           minLength: 1
@@ -948,8 +975,8 @@ $defs:
         type: array
       relation:
         default:
-        description: A resource with an unspecified relationship to the cataloged
-          resource.
+        description: A resource with an unspecified relationship to the 
+          cataloged resource.
         items:
           format: uri
           minLength: 1
@@ -965,15 +992,17 @@ $defs:
           minLength: 1
           type: string
         default:
-        description: Information about rights held in and over the distribution. Recommended
-          practice is to refer to a rights statement with a URI. If this is not possible
-          or feasible, a literal value (name, label, or short text) may be provided.
+        description: Information about rights held in and over the distribution.
+          Recommended practice is to refer to a rights statement with a URI. If 
+          this is not possible or feasible, a literal value (name, label, or 
+          short text) may be provided.
         rdf_term: http://purl.org/dc/terms/rights
         rdf_type: uri
         title: Rights
       qualified_relation:
         default:
-        description: Link to a description of a relationship with another resource
+        description: Link to a description of a relationship with another 
+          resource
         items:
           format: uri
           minLength: 1
@@ -1003,14 +1032,15 @@ $defs:
         - format: date
           type: string
         default:
-        description: Date of formal issuance (e.g., publication) of the resource.
+        description: Date of formal issuance (e.g., publication) of the 
+          resource.
         rdf_term: http://purl.org/dc/terms/issued
         rdf_type: datetime_literal
         title: Release Date
       theme:
         default:
-        description: A main category of the resource. A resource can have multiple
-          themes.
+        description: A main category of the resource. A resource can have 
+          multiple themes.
         items:
           format: uri
           minLength: 1
@@ -1048,14 +1078,15 @@ $defs:
         - format: date-time
           type: string
         default:
-        description: Most recent date on which the resource was changed, updated or
-          modified.
+        description: Most recent date on which the resource was changed, updated
+          or modified.
         rdf_term: http://purl.org/dc/terms/modified
         rdf_type: datetime_literal
         title: Modification Date
       qualified_attribution:
         default:
-        description: Link to an Agent having some form of responsibility for the resource
+        description: Link to an Agent having some form of responsibility for the
+          resource
         items:
           format: uri
           minLength: 1
@@ -1066,8 +1097,8 @@ $defs:
         type: array
       has_current_version:
         default:
-        description: This resource has a more specific, versioned resource with equivalent
-          content [PAV].
+        description: This resource has a more specific, versioned resource with 
+          equivalent content [PAV].
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#hasCurrentVersion
@@ -1096,8 +1127,8 @@ $defs:
         type: string
       replaces:
         default:
-        description: A related resource that is supplanted, displaced, or superseded
-          by the described resource
+        description: A related resource that is supplanted, displaced, or 
+          superseded by the described resource
         format: uri
         minLength: 1
         rdf_term: http://purl.org/dc/terms/replaces
@@ -1107,8 +1138,8 @@ $defs:
       status:
         $ref: '#/$defs/Status'
         default:
-        description: The status of the resource in the context of a particular workflow
-          process [VOCAB-ADMS].
+        description: The status of the resource in the context of a particular 
+          workflow process [VOCAB-ADMS].
         rdf_term: http://www.w3.org/ns/adms#status
         rdf_type: uri
       version:
@@ -1122,8 +1153,8 @@ $defs:
         title: Version
       version_notes:
         default:
-        description: A description of changes between this version and the previous
-          version of the resource [VOCAB-ADMS].
+        description: A description of changes between this version and the 
+          previous version of the resource [VOCAB-ADMS].
         items:
           anyOf:
           - type: string
@@ -1134,8 +1165,8 @@ $defs:
         type: array
       first:
         default:
-        description: The first resource in an ordered collection or series of resources,
-          to which the current resource belongs.
+        description: The first resource in an ordered collection or series of 
+          resources, to which the current resource belongs.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#first
@@ -1144,8 +1175,8 @@ $defs:
         type: string
       last:
         default:
-        description: The last resource in an ordered collection or series of resources,
-          to which the current resource belongs.
+        description: The last resource in an ordered collection or series of 
+          resources, to which the current resource belongs.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/dcat#last
@@ -1154,8 +1185,8 @@ $defs:
         type: string
       previous:
         default:
-        description: The previous resource (before the current one) in an ordered
-          collection or series of resources.
+        description: The previous resource (before the current one) in an 
+          ordered collection or series of resources.
         items:
           format: uri
           minLength: 1
@@ -1205,10 +1236,11 @@ $defs:
     properties:
       entity:
         default:
-        description: The prov:entity property references an prov:Entity which influenced
-          a resource. This property applies to an prov:EntityInfluence, which is given
-          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
-          prov:Activity or prov:Agent.
+        description: The prov:entity property references an prov:Entity which 
+          influenced a resource. This property applies to an 
+          prov:EntityInfluence, which is given by a subproperty of 
+          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
+          or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Entity
@@ -1217,9 +1249,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect to
-          an activity, in the context of a usage, generation, invalidation, association,
-          start, and end.
+        description: A role is the function of an entity or agent with respect 
+          to an activity, in the context of a usage, generation, invalidation, 
+          association, start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -1228,9 +1260,10 @@ $defs:
         type: string
       influencer:
         default:
-        description: This property is used as part of the qualified influence pattern.
-          Subclasses of prov:Influence use these subproperties to reference the resource
-          (Entity, Agent, or Activity) whose influence is being qualified.
+        description: This property is used as part of the qualified influence 
+          pattern. Subclasses of prov:Influence use these subproperties to 
+          reference the resource (Entity, Agent, or Activity) whose influence is
+          being qualified.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#influencer
@@ -1239,9 +1272,9 @@ $defs:
         type: string
       hadActivity:
         default:
-        description: An activity is something that occurs over a period of time and
-          acts upon or with entities; it may include consuming, processing, transforming,
-          modifying, relocating, using, or generating entities.
+        description: An activity is something that occurs over a period of time 
+          and acts upon or with entities; it may include consuming, processing, 
+          transforming, modifying, relocating, using, or generating entities.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadActivity
@@ -1250,11 +1283,12 @@ $defs:
         type: string
       atTime:
         default:
-        description: The PROV data model is implicitly based on a notion of instantaneous
-          events (or just events), that mark transitions in the world. Events include
-          generation, usage, or invalidation of entities, as well as starting or ending
-          of activities. This notion of event is not first-class in the data model,
-          but it is useful for explaining its other concepts and its semantics.
+        description: The PROV data model is implicitly based on a notion of 
+          instantaneous events (or just events), that mark transitions in the 
+          world. Events include generation, usage, or invalidation of entities, 
+          as well as starting or ending of activities. This notion of event is 
+          not first-class in the data model, but it is useful for explaining its
+          other concepts and its semantics.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#InstantaneousEvent
         rdf_type: xsd:dateTime
@@ -1262,10 +1296,11 @@ $defs:
         type: string
       atLocation:
         default:
-        description: A location can be an identifiable geographic place (ISO 19112),
-          but it can also be a non-geographic place such as a directory, row, or column.
-          As such, there are numerous ways in which location can be expressed, such
-          as by a coordinate, address, landmark, and so forth.
+        description: A location can be an identifiable geographic place (ISO 
+          19112), but it can also be a non-geographic place such as a directory,
+          row, or column. As such, there are numerous ways in which location can
+          be expressed, such as by a coordinate, address, landmark, and so 
+          forth.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#atLocation
@@ -1301,8 +1336,8 @@ $defs:
     $ontology: https://www.w3.org/TR/owl-time/
     $prefix: time
     additionalProperties: false
-    description: Description of date and time structured with separate values for
-      the various elements of a calendar-clock system
+    description: Description of date and time structured with separate values 
+      for the various elements of a calendar-clock system
     properties:
       timeZone:
         default:
@@ -1314,8 +1349,8 @@ $defs:
         title: Timezone
         type: string
       unitType:
-        description: The temporal unit which provides the precision of a date-time
-          value or scale of a temporal extent
+        description: The temporal unit which provides the precision of a 
+          date-time value or scale of a temporal extent
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#unitType
@@ -1323,8 +1358,8 @@ $defs:
         title: Unittype
         type: string
       hasTRS:
-        description: The temporal reference system used by a temporal position or
-          extent description
+        description: The temporal reference system used by a temporal position 
+          or extent description
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#hasTRS
@@ -1333,27 +1368,27 @@ $defs:
         type: string
       year:
         default:
-        description: Year position in a calendar-clock system. The range of this property
-          is not specified, so can be replaced by any specific representation of a
-          calendar year from any calendar.
+        description: Year position in a calendar-clock system. The range of this
+          property is not specified, so can be replaced by any specific 
+          representation of a calendar year from any calendar.
         rdf_term: http://www.w3.org/2006/time#year
         rdf_type: xsd:gYear
         title: Year
         type: string
       month:
         default:
-        description: Month position in a calendar-clock system. The range of this
-          property is not specified, so can be replaced by any specific representation
-          of a calendar month from any calendar.
+        description: Month position in a calendar-clock system. The range of 
+          this property is not specified, so can be replaced by any specific 
+          representation of a calendar month from any calendar.
         rdf_term: http://www.w3.org/2006/time#month
         rdf_type: xsd:gMonth
         title: Month
         type: string
       day:
         default:
-        description: Day position in a calendar-clock system. The range of this property
-          is not specified, so can be replaced by any specific representation of a
-          calendar day from any calendar.
+        description: Day position in a calendar-clock system. The range of this 
+          property is not specified, so can be replaced by any specific 
+          representation of a calendar day from any calendar.
         rdf_term: http://www.w3.org/2006/time#day
         rdf_type: xsd:gDay
         title: Day
@@ -1399,7 +1434,8 @@ $defs:
         type: integer
       dayOfWeek:
         default:
-        description: The day of week, whose value is a member of the class time:DayOfWeek
+        description: The day of week, whose value is a member of the class 
+          time:DayOfWeek
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#dayOfWeek
@@ -1408,7 +1444,8 @@ $defs:
         type: string
       monthOfYear:
         default:
-        description: The month of the year, whose value is a member of the class time:MonthOfYear
+        description: The month of the year, whose value is a member of the class
+          time:MonthOfYear
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#monthOfYear
@@ -1430,25 +1467,26 @@ $defs:
     properties:
       dimension:
         default:
-        description: The topological dimension of this geometric object, which must
-          be less than or equal to the coordinate dimension. In non-homogeneous collections,
-          this is the largest topological dimension of the contained objects.
+        description: The topological dimension of this geometric object, which 
+          must be less than or equal to the coordinate dimension. In 
+          non-homogeneous collections, this is the largest topological dimension
+          of the contained objects.
         rdf_term: http://www.opengis.net/ont/geosparql#dimension
         rdf_type: xsd:integer
         title: Dimension
         type: integer
       coordinateDimension:
         default:
-        description: The number of measurements or axes needed to describe the position
-          of this Geometry in a coordinate system.
+        description: The number of measurements or axes needed to describe the 
+          position of this Geometry in a coordinate system.
         rdf_term: http://www.opengis.net/ont/geosparql#coordinateDimension
         rdf_type: xsd:integer
         title: Coordinatedimension
         type: integer
       spatialDimension:
         default:
-        description: The number of measurements or axes needed to describe the spatial
-          position of this Geometry in a coordinate system.
+        description: The number of measurements or axes needed to describe the 
+          spatial position of this Geometry in a coordinate system.
         rdf_term: http://www.opengis.net/ont/geosparql#spatialDimension
         rdf_type: xsd:integer
         title: Spatialdimension
@@ -1465,7 +1503,8 @@ $defs:
       hasMetricSpatialResolution:
         default:
         description: The spatial resolution of a Geometry in meters.
-        rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution
+        rdf_term: 
+          http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution
         rdf_type: xsd:double
         title: Hasmetricspatialresolution
         type: number
@@ -1480,24 +1519,25 @@ $defs:
         type: string
       hasMetricSpatialAccuracy:
         default:
-        description: The positional accuracy of the coordinates of a Geometry in meters.
+        description: The positional accuracy of the coordinates of a Geometry in
+          meters.
         rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy
         rdf_type: xsd:double
         title: Hasmetricspatialaccuracy
         type: number
       isEmpty:
         default:
-        description: (true) if this geometric object is the empty Geometry. If true,
-          then this geometric object represents the empty point set for the coordinate
-          space.
+        description: (true) if this geometric object is the empty Geometry. If 
+          true, then this geometric object represents the empty point set for 
+          the coordinate space.
         rdf_term: http://www.opengis.net/ont/geosparql#isEmpty
         rdf_type: xsd:boolean
         title: Isempty
         type: boolean
       isSimple:
         default:
-        description: (true) if this geometric object has no anomalous geometric points,
-          such as self intersection or self tangency.
+        description: (true) if this geometric object has no anomalous geometric 
+          points, such as self intersection or self tangency.
         rdf_term: http://www.opengis.net/ont/geosparql#isSimple
         rdf_type: xsd:boolean
         title: Issimple
@@ -1507,7 +1547,8 @@ $defs:
         - type: string
         - $ref: '#/$defs/LiteralField'
         default:
-        description: Connects a Geometry object with its text-based serialization.
+        description: Connects a Geometry object with its text-based 
+          serialization.
         rdf_term: http://www.opengis.net/ont/geosparql#hasSerialization
         rdf_type: rdfs_literal
         title: Hasserialization
@@ -1518,7 +1559,7 @@ $defs:
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
       see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
       \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
-      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n\
       value : str\n    literal value\neither datatype or language, or none of these
       two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
     properties:
@@ -1529,7 +1570,8 @@ $defs:
           type: string
         - type: string
         default:
-        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        description: datatype,see 
+          https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
         default:
@@ -1561,7 +1603,8 @@ $defs:
         - locn
         - http://www.w3.org/ns/locn#
         default:
-        description: Associates a spatial thing [SDW-BP] with a corresponding geometry.
+        description: Associates a spatial thing [SDW-BP] with a corresponding 
+          geometry.
         rdf_term: http://www.w3.org/ns/locn#geometry
         rdf_type: geosparql:wktLiteral
         title: Geometry
@@ -1577,7 +1620,8 @@ $defs:
       centroid:
         $ref: '#/$defs/LiteralField'
         default:
-        description: The geographic center (centroid) of a spatial thing [SDW-BP].
+        description: The geographic center (centroid) of a spatial thing 
+          [SDW-BP].
         rdf_term: http://www.w3.org/ns/dcat#centroid
         rdf_type: geosparql:wktLiteral
     title: http://purl.org/dc/terms/Location
@@ -1631,8 +1675,8 @@ $defs:
         type: array
       inheritFrom:
         default:
-        description: Relates a (child) policy to another (parent) policy from which
-          terms are inherited.
+        description: Relates a (child) policy to another (parent) policy from 
+          which terms are inherited.
         items:
           format: uri
           minLength: 1
@@ -1643,8 +1687,8 @@ $defs:
         type: array
       profile:
         default:
-        description: The identifier(s) of an ODRL Profile that the Policy conforms
-          to.
+        description: The identifier(s) of an ODRL Profile that the Policy 
+          conforms to.
         items:
           format: uri
           minLength: 1
@@ -1677,8 +1721,8 @@ $defs:
         type: array
       relation:
         default:
-        description: Relation is an abstract property which creates an explicit link
-          between an Action and an Asset.
+        description: Relation is an abstract property which creates an explicit 
+          link between an Action and an Asset.
         items:
           format: uri
           minLength: 1
@@ -1689,8 +1733,8 @@ $defs:
         type: array
       target:
         default:
-        description: The target property indicates the Asset that is the primary subject
-          to which the Rule action directly applies.
+        description: The target property indicates the Asset that is the primary
+          subject to which the Rule action directly applies.
         items:
           format: uri
           minLength: 1
@@ -1701,9 +1745,9 @@ $defs:
         type: array
       function:
         default:
-        description: Function is an abstract property whose sub-properties define
-          the functional roles which may be fulfilled by a party in relation to a
-          Rule.
+        description: Function is an abstract property whose sub-properties 
+          define the functional roles which may be fulfilled by a party in 
+          relation to a Rule.
         items:
           format: uri
           minLength: 1
@@ -1714,8 +1758,8 @@ $defs:
         type: array
       action:
         default:
-        description: The operation relating to the Asset for which the Rule is being
-          subjected.
+        description: The operation relating to the Asset for which the Rule is 
+          being subjected.
         items:
           format: uri
           minLength: 1
@@ -1794,7 +1838,8 @@ $defs:
     type: object
   RDFModel:
     additionalProperties: false
-    description: Base class for creating pydantic models convertible to RDF graph
+    description: Base class for creating pydantic models convertible to RDF 
+      graph
     properties: {}
     title: RDFModel
     type: object
@@ -1812,10 +1857,11 @@ $defs:
     properties:
       entity:
         default:
-        description: The prov:entity property references an prov:Entity which influenced
-          a resource. This property applies to an prov:EntityInfluence, which is given
-          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
-          prov:Activity or prov:Agent.
+        description: The prov:entity property references an prov:Entity which 
+          influenced a resource. This property applies to an 
+          prov:EntityInfluence, which is given by a subproperty of 
+          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
+          or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Entity
@@ -1824,9 +1870,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect to
-          an activity, in the context of a usage, generation, invalidation, association,
-          start, and end.
+        description: A role is the function of an entity or agent with respect 
+          to an activity, in the context of a usage, generation, invalidation, 
+          association, start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -1835,9 +1881,10 @@ $defs:
         type: string
       influencer:
         default:
-        description: This property is used as part of the qualified influence pattern.
-          Subclasses of prov:Influence use these subproperties to reference the resource
-          (Entity, Agent, or Activity) whose influence is being qualified.
+        description: This property is used as part of the qualified influence 
+          pattern. Subclasses of prov:Influence use these subproperties to 
+          reference the resource (Entity, Agent, or Activity) whose influence is
+          being qualified.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#influencer
@@ -1846,9 +1893,9 @@ $defs:
         type: string
       hadActivity:
         default:
-        description: An activity is something that occurs over a period of time and
-          acts upon or with entities; it may include consuming, processing, transforming,
-          modifying, relocating, using, or generating entities.
+        description: An activity is something that occurs over a period of time 
+          and acts upon or with entities; it may include consuming, processing, 
+          transforming, modifying, relocating, using, or generating entities.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadActivity
@@ -1857,11 +1904,12 @@ $defs:
         type: string
       atTime:
         default:
-        description: The PROV data model is implicitly based on a notion of instantaneous
-          events (or just events), that mark transitions in the world. Events include
-          generation, usage, or invalidation of entities, as well as starting or ending
-          of activities. This notion of event is not first-class in the data model,
-          but it is useful for explaining its other concepts and its semantics.
+        description: The PROV data model is implicitly based on a notion of 
+          instantaneous events (or just events), that mark transitions in the 
+          world. Events include generation, usage, or invalidation of entities, 
+          as well as starting or ending of activities. This notion of event is 
+          not first-class in the data model, but it is useful for explaining its
+          other concepts and its semantics.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#InstantaneousEvent
         rdf_type: xsd:dateTime
@@ -1869,10 +1917,11 @@ $defs:
         type: string
       atLocation:
         default:
-        description: A location can be an identifiable geographic place (ISO 19112),
-          but it can also be a non-geographic place such as a directory, row, or column.
-          As such, there are numerous ways in which location can be expressed, such
-          as by a coordinate, address, landmark, and so forth.
+        description: A location can be an identifiable geographic place (ISO 
+          19112), but it can also be a non-geographic place such as a directory,
+          row, or column. As such, there are numerous ways in which location can
+          be expressed, such as by a coordinate, address, landmark, and so 
+          forth.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#atLocation
@@ -1908,7 +1957,8 @@ $defs:
       inXSDDateTime:
         default:
         deprecated: true
-        description: (deprecated) Position of an instant, expressed using xsd:dateTime
+        description: (deprecated) Position of an instant, expressed using 
+          xsd:dateTime
         format: date-time
         rdf_term: http://www.w3.org/2006/time#inXSDDateTime
         rdf_type: xsd:dateTime
@@ -1916,8 +1966,8 @@ $defs:
         type: string
       inXSDDateTimeStamp:
         default:
-        description: Position of an instant, expressed using xsd:dateTimeStamp, in
-          which the time-zone field is mandatory
+        description: Position of an instant, expressed using xsd:dateTimeStamp, 
+          in which the time-zone field is mandatory
         format: date-time
         rdf_term: http://www.w3.org/2006/time#inXSDDateTimeStamp
         rdf_type: xsd:dateTimeStamp
@@ -1926,7 +1976,8 @@ $defs:
       inXSDgYear:
         default:
         description: Position of an instant, expressed using xsd:gYear
-        pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        pattern: 
+          -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
         rdf_term: http://www.w3.org/2006/time#inXSDgYear
         rdf_type: xsd:gYear
         title: Inxsdgyear
@@ -1943,14 +1994,15 @@ $defs:
       inTimePosition:
         $ref: '#/$defs/TimePosition'
         default:
-        description: Position of an instant, expressed as a temporal coordinate or
-          nominal val
+        description: Position of an instant, expressed as a temporal coordinate 
+          or nominal val
         rdf_term: http://www.w3.org/2006/time#inTimePosition
         rdf_type: http://www.w3.org/2006/time#TimePosition
       inDateTime:
         $ref: '#/$defs/GeneralDateTimeDescription'
         default:
-        description: Position of an instant, expressed using a structured description
+        description: Position of an instant, expressed using a structured 
+          description
         rdf_term: http://www.w3.org/2006/time#inDateTime
         rdf_type: http://www.w3.org/2006/time#GeneralDateTimeDescription
     title: TimeInstant
@@ -1967,23 +2019,23 @@ $defs:
     properties:
       nominalPosition:
         default:
-        description: The (nominal) value indicating temporal position in an ordinal
-          reference system
+        description: The (nominal) value indicating temporal position in an 
+          ordinal reference system
         rdf_term: http://www.w3.org/2006/time#nominalPosition
         rdf_type: xsd:string
         title: Nominalposition
         type: string
       numericPosition:
         default:
-        description: The (numeric) value indicating position within a temporal coordinate
-          system
+        description: The (numeric) value indicating position within a temporal 
+          coordinate system
         rdf_term: http://www.w3.org/2006/time#numericPosition
         rdf_type: xsd:decimal
         title: Numericposition
         type: number
       hasTRS:
-        description: The temporal reference system used by a temporal position or
-          extent description
+        description: The temporal reference system used by a temporal position 
+          or extent description
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#hasTRS
@@ -2017,8 +2069,8 @@ $defs:
         type: array
       formatted_name:
         default:
-        description: The full name of the object (as a single string). This is the
-          only mandatory property.
+        description: The full name of the object (as a single string). This is 
+          the only mandatory property.
         items:
           anyOf:
           - type: string
@@ -2042,19 +2094,20 @@ $namespace: http://www.w3.org/ns/dcat#
 $ontology: https://www.w3.org/TR/vocab-dcat-3/
 $prefix: dcat
 additionalProperties: false
-description: A collection of operations that provides access to one or more datasets
-  or data processing functions.
+description: A collection of operations that provides access to one or more 
+  datasets or data processing functions.
 properties:
   access_rights:
     $ref: '#/$defs/AccessRights'
     default:
-    description: Information about who can access the resource or an indication of
-      its security status.
+    description: Information about who can access the resource or an indication 
+      of its security status.
     rdf_term: http://purl.org/dc/terms/accessRights
     rdf_type: uri
   conforms_to:
     default:
-    description: An established standard to which the described resource conforms.
+    description: An established standard to which the described resource 
+      conforms.
     format: uri
     minLength: 1
     rdf_term: http://purl.org/dc/terms/conformsTo
@@ -2063,8 +2116,8 @@ properties:
     type: string
   contact_point:
     default:
-    description: Relevant contact information for the cataloged resource. Use of vCard
-      is recommended
+    description: Relevant contact information for the cataloged resource. Use of
+      vCard is recommended
     items:
       anyOf:
       - format: uri
@@ -2078,8 +2131,8 @@ properties:
     type: array
   creator:
     default:
-    description: The entity responsible for producing the resource. Resources of type
-      foaf:Agent are recommended as values for this property.
+    description: The entity responsible for producing the resource. Resources of
+      type foaf:Agent are recommended as values for this property.
     items:
       anyOf:
       - format: uri
@@ -2103,8 +2156,8 @@ properties:
     type: array
   has_part:
     default:
-    description: A related resource that is included either physically or logically
-      in the described resource.
+    description: A related resource that is included either physically or 
+      logically in the described resource.
     items:
       format: uri
       minLength: 1
@@ -2116,13 +2169,14 @@ properties:
   has_policy:
     $ref: '#/$defs/ODRLPolicy'
     default:
-    description: An ODRL conformant policy expressing the rights associated with the
-      resource.
+    description: An ODRL conformant policy expressing the rights associated with
+      the resource.
     rdf_term: http://www.w3.org/ns/odrl/2/hasPolicy
     rdf_type: uri
   identifier:
     default:
-    description: A unique identifier of the resource being described or cataloged.
+    description: A unique identifier of the resource being described or 
+      cataloged.
     items:
       anyOf:
       - type: string
@@ -2133,8 +2187,8 @@ properties:
     type: array
   is_referenced_by:
     default:
-    description: A related resource, such as a publication, that references, cites,
-      or otherwise points to the cataloged resource.
+    description: A related resource, such as a publication, that references, 
+      cites, or otherwise points to the cataloged resource.
     items:
       format: uri
       minLength: 1
@@ -2154,8 +2208,9 @@ properties:
     type: array
   landing_page:
     default:
-    description: A Web page that can be navigated to in a Web browser to gain access
-      to the catalog, a dataset, its distributions and/or additional information.
+    description: A Web page that can be navigated to in a Web browser to gain 
+      access to the catalog, a dataset, its distributions and/or additional 
+      information.
     items:
       format: uri
       minLength: 1
@@ -2177,9 +2232,10 @@ properties:
     title: License
   language:
     default:
-    description: A language of the resource. This refers to the natural language used
-      for textual metadata (i.e., titles, descriptions, etc.) of a cataloged resource
-      (i.e., dataset or service) or the textual values of a dataset distribution
+    description: A language of the resource. This refers to the natural language
+      used for textual metadata (i.e., titles, descriptions, etc.) of a 
+      cataloged resource (i.e., dataset or service) or the textual values of a 
+      dataset distribution
     items:
       format: uri
       minLength: 1
@@ -2190,7 +2246,8 @@ properties:
     type: array
   relation:
     default:
-    description: A resource with an unspecified relationship to the cataloged resource.
+    description: A resource with an unspecified relationship to the cataloged 
+      resource.
     items:
       format: uri
       minLength: 1
@@ -2206,9 +2263,10 @@ properties:
       minLength: 1
       type: string
     default:
-    description: Information about rights held in and over the distribution. Recommended
-      practice is to refer to a rights statement with a URI. If this is not possible
-      or feasible, a literal value (name, label, or short text) may be provided.
+    description: Information about rights held in and over the distribution. 
+      Recommended practice is to refer to a rights statement with a URI. If this
+      is not possible or feasible, a literal value (name, label, or short text) 
+      may be provided.
     rdf_term: http://purl.org/dc/terms/rights
     rdf_type: uri
     title: Rights
@@ -2250,7 +2308,8 @@ properties:
     title: Release Date
   theme:
     default:
-    description: A main category of the resource. A resource can have multiple themes.
+    description: A main category of the resource. A resource can have multiple 
+      themes.
     items:
       format: uri
       minLength: 1
@@ -2288,13 +2347,15 @@ properties:
     - format: date-time
       type: string
     default:
-    description: Most recent date on which the resource was changed, updated or modified.
+    description: Most recent date on which the resource was changed, updated or 
+      modified.
     rdf_term: http://purl.org/dc/terms/modified
     rdf_type: datetime_literal
     title: Modification Date
   qualified_attribution:
     default:
-    description: Link to an Agent having some form of responsibility for the resource
+    description: Link to an Agent having some form of responsibility for the 
+      resource
     items:
       format: uri
       minLength: 1
@@ -2305,8 +2366,8 @@ properties:
     type: array
   has_current_version:
     default:
-    description: This resource has a more specific, versioned resource with equivalent
-      content [PAV].
+    description: This resource has a more specific, versioned resource with 
+      equivalent content [PAV].
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/dcat#hasCurrentVersion
@@ -2335,8 +2396,8 @@ properties:
     type: string
   replaces:
     default:
-    description: A related resource that is supplanted, displaced, or superseded by
-      the described resource
+    description: A related resource that is supplanted, displaced, or superseded
+      by the described resource
     format: uri
     minLength: 1
     rdf_term: http://purl.org/dc/terms/replaces
@@ -2346,8 +2407,8 @@ properties:
   status:
     $ref: '#/$defs/Status'
     default:
-    description: The status of the resource in the context of a particular workflow
-      process [VOCAB-ADMS].
+    description: The status of the resource in the context of a particular 
+      workflow process [VOCAB-ADMS].
     rdf_term: http://www.w3.org/ns/adms#status
     rdf_type: uri
   version:
@@ -2361,8 +2422,8 @@ properties:
     title: Version
   version_notes:
     default:
-    description: A description of changes between this version and the previous version
-      of the resource [VOCAB-ADMS].
+    description: A description of changes between this version and the previous 
+      version of the resource [VOCAB-ADMS].
     items:
       anyOf:
       - type: string
@@ -2373,8 +2434,8 @@ properties:
     type: array
   first:
     default:
-    description: The first resource in an ordered collection or series of resources,
-      to which the current resource belongs.
+    description: The first resource in an ordered collection or series of 
+      resources, to which the current resource belongs.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/dcat#first
@@ -2383,8 +2444,8 @@ properties:
     type: string
   last:
     default:
-    description: The last resource in an ordered collection or series of resources,
-      to which the current resource belongs.
+    description: The last resource in an ordered collection or series of 
+      resources, to which the current resource belongs.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/dcat#last
@@ -2393,8 +2454,8 @@ properties:
     type: string
   previous:
     default:
-    description: The previous resource (before the current one) in an ordered collection
-      or series of resources.
+    description: The previous resource (before the current one) in an ordered 
+      collection or series of resources.
     items:
       format: uri
       minLength: 1
@@ -2427,8 +2488,8 @@ properties:
     type: array
   endpoint_description:
     default:
-    description: A description of the services available via the end-points, including
-      their operations, parameters etc.
+    description: A description of the services available via the end-points, 
+      including their operations, parameters etc.
     items:
       anyOf:
       - format: uri
@@ -2440,8 +2501,8 @@ properties:
     title: Endpoint Description
     type: array
   endpoint_url:
-    description: The root location or primary endpoint of the service (a Web-resolvable
-      IRI).
+    description: The root location or primary endpoint of the service (a 
+      Web-resolvable IRI).
     items:
       anyOf:
       - format: uri
