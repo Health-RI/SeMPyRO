@@ -327,7 +327,7 @@
       "type": "object"
     },
     "Attribution": {
-      "$IRI": "http://www.w3.org/ns/prov#Activity",
+      "$IRI": "http://www.w3.org/ns/prov#Attribution",
       "$namespace": "http://www.w3.org/ns/prov#",
       "$ontology": "https://www.w3.org/TR/prov-o/",
       "$prefix": "prov",
@@ -2238,7 +2238,7 @@
           "default": null,
           "description": "The size of a distribution in bytes.",
           "rdf_term": "http://www.w3.org/ns/dcat#byteSize",
-          "rdf_type": "xsd:integer",
+          "rdf_type": "xsd:nonNegativeInteger",
           "title": "Byte Size"
         },
         "spatial_resolution": {
@@ -3256,7 +3256,7 @@
       "$IRI": "http://xmlns.com/foaf/0.1/Agent",
       "$namespace": "http://xmlns.com/foaf/0.1/",
       "$ontology": [
-        "http://xmlns.com/foaf/spec/",
+        "https://xmlns.com/foaf/spec/",
         "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification"
       ],
       "$prefix": "foaf",
@@ -4749,19 +4749,22 @@
           "type": "array"
         },
         "population_coverage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/$defs/LiteralField"
-            }
-          ],
           "default": null,
           "description": "A definition of the population within the dataset",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/LiteralField"
+              }
+            ]
+          },
           "rdf_term": "http://healthdataportal.eu/ns/health#populationCoverage",
           "rdf_type": "rdfs_literal",
-          "title": "Population Coverage"
+          "title": "Population Coverage",
+          "type": "array"
         },
         "purpose": {
           "default": null,
@@ -5794,7 +5797,7 @@
       ],
       "description": "The size of a distribution in bytes.",
       "rdf_term": "http://www.w3.org/ns/dcat#byteSize",
-      "rdf_type": "xsd:integer",
+      "rdf_type": "xsd:nonNegativeInteger",
       "title": "Byte Size"
     },
     "spatial_resolution": {
@@ -5939,24 +5942,21 @@
       "type": "array"
     },
     "retention_period": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/PeriodOfTime"
+        }
+      ],
       "default": null,
       "description": "A temporal period which the dataset is available for secondary use.",
-      "items": {
-        "anyOf": [
-          {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/PeriodOfTime"
-          }
-        ]
-      },
-      "rdf_term": "http://purl.org/dc/terms/accrualPeriodicity",
+      "rdf_term": "http://healthdataportal.eu/ns/health#retentionPeriod",
       "rdf_type": "uri",
-      "title": "Retention Period",
-      "type": "array"
+      "title": "Retention Period"
     },
     "status": {
       "anyOf": [

@@ -30,36 +30,40 @@ class HRIVCard(VCard):
     The vCard class is equivalent to the new Kind class, which is the parent for the four explicit types
     of vCards (Individual, Organization, Location, Group)
     """
+
     model_config = ConfigDict(
-                              json_schema_extra={
-                                  "$ontology": ["https://www.w3.org/TR/vcard-rdf/",
-                                                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
-                                                "Metadata+Schema+Specification"],
-                                  "$namespace": str(VCARD),
-                                  "$IRI": VCARD.Kind,
-                                  "$prefix": "v"
-                              }
-                              )
+        json_schema_extra={
+            "$ontology": [
+                "https://www.w3.org/TR/vcard-rdf/",
+                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification",
+            ],
+            "$namespace": str(VCARD),
+            "$IRI": VCARD.Kind,
+            "$prefix": "v",
+        },
+    )
 
     hasEmail: AnyUrl = Field(
         description="To specify the electronic mail address for communication with the object.",
         json_schema_extra={
             "rdf_term": VCARD.hasEmail,
-            "rdf_type": "uri"
-        })
+            "rdf_type": "uri",
+        },
+    )
     formatted_name: Union[str, LiteralField] = Field(
         description="The formatted text corresponding to the name of the object.",
         json_schema_extra={
             "rdf_term": VCARD.fn,
-            "rdf_type": "rdfs_literal"
-        })
+            "rdf_type": "rdfs_literal",
+        },
+    )
     contact_page: List[AnyHttpUrl] = Field(
         default=None,
         description="A webpage that either allows to make contact (e.g. a webform) or provides information on how to get in touch.",
         json_schema_extra={
             "rdf_term": VCARD.hasURL,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
 
     @field_validator("hasEmail", mode="before")
