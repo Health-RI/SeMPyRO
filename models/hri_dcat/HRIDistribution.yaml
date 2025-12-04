@@ -4946,19 +4946,17 @@ properties:
     title: Linked Schemas
     type: array
   retention_period:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/PeriodOfTime'
     default:
     description: A temporal period which the dataset is available for secondary 
       use.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/PeriodOfTime'
     rdf_term: http://healthdataportal.eu/ns/health#retentionPeriod
     rdf_type: uri
     title: Retention Period
-    type: array
   status:
     anyOf:
     - format: uri

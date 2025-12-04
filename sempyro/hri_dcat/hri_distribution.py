@@ -183,7 +183,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "datetime_literal",
         },
     )
-    retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
+    retention_period: Union[AnyHttpUrl, PeriodOfTime] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
