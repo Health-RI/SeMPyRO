@@ -1095,18 +1095,18 @@
           "type": "string"
         },
         {
-          "format": "date-time",
+          "format": "date",
           "type": "string"
         },
         {
-          "format": "date",
+          "format": "date-time",
           "type": "string"
         }
       ],
       "default": null,
       "description": "Date of formal issuance (e.g., publication) of the resource.",
       "rdf_term": "http://purl.org/dc/terms/issued",
-      "rdf_type": "datetime_literal",
+      "rdf_type": "xsd:dateTime",
       "title": "Release Date"
     },
     "theme": {
@@ -1169,7 +1169,7 @@
       "default": null,
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
-      "rdf_type": "datetime_literal",
+      "rdf_type": "xsd:dateTime",
       "title": "Modification Date"
     },
     "qualified_attribution": {

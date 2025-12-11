@@ -1,0 +1,29 @@
+{
+  "$IRI": "http://purl.org/dc/terms/PeriodOfTime",
+  "$namespace": "http://purl.org/dc/terms/",
+  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time",
+  "$prefix": "dcterms",
+  "additionalProperties": false,
+  "properties": {
+    "start_date": {
+      "default": null,
+      "description": "The start of the period",
+      "format": "date-time",
+      "rdf_term": "http://www.w3.org/ns/dcat#startDate",
+      "rdf_type": "xsd:dateTime",
+      "title": "Start Date",
+      "type": "string"
+    },
+    "end_date": {
+      "default": null,
+      "description": "The end of the period",
+      "format": "date-time",
+      "rdf_term": "http://www.w3.org/ns/dcat#endDate",
+      "rdf_type": "xsd:dateTime",
+      "title": "End Date",
+      "type": "string"
+    }
+  },
+  "title": "HRIPeriodOfTime",
+  "type": "object"
+}

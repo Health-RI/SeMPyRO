@@ -11,11 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import re
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyUrl, AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, AnyUrl, ConfigDict, Field, field_validator
 from rdflib import URIRef
 from rdflib.namespace import DCTERMS, FOAF
 

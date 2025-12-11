@@ -11,22 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
-from typing import List, Union, ClassVar, Set
+from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataService, AccessRights
-from sempyro.hri_dcat.hri_dataset import HRIDataset
-from sempyro.hri_dcat.hri_agent import HRIAgent
-from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.adms import Identifier
-from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
-from sempyro.namespaces import DCATAPv3, ADMS
-from sempyro.utils.validator_functions import convert_to_literal
+from sempyro.dcat import AccessRights, DCATDataService
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_dataset import HRIDataset
+from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.hri_dcat.vocabularies import DatasetTheme, GeonovumLicences
+from sempyro.namespaces import ADMS, DCATAPv3
 
 
 class HRIDataService(DCATDataService):
@@ -159,6 +158,14 @@ class HRIDataService(DCATDataService):
         json_schema_extra={
             "rdf_term": DCAT.theme,
             "rdf_type": "uri",
+        },
+    )
+    modification_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Most recent date on which the resource was changed, updated or modified.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime",
         },
     )
 

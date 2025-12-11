@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
@@ -19,8 +20,9 @@ from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro.dcat import DCATCatalog, DCATDataset
-from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_data_service import HRIDataService
+from sempyro.hri_dcat.hri_period_of_time import HRIPeriodOfTime
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.namespaces import DCATAPv3
 
@@ -98,6 +100,30 @@ class HRICatalog(DCATCatalog):
         json_schema_extra={
             "rdf_term": DCTERMS.hasPart,
             "rdf_type": "uri",
+        },
+    )
+    temporal_coverage: List[HRIPeriodOfTime] = Field(
+        default=None,
+        description="The temporal period that the catalog covers.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.temporal,
+            "rdf_type": DCTERMS.PeriodOfTime,
+        },
+    )
+    modification_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Most recent date on which the resource was changed, updated or modified.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime",
+        },
+    )
+    release_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Date of formal issuance (e.g., publication) of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "xsd:dateTime",
         },
     )
 

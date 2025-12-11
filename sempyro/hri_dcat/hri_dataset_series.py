@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import ConfigDict, Field, AnyHttpUrl
-
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib import DCAT, DCTERMS
 
 from sempyro.dcat import DCATDatasetSeries
 from sempyro.foaf import Agent
+from sempyro.namespaces import DCATAPv3, DCATv3
 from sempyro.vcard import VCard
-from sempyro.namespaces import DCATv3, DCATAPv3
 
 
 class HRIDatasetSeries(DCATDatasetSeries):
@@ -66,6 +66,22 @@ class HRIDatasetSeries(DCATDatasetSeries):
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
             "rdf_type": "uri",
+        },
+    )
+    modification_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Most recent date on which the resource was changed, updated or modified.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime",
+        },
+    )
+    release_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Date of formal issuance (e.g., publication) of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "xsd:dateTime",
         },
     )
 

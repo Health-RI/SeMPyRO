@@ -12,26 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .hri_agent import HRIAgent
-from .hri_catalog import HRICatalog
-from .hri_dataset import HRIDataset
-from .hri_data_service import HRIDataService
-from .hri_dataset_series import HRIDatasetSeries
-from .hri_distribution import HRIDistribution
-from .hri_vcard import HRIVCard
-from .vocabularies import GeonovumLicences, DatasetTheme, DatasetStatus, DistributionStatus
+from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_catalog import HRICatalog
+from sempyro.hri_dcat.hri_data_service import HRIDataService
+from sempyro.hri_dcat.hri_dataset import HRIDataset
+from sempyro.hri_dcat.hri_dataset_series import HRIDatasetSeries
+from sempyro.hri_dcat.hri_distribution import HRIDistribution
+from sempyro.hri_dcat.hri_period_of_time import HRIPeriodOfTime
+from sempyro.hri_dcat.hri_vcard import HRIVCard
+from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme, DatasetStatus, DistributionStatus
 
 __all__ = (
+    "HRIAgent",
     "HRICatalog",
     "HRIDataset",
-    "HRIDistribution",
     "HRIDataService",
-    "HRIAgent",
-    "HRIVCard",
     "HRIDatasetSeries",
+    "HRIDistribution",
+    "HRIPeriodOfTime",
+    "HRIVCard",
     # Enum classes
-    "DatasetTheme",
-    "GeonovumLicences",
     "DatasetStatus",
-    "DistributionStatus"
+    "DatasetTheme",
+    "DistributionStatus",
+    "GeonovumLicences",
 )

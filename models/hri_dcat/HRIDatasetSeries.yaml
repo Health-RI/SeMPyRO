@@ -934,14 +934,14 @@ properties:
   release_date:
     anyOf:
     - type: string
-    - format: date-time
-      type: string
     - format: date
+      type: string
+    - format: date-time
       type: string
     default:
     description: Date of formal issuance (e.g., publication) of the resource.
     rdf_term: http://purl.org/dc/terms/issued
-    rdf_type: datetime_literal
+    rdf_type: xsd:dateTime
     title: Release Date
   theme:
     default:
@@ -987,7 +987,7 @@ properties:
     description: Most recent date on which the resource was changed, updated or 
       modified.
     rdf_term: http://purl.org/dc/terms/modified
-    rdf_type: datetime_literal
+    rdf_type: xsd:dateTime
     title: Modification Date
   qualified_attribution:
     default:

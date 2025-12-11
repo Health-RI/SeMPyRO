@@ -15,15 +15,15 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATDistribution
-from sempyro.hri_dcat import HRIDataService
-from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
-from sempyro.namespaces import DCATAPv3, ADMS, HEALTHDCATAP
-from sempyro.time import PeriodOfTime
+from sempyro.hri_dcat.hri_data_service import HRIDataService
+from sempyro.hri_dcat.hri_period_of_time import HRIPeriodOfTime
+from sempyro.hri_dcat.vocabularies import DistributionStatus, GeonovumLicences
+from sempyro.namespaces import ADMS, HEALTHDCATAP, DCATAPv3
 
 
 class HRIDistribution(DCATDistribution):
@@ -165,30 +165,28 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri",
         },
     )
-
-    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Union[str, date, datetime] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
             "rdf_term": DCTERMS.modified,
-            "rdf_type": "datetime_literal",
+            "rdf_type": "xsd:dateTime",
         },
     )
-
-    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
+    release_date: Union[str, date, datetime] = Field(
         default=None,
         description="Date of formal issuance (e.g., publication) of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.issued,
-            "rdf_type": "datetime_literal",
+            "rdf_type": "xsd:dateTime",
         },
     )
-    retention_period: Union[AnyHttpUrl, PeriodOfTime] = Field(
+    retention_period: HRIPeriodOfTime = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.retentionPeriod,
-            "rdf_type": "uri",
+            "rdf_type": DCTERMS.PeriodOfTime,
         },
     )
     status: Union[AnyHttpUrl, DistributionStatus] = Field(

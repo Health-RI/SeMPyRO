@@ -12,21 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import date, datetime
 from pathlib import Path
-from typing import List, Union, ClassVar, Set
+from typing import ClassVar, List, Set, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution, Relationship
-from sempyro.dqv import QualityCertificate
 from sempyro.adms import Identifier
+from sempyro.dcat import AccessRights, Attribution, DCATDataset, DCATDatasetSeries, DCATDistribution, Relationship
+from sempyro.dqv import QualityCertificate
 from sempyro.hri_dcat.hri_agent import HRIAgent
+from sempyro.hri_dcat.hri_period_of_time import HRIPeriodOfTime
 from sempyro.hri_dcat.hri_vcard import HRIVCard
-from sempyro.hri_dcat.vocabularies import DatasetTheme, DatasetStatus
-from sempyro.namespaces import DCATv3, DCATAPv3, HEALTHDCATAP, DPV, ADMS, DQV
-from sempyro.time import PeriodOfTime
+from sempyro.hri_dcat.vocabularies import DatasetStatus, DatasetTheme
+from sempyro.namespaces import ADMS, DPV, DQV, HEALTHDCATAP, DCATAPv3, DCATv3
 from sempyro.utils.validator_functions import convert_to_literal
 
 
@@ -274,7 +275,7 @@ class HRIDataset(DCATDataset):
         },
     )
 
-    retention_period: PeriodOfTime = Field(
+    retention_period: HRIPeriodOfTime = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
@@ -344,6 +345,31 @@ class HRIDataset(DCATDataset):
         json_schema_extra={
             "rdf_term": DCAT.keyword,
             "rdf_type": "rdfs_literal",
+        },
+    )
+
+    modification_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Most recent date on which the resource was changed, updated or modified.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.modified,
+            "rdf_type": "xsd:dateTime",
+        },
+    )
+    release_date: Union[str, date, datetime] = Field(
+        default=None,
+        description="Date of formal issuance (e.g., publication) of the resource.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.issued,
+            "rdf_type": "xsd:dateTime",
+        },
+    )
+    temporal_coverage: List[HRIPeriodOfTime] = Field(
+        default=None,
+        description="The temporal period that the dataset covers.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.temporal,
+            "rdf_type": DCTERMS.PeriodOfTime,
         },
     )
 

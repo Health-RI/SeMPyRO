@@ -3621,18 +3621,18 @@
               "type": "string"
             },
             {
-              "format": "date-time",
+              "format": "date",
               "type": "string"
             },
             {
-              "format": "date",
+              "format": "date-time",
               "type": "string"
             }
           ],
           "default": null,
           "description": "Date of formal issuance (e.g., publication) of the resource.",
           "rdf_term": "http://purl.org/dc/terms/issued",
-          "rdf_type": "datetime_literal",
+          "rdf_type": "xsd:dateTime",
           "title": "Release Date"
         },
         "theme": {
@@ -3692,7 +3692,7 @@
           "default": null,
           "description": "Most recent date on which the resource was changed, updated or modified.",
           "rdf_term": "http://purl.org/dc/terms/modified",
-          "rdf_type": "datetime_literal",
+          "rdf_type": "xsd:dateTime",
           "title": "Modification Date"
         },
         "qualified_attribution": {
@@ -3835,7 +3835,7 @@
           "default": null,
           "description": "The temporal period that the dataset covers.",
           "items": {
-            "$ref": "#/$defs/PeriodOfTime"
+            "$ref": "#/$defs/HRIPeriodOfTime"
           },
           "rdf_term": "http://purl.org/dc/terms/temporal",
           "rdf_type": "http://purl.org/dc/terms/PeriodOfTime",
@@ -4191,7 +4191,7 @@
           "type": "array"
         },
         "retention_period": {
-          "$ref": "#/$defs/PeriodOfTime",
+          "$ref": "#/$defs/HRIPeriodOfTime",
           "default": null,
           "description": "A temporal period which the dataset is available for secondary use.",
           "rdf_term": "http://healthdataportal.eu/ns/health#retentionPeriod",
@@ -4251,6 +4251,35 @@
         "applicable_legislation"
       ],
       "title": "HRIDataset",
+      "type": "object"
+    },
+    "HRIPeriodOfTime": {
+      "$IRI": "http://purl.org/dc/terms/PeriodOfTime",
+      "$namespace": "http://purl.org/dc/terms/",
+      "$ontology": "https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time",
+      "$prefix": "dcterms",
+      "additionalProperties": false,
+      "properties": {
+        "start_date": {
+          "default": null,
+          "description": "The start of the period",
+          "format": "date-time",
+          "rdf_term": "http://www.w3.org/ns/dcat#startDate",
+          "rdf_type": "xsd:dateTime",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "end_date": {
+          "default": null,
+          "description": "The end of the period",
+          "format": "date-time",
+          "rdf_term": "http://www.w3.org/ns/dcat#endDate",
+          "rdf_type": "xsd:dateTime",
+          "title": "End Date",
+          "type": "string"
+        }
+      },
+      "title": "HRIPeriodOfTime",
       "type": "object"
     },
     "HRIVCard": {
@@ -5335,7 +5364,7 @@
       "default": null,
       "description": "Most recent date on which the resource was changed, updated or modified.",
       "rdf_term": "http://purl.org/dc/terms/modified",
-      "rdf_type": "datetime_literal",
+      "rdf_type": "xsd:dateTime",
       "title": "Modification Date"
     },
     "qualified_attribution": {
