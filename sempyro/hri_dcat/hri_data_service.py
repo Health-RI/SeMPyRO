@@ -11,25 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from datetime import date
 from pathlib import Path
-from typing import List, Union, ClassVar, Set
+from typing import List, Union
 
-from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
+from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDataService, AccessRights
+from sempyro.dcat import AccessRights
+from sempyro.healthdcatap import HEALTHDCATAPDataService
 from sempyro.hri_dcat.hri_dataset import HRIDataset
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.adms import Identifier
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.namespaces import DCATAPv3, ADMS
-from sempyro.utils.validator_functions import convert_to_literal
 
 
-class HRIDataService(DCATDataService):
+class HRIDataService(HEALTHDCATAPDataService):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
 
     model_config = ConfigDict(

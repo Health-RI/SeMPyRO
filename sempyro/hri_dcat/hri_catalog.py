@@ -18,14 +18,14 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro.dcat import DCATCatalog, DCATDataset
+from sempyro.healthdcatap import HEALTHDCATAPCatalog, HEALTHDCATAPDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.namespaces import DCATAPv3
 
 
-class HRICatalog(DCATCatalog):
+class HRICatalog(HEALTHDCATAPCatalog):
     model_config = ConfigDict(
         json_schema_extra={
             "$ontology": [
@@ -60,7 +60,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri",
         },
     )
-    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
+    dataset: List[Union[AnyHttpUrl, HEALTHDCATAPDataset]] = Field(
         description="A dataset that is listed in the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.dataset,
@@ -92,7 +92,7 @@ class HRICatalog(DCATCatalog):
             # "bind_namespace": ['dcatap', DCATAPv3]
         },
     )
-    has_part: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
+    has_part: List[Union[AnyHttpUrl, HEALTHDCATAPCatalog]] = Field(
         default=None,
         description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={

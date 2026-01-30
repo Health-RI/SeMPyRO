@@ -27,6 +27,7 @@ __all__ = (
     "dqv",
     "foaf",
     "geo",
+    "healthdcatap",
     "hri_dcat",
     "namespaces",
     "odrl",
