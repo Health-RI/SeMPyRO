@@ -18,13 +18,13 @@ from pydantic import ConfigDict, Field, AnyHttpUrl
 
 from rdflib import DCAT, DCTERMS
 
-from sempyro.dcat import DCATDatasetSeries
+from sempyro.healthdcatap import HEALTHDCATAPDatasetSeries
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.namespaces import DCATv3, DCATAPv3
 
 
-class HRIDatasetSeries(DCATDatasetSeries):
+class HRIDatasetSeries(HEALTHDCATAPDatasetSeries):
     model_config = ConfigDict(
         json_schema_extra={
             "$ontology": [

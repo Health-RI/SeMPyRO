@@ -2435,10 +2435,12 @@
     }
   },
   "$namespace": "http://www.w3.org/ns/dcat#",
-  "$ontology": "https://www.w3.org/TR/vocab-dcat-3/",
+  "$ontology": [
+    "https://www.w3.org/TR/vocab-dcat-3/",
+    "https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/"
+  ],
   "$prefix": "dcat",
   "additionalProperties": false,
-  "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
   "properties": {
     "access_rights": {
       "$ref": "#/$defs/AccessRights",
@@ -2996,6 +2998,6 @@
     "title",
     "endpoint_url"
   ],
-  "title": "DCATDataService",
+  "title": "HEALTHDCATAPDataService",
   "type": "object"
 }

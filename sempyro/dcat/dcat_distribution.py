@@ -88,7 +88,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    rights: [AnyHttpUrl] = Field(
+    rights: List[AnyHttpUrl] = Field(
         default=None,
         description="Information about rights held in and over the distribution.",
         json_schema_extra={

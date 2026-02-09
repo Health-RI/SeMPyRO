@@ -20,6 +20,7 @@ from rdflib.namespace import SKOS
 from sempyro import LiteralField, RDFModel
 from sempyro.namespaces import ADMS
 
+
 class Identifier(RDFModel):
     model_config = ConfigDict(
         json_schema_extra={

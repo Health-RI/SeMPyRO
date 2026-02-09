@@ -19,14 +19,14 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS, FOAF
 
 from sempyro import LiteralField
-from sempyro.dcat import DCATDistribution
+from sempyro.healthdcatap import HEALTHDCATAPDistribution
 from sempyro.hri_dcat import HRIDataService
 from sempyro.hri_dcat.vocabularies import GeonovumLicences, DistributionStatus
 from sempyro.namespaces import DCATAPv3, ADMS, HEALTHDCATAP
 from sempyro.time import PeriodOfTime
 
 
-class HRIDistribution(DCATDistribution):
+class HRIDistribution(HEALTHDCATAPDistribution):
     """
     A specific representation of a dataset. A dataset might be available in multiple serializations that may differ
     in various ways, including natural language, media-type or format, schematic organization, temporal and spatial
