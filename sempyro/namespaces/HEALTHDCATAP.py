@@ -44,6 +44,8 @@ class HEALTHDCATAP(DefinedNamespace):
     analytics: URIRef
     hasCodeValues: URIRef
     hasCodingSystem: URIRef
+    hdab: URIRef
+    healthCategory: URIRef
     healthTheme: URIRef
     maxTypicalAge: URIRef
     minTypicalAge: URIRef
@@ -55,5 +57,3 @@ class HEALTHDCATAP(DefinedNamespace):
     retentionPeriod: URIRef
 
     _NS = Namespace("http://healthdataportal.eu/ns/health#")
-
-

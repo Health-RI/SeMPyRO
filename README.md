@@ -15,10 +15,13 @@ and schema generation processes.
 
 The table below shows the version of the models to which SeMPyRO adheres to.
 
-| Model     | Version | URL                                                                               |
-|-----------|---------|-----------------------------------------------------------------------------------|
-| Health-RI | v2.0.2  | [health-ri-metadata](https://github.com/Health-RI/health-ri-metadata/tree/v2.0.2) |
-| DCAT-AP   | 3.0.0   | [DCAT-AP](https://semiceu.github.io/DCAT-AP/releases/3.0.0/)                      |
+| Model             | Version | URL                                                                                                     |
+|-------------------|---------|---------------------------------------------------------------------------------------------------------|
+| Health-RI         | v2.0.2  | [health-ri-metadata](https://github.com/Health-RI/health-ri-metadata/tree/v2.0.2)                       |
+| DCAT-AP           | 3.0.0   | [DCAT-AP](https://semiceu.github.io/DCAT-AP/releases/3.0.0/)                                            |
+| Health-DCAT-AP    | 6.0.0   | [Health-DCAT-AP](https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/index.html) |
+
+Note: The Health-DCAT-AP implementation currently includes the minimal subset of fields needed to support the GDI use case.
 
 
 ## Background
