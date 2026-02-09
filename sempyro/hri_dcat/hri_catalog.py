@@ -18,69 +18,70 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
-from sempyro.dcat import DCATCatalog, DCATDataset
+from sempyro.healthdcatap import HEALTHDCATAPCatalog, HEALTHDCATAPDataset
 from sempyro.hri_dcat.hri_data_service import HRIDataService
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.namespaces import DCATAPv3
 
 
-class HRICatalog(DCATCatalog):
+class HRICatalog(HEALTHDCATAPCatalog):
     model_config = ConfigDict(
         json_schema_extra={
-            "$ontology": ["https://www.w3.org/TR/vocab-dcat-3/",
-                          "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
-                          "Metadata+Schema+Specification"],
+            "$ontology": [
+                "https://www.w3.org/TR/vocab-dcat-3/",
+                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification",
+            ],
             "$namespace": str(DCAT),
             "$IRI": DCAT.Catalog,
-            "$prefix": "dcat"
+            "$prefix": "dcat",
         }
     )
     publisher: Union[AnyHttpUrl, HRIAgent] = Field(
         description="An entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
         default=None,
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
-                    "recommended as values for this property.",
+        "recommended as values for this property.",
         json_schema_extra={
             "rdf_term": DCTERMS.creator,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     contact_point: Union[AnyHttpUrl, HRIVCard] = Field(
         description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
-    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
+    dataset: List[Union[AnyHttpUrl, HEALTHDCATAPDataset]] = Field(
         description="A dataset that is listed in the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.dataset,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
         default=None,
         description="A service that is listed in the catalog.",
         json_schema_extra={
             "rdf_term": DCAT.service,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     catalog: List[AnyHttpUrl] = Field(
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={
             "rdf_term": DCAT.catalog,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     applicable_legislation: List[AnyHttpUrl] = Field(
         default=None,
@@ -89,15 +90,15 @@ class HRICatalog(DCATCatalog):
             "rdf_term": DCATAPv3.applicableLegislation,
             "rdf_type": "uri",
             # "bind_namespace": ['dcatap', DCATAPv3]
-        }
+        },
     )
-    has_part: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
+    has_part: List[Union[AnyHttpUrl, HEALTHDCATAPCatalog]] = Field(
         default=None,
         description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.hasPart,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
 
 

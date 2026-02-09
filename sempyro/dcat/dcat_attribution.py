@@ -25,7 +25,7 @@ class Attribution(RDFModel):
         json_schema_extra={
             "$ontology": "https://www.w3.org/TR/prov-o/",
             "$namespace": str(PROV),
-            "$IRI": PROV.Activity,
+            "$IRI": PROV.Attribution,
             "$prefix": "prov"
         }
     )
