@@ -88,7 +88,7 @@ class DCATDistribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    rights: [AnyHttpUrl] = Field(
+    rights: List[AnyHttpUrl] = Field(
         default=None,
         description="Information about rights held in and over the distribution.",
         json_schema_extra={
@@ -134,7 +134,7 @@ class DCATDistribution(RDFModel):
         description="The size of a distribution in bytes.",
         json_schema_extra={
             "rdf_term": DCAT.byteSize,
-            "rdf_type": "xsd:integer"
+            "rdf_type": "xsd:nonNegativeInteger"
         }
     )
     spatial_resolution: Union[float, LiteralField] = Field(

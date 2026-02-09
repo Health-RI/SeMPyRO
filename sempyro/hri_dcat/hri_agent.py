@@ -20,86 +20,87 @@ from rdflib import URIRef
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField
-from sempyro.foaf import Agent
+from sempyro.healthdcatap import HEALTHDCATAPAgent
 from sempyro.geo import Location
 from sempyro.namespaces import HEALTHDCATAP
 from sempyro.utils.validator_functions import validate_convert_email
 
 
-class HRIAgent(Agent):
+class HRIAgent(HEALTHDCATAPAgent):
     model_config = ConfigDict(
         json_schema_extra={
-            "$ontology": ["http://xmlns.com/foaf/spec/",
-                          "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
-                          "Metadata+Schema+Specification"],
+            "$ontology": [
+                "https://xmlns.com/foaf/spec/",
+                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification",
+            ],
             "$namespace": str(FOAF),
             "$IRI": FOAF.Agent,
             "$prefix": "foaf",
-        }
+        },
     )
 
     name: List[Union[str, LiteralField]] = Field(
         description="A name for some thing.",
         json_schema_extra={
             "rdf_term": FOAF.name,
-            "rdf_type": "rdfs_literal"
-        }
+            "rdf_type": "rdfs_literal",
+        },
     )
     identifier: List[Union[str, LiteralField]] = Field(
         description="An unambiguous reference to the resource within a given context.",
         json_schema_extra={
             "rdf_term": DCTERMS.identifier,
-            "rdf_type": "rdfs_literal"
-        }
+            "rdf_type": "rdfs_literal",
+        },
     )
     mbox: AnyUrl = Field(
-        description="A email address via which contact can be made. " 
-                    "This property SHOULD be used to provide the email address of the Agent, " 
-                    "specified using fully qualified mailto: URI scheme [RFC6068]." 
-                    "The email SHOULD be used to establish a communication channel to the agent.",
+        description="A email address via which contact can be made. "
+        "This property SHOULD be used to provide the email address of the Agent, "
+        "specified using fully qualified mailto: URI scheme [RFC6068]."
+        "The email SHOULD be used to establish a communication channel to the agent.",
         json_schema_extra={
             "rdf_term": FOAF.mbox,
             "rdf_type": "uri",
-        }
+        },
     )
     homepage: AnyUrl = Field(
         description="A homepage for some thing.",
         json_schema_extra={
             "rdf_term": FOAF.homepage,
             "rdf_type": "uri",
-        }
+        },
     )
     spatial: List[Union[AnyHttpUrl, Location]] = Field(
         default=None,
         description="Spatial characteristics of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.spatial,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     publisher_note: Union[str, LiteralField] = Field(
         default=None,
         description="A description of the publisher activities.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.publisherNote,
-            "rdf_type": "rdfs_literal"
-        }
+            "rdf_type": "rdfs_literal",
+        },
     )
     publisher_type: Union[AnyUrl, URIRef] = Field(
         default=None,
         description="A type of organisation that makes the Dataset available.",
         json_schema_extra={
             "rdf_term": HEALTHDCATAP.publisherType,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     type: AnyHttpUrl = Field(
         default=None,
         description="The nature or genre of the resource.",
         json_schema_extra={
             "rdf_term": DCTERMS.type,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
 
     @field_validator("mbox", mode="before")

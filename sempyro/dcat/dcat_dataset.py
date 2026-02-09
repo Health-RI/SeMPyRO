@@ -21,7 +21,8 @@ from rdflib.namespace import DCAT, DCTERMS, PROV
 
 from sempyro import LiteralField
 from sempyro.dcat import DCATResource
-from sempyro.namespaces import FREQ, DCATv3
+from sempyro.namespaces import FREQ, DCATv3, DCATAPv3, ADMS
+from sempyro.adms import Identifier
 from sempyro.prov import Activity
 
 
@@ -55,6 +56,15 @@ class DCATDataset(DCATResource):
                               }
                               )
 
+
+    conforms_to: List[AnyHttpUrl] = Field(
+        default=None,
+        description="An established standard to which the described resource conforms.",
+        json_schema_extra={
+            "rdf_term": DCTERMS.conformsTo,
+            "rdf_type": "uri"
+        }
+    )
     distribution: List[AnyHttpUrl] = Field(
         default=None,
         description="An available distribution of the dataset.",
@@ -112,6 +122,23 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
+    applicable_legislation: List[AnyHttpUrl] = Field(
+        default=None,
+        description="The legislation that mandates the creation or management of the dataset.",
+        json_schema_extra={
+            "rdf_term": DCATAPv3.applicableLegislation,
+            "rdf_type": "uri"
+        },
+    )
+    other_identifier: List[Identifier] = Field(
+        default=None,
+        description="Links a resource to an adms:Identifier class.",
+        json_schema_extra={
+            "rdf_term": ADMS.identifier,
+            "rdf_type": "uri",
+        },
+    )
+
 
     @field_validator("temporal_resolution", mode="after")
     @classmethod

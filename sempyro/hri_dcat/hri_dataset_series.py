@@ -18,21 +18,22 @@ from pydantic import ConfigDict, Field, AnyHttpUrl
 
 from rdflib import DCAT, DCTERMS
 
-from sempyro.dcat import DCATDatasetSeries
+from sempyro.healthdcatap import HEALTHDCATAPDatasetSeries
 from sempyro.foaf import Agent
 from sempyro.vcard import VCard
 from sempyro.namespaces import DCATv3, DCATAPv3
 
 
-class HRIDatasetSeries(DCATDatasetSeries):
+class HRIDatasetSeries(HEALTHDCATAPDatasetSeries):
     model_config = ConfigDict(
         json_schema_extra={
-            "$ontology": ["https://www.w3.org/TR/vocab-dcat-3/",
-                          "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+"
-                          "Metadata+Schema+Specification"],
+            "$ontology": [
+                "https://www.w3.org/TR/vocab-dcat-3/",
+                "https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification",
+            ],
             "$namespace": str(DCAT),
             "$IRI": DCATv3.DatasetSeries,
-            "$prefix": "dcat"
+            "$prefix": "dcat",
         }
     )
 
@@ -41,31 +42,31 @@ class HRIDatasetSeries(DCATDatasetSeries):
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
             "rdf_term": DCATAPv3.applicableLegislation,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     contact_point: List[Union[AnyHttpUrl, VCard]] = Field(
         description="Relevant contact information for the cataloged resource.",
         json_schema_extra={
             "rdf_term": DCAT.contactPoint,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     frequency: AnyHttpUrl = Field(
         default=None,
         description="The frequency with which items are added to a collection.",
         json_schema_extra={
             "rdf_term": DCTERMS.accrualPeriodicity,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
     publisher: Union[AnyHttpUrl, Agent] = Field(
         default=None,
         description="The entity responsible for making the resource available.",
         json_schema_extra={
             "rdf_term": DCTERMS.publisher,
-            "rdf_type": "uri"
-        }
+            "rdf_type": "uri",
+        },
     )
 
 

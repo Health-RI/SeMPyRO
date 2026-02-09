@@ -11,6 +11,19 @@ and schema generation processes.
 - **Schema Generation**: Generate JSON/YAML schemas compatible with the DCAT-AP v3 profile, facilitating interoperability and compliance with standards.
 - **Pydantic Integration**: Built upon the robust [Pydantic](https://docs.pydantic.dev/) library, leveraging its powerful validation capabilities and extending them for RDF handling.
 
+## Models
+
+The table below shows the version of the models to which SeMPyRO adheres to.
+
+| Model             | Version | URL                                                                                                     |
+|-------------------|---------|---------------------------------------------------------------------------------------------------------|
+| Health-RI         | v2.0.2  | [health-ri-metadata](https://github.com/Health-RI/health-ri-metadata/tree/v2.0.2)                       |
+| DCAT-AP           | 3.0.0   | [DCAT-AP](https://semiceu.github.io/DCAT-AP/releases/3.0.0/)                                            |
+| Health-DCAT-AP    | 6.0.0   | [Health-DCAT-AP](https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/index.html) |
+
+Note: The Health-DCAT-AP implementation currently includes the minimal subset of fields needed to support the GDI use case.
+
+
 ## Background
 
 ### DCAT
