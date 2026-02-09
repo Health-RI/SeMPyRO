@@ -2624,13 +2624,11 @@ $defs:
     title: VCard
     type: object
 $namespace: http://www.w3.org/ns/dcat#
-$ontology: https://www.w3.org/TR/vocab-dcat-3/
+$ontology:
+- https://www.w3.org/TR/vocab-dcat-3/
+- https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/
 $prefix: dcat
 additionalProperties: false
-description: "A specific representation of a dataset. A dataset might be available
-  in multiple serializations that may differ\nin various ways, including natural language,
-  media-type or format, schematic organization, temporal and spatial\nresolution,
-  level of detail or profiles (which might specify any or all of the above)."
 properties:
   title:
     description: A name given to the distribution.
@@ -2835,9 +2833,32 @@ properties:
       verify that the contents of a file or package have not changed [SPDX].
     rdf_term: http://spdx.org/rdf/terms#checksum
     rdf_type: uri
+  retention_period:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - $ref: '#/$defs/PeriodOfTime'
+    default:
+    description: A temporal period which the dataset is available for secondary 
+      use.
+    rdf_term: http://healthdataportal.eu/ns/health#retentionPeriod
+    rdf_type: uri
+    title: Retention Period
+  applicable_legislation:
+    description: The legislation that is applicable to this resource.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://data.europa.eu/r5r/applicableLegislation
+    rdf_type: uri
+    title: Applicable Legislation
+    type: array
 required:
 - title
 - description
 - access_url
-title: DCATDistribution
+- applicable_legislation
+title: HEALTHDCATAPDistribution
 type: object
