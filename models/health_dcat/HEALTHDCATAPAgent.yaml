@@ -1,0 +1,96 @@
+$IRI: http://xmlns.com/foaf/0.1/Agent
+$defs:
+  LiteralField:
+    description: "Model to handle literal fields\nAttributes\n----------\ndatatype
+      : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
+      see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
+      \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n\
+      value : str\n    literal value\neither datatype or language, or none of these
+      two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
+    properties:
+      datatype:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: string
+        default:
+        description: datatype,see 
+          https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        title: Datatype
+      language:
+        default:
+        description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
+          also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        title: Language
+        type: string
+      value:
+        description: Field value
+        title: Value
+        type: string
+    required:
+    - value
+    title: LiteralField
+    type: object
+$namespace: http://xmlns.com/foaf/0.1/
+$ontology:
+- https://xmlns.com/foaf/spec/
+- https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/
+$prefix: foaf
+additionalProperties: false
+properties:
+  name:
+    description: A name of the agent
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/LiteralField'
+    rdf_term: http://xmlns.com/foaf/0.1/name
+    rdf_type: rdfs_literal
+    title: Name
+    type: array
+  identifier:
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/LiteralField'
+    description: A unique identifier of the agent.
+    rdf_term: http://purl.org/dc/terms/identifier
+    rdf_type: rdfs_literal
+    title: Identifier
+  mbox:
+    default:
+    description: A personal mailbox, ie. an Internet mailbox associated with 
+      exactly one owner, the first owner of this mailbox.
+    items:
+      format: uri
+      minLength: 1
+      type: string
+    rdf_term: http://xmlns.com/foaf/0.1/mbox
+    rdf_type: uri
+    title: Mbox
+    type: array
+  homepage:
+    default:
+    description: A webpage that either allows to make contact (i.e. a webform) 
+      or the information contains how to get into contact.
+    format: uri
+    minLength: 1
+    rdf_term: http://xmlns.com/foaf/0.1/homepage
+    rdf_type: uri
+    title: Homepage
+    type: string
+  type:
+    default:
+    description: The nature of the agent.
+    format: uri
+    minLength: 1
+    rdf_term: http://purl.org/dc/terms/type
+    rdf_type: uri
+    title: Type
+    type: string
+required:
+- name
+- identifier
+title: HEALTHDCATAPAgent
+type: object
