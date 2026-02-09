@@ -254,6 +254,16 @@
       "title": "Homepage",
       "type": "string"
     },
+    "type": {
+      "default": null,
+      "description": "The nature or genre of the resource.",
+      "format": "uri",
+      "minLength": 1,
+      "rdf_term": "http://purl.org/dc/terms/type",
+      "rdf_type": "uri",
+      "title": "Type",
+      "type": "string"
+    },
     "spatial": {
       "default": null,
       "description": "Spatial characteristics of the resource.",
@@ -297,16 +307,6 @@
       "rdf_term": "http://healthdataportal.eu/ns/health#publisherType",
       "rdf_type": "uri",
       "title": "Publisher Type",
-      "type": "string"
-    },
-    "type": {
-      "default": null,
-      "description": "The nature or genre of the resource.",
-      "format": "uri",
-      "minLength": 1,
-      "rdf_term": "http://purl.org/dc/terms/type",
-      "rdf_type": "uri",
-      "title": "Type",
       "type": "string"
     }
   },
