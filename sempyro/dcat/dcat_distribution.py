@@ -150,7 +150,7 @@ class DCATDistribution(RDFModel):
         default=None,
         description="Minimum time period resolvable in the dataset.",
         json_schema_extra={
-            "rdf_term": DCAT.spatialResolutionInMeters,
+            "rdf_term": DCAT.temporalResolution,
             "rdf_type": "xsd:duration"
         }
     )

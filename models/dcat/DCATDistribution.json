@@ -3229,7 +3229,7 @@
       ],
       "default": null,
       "description": "Minimum time period resolvable in the dataset.",
-      "rdf_term": "http://www.w3.org/ns/dcat#spatialResolutionInMeters",
+      "rdf_term": "http://www.w3.org/ns/dcat#temporalResolution",
       "rdf_type": "xsd:duration",
       "title": "Temporal Resolution"
     },

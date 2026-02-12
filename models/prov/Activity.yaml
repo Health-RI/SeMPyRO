@@ -13,8 +13,8 @@ $defs:
     properties:
       hadPlan:
         default:
-        description: A plan is an entity that represents a set of actions or 
-          steps intended by one or more agents to achieve some goals.
+        description: A plan is an entity that represents a set of actions or steps
+          intended by one or more agents to achieve some goals.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadPlan
@@ -23,9 +23,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect 
-          to an activity, in the context of a usage, generation, invalidation, 
-          association, start, and end.
+        description: A role is the function of an entity or agent with respect to
+          an activity, in the context of a usage, generation, invalidation, association,
+          start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -34,11 +34,10 @@ $defs:
         type: string
       agent:
         default:
-        description: The prov:agent property references an prov:Agent which 
-          influenced a resource. This property applies to an 
-          prov:AgentInfluence, which is given by a subproperty of 
-          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
-          or prov:Agent.
+        description: The prov:agent property references an prov:Agent which influenced
+          a resource. This property applies to an prov:AgentInfluence, which is given
+          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
+          prov:Activity or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Agent
@@ -61,11 +60,10 @@ $defs:
     properties:
       entity:
         default:
-        description: The prov:entity property references an prov:Entity which 
-          influenced a resource. This property applies to an 
-          prov:EntityInfluence, which is given by a subproperty of 
-          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
-          or prov:Agent.
+        description: The prov:entity property references an prov:Entity which influenced
+          a resource. This property applies to an prov:EntityInfluence, which is given
+          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
+          prov:Activity or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Entity
@@ -74,9 +72,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect 
-          to an activity, in the context of a usage, generation, invalidation, 
-          association, start, and end.
+        description: A role is the function of an entity or agent with respect to
+          an activity, in the context of a usage, generation, invalidation, association,
+          start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -85,10 +83,9 @@ $defs:
         type: string
       influencer:
         default:
-        description: This property is used as part of the qualified influence 
-          pattern. Subclasses of prov:Influence use these subproperties to 
-          reference the resource (Entity, Agent, or Activity) whose influence is
-          being qualified.
+        description: This property is used as part of the qualified influence pattern.
+          Subclasses of prov:Influence use these subproperties to reference the resource
+          (Entity, Agent, or Activity) whose influence is being qualified.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#influencer
@@ -97,9 +94,9 @@ $defs:
         type: string
       hadActivity:
         default:
-        description: An activity is something that occurs over a period of time 
-          and acts upon or with entities; it may include consuming, processing, 
-          transforming, modifying, relocating, using, or generating entities.
+        description: An activity is something that occurs over a period of time and
+          acts upon or with entities; it may include consuming, processing, transforming,
+          modifying, relocating, using, or generating entities.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadActivity
@@ -108,12 +105,11 @@ $defs:
         type: string
       atTime:
         default:
-        description: The PROV data model is implicitly based on a notion of 
-          instantaneous events (or just events), that mark transitions in the 
-          world. Events include generation, usage, or invalidation of entities, 
-          as well as starting or ending of activities. This notion of event is 
-          not first-class in the data model, but it is useful for explaining its
-          other concepts and its semantics.
+        description: The PROV data model is implicitly based on a notion of instantaneous
+          events (or just events), that mark transitions in the world. Events include
+          generation, usage, or invalidation of entities, as well as starting or ending
+          of activities. This notion of event is not first-class in the data model,
+          but it is useful for explaining its other concepts and its semantics.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#InstantaneousEvent
         rdf_type: xsd:dateTime
@@ -121,11 +117,10 @@ $defs:
         type: string
       atLocation:
         default:
-        description: A location can be an identifiable geographic place (ISO 
-          19112), but it can also be a non-geographic place such as a directory,
-          row, or column. As such, there are numerous ways in which location can
-          be expressed, such as by a coordinate, address, landmark, and so 
-          forth.
+        description: A location can be an identifiable geographic place (ISO 19112),
+          but it can also be a non-geographic place such as a directory, row, or column.
+          As such, there are numerous ways in which location can be expressed, such
+          as by a coordinate, address, landmark, and so forth.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#atLocation
@@ -148,11 +143,10 @@ $defs:
     properties:
       entity:
         default:
-        description: The prov:entity property references an prov:Entity which 
-          influenced a resource. This property applies to an 
-          prov:EntityInfluence, which is given by a subproperty of 
-          prov:qualifiedInfluence from the influenced prov:Entity, prov:Activity
-          or prov:Agent.
+        description: The prov:entity property references an prov:Entity which influenced
+          a resource. This property applies to an prov:EntityInfluence, which is given
+          by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
+          prov:Activity or prov:Agent.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#Entity
@@ -161,9 +155,9 @@ $defs:
         type: string
       hadRole:
         default:
-        description: A role is the function of an entity or agent with respect 
-          to an activity, in the context of a usage, generation, invalidation, 
-          association, start, and end.
+        description: A role is the function of an entity or agent with respect to
+          an activity, in the context of a usage, generation, invalidation, association,
+          start, and end.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadRole
@@ -172,10 +166,9 @@ $defs:
         type: string
       influencer:
         default:
-        description: This property is used as part of the qualified influence 
-          pattern. Subclasses of prov:Influence use these subproperties to 
-          reference the resource (Entity, Agent, or Activity) whose influence is
-          being qualified.
+        description: This property is used as part of the qualified influence pattern.
+          Subclasses of prov:Influence use these subproperties to reference the resource
+          (Entity, Agent, or Activity) whose influence is being qualified.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#influencer
@@ -184,9 +177,9 @@ $defs:
         type: string
       hadActivity:
         default:
-        description: An activity is something that occurs over a period of time 
-          and acts upon or with entities; it may include consuming, processing, 
-          transforming, modifying, relocating, using, or generating entities.
+        description: An activity is something that occurs over a period of time and
+          acts upon or with entities; it may include consuming, processing, transforming,
+          modifying, relocating, using, or generating entities.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#hadActivity
@@ -195,12 +188,11 @@ $defs:
         type: string
       atTime:
         default:
-        description: The PROV data model is implicitly based on a notion of 
-          instantaneous events (or just events), that mark transitions in the 
-          world. Events include generation, usage, or invalidation of entities, 
-          as well as starting or ending of activities. This notion of event is 
-          not first-class in the data model, but it is useful for explaining its
-          other concepts and its semantics.
+        description: The PROV data model is implicitly based on a notion of instantaneous
+          events (or just events), that mark transitions in the world. Events include
+          generation, usage, or invalidation of entities, as well as starting or ending
+          of activities. This notion of event is not first-class in the data model,
+          but it is useful for explaining its other concepts and its semantics.
         format: date-time
         rdf_term: http://www.w3.org/ns/prov#InstantaneousEvent
         rdf_type: xsd:dateTime
@@ -208,11 +200,10 @@ $defs:
         type: string
       atLocation:
         default:
-        description: A location can be an identifiable geographic place (ISO 
-          19112), but it can also be a non-geographic place such as a directory,
-          row, or column. As such, there are numerous ways in which location can
-          be expressed, such as by a coordinate, address, landmark, and so 
-          forth.
+        description: A location can be an identifiable geographic place (ISO 19112),
+          but it can also be a non-geographic place such as a directory, row, or column.
+          As such, there are numerous ways in which location can be expressed, such
+          as by a coordinate, address, landmark, and so forth.
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/ns/prov#atLocation
@@ -231,9 +222,9 @@ description: "An activity is something that occurs over a period of time and act
 properties:
   generated:
     default:
-    description: Generation is the completion of production of a new entity by 
-      an activity. This entity did not exist before generation and becomes 
-      available for usage after this generation.
+    description: Generation is the completion of production of a new entity by an
+      activity. This entity did not exist before generation and becomes available
+      for usage after this generation.
     items:
       format: uri
       minLength: 1
@@ -244,11 +235,10 @@ properties:
     type: array
   qualifiedAssociation:
     default:
-    description: An activity association is an assignment of responsibility to 
-      an agent for an activity, indicating that the agent had a role in the 
-      activity. It further allows for a plan to be specified, which is the plan 
-      intended by the agent to achieve some goals in the context of this 
-      activity.
+    description: An activity association is an assignment of responsibility to an
+      agent for an activity, indicating that the agent had a role in the activity.
+      It further allows for a plan to be specified, which is the plan intended by
+      the agent to achieve some goals in the context of this activity.
     items:
       anyOf:
       - format: uri
@@ -261,11 +251,10 @@ properties:
     type: array
   wasAssociatedWith:
     default:
-    description: An activity association is an assignment of responsibility to 
-      an agent for an activity, indicating that the agent had a role in the 
-      activity. It further allows for a plan to be specified, which is the plan 
-      intended by the agent to achieve some goals in the context of this 
-      activity.
+    description: An activity association is an assignment of responsibility to an
+      agent for an activity, indicating that the agent had a role in the activity.
+      It further allows for a plan to be specified, which is the plan intended by
+      the agent to achieve some goals in the context of this activity.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/prov#wasAssociatedWith
@@ -275,20 +264,20 @@ properties:
   qualifiedEnd:
     $ref: '#/$defs/End'
     default:
-    description: End is when an activity is deemed to have been ended by an 
-      entity, known as trigger. The activity no longer exists after its end. Any
-      usage, generation, or invalidation involving an activity precedes the 
-      activity's end. An end may refer to a trigger entity that terminated the 
-      activity, or to an activity, known as ender that generated the trigger.
+    description: End is when an activity is deemed to have been ended by an entity,
+      known as trigger. The activity no longer exists after its end. Any usage, generation,
+      or invalidation involving an activity precedes the activity's end. An end may
+      refer to a trigger entity that terminated the activity, or to an activity, known
+      as ender that generated the trigger.
     rdf_term: http://www.w3.org/ns/prov#qualifiedEnd
     rdf_type: http://www.w3.org/ns/prov#End
   wasEndedBy:
     default:
-    description: End is when an activity is deemed to have been ended by an 
-      entity, known as trigger. The activity no longer exists after its end. Any
-      usage, generation, or invalidation involving an activity precedes the 
-      activity's end. An end may refer to a trigger entity that terminated the 
-      activity, or to an activity, known as ender that generated the trigger.
+    description: End is when an activity is deemed to have been ended by an entity,
+      known as trigger. The activity no longer exists after its end. Any usage, generation,
+      or invalidation involving an activity precedes the activity's end. An end may
+      refer to a trigger entity that terminated the activity, or to an activity, known
+      as ender that generated the trigger.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/prov#wasEndedBy
@@ -297,9 +286,9 @@ properties:
     type: string
   qualifiedUsage:
     default:
-    description: Usage is the beginning of utilizing an entity by an activity. 
-      Before usage, the activity had not begun to utilize this entity and could 
-      not have been affected by the entity.
+    description: Usage is the beginning of utilizing an entity by an activity. Before
+      usage, the activity had not begun to utilize this entity and could not have
+      been affected by the entity.
     items:
       format: uri
       minLength: 1
@@ -310,9 +299,9 @@ properties:
     type: array
   used:
     default:
-    description: Usage is the beginning of utilizing an entity by an activity. 
-      Before usage, the activity had not begun to utilize this entity and could 
-      not have been affected by the entity.
+    description: Usage is the beginning of utilizing an entity by an activity. Before
+      usage, the activity had not begun to utilize this entity and could not have
+      been affected by the entity.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/prov#used
@@ -321,10 +310,10 @@ properties:
     type: string
   invalidated:
     default:
-    description: Invalidation is the start of the destruction, cessation, or 
-      expiry of an existing entity by an activity. The entity is no longer 
-      available for use (or further invalidation) after invalidation. Any 
-      generation or usage of an entity precedes its invalidation.
+    description: Invalidation is the start of the destruction, cessation, or expiry
+      of an existing entity by an activity. The entity is no longer available for
+      use (or further invalidation) after invalidation. Any generation or usage of
+      an entity precedes its invalidation.
     items:
       format: uri
       minLength: 1
@@ -335,11 +324,11 @@ properties:
     type: array
   endedAtTime:
     default:
-    description: End is when an activity is deemed to have been ended by an 
-      entity, known as trigger. The activity no longer exists after its end. Any
-      usage, generation, or invalidation involving an activity precedes the 
-      activity's end. An end may refer to a trigger entity that terminated the 
-      activity, or to an activity, known as ender that generated the trigger.
+    description: End is when an activity is deemed to have been ended by an entity,
+      known as trigger. The activity no longer exists after its end. Any usage, generation,
+      or invalidation involving an activity precedes the activity's end. An end may
+      refer to a trigger entity that terminated the activity, or to an activity, known
+      as ender that generated the trigger.
     format: date-time
     rdf_term: http://www.w3.org/ns/prov#endedAtTime
     rdf_type: xsd:dateTime
@@ -348,17 +337,17 @@ properties:
   qualifiedStart:
     $ref: '#/$defs/Start'
     default:
-    description: Start is when an activity is deemed to have been started by an 
-      entity, known as trigger. The activity did not exist before its start. Any
-      usage, generation, or invalidation involving an activity follows the 
-      activity's start. A start may refer to a trigger entity that set off the 
-      activity, or to an activity, known as starter, that generated the trigger.
+    description: Start is when an activity is deemed to have been started by an entity,
+      known as trigger. The activity did not exist before its start. Any usage, generation,
+      or invalidation involving an activity follows the activity's start. A start
+      may refer to a trigger entity that set off the activity, or to an activity,
+      known as starter, that generated the trigger.
     rdf_term: http://www.w3.org/ns/prov#qualifiedStart
     rdf_type: http://www.w3.org/ns/prov#Start
   wasInformedBy:
     default:
-    description: Communication is the exchange of an entity by two activities, 
-      one activity using the entity generated by the other.
+    description: Communication is the exchange of an entity by two activities, one
+      activity using the entity generated by the other.
     items:
       format: uri
       minLength: 1
@@ -369,11 +358,11 @@ properties:
     type: array
   wasStartedBy:
     default:
-    description: Start is when an activity is deemed to have been started by an 
-      entity, known as trigger. The activity did not exist before its start. Any
-      usage, generation, or invalidation involving an activity follows the 
-      activity's start. A start may refer to a trigger entity that set off the 
-      activity, or to an activity, known as starter, that generated the trigger.
+    description: Start is when an activity is deemed to have been started by an entity,
+      known as trigger. The activity did not exist before its start. Any usage, generation,
+      or invalidation involving an activity follows the activity's start. A start
+      may refer to a trigger entity that set off the activity, or to an activity,
+      known as starter, that generated the trigger.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/prov#wasStartedBy
@@ -382,11 +371,11 @@ properties:
     type: string
   startedAtTime:
     default:
-    description: Start is when an activity is deemed to have been started by an 
-      entity, known as trigger. The activity did not exist before its start. Any
-      usage, generation, or invalidation involving an activity follows the 
-      activity's start. A start may refer to a trigger entity that set off the 
-      activity, or to an activity, known as starter, that generated the trigger.
+    description: Start is when an activity is deemed to have been started by an entity,
+      known as trigger. The activity did not exist before its start. Any usage, generation,
+      or invalidation involving an activity follows the activity's start. A start
+      may refer to a trigger entity that set off the activity, or to an activity,
+      known as starter, that generated the trigger.
     format: date-time
     rdf_term: http://www.w3.org/ns/prov#startedAtTime
     rdf_type: xsd:dateTime
@@ -394,8 +383,8 @@ properties:
     type: string
   qualifiedCommunication:
     default:
-    description: Communication is the exchange of an entity by two activities, 
-      one activity using the entity generated by the other.
+    description: Communication is the exchange of an entity by two activities, one
+      activity using the entity generated by the other.
     items:
       format: uri
       minLength: 1
@@ -406,10 +395,10 @@ properties:
     type: array
   wasInfluencedBy:
     default:
-    description: Influence is the capacity of an entity, activity, or agent to 
-      have an effect on the character, development, or behavior of another by 
-      means of usage, start, end, generation, invalidation, communication, 
-      derivation, attribution, association, or delegation.
+    description: Influence is the capacity of an entity, activity, or agent to have
+      an effect on the character, development, or behavior of another by means of
+      usage, start, end, generation, invalidation, communication, derivation, attribution,
+      association, or delegation.
     items:
       format: uri
       minLength: 1
@@ -420,10 +409,10 @@ properties:
     type: array
   qualifiedInfluence:
     default:
-    description: Influence is the capacity of an entity, activity, or agent to 
-      have an effect on the character, development, or behavior of another by 
-      means of usage, start, end, generation, invalidation, communication, 
-      derivation, attribution, association, or delegation.
+    description: Influence is the capacity of an entity, activity, or agent to have
+      an effect on the character, development, or behavior of another by means of
+      usage, start, end, generation, invalidation, communication, derivation, attribution,
+      association, or delegation.
     items:
       format: uri
       minLength: 1
@@ -434,10 +423,10 @@ properties:
     type: array
   atLocation:
     default:
-    description: A location can be an identifiable geographic place (ISO 19112),
-      but it can also be a non-geographic place such as a directory, row, or 
-      column. As such, there are numerous ways in which location can be 
-      expressed, such as by a coordinate, address, landmark, and so forth.
+    description: A location can be an identifiable geographic place (ISO 19112), but
+      it can also be a non-geographic place such as a directory, row, or column. As
+      such, there are numerous ways in which location can be expressed, such as by
+      a coordinate, address, landmark, and so forth.
     format: uri
     minLength: 1
     rdf_term: http://www.w3.org/ns/prov#atLocation
