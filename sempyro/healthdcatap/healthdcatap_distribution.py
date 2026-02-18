@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import Union
+from typing import Union, List
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT
@@ -45,7 +45,7 @@ class HEALTHDCATAPDistribution(DCATDistribution):
             "rdf_type": "uri",
         },
     )
-    applicable_legislation: list[AnyHttpUrl] = Field(
+    applicable_legislation: List[AnyHttpUrl] = Field(
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
             "rdf_term": DCATAPv3.applicableLegislation,

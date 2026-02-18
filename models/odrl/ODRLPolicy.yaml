@@ -2,8 +2,7 @@ $IRI: http://www.w3.org/ns/odrl/2/Policy
 $defs:
   RDFModel:
     additionalProperties: false
-    description: Base class for creating pydantic models convertible to RDF 
-      graph
+    description: Base class for creating pydantic models convertible to RDF graph
     properties: {}
     title: RDFModel
     type: object
@@ -54,8 +53,8 @@ properties:
     type: array
   inheritFrom:
     default:
-    description: Relates a (child) policy to another (parent) policy from which 
-      terms are inherited.
+    description: Relates a (child) policy to another (parent) policy from which terms
+      are inherited.
     items:
       format: uri
       minLength: 1
@@ -66,8 +65,7 @@ properties:
     type: array
   profile:
     default:
-    description: The identifier(s) of an ODRL Profile that the Policy conforms 
-      to.
+    description: The identifier(s) of an ODRL Profile that the Policy conforms to.
     items:
       format: uri
       minLength: 1
@@ -100,8 +98,8 @@ properties:
     type: array
   relation:
     default:
-    description: Relation is an abstract property which creates an explicit link
-      between an Action and an Asset.
+    description: Relation is an abstract property which creates an explicit link between
+      an Action and an Asset.
     items:
       format: uri
       minLength: 1
@@ -112,8 +110,8 @@ properties:
     type: array
   target:
     default:
-    description: The target property indicates the Asset that is the primary 
-      subject to which the Rule action directly applies.
+    description: The target property indicates the Asset that is the primary subject
+      to which the Rule action directly applies.
     items:
       format: uri
       minLength: 1
@@ -124,9 +122,8 @@ properties:
     type: array
   function:
     default:
-    description: Function is an abstract property whose sub-properties define 
-      the functional roles which may be fulfilled by a party in relation to a 
-      Rule.
+    description: Function is an abstract property whose sub-properties define the
+      functional roles which may be fulfilled by a party in relation to a Rule.
     items:
       format: uri
       minLength: 1
@@ -137,8 +134,7 @@ properties:
     type: array
   action:
     default:
-    description: The operation relating to the Asset for which the Rule is being
-      subjected.
+    description: The operation relating to the Asset for which the Rule is being subjected.
     items:
       format: uri
       minLength: 1
