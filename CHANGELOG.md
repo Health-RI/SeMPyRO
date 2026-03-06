@@ -5,6 +5,24 @@ All notable changes to this project will be documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+##  [v2.2.0] - 2026-03-06
+
+### What's Changed
+- Docs/update docs by @qplevier in https://github.com/Health-RI/SeMPyRO/pull/112
+- feat(healthdcat) add Healthdcat to Sempyro by @hcvdwerf in https://github.com/Health-RI/SeMPyRO/pull/119
+- build(deps): bump actions/upload-artifact from 4 to 6 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/115
+- build(deps): update ruamel-yaml requirement from ~=0.18.5 to >=0.18.5,<0.20.0 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/116
+- build(deps): bump actions/checkout from 4 to 6 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/111
+- build(deps): bump actions/download-artifact from 5 to 7 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/114
+- build(deps): bump SonarSource/sonarqube-scan-action from 6 to 7 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/113
+- Added Goe example by @hcvdwerf in https://github.com/Health-RI/SeMPyRO/pull/120
+- fix: wrong rdf_term for temporal_resolution by @agjharms in https://github.com/Health-RI/SeMPyRO/pull/121
+- Rename optional dependency group to 'notebook-docs' by @waakanni in https://github.com/Health-RI/SeMPyRO/pull/118
+- fix: remove obsolete comment by @hcvdwerf in https://github.com/Health-RI/SeMPyRO/pull/125
+- build(deps): bump actions/upload-artifact from 6 to 7 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/123
+- build(deps): bump actions/download-artifact from 7 to 8 by @dependabot[bot] in https://github.com/Health-RI/SeMPyRO/pull/122
+
+
 ## [v2.1.0] - 2025-10-02
 
 ### Added
