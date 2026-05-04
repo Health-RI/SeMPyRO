@@ -117,8 +117,8 @@
     "second": {
       "default": null,
       "description": "Second position in a calendar-clock system.",
-      "exclusiveMaximum": 60.0,
-      "minimum": 0.0,
+      "exclusiveMaximum": 60,
+      "minimum": 0,
       "rdf_term": "http://www.w3.org/2006/time#second",
       "rdf_type": "xsd:decimal",
       "title": "Second",
