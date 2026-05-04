@@ -7,7 +7,7 @@ name = "sempyro"
 version = "2.2.0"
 description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
-requires-python = ">= 3.8.1"
+requires-python = ">= 3.9"
 authors = [
   { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
   { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
@@ -20,6 +20,8 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
