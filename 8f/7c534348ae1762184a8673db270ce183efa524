@@ -1,0 +1,71 @@
+sempyro/hri_dcat/hri_dataset.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,53,79,88,97,113,122,132,141,150,159,168,177,186,195,204,213,222,231,240,249,258,267,276,285,294,303,332
+sempyro/vcard/vcard.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 17,43,50,59
+docs/Defining_extending_a_model.md
+  s_48d82d73aa8ef3::t_3823a0290330be 20
+  s_48d82d73aa8ef3::t_97e0798f0bd252 159
+  s_48d82d73aa8ef3::t_d801f5e289aa4b 186
+  s_48d82d73aa8ef3::t_20ec445d64aa76 39
+sempyro/adms/identifier.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 15,41
+sempyro/hri_dcat/hri_dataset_series.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 15,39,54,62
+sempyro/hri_dcat/hri_agent.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,72,80,88,96
+sempyro/dcat/dcat_attribution.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 15,33,41
+sempyro/dcat/dcat_resource.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 61,69,77,85,101,109,117,125,134,142,159,169,177,187,195,203,211,226,234,242,250,258,266,274,282,291,299,308,317,326,334,342
+sempyro/dqv/quality_certificate.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 15,33,41
+sempyro/hri_dcat/hri_data_service.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,49,57,72,80,95,103,111,119
+sempyro/dcat/dcat_dataset.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 58,66,74,82,91,99
+CONTRIBUTING.md
+  s_48d82d73aa8ef3::t_e6befd144b1c0f 41-46
+sempyro/hri_dcat/hri_vcard.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,56
+sempyro/rdf_model.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 21,107,109
+sempyro/odrl/policy.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,35,43,51,59,67,75,83,91,99,108,117,125,133,141
+sempyro/dcat/dcat_distribution.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 17,59,67,75,83,99,115,123,132,140,149,157,165,173,181,190,199
+  s_48d82d73aa8ef3::t_41b0c235eb730e 91
+sempyro/prov/prov_classes.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,39,48,57,85,96,105,131,141,150,160,219,228,239,250,261,272,282,291,301,312,323,332,343,354,363,373,383
+sempyro/foaf/project.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,66
+sempyro/dcat/data_service.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,35,51
+sempyro/dcat/dcat_catalog.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,34,43,51,59,67,75
+sempyro/geo/spatial.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,39,49,58,67,75,83,91,99,108,117,138,148,156
+sempyro/foaf/agent.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,49,58
+sempyro/hri_dcat/hri_distribution.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,47,55,71,93,101,124,133,141,149,157,166,175,183,191
+sempyro/time/dcat_time_models.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 20,48,56,119,137,145,153,161,168,175,181,188,195,201,232,241,250,259,267,275,283,291,299,305,341,347,355,362,369,376,383,421,427,433,439
+sempyro/hri_dcat/hri_catalog.py
+  s_48d82d73aa8ef3::t_b3ca0a346f3acc 16,46,69,77,85,94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "8f7c534348ae1762184a8673db270ce183efa524",
+  "prompts": {},
+  "sessions": {
+    "s_48d82d73aa8ef3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c72184f-77f4-40dd-a79e-b1f258354c70",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "kburger <burger+github@gmail.com>"
+    }
+  }
+}
