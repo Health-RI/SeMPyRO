@@ -16,7 +16,9 @@ import json
 from pathlib import Path
 
 import pytest
+from pydantic_core import PydanticUndefined
 
+from sempyro.dcat import AccessRights
 from sempyro.foaf import Project
 from sempyro.hri_dcat import (
     HRICatalog,
@@ -26,6 +28,7 @@ from sempyro.hri_dcat import (
     HRIDatasetSeries,
     HRIAgent
 )
+from sempyro.hri_dcat.vocabularies import DatasetTheme
 
 MODELS_JSON_DIRECTORY = Path(Path(__file__).parents[1].resolve(), "models")
 
@@ -51,3 +54,29 @@ def test_project():
         model_json = json.load(model_file)
     actual_schema = Project.model_json_schema()
     assert json.dumps(model_json) == json.dumps(actual_schema)
+
+
+def test_optional_fields_accept_none_via_kwargs():
+    """Regression test for https://github.com/Health-RI/SeMPyRO/issues/124: non-required
+    fields must accept an explicit None, so a dict covering every field (mandatory and
+    optional) can be passed in as HRIDataset(**a_dict)."""
+    required_field_values = {
+        "access_rights": AccessRights.public,
+        "contact_point": "http://example.com/contact",
+        "creator": ["http://example.com/creator"],
+        "description": ["A test dataset"],
+        "identifier": "abc123",
+        "keyword": ["a keyword"],
+        "publisher": "http://example.com/publisher",
+        "theme": [DatasetTheme.agri],
+        "title": ["A test dataset"],
+        "applicable_legislation": ["http://example.com/legislation"],
+    }
+    optional_fields = [name for name, field in HRIDataset.model_fields.items()
+                       if field.default is not PydanticUndefined]
+
+    data = {**required_field_values, **{name: None for name in optional_fields}}
+    dataset = HRIDataset(**data)
+
+    for name in optional_fields:
+        assert getattr(dataset, name) is None
