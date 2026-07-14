@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import ConfigDict, Field, AnyHttpUrl
 
@@ -37,7 +37,7 @@ class HRIDatasetSeries(HEALTHDCATAPDatasetSeries):
         }
     )
 
-    applicable_legislation: List[AnyHttpUrl] = Field(
+    applicable_legislation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
@@ -52,7 +52,7 @@ class HRIDatasetSeries(HEALTHDCATAPDatasetSeries):
             "rdf_type": "uri",
         },
     )
-    frequency: AnyHttpUrl = Field(
+    frequency: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The frequency with which items are added to a collection.",
         json_schema_extra={
@@ -60,7 +60,7 @@ class HRIDatasetSeries(HEALTHDCATAPDatasetSeries):
             "rdf_type": "uri",
         },
     )
-    publisher: Union[AnyHttpUrl, Agent] = Field(
+    publisher: Optional[Union[AnyHttpUrl, Agent]] = Field(
         default=None,
         description="The entity responsible for making the resource available.",
         json_schema_extra={

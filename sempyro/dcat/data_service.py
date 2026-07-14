@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT
@@ -32,7 +32,7 @@ class DCATDataService(DCATResource):
                               }
                               )
 
-    endpoint_description: List[Union[AnyHttpUrl, DCATResource]] = Field(
+    endpoint_description: Optional[List[Union[AnyHttpUrl, DCATResource]]] = Field(
         default=None,
         description="A description of the services available via the end-points, including their operations, "
                     "parameters etc.",
@@ -48,7 +48,7 @@ class DCATDataService(DCATResource):
             "rdf_type": "uri"
         }
     )
-    serves_dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
+    serves_dataset: Optional[List[Union[AnyHttpUrl, DCATDataset]]] = Field(
         default=None,
         description="A collection of data that this data service can distribute.",
         json_schema_extra={

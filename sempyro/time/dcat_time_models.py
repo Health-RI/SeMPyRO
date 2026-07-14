@@ -17,7 +17,7 @@ import typing
 from datetime import date
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, Optional
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime, field_validator, model_validator
 from rdflib import DCAT, DCTERMS, TIME, URIRef
@@ -45,7 +45,7 @@ class TimePosition(RDFModel):
                                   "$prefix": "time"
                               }
                               )
-    nominalPosition: str = Field(default=None,
+    nominalPosition: Optional[str] = Field(default=None,
                                  description="The (nominal) value indicating temporal position in an ordinal reference "
                                              "system",
                                  json_schema_extra={
@@ -53,7 +53,7 @@ class TimePosition(RDFModel):
                                      "rdf_type": "xsd:string"
                                  }
                                  )
-    numericPosition: float = Field(default=None,
+    numericPosition: Optional[float] = Field(default=None,
                                    description="The (numeric) value indicating position within a temporal coordinate "
                                                "system",
                                    json_schema_extra={
@@ -116,7 +116,7 @@ class GeneralDateTimeDescription(RDFModel):
             "$prefix": "time"
         }
                               )
-    timeZone: AnyHttpUrl = Field(default=None,
+    timeZone: Optional[AnyHttpUrl] = Field(default=None,
                                  description="The time zone for clock elements in the temporal position",
                                  json_schema_extra={
                                      "rdf_term": TIME.timeZone,
@@ -134,7 +134,7 @@ class GeneralDateTimeDescription(RDFModel):
                                    "rdf_term": TIME.hasTRS,
                                    "rdf_type": "uri"
                                } )
-    year: str = Field(default=None,
+    year: Optional[str] = Field(default=None,
                       description="Year position in a calendar-clock system. The range of this property is not "
                                   "specified, so can be replaced by any specific representation of a calendar year "
                                   "from any calendar.",
@@ -142,7 +142,7 @@ class GeneralDateTimeDescription(RDFModel):
                           "rdf_term": TIME.year,
                           "rdf_type": "xsd:gYear"
                       })
-    month: str = Field(default=None,
+    month: Optional[str] = Field(default=None,
                        description="Month position in a calendar-clock system. The range of this property is not "
                                    "specified, so can be replaced by any specific representation of a calendar month "
                                    "from any calendar.",
@@ -150,7 +150,7 @@ class GeneralDateTimeDescription(RDFModel):
                            "rdf_term": TIME.month,
                            "rdf_type": "xsd:gMonth"
                        })
-    day: str = Field(default=None,
+    day: Optional[str] = Field(default=None,
                      description="Day position in a calendar-clock system. The range of this property is not "
                                  "specified, so can be replaced by any specific representation of a calendar day from "
                                  "any calendar.",
@@ -158,47 +158,47 @@ class GeneralDateTimeDescription(RDFModel):
                          "rdf_term": TIME.day,
                          "rdf_type": "xsd:gDay"
                      })
-    hour: int = Field(default=None,
+    hour: Optional[int] = Field(default=None,
                       description="Hour position in a calendar-clock system",
                       ge=0,
                       json_schema_extra={
                           "rdf_term": TIME.hour,
                           "rdf_type": "xsd:nonNegativeInteger"
                       })
-    minute: int = Field(default=None,
+    minute: Optional[int] = Field(default=None,
                         description="Minute position in a calendar-clock system",
                         ge=0,
                         json_schema_extra={
                             "rdf_term": TIME.minute,
                             "rdf_type": "xsd:nonNegativeInteger"
                         })
-    second: float = Field(default=None,
+    second: Optional[float] = Field(default=None,
                           description="Second position in a calendar-clock system.",
                           json_schema_extra={
                               "rdf_term": TIME.second,
                               "rdf_type": "xsd:decimal"
                           })
-    week: int = Field(default=None,
+    week: Optional[int] = Field(default=None,
                       description="Week number within the year.",
                       ge=0,
                       json_schema_extra={
                           "rdf_term": TIME.week,
                           "rdf_type": "xsd:nonNegativeInteger"
                       })
-    dayOfYear: int = Field(default=None,
+    dayOfYear: Optional[int] = Field(default=None,
                            description="The number of the day within the year",
                            ge=0,
                            json_schema_extra={
                                "rdf_term": TIME.dayOfYear,
                                "rdf_type": "xsd:nonNegativeInteger"
                            })
-    dayOfWeek: AnyHttpUrl = Field(default=None,
+    dayOfWeek: Optional[AnyHttpUrl] = Field(default=None,
                                   description="The day of week, whose value is a member of the class time:DayOfWeek",
                                   json_schema_extra={
                                       "rdf_term": TIME.dayOfWeek,
                                       "rdf_type": "uri"
                                   })
-    monthOfYear: AnyHttpUrl = Field(default=None,
+    monthOfYear: Optional[AnyHttpUrl] = Field(default=None,
                                     description="The month of the year, whose value is a member of the class "
                                                 "time:MonthOfYear",
                                     json_schema_extra={
@@ -229,7 +229,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                                                  "rdf_term": TIME.hasTRS,
                                                  "rdf_type": "uri"
                                              })
-    year: str = Field(default=None,
+    year: Optional[str] = Field(default=None,
                       description="Year position in a calendar-clock system. The range of this property is not "
                                   "specified, so can be replaced by any specific representation of a calendar year "
                                   "from any calendar.",
@@ -238,7 +238,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                           "rdf_term": TIME.year,
                           "rdf_type": "xsd:gYear"
                       })
-    month: str = Field(default=None,
+    month: Optional[str] = Field(default=None,
                        description="Month position in a calendar-clock system. The range of this property is not "
                                    "specified, so can be replaced by any specific representation of a calendar month "
                                    "from any calendar.",
@@ -247,7 +247,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                            "rdf_term": TIME.month,
                            "rdf_type": "xsd:gMonth"
                        })
-    day: str = Field(default=None,
+    day: Optional[str] = Field(default=None,
                      description="Day position in a calendar-clock system. The range of this property is not "
                                  "specified, so can be replaced by any specific representation of a calendar day from "
                                  "any calendar.",
@@ -256,7 +256,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                          "rdf_term": TIME.day,
                          "rdf_type": "xsd:gDay"
                      })
-    hour: int = Field(default=None,
+    hour: Optional[int] = Field(default=None,
                       description="Hour position in a calendar-clock system",
                       le=23,
                       ge=0,
@@ -264,7 +264,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                           "rdf_term": TIME.hour,
                           "rdf_type": "xsd:nonNegativeInteger"
                       })
-    minute: int = Field(default=None,
+    minute: Optional[int] = Field(default=None,
                         description="Minute position in a calendar-clock system",
                         le=59,
                         ge=0,
@@ -272,7 +272,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                             "rdf_term": TIME.minute,
                             "rdf_type": "xsd:nonNegativeInteger"
                         })
-    second: float = Field(default=None,
+    second: Optional[float] = Field(default=None,
                           description="Second position in a calendar-clock system.",
                           ge=0,
                           lt=60,
@@ -280,7 +280,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                               "rdf_term": TIME.second,
                               "rdf_type": "xsd:decimal"
                           })
-    week: int = Field(default=None,
+    week: Optional[int] = Field(default=None,
                       description="Week number within the year.",
                       le=53,
                       ge=1,
@@ -288,7 +288,7 @@ class DateTimeDescription(GeneralDateTimeDescription):
                           "rdf_term": TIME.week,
                           "rdf_type": "xsd:nonNegativeInteger"
                       })
-    dayOfYear: int = Field(default=None,
+    dayOfYear: Optional[int] = Field(default=None,
                            description="The number of the day within the year",
                            ge=1,
                            le=366,
@@ -296,13 +296,13 @@ class DateTimeDescription(GeneralDateTimeDescription):
                                "rdf_term": TIME.dayOfYear,
                                "rdf_type": "xsd:nonNegativeInteger"
                            })
-    dayOfWeek: DayOfWeek = Field(default=None,
+    dayOfWeek: Optional[DayOfWeek] = Field(default=None,
                                  description="The day of week, whose value is a member of the class time:DayOfWeek",
                                  json_schema_extra={
                                      "rdf_term": TIME.dayOfWeek,
                                      "rdf_type": "uri"
                                  })
-    monthOfYear: MonthOfYear = Field(default=None,
+    monthOfYear: Optional[MonthOfYear] = Field(default=None,
                                      description="The month of the year, whose value is a member of the class "
                                                  "time:MonthOfYear",
                                      json_schema_extra={
@@ -338,13 +338,13 @@ class TimeInstant(RDFModel):
                               }
                               )
 
-    inXSDDate: date = Field(default=None,
+    inXSDDate: Optional[date] = Field(default=None,
                             description="Position of an instant, expressed using xsd:date",
                             json_schema_extra={
                                 "rdf_term": TIME.inXSDDate,
                                 "rdf_type": "xsd:date"
                             })
-    inXSDDateTime: NaiveDatetime = Field(default=None,
+    inXSDDateTime: Optional[NaiveDatetime] = Field(default=None,
                                          description="(deprecated) Position of an instant, expressed using "
                                                      "xsd:dateTime",
                                          deprecated=True,
@@ -352,35 +352,35 @@ class TimeInstant(RDFModel):
                                              "rdf_term": TIME.inXSDDateTime,
                                              "rdf_type": "xsd:dateTime"
                                          })
-    inXSDDateTimeStamp: AwareDatetime = Field(default=None,
+    inXSDDateTimeStamp: Optional[AwareDatetime] = Field(default=None,
                                               description="Position of an instant, expressed using xsd:dateTimeStamp, "
                                                           "in which the time-zone field is mandatory",
                                               json_schema_extra={
                                                   "rdf_term": TIME.inXSDDateTimeStamp,
                                                   "rdf_type": "xsd:dateTimeStamp"
                                               })
-    inXSDgYear: str = Field(default=None,
+    inXSDgYear: Optional[str] = Field(default=None,
                             description="Position of an instant, expressed using xsd:gYear",
                             pattern=year_pattern,
                             json_schema_extra={
                                 "rdf_term": TIME.inXSDgYear,
                                 "rdf_type": "xsd:gYear"
                             })
-    inXSDgYearMonth: str = Field(default=None,
+    inXSDgYearMonth: Optional[str] = Field(default=None,
                                  description="Position of an instant, expressed using xsd:gYearMonth",
                                  pattern=year_month_pattern,
                                  json_schema_extra={
                                      "rdf_term": TIME.inXSDgYearMonth,
                                      "rdf_type": "xsd:gYearMonth"
                                  })
-    inTimePosition: TimePosition = Field(default=None,
+    inTimePosition: Optional[TimePosition] = Field(default=None,
                                          description="Position of an instant, expressed as a temporal coordinate or "
                                                      "nominal val",
                                          json_schema_extra={
                                              "rdf_term": TIME.inTimePosition,
                                              "rdf_type": TIME.TimePosition
                                          })
-    inDateTime: GeneralDateTimeDescription = Field(default=None,
+    inDateTime: Optional[GeneralDateTimeDescription] = Field(default=None,
                                                    description="Position of an instant, expressed using a structured "
                                                                "description",
                                                    json_schema_extra={
@@ -418,25 +418,25 @@ class PeriodOfTime(RDFModel):
     An interval of time that is named or defined by its start and end,
     https://www.w3.org/TR/vocab-dcat-3/#Class:Period_of_Time
     """
-    start_date: LiteralField = Field(default=None,
+    start_date: Optional[LiteralField] = Field(default=None,
                                      description="The start of the period",
                                      json_schema_extra={
                                          "rdf_term": DCAT.startDate,
                                          "rdf_type": "rdfs_literal"
                                      })
-    end_date: LiteralField = Field(default=None,
+    end_date: Optional[LiteralField] = Field(default=None,
                                    description="The end of the period",
                                    json_schema_extra={
                                        "rdf_term": DCAT.endDate,
                                        "rdf_type": "rdfs_literal"
                                    })
-    beginning: TimeInstant = Field(default=None,
+    beginning: Optional[TimeInstant] = Field(default=None,
                                    description="Beginning of a period or interval",
                                    json_schema_extra={
                                        "rdf_term": TIME.hasBeginning,
                                        "rdf_type": TIME.Instant
                                    })
-    end: TimeInstant = Field(default=None,
+    end: Optional[TimeInstant] = Field(default=None,
                              description="End of a period or interval",
                              json_schema_extra={
                                  "rdf_term": TIME.hasEnd,
