@@ -7,20 +7,34 @@
   "description": "A temporal position described using either a (nominal) value from an ordinal reference system,\nor a (numeric) value in a temporal coordinate system.",
   "properties": {
     "nominalPosition": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The (nominal) value indicating temporal position in an ordinal reference system",
       "rdf_term": "http://www.w3.org/2006/time#nominalPosition",
       "rdf_type": "xsd:string",
-      "title": "Nominalposition",
-      "type": "string"
+      "title": "Nominalposition"
     },
     "numericPosition": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The (numeric) value indicating position within a temporal coordinate system",
       "rdf_term": "http://www.w3.org/2006/time#numericPosition",
       "rdf_type": "xsd:decimal",
-      "title": "Numericposition",
-      "type": "number"
+      "title": "Numericposition"
     },
     "hasTRS": {
       "description": "The temporal reference system used by a temporal position or extent description",

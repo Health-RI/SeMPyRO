@@ -10,14 +10,21 @@
       "description": "Description of date and time structured with separate values for the various elements of a calendar-clock system",
       "properties": {
         "timeZone": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The time zone for clock elements in the temporal position",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/time#timeZone",
           "rdf_type": "uri",
-          "title": "Timezone",
-          "type": "string"
+          "title": "Timezone"
         },
         "unitType": {
           "description": "The temporal unit which provides the precision of a date-time value or scale of a temporal extent",
@@ -38,92 +45,162 @@
           "type": "string"
         },
         "year": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Year position in a calendar-clock system. The range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar.",
           "rdf_term": "http://www.w3.org/2006/time#year",
           "rdf_type": "xsd:gYear",
-          "title": "Year",
-          "type": "string"
+          "title": "Year"
         },
         "month": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Month position in a calendar-clock system. The range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar.",
           "rdf_term": "http://www.w3.org/2006/time#month",
           "rdf_type": "xsd:gMonth",
-          "title": "Month",
-          "type": "string"
+          "title": "Month"
         },
         "day": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Day position in a calendar-clock system. The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.",
           "rdf_term": "http://www.w3.org/2006/time#day",
           "rdf_type": "xsd:gDay",
-          "title": "Day",
-          "type": "string"
+          "title": "Day"
         },
         "hour": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Hour position in a calendar-clock system",
-          "minimum": 0,
           "rdf_term": "http://www.w3.org/2006/time#hour",
           "rdf_type": "xsd:nonNegativeInteger",
-          "title": "Hour",
-          "type": "integer"
+          "title": "Hour"
         },
         "minute": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Minute position in a calendar-clock system",
-          "minimum": 0,
           "rdf_term": "http://www.w3.org/2006/time#minute",
           "rdf_type": "xsd:nonNegativeInteger",
-          "title": "Minute",
-          "type": "integer"
+          "title": "Minute"
         },
         "second": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Second position in a calendar-clock system.",
           "rdf_term": "http://www.w3.org/2006/time#second",
           "rdf_type": "xsd:decimal",
-          "title": "Second",
-          "type": "number"
+          "title": "Second"
         },
         "week": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Week number within the year.",
-          "minimum": 0,
           "rdf_term": "http://www.w3.org/2006/time#week",
           "rdf_type": "xsd:nonNegativeInteger",
-          "title": "Week",
-          "type": "integer"
+          "title": "Week"
         },
         "dayOfYear": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The number of the day within the year",
-          "minimum": 0,
           "rdf_term": "http://www.w3.org/2006/time#dayOfYear",
           "rdf_type": "xsd:nonNegativeInteger",
-          "title": "Dayofyear",
-          "type": "integer"
+          "title": "Dayofyear"
         },
         "dayOfWeek": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The day of week, whose value is a member of the class time:DayOfWeek",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/time#dayOfWeek",
           "rdf_type": "uri",
-          "title": "Dayofweek",
-          "type": "string"
+          "title": "Dayofweek"
         },
         "monthOfYear": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The month of the year, whose value is a member of the class time:MonthOfYear",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/time#monthOfYear",
           "rdf_type": "uri",
-          "title": "Monthofyear",
-          "type": "string"
+          "title": "Monthofyear"
         }
       },
       "required": [
@@ -145,6 +222,9 @@
             },
             {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -152,10 +232,17 @@
           "title": "Datatype"
         },
         "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
-          "title": "Language",
-          "type": "string"
+          "title": "Language"
         },
         "value": {
           "description": "Field value",
@@ -178,60 +265,109 @@
       "description": "A temporal entity with zero extent or duration",
       "properties": {
         "inXSDDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed using xsd:date",
-          "format": "date",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDate",
           "rdf_type": "xsd:date",
-          "title": "Inxsddate",
-          "type": "string"
+          "title": "Inxsddate"
         },
         "inXSDDateTime": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "deprecated": true,
           "description": "(deprecated) Position of an instant, expressed using xsd:dateTime",
-          "format": "date-time",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTime",
           "rdf_type": "xsd:dateTime",
-          "title": "Inxsddatetime",
-          "type": "string"
+          "title": "Inxsddatetime"
         },
         "inXSDDateTimeStamp": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed using xsd:dateTimeStamp, in which the time-zone field is mandatory",
-          "format": "date-time",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTimeStamp",
           "rdf_type": "xsd:dateTimeStamp",
-          "title": "Inxsddatetimestamp",
-          "type": "string"
+          "title": "Inxsddatetimestamp"
         },
         "inXSDgYear": {
+          "anyOf": [
+            {
+              "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed using xsd:gYear",
-          "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
           "rdf_term": "http://www.w3.org/2006/time#inXSDgYear",
           "rdf_type": "xsd:gYear",
-          "title": "Inxsdgyear",
-          "type": "string"
+          "title": "Inxsdgyear"
         },
         "inXSDgYearMonth": {
+          "anyOf": [
+            {
+              "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed using xsd:gYearMonth",
-          "pattern": "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?",
           "rdf_term": "http://www.w3.org/2006/time#inXSDgYearMonth",
           "rdf_type": "xsd:gYearMonth",
-          "title": "Inxsdgyearmonth",
-          "type": "string"
+          "title": "Inxsdgyearmonth"
         },
         "inTimePosition": {
-          "$ref": "#/$defs/TimePosition",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimePosition"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed as a temporal coordinate or nominal val",
           "rdf_term": "http://www.w3.org/2006/time#inTimePosition",
           "rdf_type": "http://www.w3.org/2006/time#TimePosition"
         },
         "inDateTime": {
-          "$ref": "#/$defs/GeneralDateTimeDescription",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GeneralDateTimeDescription"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Position of an instant, expressed using a structured description",
           "rdf_term": "http://www.w3.org/2006/time#inDateTime",
@@ -250,20 +386,34 @@
       "description": "A temporal position described using either a (nominal) value from an ordinal reference system,\nor a (numeric) value in a temporal coordinate system.",
       "properties": {
         "nominalPosition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The (nominal) value indicating temporal position in an ordinal reference system",
           "rdf_term": "http://www.w3.org/2006/time#nominalPosition",
           "rdf_type": "xsd:string",
-          "title": "Nominalposition",
-          "type": "string"
+          "title": "Nominalposition"
         },
         "numericPosition": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The (numeric) value indicating position within a temporal coordinate system",
           "rdf_term": "http://www.w3.org/2006/time#numericPosition",
           "rdf_type": "xsd:decimal",
-          "title": "Numericposition",
-          "type": "number"
+          "title": "Numericposition"
         },
         "hasTRS": {
           "description": "The temporal reference system used by a temporal position or extent description",
@@ -288,28 +438,56 @@
   "additionalProperties": false,
   "properties": {
     "start_date": {
-      "$ref": "#/$defs/LiteralField",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LiteralField"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The start of the period",
       "rdf_term": "http://www.w3.org/ns/dcat#startDate",
       "rdf_type": "rdfs_literal"
     },
     "end_date": {
-      "$ref": "#/$defs/LiteralField",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LiteralField"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The end of the period",
       "rdf_term": "http://www.w3.org/ns/dcat#endDate",
       "rdf_type": "rdfs_literal"
     },
     "beginning": {
-      "$ref": "#/$defs/TimeInstant",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TimeInstant"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "Beginning of a period or interval",
       "rdf_term": "http://www.w3.org/2006/time#hasBeginning",
       "rdf_type": "http://www.w3.org/2006/time#Instant"
     },
     "end": {
-      "$ref": "#/$defs/TimeInstant",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TimeInstant"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "End of a period or interval",
       "rdf_term": "http://www.w3.org/2006/time#hasEnd",
