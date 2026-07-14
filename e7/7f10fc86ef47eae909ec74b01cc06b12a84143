@@ -1,0 +1,19 @@
+pyproject.toml
+  s_48d82d73aa8ef3::t_84df0169b8cf0f 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "e77f10fc86ef47eae909ec74b01cc06b12a84143",
+  "prompts": {},
+  "sessions": {
+    "s_48d82d73aa8ef3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c72184f-77f4-40dd-a79e-b1f258354c70",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "kburger <burger+github@gmail.com>"
+    }
+  }
+}
