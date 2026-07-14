@@ -1,0 +1,20 @@
+__tests__/test_hri_models.py
+  s_48d82d73aa8ef3::t_7c9894fcea5fba 19,21,31
+  s_48d82d73aa8ef3::t_1ef732105944b0 57-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "815bd7584fa28d9ae7033bfc23836c1fc19a0f5d",
+  "prompts": {},
+  "sessions": {
+    "s_48d82d73aa8ef3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c72184f-77f4-40dd-a79e-b1f258354c70",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "kburger <burger+github@gmail.com>"
+    }
+  }
+}
