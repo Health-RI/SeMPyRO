@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
@@ -43,7 +43,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+    creator: Optional[List[Union[AnyHttpUrl, HRIAgent]]] = Field(
         default=None,
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property.",
@@ -66,7 +66,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    service: List[Union[AnyHttpUrl, HRIDataService]] = Field(
+    service: Optional[List[Union[AnyHttpUrl, HRIDataService]]] = Field(
         default=None,
         description="A service that is listed in the catalog.",
         json_schema_extra={
@@ -74,7 +74,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    catalog: List[AnyHttpUrl] = Field(
+    catalog: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A catalog that is listed in the catalog. HRI recommended",
         json_schema_extra={
@@ -82,7 +82,7 @@ class HRICatalog(DCATCatalog):
             "rdf_type": "uri"
         }
     )
-    applicable_legislation: List[AnyHttpUrl] = Field(
+    applicable_legislation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
@@ -91,7 +91,7 @@ class HRICatalog(DCATCatalog):
             # "bind_namespace": ['dcatap', DCATAPv3]
         }
     )
-    has_part: List[Union[AnyHttpUrl, DCATCatalog]] = Field(
+    has_part: Optional[List[Union[AnyHttpUrl, DCATCatalog]]] = Field(
         default=None,
         description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={

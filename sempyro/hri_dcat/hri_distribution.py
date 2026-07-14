@@ -13,7 +13,7 @@
 # limitations under the License.
 from datetime import date, datetime
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, AwareDatetime, NaiveDatetime
 from rdflib.namespace import DCAT, DCTERMS, FOAF
@@ -44,7 +44,7 @@ class HRIDistribution(DCATDistribution):
                               }
                               )
 
-    title: List[LiteralField] = Field(
+    title: Optional[List[LiteralField]] = Field(
         default=None,
         description="A name given to the resource.",
         json_schema_extra={
@@ -52,7 +52,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "rdfs_literal"
         }
     )
-    description: List[LiteralField] = Field(
+    description: Optional[List[LiteralField]] = Field(
         default=None,
         description="An account of the resource.",
         json_schema_extra={
@@ -68,7 +68,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    media_type: AnyHttpUrl = Field(
+    media_type: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The media type of the distribution as defined by IANA.",
         json_schema_extra={
@@ -90,7 +90,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    access_service: Union[AnyHttpUrl, HRIDataService] = Field(
+    access_service: Optional[Union[AnyHttpUrl, HRIDataService]] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset.",
         json_schema_extra={
@@ -98,7 +98,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    download_url: AnyHttpUrl = Field(
+    download_url: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The URL of the downloadable file in a given format. E.g., CSV file or RDF file. "
                     "The format is indicated by the distribution's dcterms:format and/or dcat:mediaType.",
@@ -121,7 +121,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "xsd:integer"
         }
     )
-    applicable_legislation: List[AnyHttpUrl] = Field(
+    applicable_legislation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
@@ -130,7 +130,7 @@ class HRIDistribution(DCATDistribution):
             # "bind_namespace": ['dcatap', DCATAPv3]
         }
     )
-    documentation: List[AnyHttpUrl] = Field(
+    documentation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Additional documentation about the distribution.",
         json_schema_extra={
@@ -138,7 +138,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    access_rights: AnyHttpUrl = Field(
+    access_rights: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A data service that gives access to the distribution of the dataset.",
         json_schema_extra={
@@ -146,7 +146,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    language: List[AnyHttpUrl] = Field(
+    language: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A language of the resource.",
         json_schema_extra={
@@ -154,7 +154,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    linked_schemas: List[AnyHttpUrl] = Field(
+    linked_schemas: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
@@ -163,7 +163,7 @@ class HRIDistribution(DCATDistribution):
         }
     )
 
-    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Optional[Union[str, date, AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
@@ -172,7 +172,7 @@ class HRIDistribution(DCATDistribution):
         }
     )
 
-    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
+    release_date: Optional[Union[str, datetime, date, AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="Date of formal issuance (e.g., publication) of the resource.",
         json_schema_extra={
@@ -180,7 +180,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "datetime_literal"
         }
     )
-    retention_period: List[Union[AnyHttpUrl, PeriodOfTime]] = Field(
+    retention_period: Optional[List[Union[AnyHttpUrl, PeriodOfTime]]] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
@@ -188,7 +188,7 @@ class HRIDistribution(DCATDistribution):
             "rdf_type": "uri"
         }
     )
-    status: Union[AnyHttpUrl, DistributionStatus] = Field(
+    status: Optional[Union[AnyHttpUrl, DistributionStatus]] = Field(
         default=None,
         description="The status of the distribution (e.g., under development, completed, deprecated, withdrawn).",
         json_schema_extra={

@@ -13,7 +13,7 @@
 # limitations under the License.
 import re
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyUrl, AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib import URIRef
@@ -69,7 +69,7 @@ class HRIAgent(Agent):
             "rdf_type": "uri",
         }
     )
-    spatial: List[Union[AnyHttpUrl, Location]] = Field(
+    spatial: Optional[List[Union[AnyHttpUrl, Location]]] = Field(
         default=None,
         description="Spatial characteristics of the resource.",
         json_schema_extra={
@@ -77,7 +77,7 @@ class HRIAgent(Agent):
             "rdf_type": "uri"
         }
     )
-    publisher_note: Union[str, LiteralField] = Field(
+    publisher_note: Optional[Union[str, LiteralField]] = Field(
         default=None,
         description="A description of the publisher activities.",
         json_schema_extra={
@@ -85,7 +85,7 @@ class HRIAgent(Agent):
             "rdf_type": "rdfs_literal"
         }
     )
-    publisher_type: Union[AnyUrl, URIRef] = Field(
+    publisher_type: Optional[Union[AnyUrl, URIRef]] = Field(
         default=None,
         description="A type of organisation that makes the Dataset available.",
         json_schema_extra={
@@ -93,7 +93,7 @@ class HRIAgent(Agent):
             "rdf_type": "uri"
         }
     )
-    type: AnyHttpUrl = Field(
+    type: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The nature or genre of the resource.",
         json_schema_extra={
