@@ -92,8 +92,8 @@ class HRICatalog(HEALTHDCATAPCatalog):
             # "bind_namespace": ['dcatap', DCATAPv3]
         },
     )
-    has_part: Optional[List[Union[AnyHttpUrl, DCATCatalog]]] = Field(
-    has_part: List[Union[AnyHttpUrl, HEALTHDCATAPCatalog]] = Field(
+
+    has_part: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPCatalog]]] = Field(
         default=None,
         description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={
