@@ -4699,6 +4699,9 @@
         },
         {
           "$ref": "#/$defs/PeriodOfTime"
+        },
+        {
+          "type": "null"
         }
       ],
       "default": null,

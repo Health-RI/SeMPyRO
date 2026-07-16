@@ -3577,14 +3577,21 @@
           "title": "Homepage"
         },
         "type": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The nature of the agent.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/type",
           "rdf_type": "uri",
-          "title": "Type",
-          "type": "string"
+          "title": "Type"
         }
       },
       "required": [
@@ -3653,24 +3660,31 @@
           "type": "array"
         },
         "creator": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/HEALTHDCATAPAgent"
+                  },
+                  {
+                    "format": "uri",
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The entity responsible for producing the resource. Resources of type foaf:Agent are recommended as values for this property.",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/HEALTHDCATAPAgent"
-              },
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              }
-            ]
-          },
           "rdf_term": "http://purl.org/dc/terms/creator",
           "rdf_type": "uri",
-          "title": "Creator",
-          "type": "array"
+          "title": "Creator"
         },
         "description": {
           "description": "An account of the resource.",
@@ -3896,24 +3910,31 @@
           "title": "Qualified Relation"
         },
         "publisher": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "format": "uri",
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/HEALTHDCATAPPublisher"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Agent responsible for making the health data resource available.",
-          "items": {
-            "anyOf": [
-              {
-                "format": "uri",
-                "minLength": 1,
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/HEALTHDCATAPPublisher"
-              }
-            ]
-          },
           "rdf_term": "http://purl.org/dc/terms/publisher",
           "rdf_type": "uri",
-          "title": "Publisher",
-          "type": "array"
+          "title": "Publisher"
         },
         "release_date": {
           "anyOf": [
@@ -4411,63 +4432,91 @@
           "title": "Other Identifier"
         },
         "analytics": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "format": "uri",
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/HEALTHDCATAPDistribution"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "An analytics distribution of the dataset.",
-          "items": {
-            "anyOf": [
-              {
+          "rdf_term": "http://healthdataportal.eu/ns/health#analytics",
+          "rdf_type": "uri",
+          "title": "Analytics"
+        },
+        "code_values": {
+          "anyOf": [
+            {
+              "items": {
                 "format": "uri",
                 "minLength": 1,
                 "type": "string"
               },
-              {
-                "$ref": "#/$defs/HEALTHDCATAPDistribution"
-              }
-            ]
-          },
-          "rdf_term": "http://healthdataportal.eu/ns/health#analytics",
-          "rdf_type": "uri",
-          "title": "Analytics",
-          "type": "array"
-        },
-        "code_values": {
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Coding systems in use (ex: ICD-10-CM, DGRs, SNOMED=CT, ...)",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
           "rdf_term": "http://healthdataportal.eu/ns/health#hasCodeValues",
           "rdf_type": "uri",
-          "title": "Code Values",
-          "type": "array"
+          "title": "Code Values"
         },
         "coding_system": {
+          "anyOf": [
+            {
+              "items": {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "Health classifications and their codes associated with the dataset",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
           "rdf_term": "http://healthdataportal.eu/ns/health#hasCodingSystem",
           "rdf_type": "uri",
-          "title": "Coding System",
-          "type": "array"
+          "title": "Coding System"
         },
         "health_theme": {
+          "anyOf": [
+            {
+              "items": {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A category of the Dataset or tag describing the Dataset.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
           "rdf_term": "http://healthdataportal.eu/ns/health#healthTheme",
           "rdf_type": "uri",
-          "title": "Health Theme",
-          "type": "array"
+          "title": "Health Theme"
         },
         "health_category": {
           "description": "The health category to which this dataset belongs.",
@@ -4490,6 +4539,9 @@
             },
             {
               "$ref": "#/$defs/HEALTHDCATAPHdab"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -4499,17 +4551,24 @@
           "title": "Hdab"
         },
         "legal_basis": {
+          "anyOf": [
+            {
+              "items": {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The legal basis used to justify processing of personal data.",
-          "items": {
-            "format": "uri",
-            "minLength": 1,
-            "type": "string"
-          },
           "rdf_term": "https://w3id.org/dpv#hasLegalBasis",
           "rdf_type": "uri",
-          "title": "Legal Basis",
-          "type": "array"
+          "title": "Legal Basis"
         },
         "maximum_typical_age": {
           "anyOf": [
@@ -4518,6 +4577,9 @@
             },
             {
               "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -4533,6 +4595,9 @@
             },
             {
               "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -4548,6 +4613,9 @@
             },
             {
               "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -4563,6 +4631,9 @@
             },
             {
               "$ref": "#/$defs/LiteralField"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -4572,25 +4643,39 @@
           "title": "Number Of Unique Individuals"
         },
         "population_coverage": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/LiteralField"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A definition of the population within the dataset",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://healthdataportal.eu/ns/health#populationCoverage",
           "rdf_type": "rdfs_literal",
-          "title": "Population Coverage",
-          "type": "array"
+          "title": "Population Coverage"
         },
         "retention_period": {
-          "$ref": "#/$defs/PeriodOfTime",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodOfTime"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A temporal period which the dataset is available for secondary use.",
           "rdf_term": "http://healthdataportal.eu/ns/health#retentionPeriod",
@@ -5692,6 +5777,9 @@
             },
             {
               "$ref": "#/$defs/PeriodOfTime"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -5802,14 +5890,21 @@
           "title": "Homepage"
         },
         "type": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The nature of the agent.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/type",
           "rdf_type": "uri",
-          "title": "Type",
-          "type": "string"
+          "title": "Type"
         },
         "contact_point": {
           "$ref": "#/$defs/HEALTHDCATAPKind",
@@ -5838,14 +5933,21 @@
       "description": "A description following the vCard specification.\nThe Kind class is the parent class for Individual, Organization, Location, Group.",
       "properties": {
         "hasEmail": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A email address via which contact can be made.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasEmail",
           "rdf_type": "uri",
-          "title": "Hasemail",
-          "type": "string"
+          "title": "Hasemail"
         },
         "formatted_name": {
           "anyOf": [
@@ -5890,14 +5992,21 @@
           "title": "Hasuid"
         },
         "contact_page": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A webpage that either allows to make contact or provides information on how to get in touch.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasURL",
           "rdf_type": "uri",
-          "title": "Contact Page",
-          "type": "string"
+          "title": "Contact Page"
         }
       },
       "title": "HEALTHDCATAPKind",
@@ -5983,14 +6092,21 @@
           "title": "Homepage"
         },
         "type": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The nature of the agent.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://purl.org/dc/terms/type",
           "rdf_type": "uri",
-          "title": "Type",
-          "type": "string"
+          "title": "Type"
         },
         "contact_point": {
           "$ref": "#/$defs/HEALTHDCATAPKind",
@@ -5999,22 +6115,29 @@
           "rdf_type": "uri"
         },
         "description": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/LiteralField"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A description of the publisher activities.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://purl.org/dc/terms/description",
           "rdf_type": "rdfs_literal",
-          "title": "Description",
-          "type": "array"
+          "title": "Description"
         }
       },
       "required": [
@@ -8180,6 +8303,9 @@
         },
         {
           "$ref": "#/$defs/HEALTHDCATAPHdab"
+        },
+        {
+          "type": "null"
         }
       ],
       "default": null,

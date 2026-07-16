@@ -71,6 +71,7 @@ def test_optional_fields_accept_none_via_kwargs():
         "theme": [DatasetTheme.agri],
         "title": ["A test dataset"],
         "applicable_legislation": ["http://example.com/legislation"],
+        "health_category": ["http://example.com/health-category"],
     }
     optional_fields = [name for name, field in HRIDataset.model_fields.items()
                        if field.default is not PydanticUndefined]

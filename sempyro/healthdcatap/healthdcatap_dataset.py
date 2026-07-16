@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import ClassVar, List, Set, Union
+from typing import ClassVar, List, Optional, Set, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS
@@ -57,7 +57,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri"
         },
     )
-    analytics: List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]] = Field(
+    analytics: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
         default=None,
         description="An analytics distribution of the dataset.",
         json_schema_extra={
@@ -72,7 +72,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    code_values: List[AnyHttpUrl] = Field(
+    code_values: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Coding systems in use (ex: ICD-10-CM, DGRs, SNOMED=CT, ...)",
         json_schema_extra={
@@ -80,7 +80,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri",
         },
     )
-    coding_system: List[AnyHttpUrl] = Field(
+    coding_system: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Health classifications and their codes associated with the dataset",
         json_schema_extra={
@@ -88,7 +88,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri",
         },
     )
-    creator: List[Union[HEALTHDCATAPAgent, AnyHttpUrl]] = Field(
+    creator: Optional[List[Union[HEALTHDCATAPAgent, AnyHttpUrl]]] = Field(
         default=None,
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property.",
@@ -104,7 +104,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    health_theme: List[AnyHttpUrl] = Field(
+    health_theme: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A category of the Dataset or tag describing the Dataset.",
         json_schema_extra={
@@ -126,7 +126,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "rdfs_literal"
         }
     )
-    hdab: Union[AnyHttpUrl, HEALTHDCATAPHdab] = Field(
+    hdab: Optional[Union[AnyHttpUrl, HEALTHDCATAPHdab]] = Field(
         default=None,
         description="Health Data Access Body supporting access to data in the Member State.",
         json_schema_extra={
@@ -134,7 +134,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri",
         },
     )
-    legal_basis: List[AnyHttpUrl] = Field(
+    legal_basis: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legal basis used to justify processing of personal data.",
         json_schema_extra={
@@ -142,7 +142,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri",
         },
     )
-    publisher: List[Union[AnyHttpUrl, HEALTHDCATAPPublisher]] = Field(
+    publisher: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPPublisher]]] = Field(
         default=None,
         description="Agent responsible for making the health data resource available.",
         json_schema_extra={
@@ -150,7 +150,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "uri",
         },
     )
-    maximum_typical_age: Union[int, LiteralField] = Field(
+    maximum_typical_age: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Maximum typical age of the population within the dataset.",
         json_schema_extra={
@@ -158,7 +158,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "xsd:nonNegativeInteger",
         },
     )
-    minimum_typical_age: Union[int, LiteralField] = Field(
+    minimum_typical_age: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Minimum typical age of the population within the dataset",
         json_schema_extra={
@@ -166,7 +166,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "xsd:nonNegativeInteger",
         },
     )
-    number_of_records: Union[int, LiteralField] = Field(
+    number_of_records: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Size of the dataset in terms of the number of records",
         json_schema_extra={
@@ -174,7 +174,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "xsd:nonNegativeInteger",
         },
     )
-    number_of_unique_individuals: Union[int, LiteralField] = Field(
+    number_of_unique_individuals: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Number of records for unique individuals.",
         json_schema_extra={
@@ -182,7 +182,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "xsd:nonNegativeInteger",
         },
     )
-    population_coverage: List[Union[str, LiteralField]] = Field(
+    population_coverage: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="A definition of the population within the dataset",
         json_schema_extra={
@@ -190,7 +190,7 @@ class HEALTHDCATAPDataset(DCATDataset):
             "rdf_type": "rdfs_literal",
         },
     )
-    retention_period: PeriodOfTime = Field(
+    retention_period: Optional[PeriodOfTime] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={

@@ -45,14 +45,16 @@ description: "A description following the vCard specification.\nThe Kind class i
   the parent class for Individual, Organization, Location, Group."
 properties:
   hasEmail:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: A email address via which contact can be made.
-    format: uri
-    minLength: 1
     rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
     rdf_type: uri
     title: Hasemail
-    type: string
   formatted_name:
     anyOf:
     - items:
@@ -79,14 +81,16 @@ properties:
     rdf_type: uri
     title: Hasuid
   contact_page:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: A webpage that either allows to make contact or provides information
       on how to get in touch.
-    format: uri
-    minLength: 1
     rdf_term: http://www.w3.org/2006/vcard/ns#hasURL
     rdf_type: uri
     title: Contact Page
-    type: string
 title: HEALTHDCATAPKind
 type: object

@@ -44,7 +44,7 @@ class HRICatalog(HEALTHDCATAPCatalog):
             "rdf_type": "uri",
         },
     )
-    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+    creator: Optional[List[Union[AnyHttpUrl, HRIAgent]]] = Field(
         default=None,
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property.",

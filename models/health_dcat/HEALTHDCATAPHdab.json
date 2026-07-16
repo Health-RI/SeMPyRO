@@ -13,14 +13,21 @@
       "description": "A description following the vCard specification.\nThe Kind class is the parent class for Individual, Organization, Location, Group.",
       "properties": {
         "hasEmail": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A email address via which contact can be made.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasEmail",
           "rdf_type": "uri",
-          "title": "Hasemail",
-          "type": "string"
+          "title": "Hasemail"
         },
         "formatted_name": {
           "anyOf": [
@@ -65,14 +72,21 @@
           "title": "Hasuid"
         },
         "contact_page": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A webpage that either allows to make contact or provides information on how to get in touch.",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasURL",
           "rdf_type": "uri",
-          "title": "Contact Page",
-          "type": "string"
+          "title": "Contact Page"
         }
       },
       "title": "HEALTHDCATAPKind",
@@ -203,14 +217,21 @@
       "title": "Homepage"
     },
     "type": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The nature of the agent.",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://purl.org/dc/terms/type",
       "rdf_type": "uri",
-      "title": "Type",
-      "type": "string"
+      "title": "Type"
     },
     "contact_point": {
       "$ref": "#/$defs/HEALTHDCATAPKind",

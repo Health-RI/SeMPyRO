@@ -13,6 +13,8 @@
 # limitations under the License.
 
 from pathlib import Path
+from typing import Optional
+
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCTERMS, FOAF
 
@@ -31,7 +33,7 @@ class HEALTHDCATAPAgent(Agent):
             "$prefix": "foaf",
         },
     )
-    type: AnyHttpUrl = Field(
+    type: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The nature of the agent.",
         json_schema_extra={

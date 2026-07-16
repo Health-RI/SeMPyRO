@@ -3174,6 +3174,7 @@ properties:
       minLength: 1
       type: string
     - $ref: '#/$defs/PeriodOfTime'
+    - type: 'null'
     default:
     description: A temporal period which the dataset is available for secondary use.
     rdf_term: http://healthdataportal.eu/ns/health#retentionPeriod

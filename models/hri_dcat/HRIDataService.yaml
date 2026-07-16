@@ -2447,14 +2447,16 @@ $defs:
         rdf_type: uri
         title: Homepage
       type:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The nature of the agent.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
         title: Type
-        type: string
     required:
     - name
     - identifier
@@ -2504,19 +2506,21 @@ $defs:
         title: Contact Point
         type: array
       creator:
+        anyOf:
+        - items:
+            anyOf:
+            - $ref: '#/$defs/HEALTHDCATAPAgent'
+            - format: uri
+              minLength: 1
+              type: string
+          type: array
+        - type: 'null'
         default:
         description: The entity responsible for producing the resource. Resources
           of type foaf:Agent are recommended as values for this property.
-        items:
-          anyOf:
-          - $ref: '#/$defs/HEALTHDCATAPAgent'
-          - format: uri
-            minLength: 1
-            type: string
         rdf_term: http://purl.org/dc/terms/creator
         rdf_type: uri
         title: Creator
-        type: array
       description:
         description: An account of the resource.
         items:
@@ -2667,18 +2671,20 @@ $defs:
         rdf_type: uri
         title: Qualified Relation
       publisher:
+        anyOf:
+        - items:
+            anyOf:
+            - format: uri
+              minLength: 1
+              type: string
+            - $ref: '#/$defs/HEALTHDCATAPPublisher'
+          type: array
+        - type: 'null'
         default:
         description: Agent responsible for making the health data resource available.
-        items:
-          anyOf:
-          - format: uri
-            minLength: 1
-            type: string
-          - $ref: '#/$defs/HEALTHDCATAPPublisher'
         rdf_term: http://purl.org/dc/terms/publisher
         rdf_type: uri
         title: Publisher
-        type: array
       release_date:
         anyOf:
         - type: string
@@ -2997,51 +3003,59 @@ $defs:
         rdf_type: uri
         title: Other Identifier
       analytics:
+        anyOf:
+        - items:
+            anyOf:
+            - format: uri
+              minLength: 1
+              type: string
+            - $ref: '#/$defs/HEALTHDCATAPDistribution'
+          type: array
+        - type: 'null'
         default:
         description: An analytics distribution of the dataset.
-        items:
-          anyOf:
-          - format: uri
-            minLength: 1
-            type: string
-          - $ref: '#/$defs/HEALTHDCATAPDistribution'
         rdf_term: http://healthdataportal.eu/ns/health#analytics
         rdf_type: uri
         title: Analytics
-        type: array
       code_values:
+        anyOf:
+        - items:
+            format: uri
+            minLength: 1
+            type: string
+          type: array
+        - type: 'null'
         default:
         description: 'Coding systems in use (ex: ICD-10-CM, DGRs, SNOMED=CT, ...)'
-        items:
-          format: uri
-          minLength: 1
-          type: string
         rdf_term: http://healthdataportal.eu/ns/health#hasCodeValues
         rdf_type: uri
         title: Code Values
-        type: array
       coding_system:
+        anyOf:
+        - items:
+            format: uri
+            minLength: 1
+            type: string
+          type: array
+        - type: 'null'
         default:
         description: Health classifications and their codes associated with the dataset
-        items:
-          format: uri
-          minLength: 1
-          type: string
         rdf_term: http://healthdataportal.eu/ns/health#hasCodingSystem
         rdf_type: uri
         title: Coding System
-        type: array
       health_theme:
+        anyOf:
+        - items:
+            format: uri
+            minLength: 1
+            type: string
+          type: array
+        - type: 'null'
         default:
         description: A category of the Dataset or tag describing the Dataset.
-        items:
-          format: uri
-          minLength: 1
-          type: string
         rdf_term: http://healthdataportal.eu/ns/health#healthTheme
         rdf_type: uri
         title: Health Theme
-        type: array
       health_category:
         description: The health category to which this dataset belongs.
         items:
@@ -3058,6 +3072,7 @@ $defs:
           minLength: 1
           type: string
         - $ref: '#/$defs/HEALTHDCATAPHdab'
+        - type: 'null'
         default:
         description: Health Data Access Body supporting access to data in the Member
           State.
@@ -3065,20 +3080,23 @@ $defs:
         rdf_type: uri
         title: Hdab
       legal_basis:
+        anyOf:
+        - items:
+            format: uri
+            minLength: 1
+            type: string
+          type: array
+        - type: 'null'
         default:
         description: The legal basis used to justify processing of personal data.
-        items:
-          format: uri
-          minLength: 1
-          type: string
         rdf_term: https://w3id.org/dpv#hasLegalBasis
         rdf_type: uri
         title: Legal Basis
-        type: array
       maximum_typical_age:
         anyOf:
         - type: integer
         - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: Maximum typical age of the population within the dataset.
         rdf_term: http://healthdataportal.eu/ns/health#maxTypicalAge
@@ -3088,6 +3106,7 @@ $defs:
         anyOf:
         - type: integer
         - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: Minimum typical age of the population within the dataset
         rdf_term: http://healthdataportal.eu/ns/health#minTypicalAge
@@ -3097,6 +3116,7 @@ $defs:
         anyOf:
         - type: integer
         - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: Size of the dataset in terms of the number of records
         rdf_term: http://healthdataportal.eu/ns/health#numberOfRecords
@@ -3106,24 +3126,29 @@ $defs:
         anyOf:
         - type: integer
         - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: Number of records for unique individuals.
         rdf_term: http://healthdataportal.eu/ns/health#numberOfUniqueIndividuals
         rdf_type: xsd:nonNegativeInteger
         title: Number Of Unique Individuals
       population_coverage:
+        anyOf:
+        - items:
+            anyOf:
+            - type: string
+            - $ref: '#/$defs/LiteralField'
+          type: array
+        - type: 'null'
         default:
         description: A definition of the population within the dataset
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://healthdataportal.eu/ns/health#populationCoverage
         rdf_type: rdfs_literal
         title: Population Coverage
-        type: array
       retention_period:
-        $ref: '#/$defs/PeriodOfTime'
+        anyOf:
+        - $ref: '#/$defs/PeriodOfTime'
+        - type: 'null'
         default:
         description: A temporal period which the dataset is available for secondary
           use.
@@ -3840,6 +3865,7 @@ $defs:
           minLength: 1
           type: string
         - $ref: '#/$defs/PeriodOfTime'
+        - type: 'null'
         default:
         description: A temporal period which the dataset is available for secondary
           use.
@@ -3918,14 +3944,16 @@ $defs:
         rdf_type: uri
         title: Homepage
       type:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The nature of the agent.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
         title: Type
-        type: string
       contact_point:
         $ref: '#/$defs/HEALTHDCATAPKind'
         description: Contact information that can be used to contact the Agent.
@@ -3949,14 +3977,16 @@ $defs:
       is the parent class for Individual, Organization, Location, Group."
     properties:
       hasEmail:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A email address via which contact can be made.
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
         rdf_type: uri
         title: Hasemail
-        type: string
       formatted_name:
         anyOf:
         - items:
@@ -3983,15 +4013,17 @@ $defs:
         rdf_type: uri
         title: Hasuid
       contact_page:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A webpage that either allows to make contact or provides information
           on how to get in touch.
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/vcard/ns#hasURL
         rdf_type: uri
         title: Contact Page
-        type: string
     title: HEALTHDCATAPKind
     type: object
   HEALTHDCATAPPublisher:
@@ -4049,30 +4081,34 @@ $defs:
         rdf_type: uri
         title: Homepage
       type:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The nature of the agent.
-        format: uri
-        minLength: 1
         rdf_term: http://purl.org/dc/terms/type
         rdf_type: uri
         title: Type
-        type: string
       contact_point:
         $ref: '#/$defs/HEALTHDCATAPKind'
         description: Contact information that can be used to contact the Agent.
         rdf_term: http://www.w3.org/ns/dcat#contactPoint
         rdf_type: uri
       description:
+        anyOf:
+        - items:
+            anyOf:
+            - type: string
+            - $ref: '#/$defs/LiteralField'
+          type: array
+        - type: 'null'
         default:
         description: A description of the publisher activities.
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/LiteralField'
         rdf_term: http://purl.org/dc/terms/description
         rdf_type: rdfs_literal
         title: Description
-        type: array
     required:
     - name
     - identifier
@@ -4778,6 +4814,7 @@ $defs:
           minLength: 1
           type: string
         - $ref: '#/$defs/HEALTHDCATAPHdab'
+        - type: 'null'
         default:
         description: Health Data Access Body supporting access to data in the Member
           State.

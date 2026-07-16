@@ -87,14 +87,16 @@ properties:
     rdf_type: uri
     title: Homepage
   type:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: The nature of the agent.
-    format: uri
-    minLength: 1
     rdf_term: http://purl.org/dc/terms/type
     rdf_type: uri
     title: Type
-    type: string
 required:
 - name
 - identifier

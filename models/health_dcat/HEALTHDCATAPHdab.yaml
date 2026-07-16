@@ -12,14 +12,16 @@ $defs:
       is the parent class for Individual, Organization, Location, Group."
     properties:
       hasEmail:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A email address via which contact can be made.
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/vcard/ns#hasEmail
         rdf_type: uri
         title: Hasemail
-        type: string
       formatted_name:
         anyOf:
         - items:
@@ -46,15 +48,17 @@ $defs:
         rdf_type: uri
         title: Hasuid
       contact_page:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A webpage that either allows to make contact or provides information
           on how to get in touch.
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/vcard/ns#hasURL
         rdf_type: uri
         title: Contact Page
-        type: string
     title: HEALTHDCATAPKind
     type: object
   LiteralField:
@@ -145,14 +149,16 @@ properties:
     rdf_type: uri
     title: Homepage
   type:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: The nature of the agent.
-    format: uri
-    minLength: 1
     rdf_term: http://purl.org/dc/terms/type
     rdf_type: uri
     title: Type
-    type: string
   contact_point:
     $ref: '#/$defs/HEALTHDCATAPKind'
     description: Contact information that can be used to contact the Agent.
