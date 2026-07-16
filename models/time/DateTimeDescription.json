@@ -71,8 +71,7 @@
       "description": "The temporal reference system used by a temporal position or extent description",
       "rdf_term": "http://www.w3.org/2006/time#hasTRS",
       "rdf_type": "uri",
-      "title": "Hastrs",
-      "type": "string"
+      "title": "Hastrs"
     },
     "year": {
       "anyOf": [

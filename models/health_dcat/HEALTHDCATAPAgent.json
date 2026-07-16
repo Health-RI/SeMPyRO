@@ -13,6 +13,9 @@
             },
             {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -20,10 +23,17 @@
           "title": "Datatype"
         },
         "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
-          "title": "Language",
-          "type": "string"
+          "title": "Language"
         },
         "value": {
           "description": "Field value",
@@ -78,27 +88,41 @@
       "title": "Identifier"
     },
     "mbox": {
+      "anyOf": [
+        {
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
       "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
       "rdf_type": "uri",
-      "title": "Mbox",
-      "type": "array"
+      "title": "Mbox"
     },
     "homepage": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
       "rdf_type": "uri",
-      "title": "Homepage",
-      "type": "string"
+      "title": "Homepage"
     },
     "type": {
       "default": null,

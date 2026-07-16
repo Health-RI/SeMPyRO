@@ -23,32 +23,46 @@
           "type": "string"
         },
         "formatted_name": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/LiteralField"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "The full name of the object (as a single string). This is the only mandatory property.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/$defs/LiteralField"
-              }
-            ]
-          },
           "rdf_term": "http://www.w3.org/2006/vcard/ns#fn",
           "rdf_type": "rdfs_literal",
-          "title": "Formatted Name",
-          "type": "array"
+          "title": "Formatted Name"
         },
         "hasUID": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "A unique identifier for the object",
-          "format": "uri",
-          "minLength": 1,
           "rdf_term": "http://www.w3.org/2006/vcard/ns#hasUID",
           "rdf_type": "uri",
-          "title": "Hasuid",
-          "type": "string"
+          "title": "Hasuid"
         },
         "contact_page": {
           "default": null,
@@ -76,6 +90,9 @@
             },
             {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -83,10 +100,17 @@
           "title": "Datatype"
         },
         "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
-          "title": "Language",
-          "type": "string"
+          "title": "Language"
         },
         "value": {
           "description": "Field value",
@@ -142,27 +166,41 @@
       "title": "Identifier"
     },
     "mbox": {
+      "anyOf": [
+        {
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
       "rdf_term": "http://xmlns.com/foaf/0.1/mbox",
       "rdf_type": "uri",
-      "title": "Mbox",
-      "type": "array"
+      "title": "Mbox"
     },
     "homepage": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A webpage that either allows to make contact (i.e. a webform) or the information contains how to get into contact.",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://xmlns.com/foaf/0.1/homepage",
       "rdf_type": "uri",
-      "title": "Homepage",
-      "type": "string"
+      "title": "Homepage"
     },
     "type": {
       "default": null,
@@ -175,7 +213,11 @@
       "type": "string"
     },
     "contact_point": {
-      "$ref": "#/$defs/HEALTHDCATAPKind",
+      "allOf": [
+        {
+          "$ref": "#/$defs/HEALTHDCATAPKind"
+        }
+      ],
       "description": "Contact information that can be used to contact the Agent.",
       "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
       "rdf_type": "uri"
