@@ -7,7 +7,7 @@ name = "sempyro"
 version = "2.2.0"
 description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a Pydantic models representing classes of DCAT-AP v3 data model."
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
-requires-python = ">= 3.8.1"
+requires-python = ">= 3.9"
 authors = [
   { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
   { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
@@ -16,18 +16,19 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
 dependencies = [
   "rdflib >= 7.0.0",
-  "pydantic ~= 2.10.6",
+  "pydantic ~= 2.13.0",
   "ruamel.yaml >= 0.18.5,< 0.20.0",
   "email-validator == 2.3.0",
   "python-dateutil ~= 2.8",
@@ -57,7 +58,7 @@ features = ["notebook-docs"]
 dependencies = ["pytest", "pytest-cov"]
 
 [[tool.hatch.envs.test.matrix]]
-python = ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy3.9", "pypy3.10"]
+python = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14", "pypy3.9", "pypy3.10"]
 
 [tool.hatch.envs.test.scripts]
 test = "pytest {args:__tests__}"
