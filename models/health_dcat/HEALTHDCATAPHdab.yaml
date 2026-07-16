@@ -154,8 +154,7 @@ properties:
     title: Type
     type: string
   contact_point:
-    allOf:
-    - $ref: '#/$defs/HEALTHDCATAPKind'
+    $ref: '#/$defs/HEALTHDCATAPKind'
     description: Contact information that can be used to contact the Agent.
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri

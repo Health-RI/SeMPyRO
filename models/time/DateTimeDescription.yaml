@@ -64,6 +64,7 @@ properties:
     rdf_term: http://www.w3.org/2006/time#hasTRS
     rdf_type: uri
     title: Hastrs
+    type: string
   year:
     anyOf:
     - pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?

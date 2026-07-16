@@ -4623,11 +4623,7 @@
           "type": "array"
         },
         "retention_period": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/PeriodOfTime"
-            }
-          ],
+          "$ref": "#/$defs/PeriodOfTime",
           "default": null,
           "description": "A temporal period which the dataset is available for secondary use.",
           "rdf_term": "http://healthdataportal.eu/ns/health#retentionPeriod",
@@ -5849,11 +5845,7 @@
           "type": "string"
         },
         "contact_point": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/HEALTHDCATAPKind"
-            }
-          ],
+          "$ref": "#/$defs/HEALTHDCATAPKind",
           "description": "Contact information that can be used to contact the Agent.",
           "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
           "rdf_type": "uri"
@@ -6034,11 +6026,7 @@
           "type": "string"
         },
         "contact_point": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/HEALTHDCATAPKind"
-            }
-          ],
+          "$ref": "#/$defs/HEALTHDCATAPKind",
           "description": "Contact information that can be used to contact the Agent.",
           "rdf_term": "http://www.w3.org/ns/dcat#contactPoint",
           "rdf_type": "uri"
@@ -6232,11 +6220,7 @@
       "additionalProperties": false,
       "properties": {
         "access_rights": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/AccessRights"
-            }
-          ],
+          "$ref": "#/$defs/AccessRights",
           "description": "Information about who can access the resource or an indication of its security status.",
           "rdf_term": "http://purl.org/dc/terms/accessRights",
           "rdf_type": "uri"
@@ -8313,6 +8297,7 @@
             }
           ],
           "default": null,
+          "deprecated": true,
           "description": "(deprecated) Position of an instant, expressed using xsd:dateTime",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTime",
           "rdf_type": "xsd:dateTime",
@@ -8534,11 +8519,7 @@
   "description": "A collection of operations that provides access to one or more datasets or data processing functions.",
   "properties": {
     "access_rights": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/AccessRights"
-        }
-      ],
+      "$ref": "#/$defs/AccessRights",
       "description": "Information about who access the resource or an indication of its security status.",
       "rdf_term": "http://purl.org/dc/terms/accessRights",
       "rdf_type": "uri"

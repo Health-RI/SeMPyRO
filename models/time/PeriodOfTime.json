@@ -291,6 +291,7 @@
             }
           ],
           "default": null,
+          "deprecated": true,
           "description": "(deprecated) Position of an instant, expressed using xsd:dateTime",
           "rdf_term": "http://www.w3.org/2006/time#inXSDDateTime",
           "rdf_type": "xsd:dateTime",
