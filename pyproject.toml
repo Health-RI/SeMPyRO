@@ -45,6 +45,9 @@ notebook-docs = [
   "fairclient >= 1.0.0",
 ]
 
+[dependency-groups]
+dev = ["pytest", "pytest-cov"]
+
 [project.urls]
 Documentation = "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
 Repository = "https://github.com/Health-RI/SeMPyRO.git"
