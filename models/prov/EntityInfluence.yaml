@@ -14,10 +14,10 @@ properties:
       type: string
     - type: 'null'
     default:
-    description: The prov:entity property references an prov:Entity which influenced
-      a resource. This property applies to an prov:EntityInfluence, which is given
-      by a subproperty of prov:qualifiedInfluence from the influenced prov:Entity,
-      prov:Activity or prov:Agent.
+    description: The prov:entity property references an prov:Entity which 
+      influenced a resource. This property applies to an prov:EntityInfluence, 
+      which is given by a subproperty of prov:qualifiedInfluence from the 
+      influenced prov:Entity, prov:Activity or prov:Agent.
     rdf_term: http://www.w3.org/ns/prov#Entity
     rdf_type: uri
     title: Entity
@@ -28,9 +28,9 @@ properties:
       type: string
     - type: 'null'
     default:
-    description: A role is the function of an entity or agent with respect to an activity,
-      in the context of a usage, generation, invalidation, association, start, and
-      end.
+    description: A role is the function of an entity or agent with respect to an
+      activity, in the context of a usage, generation, invalidation, 
+      association, start, and end.
     rdf_term: http://www.w3.org/ns/prov#hadRole
     rdf_type: uri
     title: Hadrole
@@ -41,9 +41,10 @@ properties:
       type: string
     - type: 'null'
     default:
-    description: This property is used as part of the qualified influence pattern.
-      Subclasses of prov:Influence use these subproperties to reference the resource
-      (Entity, Agent, or Activity) whose influence is being qualified.
+    description: This property is used as part of the qualified influence 
+      pattern. Subclasses of prov:Influence use these subproperties to reference
+      the resource (Entity, Agent, or Activity) whose influence is being 
+      qualified.
     rdf_term: http://www.w3.org/ns/prov#influencer
     rdf_type: uri
     title: Influencer
@@ -54,9 +55,9 @@ properties:
       type: string
     - type: 'null'
     default:
-    description: An activity is something that occurs over a period of time and acts
-      upon or with entities; it may include consuming, processing, transforming, modifying,
-      relocating, using, or generating entities.
+    description: An activity is something that occurs over a period of time and 
+      acts upon or with entities; it may include consuming, processing, 
+      transforming, modifying, relocating, using, or generating entities.
     rdf_term: http://www.w3.org/ns/prov#hadActivity
     rdf_type: uri
     title: Hadactivity

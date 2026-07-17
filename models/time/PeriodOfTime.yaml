@@ -6,8 +6,8 @@ $defs:
     $ontology: https://www.w3.org/TR/owl-time/
     $prefix: time
     additionalProperties: false
-    description: Description of date and time structured with separate values for
-      the various elements of a calendar-clock system
+    description: Description of date and time structured with separate values 
+      for the various elements of a calendar-clock system
     properties:
       timeZone:
         anyOf:
@@ -21,8 +21,8 @@ $defs:
         rdf_type: uri
         title: Timezone
       unitType:
-        description: The temporal unit which provides the precision of a date-time
-          value or scale of a temporal extent
+        description: The temporal unit which provides the precision of a 
+          date-time value or scale of a temporal extent
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#unitType
@@ -30,8 +30,8 @@ $defs:
         title: Unittype
         type: string
       hasTRS:
-        description: The temporal reference system used by a temporal position or
-          extent description
+        description: The temporal reference system used by a temporal position 
+          or extent description
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#hasTRS
@@ -43,9 +43,9 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: Year position in a calendar-clock system. The range of this property
-          is not specified, so can be replaced by any specific representation of a
-          calendar year from any calendar.
+        description: Year position in a calendar-clock system. The range of this
+          property is not specified, so can be replaced by any specific 
+          representation of a calendar year from any calendar.
         rdf_term: http://www.w3.org/2006/time#year
         rdf_type: xsd:gYear
         title: Year
@@ -54,9 +54,9 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: Month position in a calendar-clock system. The range of this
-          property is not specified, so can be replaced by any specific representation
-          of a calendar month from any calendar.
+        description: Month position in a calendar-clock system. The range of 
+          this property is not specified, so can be replaced by any specific 
+          representation of a calendar month from any calendar.
         rdf_term: http://www.w3.org/2006/time#month
         rdf_type: xsd:gMonth
         title: Month
@@ -65,9 +65,9 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: Day position in a calendar-clock system. The range of this property
-          is not specified, so can be replaced by any specific representation of a
-          calendar day from any calendar.
+        description: Day position in a calendar-clock system. The range of this 
+          property is not specified, so can be replaced by any specific 
+          representation of a calendar day from any calendar.
         rdf_term: http://www.w3.org/2006/time#day
         rdf_type: xsd:gDay
         title: Day
@@ -127,7 +127,8 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: The day of week, whose value is a member of the class time:DayOfWeek
+        description: The day of week, whose value is a member of the class 
+          time:DayOfWeek
         rdf_term: http://www.w3.org/2006/time#dayOfWeek
         rdf_type: uri
         title: Dayofweek
@@ -138,7 +139,8 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: The month of the year, whose value is a member of the class time:MonthOfYear
+        description: The month of the year, whose value is a member of the class
+          time:MonthOfYear
         rdf_term: http://www.w3.org/2006/time#monthOfYear
         rdf_type: uri
         title: Monthofyear
@@ -152,7 +154,7 @@ $defs:
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
       see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
       \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
-      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n\
       value : str\n    literal value\neither datatype or language, or none of these
       two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
     properties:
@@ -164,7 +166,8 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        description: datatype,see 
+          https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
         anyOf:
@@ -207,7 +210,8 @@ $defs:
         - type: 'null'
         default:
         deprecated: true
-        description: (deprecated) Position of an instant, expressed using xsd:dateTime
+        description: (deprecated) Position of an instant, expressed using 
+          xsd:dateTime
         rdf_term: http://www.w3.org/2006/time#inXSDDateTime
         rdf_type: xsd:dateTime
         title: Inxsddatetime
@@ -217,14 +221,15 @@ $defs:
           type: string
         - type: 'null'
         default:
-        description: Position of an instant, expressed using xsd:dateTimeStamp, in
-          which the time-zone field is mandatory
+        description: Position of an instant, expressed using xsd:dateTimeStamp, 
+          in which the time-zone field is mandatory
         rdf_term: http://www.w3.org/2006/time#inXSDDateTimeStamp
         rdf_type: xsd:dateTimeStamp
         title: Inxsddatetimestamp
       inXSDgYear:
         anyOf:
-        - pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+        - pattern: 
+            -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
           type: string
         - type: 'null'
         default:
@@ -248,8 +253,8 @@ $defs:
         - $ref: '#/$defs/TimePosition'
         - type: 'null'
         default:
-        description: Position of an instant, expressed as a temporal coordinate or
-          nominal val
+        description: Position of an instant, expressed as a temporal coordinate 
+          or nominal val
         rdf_term: http://www.w3.org/2006/time#inTimePosition
         rdf_type: http://www.w3.org/2006/time#TimePosition
       inDateTime:
@@ -257,7 +262,8 @@ $defs:
         - $ref: '#/$defs/GeneralDateTimeDescription'
         - type: 'null'
         default:
-        description: Position of an instant, expressed using a structured description
+        description: Position of an instant, expressed using a structured 
+          description
         rdf_term: http://www.w3.org/2006/time#inDateTime
         rdf_type: http://www.w3.org/2006/time#GeneralDateTimeDescription
     title: TimeInstant
@@ -277,8 +283,8 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: The (nominal) value indicating temporal position in an ordinal
-          reference system
+        description: The (nominal) value indicating temporal position in an 
+          ordinal reference system
         rdf_term: http://www.w3.org/2006/time#nominalPosition
         rdf_type: xsd:string
         title: Nominalposition
@@ -287,14 +293,14 @@ $defs:
         - type: number
         - type: 'null'
         default:
-        description: The (numeric) value indicating position within a temporal coordinate
-          system
+        description: The (numeric) value indicating position within a temporal 
+          coordinate system
         rdf_term: http://www.w3.org/2006/time#numericPosition
         rdf_type: xsd:decimal
         title: Numericposition
       hasTRS:
-        description: The temporal reference system used by a temporal position or
-          extent description
+        description: The temporal reference system used by a temporal position 
+          or extent description
         format: uri
         minLength: 1
         rdf_term: http://www.w3.org/2006/time#hasTRS
