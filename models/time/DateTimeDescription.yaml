@@ -37,14 +37,16 @@ description: "Description of date and time structured with separate values for t
   to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively."
 properties:
   timeZone:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: The time zone for clock elements in the temporal position
-    format: uri
-    minLength: 1
     rdf_term: http://www.w3.org/2006/time#timeZone
     rdf_type: uri
     title: Timezone
-    type: string
   unitType:
     description: The temporal unit which provides the precision of a date-time value
       or scale of a temporal extent
@@ -64,88 +66,108 @@ properties:
     title: Hastrs
     type: string
   year:
+    anyOf:
+    - pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+      type: string
+    - type: 'null'
     default:
     description: Year position in a calendar-clock system. The range of this property
       is not specified, so can be replaced by any specific representation of a calendar
       year from any calendar.
-    pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#year
     rdf_type: xsd:gYear
     title: Year
-    type: string
   month:
+    anyOf:
+    - pattern: --(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+      type: string
+    - type: 'null'
     default:
     description: Month position in a calendar-clock system. The range of this property
       is not specified, so can be replaced by any specific representation of a calendar
       month from any calendar.
-    pattern: --(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#month
     rdf_type: xsd:gMonth
     title: Month
-    type: string
   day:
+    anyOf:
+    - pattern: '---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?'
+      type: string
+    - type: 'null'
     default:
     description: Day position in a calendar-clock system. The range of this property
       is not specified, so can be replaced by any specific representation of a calendar
       day from any calendar.
-    pattern: '---(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?'
     rdf_term: http://www.w3.org/2006/time#day
     rdf_type: xsd:gDay
     title: Day
-    type: string
   hour:
+    anyOf:
+    - maximum: 23
+      minimum: 0
+      type: integer
+    - type: 'null'
     default:
     description: Hour position in a calendar-clock system
-    maximum: 23
-    minimum: 0
     rdf_term: http://www.w3.org/2006/time#hour
     rdf_type: xsd:nonNegativeInteger
     title: Hour
-    type: integer
   minute:
+    anyOf:
+    - maximum: 59
+      minimum: 0
+      type: integer
+    - type: 'null'
     default:
     description: Minute position in a calendar-clock system
-    maximum: 59
-    minimum: 0
     rdf_term: http://www.w3.org/2006/time#minute
     rdf_type: xsd:nonNegativeInteger
     title: Minute
-    type: integer
   second:
+    anyOf:
+    - exclusiveMaximum: 60
+      minimum: 0
+      type: number
+    - type: 'null'
     default:
     description: Second position in a calendar-clock system.
-    exclusiveMaximum: 60.0
-    minimum: 0.0
     rdf_term: http://www.w3.org/2006/time#second
     rdf_type: xsd:decimal
     title: Second
-    type: number
   week:
+    anyOf:
+    - maximum: 53
+      minimum: 1
+      type: integer
+    - type: 'null'
     default:
     description: Week number within the year.
-    maximum: 53
-    minimum: 1
     rdf_term: http://www.w3.org/2006/time#week
     rdf_type: xsd:nonNegativeInteger
     title: Week
-    type: integer
   dayOfYear:
+    anyOf:
+    - maximum: 366
+      minimum: 1
+      type: integer
+    - type: 'null'
     default:
     description: The number of the day within the year
-    maximum: 366
-    minimum: 1
     rdf_term: http://www.w3.org/2006/time#dayOfYear
     rdf_type: xsd:nonNegativeInteger
     title: Dayofyear
-    type: integer
   dayOfWeek:
-    $ref: '#/$defs/DayOfWeek'
+    anyOf:
+    - $ref: '#/$defs/DayOfWeek'
+    - type: 'null'
     default:
     description: The day of week, whose value is a member of the class time:DayOfWeek
     rdf_term: http://www.w3.org/2006/time#dayOfWeek
     rdf_type: uri
   monthOfYear:
-    $ref: '#/$defs/MonthOfYear'
+    anyOf:
+    - $ref: '#/$defs/MonthOfYear'
+    - type: 'null'
     default:
     description: The month of the year, whose value is a member of the class time:MonthOfYear
     rdf_term: http://www.w3.org/2006/time#monthOfYear

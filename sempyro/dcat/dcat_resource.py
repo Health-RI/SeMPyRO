@@ -58,7 +58,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
                                   "$prefix": "dcat"
                               }
                               )
-    access_rights: AccessRights = Field(
+    access_rights: Optional[AccessRights] = Field(
         default=None,
         description="Information about who can access the resource or an indication of its security status.",
         json_schema_extra={
@@ -66,7 +66,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    conforms_to: AnyHttpUrl = Field(
+    conforms_to: Optional[AnyHttpUrl] = Field(
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
@@ -74,7 +74,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    contact_point: List[Union[AnyHttpUrl, VCard, Agent]] = Field(
+    contact_point: Optional[List[Union[AnyHttpUrl, VCard, Agent]]] = Field(
         default=None,
         description="Relevant contact information for the cataloged resource. Use of vCard is recommended",
         json_schema_extra={
@@ -82,7 +82,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    creator: List[Union[AnyHttpUrl, VCard, Agent]] = Field(
+    creator: Optional[List[Union[AnyHttpUrl, VCard, Agent]]] = Field(
         default=None,
         description="The entity responsible for producing the resource. Resources of type foaf:Agent are "
                     "recommended as values for this property.",
@@ -98,7 +98,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    has_part: List[AnyHttpUrl] = Field(
+    has_part: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A related resource that is included either physically or logically in the described resource.",
         json_schema_extra={
@@ -106,7 +106,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    has_policy: ODRLPolicy = Field(
+    has_policy: Optional[ODRLPolicy] = Field(
         default=None,
         description="An ODRL conformant policy expressing the rights associated with the resource.",
         json_schema_extra={
@@ -114,7 +114,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    identifier: List[Union[str, LiteralField]] = Field(
+    identifier: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="A unique identifier of the resource being described or cataloged.",
         json_schema_extra={
@@ -122,7 +122,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    is_referenced_by: List[AnyHttpUrl] = Field(
+    is_referenced_by: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A related resource, such as a publication, that references, cites, or otherwise points to the "
                     "cataloged resource.",
@@ -131,7 +131,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    keyword: List[LiteralField] = Field(
+    keyword: Optional[List[LiteralField]] = Field(
         default=None,
         description="A keyword or tag describing the resource.",
         json_schema_extra={
@@ -139,7 +139,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    landing_page: List[AnyHttpUrl] = Field(
+    landing_page: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, "
                     "its distributions and/or additional information.",
@@ -156,7 +156,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    language: List[AnyHttpUrl] = Field(
+    language: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A language of the resource. This refers to the natural language used for textual metadata "
                     "(i.e., titles, descriptions, etc.) of a cataloged resource (i.e., dataset or service) or the "
@@ -166,7 +166,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    relation: List[AnyHttpUrl] = Field(
+    relation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A resource with an unspecified relationship to the cataloged resource.",
         json_schema_extra={
@@ -174,7 +174,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    rights: Union[LiteralField, AnyHttpUrl] = Field(
+    rights: Optional[Union[LiteralField, AnyHttpUrl]] = Field(
         default=None,
         description="Information about rights held in and over the distribution. Recommended practice is to refer to "
                     "a rights statement with a URI. If this is not possible or feasible, a literal value (name, label, "
@@ -184,7 +184,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    qualified_relation: List[AnyHttpUrl] = Field(
+    qualified_relation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Link to a description of a relationship with another resource",
         json_schema_extra={
@@ -192,7 +192,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    publisher: List[Union[AnyHttpUrl, Agent]] = Field(
+    publisher: Optional[List[Union[AnyHttpUrl, Agent]]] = Field(
         default=None,
         description="The entity responsible for making the resource available.",
         json_schema_extra={
@@ -200,7 +200,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    release_date: Union[str, datetime, date, AwareDatetime, NaiveDatetime] = Field(
+    release_date: Optional[Union[str, datetime, date, AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="Date of formal issuance (e.g., publication) of the resource.",
         json_schema_extra={
@@ -208,7 +208,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "datetime_literal"
         }
     )
-    theme: List[AnyHttpUrl] = Field(
+    theme: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A main category of the resource. A resource can have multiple themes.",
         json_schema_extra={
@@ -223,7 +223,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    type: List[AnyHttpUrl] = Field(
+    type: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The nature or genre of the resource.",
         json_schema_extra={
@@ -231,7 +231,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    modification_date: Union[str, date, AwareDatetime, NaiveDatetime] = Field(
+    modification_date: Optional[Union[str, date, AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="Most recent date on which the resource was changed, updated or modified.",
         json_schema_extra={
@@ -239,7 +239,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "datetime_literal"
         }
     )
-    qualified_attribution: List[AnyHttpUrl] = Field(
+    qualified_attribution: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Link to an Agent having some form of responsibility for the resource",
         json_schema_extra={
@@ -247,7 +247,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    has_current_version: AnyHttpUrl = Field(
+    has_current_version: Optional[AnyHttpUrl] = Field(
         default=None,
         description="This resource has a more specific, versioned resource with equivalent content [PAV].",
         json_schema_extra={
@@ -255,7 +255,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    has_version: List[AnyHttpUrl] = Field(
+    has_version: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="This resource has a more specific, versioned resource",
         json_schema_extra={
@@ -263,7 +263,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    previous_version: AnyHttpUrl = Field(
+    previous_version: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The previous version of a resource in a lineage [PAV].",
         json_schema_extra={
@@ -271,7 +271,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    replaces: AnyHttpUrl = Field(
+    replaces: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A related resource that is supplanted, displaced, or superseded by the described resource",
         json_schema_extra={
@@ -279,7 +279,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    status: Status = Field(
+    status: Optional[Status] = Field(
         default=None,
         description="The status of the resource in the context of a particular workflow process [VOCAB-ADMS].",
         json_schema_extra={
@@ -288,7 +288,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
         }
     )
 
-    version: Union[str, LiteralField] = Field(
+    version: Optional[Union[str, LiteralField]] = Field(
         default=None,
         description="The version indicator (name or identifier) of a resource.",
         json_schema_extra={
@@ -296,7 +296,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    version_notes: List[Union[str, LiteralField]] = Field(
+    version_notes: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="A description of changes between this version and the previous version of the resource "
                     "[VOCAB-ADMS].",
@@ -305,7 +305,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "rdfs_literal"
         }
     )
-    first: AnyHttpUrl = Field(
+    first: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The first resource in an ordered collection or series of resources, to which the current resource "
                     "belongs.",
@@ -314,7 +314,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    last: AnyHttpUrl = Field(
+    last: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The last resource in an ordered collection or series of resources, to which the current resource "
                     "belongs.",
@@ -323,7 +323,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    previous: List[AnyHttpUrl] = Field(
+    previous: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The previous resource (before the current one) in an ordered collection or series of resources.",
         json_schema_extra={
@@ -331,7 +331,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": "uri"
         }
     )
-    temporal_coverage: List[PeriodOfTime] = Field(
+    temporal_coverage: Optional[List[PeriodOfTime]] = Field(
         default=None,
         description="The temporal period that the dataset covers.",
         json_schema_extra={
@@ -339,7 +339,7 @@ class DCATResource(RDFModel, metaclass=ABCMeta):
             "rdf_type": DCTERMS.PeriodOfTime
         }
     )
-    geographical_coverage: List[Union[AnyHttpUrl, Location]] = Field(
+    geographical_coverage: Optional[List[Union[AnyHttpUrl, Location]]] = Field(
         default=None,
         description="The geographical area covered by the dataset.",
         json_schema_extra={

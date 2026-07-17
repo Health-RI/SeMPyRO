@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib import DCAT, DCTERMS
@@ -36,7 +36,7 @@ class Geometry(RDFModel):
                               }
                               )
 
-    dimension: int = Field(
+    dimension: Optional[int] = Field(
         default=None,
         description="The topological dimension of this geometric object, which must be less than or equal to the "
                     "coordinate dimension. In non-homogeneous collections, this is the largest topological dimension "
@@ -46,7 +46,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:integer"
         }
     )
-    coordinateDimension: int = Field(
+    coordinateDimension: Optional[int] = Field(
         default=None,
         description="The number of measurements or axes needed to describe the position of this Geometry in a "
                     "coordinate system.",
@@ -55,7 +55,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:integer"
         }
     )
-    spatialDimension: int = Field(
+    spatialDimension: Optional[int] = Field(
         default=None,
         description="The number of measurements or axes needed to describe the spatial position of this Geometry in "
                     "a coordinate system.",
@@ -64,7 +64,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:integer"
         }
     )
-    hasSpatialResolution: AnyHttpUrl = Field(
+    hasSpatialResolution: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The spatial resolution of a Geometry",
         json_schema_extra={
@@ -72,7 +72,7 @@ class Geometry(RDFModel):
             "rdf_type": "uri"
         }
     )
-    hasMetricSpatialResolution: float = Field(
+    hasMetricSpatialResolution: Optional[float] = Field(
         default=None,
         description="The spatial resolution of a Geometry in meters.",
         json_schema_extra={
@@ -80,7 +80,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:double"
         }
     )
-    hasSpatialAccuracy: AnyHttpUrl = Field(
+    hasSpatialAccuracy: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The positional accuracy of the coordinates of a Geometry",
         json_schema_extra={
@@ -88,7 +88,7 @@ class Geometry(RDFModel):
             "rdf_type": "uri"
         }
     )
-    hasMetricSpatialAccuracy: float = Field(
+    hasMetricSpatialAccuracy: Optional[float] = Field(
         default=None,
         description="The positional accuracy of the coordinates of a Geometry in meters.",
         json_schema_extra={
@@ -96,7 +96,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:double"
         }
     )
-    isEmpty: bool = Field(
+    isEmpty: Optional[bool] = Field(
         default=None,
         description="(true) if this geometric object is the empty Geometry. If true, then this geometric object "
                     "represents the empty point set for the coordinate space.",
@@ -105,7 +105,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:boolean"
         }
     )
-    isSimple: bool = Field(
+    isSimple: Optional[bool] = Field(
         default=None,
         description="(true) if this geometric object has no anomalous geometric points, such as self intersection or "
                     "self tangency.",
@@ -114,7 +114,7 @@ class Geometry(RDFModel):
             "rdf_type": "xsd:boolean"
         }
     )
-    hasSerialization: Union[str, LiteralField] = Field(
+    hasSerialization: Optional[Union[str, LiteralField]] = Field(
         default=None,
         description="Connects a Geometry object with its text-based serialization.",
         json_schema_extra={
@@ -135,7 +135,7 @@ class Location(RDFModel):
                               }
                               )
 
-    geometry: Union[LiteralField, Geometry] = Field(
+    geometry: Optional[Union[LiteralField, Geometry]] = Field(
         default=None,
         description="Associates a spatial thing [SDW-BP] with a corresponding geometry.",
         # bind_namespace=("locn", str(LOCN)),
@@ -145,7 +145,7 @@ class Location(RDFModel):
             "bind_namespace": ("locn", str(LOCN)),
         }
     )
-    bounding_box: Union[LiteralField, str] = Field(
+    bounding_box: Optional[Union[LiteralField, str]] = Field(
         default=None,
         description="The geographic bounding box of a spatial thing [SDW-BP].",
         json_schema_extra={
@@ -153,7 +153,7 @@ class Location(RDFModel):
             "rdf_type": "rdfs_literal"
         }
     )
-    centroid: LiteralField = Field(
+    centroid: Optional[LiteralField] = Field(
         default=None,
         description="The geographic center (centroid) of a spatial thing [SDW-BP].",
         json_schema_extra={

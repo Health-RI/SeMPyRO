@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
@@ -46,7 +46,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    applicable_legislation: List[AnyHttpUrl] = Field(
+    applicable_legislation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legislation that is applicable to this resource.",
         json_schema_extra={
@@ -54,7 +54,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    application_profile: List[AnyHttpUrl] = Field(
+    application_profile: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
@@ -69,7 +69,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    creator: List[Union[AnyHttpUrl, HRIAgent]] = Field(
+    creator: Optional[List[Union[AnyHttpUrl, HRIAgent]]] = Field(
         default=None,
         description="An entity responsible for making the resource.",
         json_schema_extra={
@@ -77,7 +77,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    rights: List[AnyHttpUrl] = Field(
+    rights: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Information about rights held in and over the resource.",
         json_schema_extra={
@@ -92,7 +92,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    format: List[AnyHttpUrl] = Field(
+    format: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The file format, physical medium, or dimensions of the resource.",
         json_schema_extra={
@@ -100,7 +100,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    hvd_category: List[AnyHttpUrl] = Field(  # IRI or skos:Concept
+    hvd_category: Optional[List[AnyHttpUrl]] = Field( # IRI or skos:Concept
         default=None,
         description="A data category defined in the High Value Dataset Implementing Regulation.",
         json_schema_extra={
@@ -108,7 +108,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    other_identifier: List[Union[AnyHttpUrl, Identifier]] = Field(
+    other_identifier: Optional[List[Union[AnyHttpUrl, Identifier]]] = Field(
         default=None,
         description="Links a resource to an adms:Identifier class.",
         json_schema_extra={
@@ -116,7 +116,7 @@ class HRIDataService(HEALTHDCATAPDataService):
             "rdf_type": "uri",
         },
     )
-    serves_dataset: List[Union[AnyHttpUrl, HRIDataset]] = Field(
+    serves_dataset: Optional[List[Union[AnyHttpUrl, HRIDataset]]] = Field(
         default=None,
         description="A collection of data that this data service can distribute.",
         json_schema_extra={
@@ -126,7 +126,7 @@ class HRIDataService(HEALTHDCATAPDataService):
     )
     endpoint_description: AnyHttpUrl = Field(
         description="A description of the services available via the end-points, including their operations, "
-        "parameters etc.",
+                    "parameters etc.",
         json_schema_extra={
             "rdf_term": DCAT.endpointDescription,
             "rdf_type": "uri",

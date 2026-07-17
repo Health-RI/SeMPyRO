@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import ODRL2
@@ -32,7 +32,7 @@ class ODRLPolicy(RDFModel):
         }
     )
 
-    conflict: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    conflict: Optional[List[Union[AnyHttpUrl, RDFModel]]] = Field(
         default=None,
         description="The conflict-resolution strategy for a Policy.",
         json_schema_extra={
@@ -40,7 +40,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    permission: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    permission: Optional[List[Union[AnyHttpUrl, RDFModel]]] = Field(
         default=None,
         description="Permissions take preference over prohibitions.",
         json_schema_extra={
@@ -48,7 +48,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    prohibition: List[Union[AnyHttpUrl, RDFModel]] = Field(
+    prohibition: Optional[List[Union[AnyHttpUrl, RDFModel]]] = Field(
         default=None,
         description="The inability to perform an Action over an Asset.",
         json_schema_extra={
@@ -56,7 +56,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    inheritFrom: List[AnyHttpUrl] = Field(
+    inheritFrom: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Relates a (child) policy to another (parent) policy from which terms are inherited.",
         json_schema_extra={
@@ -64,7 +64,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    profile: List[AnyHttpUrl] = Field(
+    profile: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The identifier(s) of an ODRL Profile that the Policy conforms to.",
         json_schema_extra={
@@ -72,7 +72,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    obligation: List[AnyHttpUrl] = Field(
+    obligation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Relates an individual Duty to a Policy.",
         json_schema_extra={
@@ -80,7 +80,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    uid: List[AnyHttpUrl] = Field(
+    uid: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Unique Identifier",
         json_schema_extra={
@@ -88,7 +88,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    relation: List[AnyHttpUrl] = Field(
+    relation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Relation is an abstract property which creates an explicit link between an Action and an Asset.",
         json_schema_extra={
@@ -96,7 +96,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    target: List[AnyHttpUrl] = Field(
+    target: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The target property indicates the Asset that is the primary subject to which the Rule action "
                     "directly applies.",
@@ -105,7 +105,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    function: List[AnyHttpUrl] = Field(
+    function: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Function is an abstract property whose sub-properties define the functional roles which may be "
                     "fulfilled by a party in relation to a Rule.",
@@ -114,7 +114,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    action: List[AnyHttpUrl] = Field(
+    action: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The operation relating to the Asset for which the Rule is being subjected.",
         json_schema_extra={
@@ -122,7 +122,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    constraint: List[AnyHttpUrl] = Field(
+    constraint: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Constraint applied to a Rule",
         json_schema_extra={
@@ -130,7 +130,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    assignee: List[AnyHttpUrl] = Field(
+    assignee: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The Party is the recipient of the Rule.",
         json_schema_extra={
@@ -138,7 +138,7 @@ class ODRLPolicy(RDFModel):
             "rdf_type": "uri"
         }
     )
-    assigner: List[AnyHttpUrl] = Field(
+    assigner: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The Party is the issuer of the Rule.",
         json_schema_extra={

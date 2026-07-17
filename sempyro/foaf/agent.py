@@ -13,7 +13,7 @@
 # limitations under the License.
 import re
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCTERMS, FOAF
@@ -46,7 +46,7 @@ class Agent(RDFModel):
             "rdf_type": "rdfs_literal"
         }
     )
-    mbox: List[AnyUrl] = Field(
+    mbox: Optional[List[AnyUrl]] = Field(
         default=None,
         description="A personal mailbox, ie. an Internet mailbox associated "
         "with exactly one owner, the first owner of this mailbox.",
@@ -55,7 +55,7 @@ class Agent(RDFModel):
             "rdf_type": "uri",
         }
     )
-    homepage: AnyUrl = Field(
+    homepage: Optional[AnyUrl] = Field(
         default=None,
         description="A webpage that either allows to make contact (i.e. a webform) or the information contains "
                     "how to get into contact.",
