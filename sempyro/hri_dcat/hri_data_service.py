@@ -18,8 +18,7 @@ from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS
 
 from sempyro import LiteralField
-from sempyro.dcat import AccessRights
-from sempyro.healthdcatap import HEALTHDCATAPDataService
+from sempyro.dcat import DCATDataService, AccessRights
 from sempyro.hri_dcat.hri_dataset import HRIDataset
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
@@ -28,7 +27,7 @@ from sempyro.hri_dcat.vocabularies import GeonovumLicences, DatasetTheme
 from sempyro.namespaces import DCATAPv3, ADMS
 
 
-class HRIDataService(HEALTHDCATAPDataService):
+class HRIDataService(DCATDataService):
     """A collection of operations that provides access to one or more datasets or data processing functions."""
 
     model_config = ConfigDict(

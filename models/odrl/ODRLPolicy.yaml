@@ -2,7 +2,8 @@ $IRI: http://www.w3.org/ns/odrl/2/Policy
 $defs:
   RDFModel:
     additionalProperties: false
-    description: Base class for creating pydantic models convertible to RDF graph
+    description: Base class for creating pydantic models convertible to RDF 
+      graph
     properties: {}
     title: RDFModel
     type: object
@@ -66,8 +67,8 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: Relates a (child) policy to another (parent) policy from which terms
-      are inherited.
+    description: Relates a (child) policy to another (parent) policy from which 
+      terms are inherited.
     rdf_term: http://www.w3.org/ns/odrl/2/inheritFrom
     rdf_type: uri
     title: Inheritfrom
@@ -80,7 +81,8 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: The identifier(s) of an ODRL Profile that the Policy conforms to.
+    description: The identifier(s) of an ODRL Profile that the Policy conforms 
+      to.
     rdf_term: http://www.w3.org/ns/odrl/2/profile
     rdf_type: uri
     title: Profile
@@ -119,8 +121,8 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: Relation is an abstract property which creates an explicit link between
-      an Action and an Asset.
+    description: Relation is an abstract property which creates an explicit link
+      between an Action and an Asset.
     rdf_term: http://www.w3.org/ns/odrl/2/relation
     rdf_type: uri
     title: Relation
@@ -133,8 +135,8 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: The target property indicates the Asset that is the primary subject
-      to which the Rule action directly applies.
+    description: The target property indicates the Asset that is the primary 
+      subject to which the Rule action directly applies.
     rdf_term: http://www.w3.org/ns/odrl/2/target
     rdf_type: uri
     title: Target
@@ -147,8 +149,9 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: Function is an abstract property whose sub-properties define the
-      functional roles which may be fulfilled by a party in relation to a Rule.
+    description: Function is an abstract property whose sub-properties define 
+      the functional roles which may be fulfilled by a party in relation to a 
+      Rule.
     rdf_term: http://www.w3.org/ns/odrl/2/function
     rdf_type: uri
     title: Function
@@ -161,7 +164,8 @@ properties:
       type: array
     - type: 'null'
     default:
-    description: The operation relating to the Asset for which the Rule is being subjected.
+    description: The operation relating to the Asset for which the Rule is being
+      subjected.
     rdf_term: http://www.w3.org/ns/odrl/2/action
     rdf_type: uri
     title: Action

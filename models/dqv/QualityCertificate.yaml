@@ -22,8 +22,8 @@ properties:
       type: string
     - type: 'null'
     default:
-    description: The object of the relationship is a resource that is a body of the
-      Annotation.
+    description: The object of the relationship is a resource that is a body of 
+      the Annotation.
     rdf_term: http://www.w3.org/ns/oa#hasBody
     rdf_type: uri
     title: Body

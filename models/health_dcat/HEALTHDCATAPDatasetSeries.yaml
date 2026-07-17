@@ -847,7 +847,7 @@ $defs:
 $namespace: http://www.w3.org/ns/dcat#
 $ontology:
 - https://www.w3.org/TR/vocab-dcat-3/
-- https://health-ri.atlassian.net/wiki/spaces/FSD/pages/121110529/Core+Metadata+Schema+Specification
+- https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/
 $prefix: dcat
 additionalProperties: false
 properties:
@@ -873,17 +873,22 @@ properties:
     rdf_type: uri
     title: Conforms To
   contact_point:
-    description: Relevant contact information for the cataloged resource.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/VCard'
+    anyOf:
+    - items:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - $ref: '#/$defs/VCard'
+        - $ref: '#/$defs/Agent'
+      type: array
+    - type: 'null'
+    default:
+    description: Relevant contact information for the cataloged resource. Use of
+      vCard is recommended
     rdf_term: http://www.w3.org/ns/dcat#contactPoint
     rdf_type: uri
     title: Contact Point
-    type: array
   creator:
     anyOf:
     - items:
@@ -1059,10 +1064,13 @@ properties:
     title: Qualified Relation
   publisher:
     anyOf:
-    - format: uri
-      minLength: 1
-      type: string
-    - $ref: '#/$defs/Agent'
+    - items:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - $ref: '#/$defs/Agent'
+      type: array
     - type: 'null'
     default:
     description: The entity responsible for making the resource available.
@@ -1292,32 +1300,7 @@ properties:
     rdf_term: http://purl.org/dc/terms/spatial
     rdf_type: uri
     title: Geographical Coverage
-  applicable_legislation:
-    anyOf:
-    - items:
-        format: uri
-        minLength: 1
-        type: string
-      type: array
-    - type: 'null'
-    default:
-    description: The legislation that is applicable to this resource.
-    rdf_term: http://data.europa.eu/r5r/applicableLegislation
-    rdf_type: uri
-    title: Applicable Legislation
-  frequency:
-    anyOf:
-    - format: uri
-      minLength: 1
-      type: string
-    - type: 'null'
-    default:
-    description: The frequency with which items are added to a collection.
-    rdf_term: http://purl.org/dc/terms/accrualPeriodicity
-    rdf_type: uri
-    title: Frequency
 required:
-- contact_point
 - description
 - title
 title: http://www.w3.org/ns/dcat#DatasetSeries

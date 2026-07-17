@@ -20,13 +20,13 @@ from rdflib import URIRef
 from rdflib.namespace import DCTERMS, FOAF
 
 from sempyro import LiteralField
-from sempyro.healthdcatap import HEALTHDCATAPAgent
+from sempyro.foaf import Agent
 from sempyro.geo import Location
 from sempyro.namespaces import HEALTHDCATAP
 from sempyro.utils.validator_functions import validate_convert_email
 
 
-class HRIAgent(HEALTHDCATAPAgent):
+class HRIAgent(Agent):
     model_config = ConfigDict(
         json_schema_extra={
             "$ontology": [

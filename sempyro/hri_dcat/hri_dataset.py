@@ -19,19 +19,18 @@ from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
 
 from sempyro import LiteralField
-from sempyro.dcat import AccessRights, Attribution, Relationship
+from sempyro.dcat import DCATDataset, AccessRights, DCATDistribution, DCATDatasetSeries, Attribution, Relationship
 from sempyro.dqv import QualityCertificate
 from sempyro.adms import Identifier
-from sempyro.healthdcatap import HEALTHDCATAPDataset, HEALTHDCATAPDistribution, HEALTHDCATAPDatasetSeries
 from sempyro.hri_dcat.hri_agent import HRIAgent
 from sempyro.hri_dcat.hri_vcard import HRIVCard
 from sempyro.hri_dcat.vocabularies import DatasetTheme, DatasetStatus
-from sempyro.namespaces import DCATv3, DCATAPv3, DPV, ADMS, DQV, HEALTHDCATAP
+from sempyro.namespaces import DCATv3, DCATAPv3, HEALTHDCATAP, DPV, ADMS, DQV
 from sempyro.time import PeriodOfTime
 from sempyro.utils.validator_functions import convert_to_literal
 
 
-class HRIDataset(HEALTHDCATAPDataset):
+class HRIDataset(DCATDataset):
     model_config = ConfigDict(
         json_schema_extra={
             "$ontology": [
@@ -52,7 +51,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    analytics: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
+    analytics: Optional[List[Union[AnyHttpUrl, DCATDistribution]]] = Field(
         default=None,
         description="An analytics distribution of the dataset.",
         json_schema_extra={
@@ -112,7 +111,7 @@ class HRIDataset(HEALTHDCATAPDataset):
             "rdf_type": "uri",
         },
     )
-    distribution: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
+    distribution: Optional[List[Union[AnyHttpUrl, DCATDistribution]]] = Field(
         default=None,
         description="An available Distribution for the Dataset.",
         json_schema_extra={
@@ -149,7 +148,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    in_series: Optional[List[Union[HEALTHDCATAPDatasetSeries, AnyHttpUrl]]] = Field(
+    in_series: Optional[List[Union[DCATDatasetSeries, AnyHttpUrl]]] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
         json_schema_extra={
@@ -284,7 +283,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    sample: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
+    sample: Optional[List[Union[AnyHttpUrl, DCATDistribution]]] = Field(
         default=None,
         description="Links to a sample of an Asset (which is itself an Asset).",
         json_schema_extra={
@@ -293,7 +292,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    source: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDataset]]] = Field(
+    source: Optional[List[Union[AnyHttpUrl, DCATDataset]]] = Field(
         default=None,
         description="A related resource from which the described resource is derived.",
         json_schema_extra={
@@ -348,7 +347,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    _validate_literal_fields: ClassVar[Set[str]] = HEALTHDCATAPDataset._validate_literal_fields | {
+    _validate_literal_fields: ClassVar[Set[str]] = DCATDataset._validate_literal_fields | {
         "keyword",
         "population_coverage",
     }

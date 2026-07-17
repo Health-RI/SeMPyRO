@@ -5,7 +5,7 @@ $defs:
       : str, pydantic.AnyUrl Optional\n    datatype for literal value e.g. 'xsd:date'
       see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes\nlanguage : str Optional\n\
       \    RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,
-      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n
+      and also IANA-administrated \n    namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry\n\
       value : str\n    literal value\neither datatype or language, or none of these
       two attributes should be provided \nas per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal"
     properties:
@@ -17,7 +17,8 @@ $defs:
         - type: string
         - type: 'null'
         default:
-        description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
+        description: datatype,see 
+          https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
         anyOf:
@@ -44,8 +45,8 @@ properties:
     anyOf:
     - type: string
     - $ref: '#/$defs/LiteralField'
-    description: A string that is an identifier in the context of the identifier scheme
-      referenced by its datatype.
+    description: A string that is an identifier in the context of the identifier
+      scheme referenced by its datatype.
     rdf_term: http://www.w3.org/2004/02/skos/core#notation
     rdf_type: rdfs_literal
     title: Notation
