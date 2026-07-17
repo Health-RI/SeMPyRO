@@ -159,8 +159,8 @@
     "second": {
       "anyOf": [
         {
-          "exclusiveMaximum": 60.0,
-          "minimum": 0.0,
+          "exclusiveMaximum": 60,
+          "minimum": 0,
           "type": "number"
         },
         {
