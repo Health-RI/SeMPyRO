@@ -1,0 +1,45 @@
+{
+  "$IRI": "http://www.w3.org/ns/dqv#QualityCertificate",
+  "$namespace": "http://www.w3.org/ns/dqv#",
+  "$ontology": "https://www.w3.org/TR/vocab-dqv/",
+  "$prefix": "dqv",
+  "additionalProperties": false,
+  "properties": {
+    "target": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The relationship between an Annotation and its Target.",
+      "rdf_term": "http://www.w3.org/ns/oa#hasTarget",
+      "rdf_type": "uri",
+      "title": "Target"
+    },
+    "body": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The object of the relationship is a resource that is a body of the Annotation.",
+      "rdf_term": "http://www.w3.org/ns/oa#hasBody",
+      "rdf_type": "uri",
+      "title": "Body"
+    }
+  },
+  "title": "QualityCertificate",
+  "type": "object"
+}

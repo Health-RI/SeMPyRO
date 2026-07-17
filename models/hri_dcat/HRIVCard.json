@@ -13,6 +13,9 @@
             },
             {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -20,10 +23,17 @@
           "title": "Datatype"
         },
         "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
-          "title": "Language",
-          "type": "string"
+          "title": "Language"
         },
         "value": {
           "description": "Field value",
@@ -71,27 +81,41 @@
       "title": "Formatted Name"
     },
     "hasUID": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A unique identifier for the object",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://www.w3.org/2006/vcard/ns#hasUID",
       "rdf_type": "uri",
-      "title": "Hasuid",
-      "type": "string"
+      "title": "Hasuid"
     },
     "contact_page": {
+      "anyOf": [
+        {
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "A webpage that either allows to make contact (e.g. a webform) or provides information on how to get in touch.",
-      "items": {
-        "format": "uri",
-        "minLength": 1,
-        "type": "string"
-      },
       "rdf_term": "http://www.w3.org/2006/vcard/ns#hasURL",
       "rdf_type": "uri",
-      "title": "Contact Page",
-      "type": "array"
+      "title": "Contact Page"
     }
   },
   "required": [

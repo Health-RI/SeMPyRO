@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import Union, List
+from typing import List, Optional, Union
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT
@@ -37,7 +37,7 @@ class HEALTHDCATAPDistribution(DCATDistribution):
             "$prefix": "dcat",
         },
     )
-    retention_period: Union[AnyHttpUrl, PeriodOfTime] = Field(
+    retention_period: Optional[Union[AnyHttpUrl, PeriodOfTime]] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={

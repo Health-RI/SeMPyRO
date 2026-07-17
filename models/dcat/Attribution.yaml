@@ -26,27 +26,31 @@ $defs:
         rdf_type: rdfs_literal
         title: Identifier
       mbox:
+        anyOf:
+        - items:
+            format: uri
+            minLength: 1
+            type: string
+          type: array
+        - type: 'null'
         default:
         description: A personal mailbox, ie. an Internet mailbox associated with exactly
           one owner, the first owner of this mailbox.
-        items:
-          format: uri
-          minLength: 1
-          type: string
         rdf_term: http://xmlns.com/foaf/0.1/mbox
         rdf_type: uri
         title: Mbox
-        type: array
       homepage:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: A webpage that either allows to make contact (i.e. a webform)
           or the information contains how to get into contact.
-        format: uri
-        minLength: 1
         rdf_term: http://xmlns.com/foaf/0.1/homepage
         rdf_type: uri
         title: Homepage
-        type: string
     required:
     - name
     - identifier
@@ -67,15 +71,18 @@ $defs:
           minLength: 1
           type: string
         - type: string
+        - type: 'null'
         default:
         description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
           also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
         title: Language
-        type: string
       value:
         description: Field value
         title: Value
@@ -95,6 +102,7 @@ properties:
       minLength: 1
       type: string
     - $ref: '#/$defs/Agent'
+    - type: 'null'
     default:
     description: The prov:agent property references an prov:Agent which influenced
       a resource.
@@ -102,14 +110,16 @@ properties:
     rdf_type: uri
     title: Agent
   role:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: The function of an entity or agent with respect to another entity
       or resource.
-    format: uri
-    minLength: 1
     rdf_term: http://www.w3.org/ns/dcat#hadRole
     rdf_type: uri
     title: Role
-    type: string
 title: Attribution
 type: object
