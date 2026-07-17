@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 from pydantic import ConfigDict, Field
 from rdflib.namespace import SKOS
@@ -39,7 +39,7 @@ class Identifier(RDFModel):
         }
     )
 
-    schema_agency: Union[str, LiteralField] = Field(
+    schema_agency: Optional[Union[str, LiteralField]] = Field(
         default=None,
         description="The name of the agency that issued the identifier.",
         json_schema_extra={

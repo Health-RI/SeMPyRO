@@ -57,7 +57,7 @@ class DCATDataset(DCATResource):
                               )
 
 
-    conforms_to: List[AnyHttpUrl] = Field(
+    conforms_to: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
@@ -65,7 +65,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    distribution: List[AnyHttpUrl] = Field(
+    distribution: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="An available distribution of the dataset.",
         json_schema_extra={
@@ -73,7 +73,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    frequency: Union[AnyHttpUrl, Frequency] = Field(
+    frequency: Optional[Union[AnyHttpUrl, Frequency]] = Field(
         default=None,
         description="The frequency at which a dataset is published.",
         json_schema_extra={
@@ -81,7 +81,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    in_series: List[AnyHttpUrl] = Field(
+    in_series: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
         json_schema_extra={
@@ -89,7 +89,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    spatial_resolution: List[float] = Field(
+    spatial_resolution: Optional[List[float]] = Field(
         default=None,
         description="Minimum spatial separation resolvable in a dataset, "
                     "measured in meters.",
@@ -98,7 +98,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "xsd:decimal"
         }
     )
-    temporal_resolution: Union[str, LiteralField] = Field(
+    temporal_resolution: Optional[Union[str, LiteralField]] = Field(
         default=None,
         description="Minimum time period resolvable in the dataset.",
         json_schema_extra={
@@ -106,7 +106,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "xsd:duration"
         }
     )
-    was_generated_by: List[Union[AnyHttpUrl, Activity]] = Field(
+    was_generated_by: Optional[List[Union[AnyHttpUrl, Activity]]] = Field(
         default=None,
         description="An activity that generated, or provides the business context for, the creation of the dataset.",
         json_schema_extra={
@@ -122,7 +122,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         }
     )
-    applicable_legislation: List[AnyHttpUrl] = Field(
+    applicable_legislation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The legislation that mandates the creation or management of the dataset.",
         json_schema_extra={
@@ -130,7 +130,7 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri"
         },
     )
-    other_identifier: List[Identifier] = Field(
+    other_identifier: Optional[List[Identifier]] = Field(
         default=None,
         description="Links a resource to an adms:Identifier class.",
         json_schema_extra={
@@ -138,7 +138,6 @@ class DCATDataset(DCATResource):
             "rdf_type": "uri",
         },
     )
-
 
     @field_validator("temporal_resolution", mode="after")
     @classmethod
