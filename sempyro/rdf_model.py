@@ -18,7 +18,7 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Type, Union
+from typing import Any, Dict, List, Type, Union, Optional
 from typing import Literal as typing_Literal
 
 import ruamel.yaml
@@ -104,9 +104,9 @@ class LiteralField(BaseModel):
     either datatype or language, or none of these two attributes should be provided 
     as per http://www.w3.org/TR/rdf-concepts/#section-Graph-Literal
     """
-    datatype: Union[AnyUrl, str] = Field(default=None, description="datatype,"
+    datatype: Optional[Union[AnyUrl, str]] = Field(default=None, description="datatype,"
                                                     "see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes")
-    language: str = Field(default=None,
+    language: Optional[str] = Field(default=None,
                           description="RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,"
                                       "and also IANA-administrated namespace of language tags: "
                                       "https://www.iana.org/assignments/language-subtag-registry/language-subtag-"

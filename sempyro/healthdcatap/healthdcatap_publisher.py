@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pydantic import ConfigDict, Field
 from rdflib.namespace import DCAT, DCTERMS, FOAF
@@ -45,7 +45,7 @@ class HEALTHDCATAPPublisher(HEALTHDCATAPAgent):
             "rdf_type": "uri",
         },
     )
-    description: List[Union[str, LiteralField]] = Field(
+    description: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="A description of the publisher activities.",
         json_schema_extra={

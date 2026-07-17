@@ -17,7 +17,7 @@ from pydantic import Field
 from rdflib import FOAF, TIME, URIRef
 from sempyro.foaf import Agent
 from sempyro.time import DateTimeDescription
-from typing import Literal
+from typing import Literal, Optional
 
 class CustomAgent(Agent):
     name: str = Field(
@@ -36,7 +36,7 @@ class CustomAgent(Agent):
         }
     )
     
-    gender: Literal["Male", "Female", "Other", "Ambiguous", "Unknown"] = Field(
+    gender: Optional[Literal["Male", "Female", "Other", "Ambiguous", "Unknown"]] = Field(
         default=None,
         description="Gender as per Athena classification",
         json_schema_extra={
@@ -156,7 +156,7 @@ Now Let us define a Wizard:
 ```python
 from pydantic import Field, ConfigDict, AnyUrl
 from sempyro.foaf import Agent
-from typing import Union
+from typing import Union, Optional
 from sempyro import RDFModel
 
 class Wizard(Agent):
@@ -183,7 +183,7 @@ class Wizard(Agent):
             "rdf_type": "uri"
         }
     )
-    patronus_form: str = Field(
+    patronus_form: Optional[str] = Field(
         default=None,
         description="Form of patronus",
         json_schema_extra={

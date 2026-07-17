@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 from pydantic import ConfigDict, AnyHttpUrl, Field
 from rdflib.namespace import DCAT, PROV
@@ -30,7 +30,7 @@ class Attribution(RDFModel):
         }
     )
 
-    agent: Union[AnyHttpUrl, Agent] = Field(
+    agent: Optional[Union[AnyHttpUrl, Agent]] = Field(
         default=None,
         description="The prov:agent property references an prov:Agent which influenced a resource.",
         json_schema_extra={
@@ -38,7 +38,7 @@ class Attribution(RDFModel):
             "rdf_type": "uri"
         }
     )
-    role: AnyHttpUrl = Field(
+    role: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The function of an entity or agent with respect to another entity or resource.",
         json_schema_extra={

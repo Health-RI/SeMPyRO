@@ -14,7 +14,7 @@
 
 import re
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, AnyUrl, ConfigDict, Field, field_validator
 from pydantic.networks import validate_email
@@ -40,14 +40,14 @@ class VCard(RDFModel):
                               }
                               )
 
-    hasEmail: List[AnyUrl] = Field(default=None,
+    hasEmail: Optional[List[AnyUrl]] = Field(default=None,
                                    description="The email address as a mailto URI",
                                    json_schema_extra={
                                        "rdf_term": VCARD.hasEmail,
                                        "rdf_type": "uri"
                                    }
                                    )
-    formatted_name: List[Union[str, LiteralField]] = Field(
+    formatted_name: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="The full name of the object (as a single string). " 
                     "This is the only mandatory property.",
@@ -56,7 +56,7 @@ class VCard(RDFModel):
             "rdf_type": "rdfs_literal"
         }
     )
-    hasUID: AnyHttpUrl = Field(
+    hasUID: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A unique identifier for the object", 
         json_schema_extra={ 

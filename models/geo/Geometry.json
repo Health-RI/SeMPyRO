@@ -13,6 +13,9 @@
             },
             {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
           ],
           "default": null,
@@ -20,10 +23,17 @@
           "title": "Datatype"
         },
         "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "default": null,
           "description": "RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
-          "title": "Language",
-          "type": "string"
+          "title": "Language"
         },
         "value": {
           "description": "Field value",
@@ -45,80 +55,143 @@
   "description": "Geometry class for GeoSPARQL Geometry specification",
   "properties": {
     "dimension": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The topological dimension of this geometric object, which must be less than or equal to the coordinate dimension. In non-homogeneous collections, this is the largest topological dimension of the contained objects.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#dimension",
       "rdf_type": "xsd:integer",
-      "title": "Dimension",
-      "type": "integer"
+      "title": "Dimension"
     },
     "coordinateDimension": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The number of measurements or axes needed to describe the position of this Geometry in a coordinate system.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#coordinateDimension",
       "rdf_type": "xsd:integer",
-      "title": "Coordinatedimension",
-      "type": "integer"
+      "title": "Coordinatedimension"
     },
     "spatialDimension": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The number of measurements or axes needed to describe the spatial position of this Geometry in a coordinate system.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#spatialDimension",
       "rdf_type": "xsd:integer",
-      "title": "Spatialdimension",
-      "type": "integer"
+      "title": "Spatialdimension"
     },
     "hasSpatialResolution": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The spatial resolution of a Geometry",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialResolution",
       "rdf_type": "uri",
-      "title": "Hasspatialresolution",
-      "type": "string"
+      "title": "Hasspatialresolution"
     },
     "hasMetricSpatialResolution": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The spatial resolution of a Geometry in meters.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution",
       "rdf_type": "xsd:double",
-      "title": "Hasmetricspatialresolution",
-      "type": "number"
+      "title": "Hasmetricspatialresolution"
     },
     "hasSpatialAccuracy": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The positional accuracy of the coordinates of a Geometry",
-      "format": "uri",
-      "minLength": 1,
       "rdf_term": "http://www.opengis.net/ont/geosparql#hasSpatialAccuracy",
       "rdf_type": "uri",
-      "title": "Hasspatialaccuracy",
-      "type": "string"
+      "title": "Hasspatialaccuracy"
     },
     "hasMetricSpatialAccuracy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "The positional accuracy of the coordinates of a Geometry in meters.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy",
       "rdf_type": "xsd:double",
-      "title": "Hasmetricspatialaccuracy",
-      "type": "number"
+      "title": "Hasmetricspatialaccuracy"
     },
     "isEmpty": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "(true) if this geometric object is the empty Geometry. If true, then this geometric object represents the empty point set for the coordinate space.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#isEmpty",
       "rdf_type": "xsd:boolean",
-      "title": "Isempty",
-      "type": "boolean"
+      "title": "Isempty"
     },
     "isSimple": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
       "default": null,
       "description": "(true) if this geometric object has no anomalous geometric points, such as self intersection or self tangency.",
       "rdf_term": "http://www.opengis.net/ont/geosparql#isSimple",
       "rdf_type": "xsd:boolean",
-      "title": "Issimple",
-      "type": "boolean"
+      "title": "Issimple"
     },
     "hasSerialization": {
       "anyOf": [
@@ -127,6 +200,9 @@
         },
         {
           "$ref": "#/$defs/LiteralField"
+        },
+        {
+          "type": "null"
         }
       ],
       "default": null,

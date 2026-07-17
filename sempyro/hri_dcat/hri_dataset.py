@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union, ClassVar, Set
+from typing import List, Union, ClassVar, Set, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCAT, DCTERMS, FOAF, PROV
@@ -52,7 +52,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    analytics: List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]] = Field(
+    analytics: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
         default=None,
         description="An analytics distribution of the dataset.",
         json_schema_extra={
@@ -78,7 +78,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    code_values: List[AnyHttpUrl] = Field(
+    code_values: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Coding systems in use (ex: ICD-10-CM, DGRs, SNOMED=CT, ...)",
         json_schema_extra={
@@ -87,7 +87,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    coding_system: List[AnyHttpUrl] = Field(
+    coding_system: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Health classifications and their codes associated with the dataset",
         json_schema_extra={
@@ -96,7 +96,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    conforms_to: List[AnyHttpUrl] = Field(
+    conforms_to: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="An established standard to which the described resource conforms.",
         json_schema_extra={
@@ -112,7 +112,7 @@ class HRIDataset(HEALTHDCATAPDataset):
             "rdf_type": "uri",
         },
     )
-    distribution: List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]] = Field(
+    distribution: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
         default=None,
         description="An available Distribution for the Dataset.",
         json_schema_extra={
@@ -121,7 +121,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    documentation: List[AnyHttpUrl] = Field(
+    documentation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A page or document about this thing.",
         json_schema_extra={
@@ -131,7 +131,7 @@ class HRIDataset(HEALTHDCATAPDataset):
     )
 
     # Frequency uses another vocabulary then the DCAT Dataset.
-    frequency: AnyHttpUrl = Field(
+    frequency: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The frequency at which a dataset is published.",
         json_schema_extra={
@@ -140,7 +140,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    health_theme: List[AnyHttpUrl] = Field(
+    health_theme: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A category of the Dataset or tag describing the Dataset.",
         json_schema_extra={
@@ -149,7 +149,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    in_series: List[Union[HEALTHDCATAPDatasetSeries, AnyHttpUrl]] = Field(
+    in_series: Optional[List[Union[HEALTHDCATAPDatasetSeries, AnyHttpUrl]]] = Field(
         default=None,
         description="A dataset series of which the dataset is part.",
         json_schema_extra={
@@ -158,7 +158,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    is_referenced_by: List[AnyHttpUrl] = Field(
+    is_referenced_by: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A related resource that references, cites, or otherwise points to the described resource.",
         json_schema_extra={
@@ -167,7 +167,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    legal_basis: List[AnyHttpUrl] = Field(
+    legal_basis: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Indicates use or applicability of a Legal Basis.",
         json_schema_extra={
@@ -176,7 +176,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    maximum_typical_age: Union[int, LiteralField] = Field(
+    maximum_typical_age: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Maximum typical age of the population within the dataset.",
         json_schema_extra={
@@ -185,7 +185,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    minimum_typical_age: Union[int, LiteralField] = Field(
+    minimum_typical_age: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Minimum typical age of the population within the dataset",
         json_schema_extra={
@@ -194,7 +194,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    number_of_records: Union[int, LiteralField] = Field(
+    number_of_records: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Size of the dataset in terms of the number of records",
         json_schema_extra={
@@ -203,7 +203,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    number_of_unique_individuals: Union[int, LiteralField] = Field(
+    number_of_unique_individuals: Optional[Union[int, LiteralField]] = Field(
         default=None,
         description="Number of records for unique individuals.",
         json_schema_extra={
@@ -212,7 +212,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    other_identifier: List[Identifier] = Field(
+    other_identifier: Optional[List[Identifier]] = Field(
         default=None,
         description="Links a resource to an adms:Identifier class. Examples for secondary identifiers are MAST/ADS, DataCite, DOI, EZID or W3ID (if not used for the original identifier).",
         json_schema_extra={
@@ -221,7 +221,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    personal_data: List[AnyHttpUrl] = Field(
+    personal_data: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Indicates association with Personal Data.",
         json_schema_extra={
@@ -230,7 +230,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    population_coverage: List[Union[str, LiteralField]] = Field(
+    population_coverage: Optional[List[Union[str, LiteralField]]] = Field(
         default=None,
         description="A definition of the population within the dataset",
         json_schema_extra={
@@ -239,7 +239,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    purpose: List[AnyHttpUrl] = Field(
+    purpose: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Indicates association with Purpose.",
         json_schema_extra={
@@ -248,7 +248,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    qualified_attribution: List[Union[AnyHttpUrl, Attribution]] = Field(
+    qualified_attribution: Optional[List[Union[AnyHttpUrl, Attribution]]] = Field(
         default=None,
         description="Attribution is the ascribing of an entity to an agent.",
         json_schema_extra={
@@ -257,7 +257,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    qualified_relation: List[Union[AnyHttpUrl, Relationship]] = Field(
+    qualified_relation: Optional[List[Union[AnyHttpUrl, Relationship]]] = Field(
         default=None,
         description="Link to a description of a relationship with another resource.",
         json_schema_extra={
@@ -266,7 +266,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    quality_annotation: List[Union[AnyHttpUrl, QualityCertificate]] = Field(
+    quality_annotation: Optional[List[Union[AnyHttpUrl, QualityCertificate]]] = Field(
         default=None,
         description="Refers to a quality annotation.",
         json_schema_extra={
@@ -275,7 +275,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    retention_period: PeriodOfTime = Field(
+    retention_period: Optional[PeriodOfTime] = Field(
         default=None,
         description="A temporal period which the dataset is available for secondary use.",
         json_schema_extra={
@@ -284,7 +284,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    sample: List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]] = Field(
+    sample: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDistribution]]] = Field(
         default=None,
         description="Links to a sample of an Asset (which is itself an Asset).",
         json_schema_extra={
@@ -293,7 +293,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    source: List[Union[AnyHttpUrl, HEALTHDCATAPDataset]] = Field(
+    source: Optional[List[Union[AnyHttpUrl, HEALTHDCATAPDataset]]] = Field(
         default=None,
         description="A related resource from which the described resource is derived.",
         json_schema_extra={
@@ -302,7 +302,7 @@ class HRIDataset(HEALTHDCATAPDataset):
         },
     )
 
-    status: DatasetStatus = Field(
+    status: Optional[DatasetStatus] = Field(
         default=None,
         description="The status of the Asset in the context of a particular workflow process.",
         json_schema_extra={
@@ -331,7 +331,7 @@ class HRIDataset(HEALTHDCATAPDataset):
             "rdf_type": "uri",
         },
     )
-    type: List[AnyHttpUrl] = Field(
+    type: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="The nature or genre of the resource.",
         json_schema_extra={

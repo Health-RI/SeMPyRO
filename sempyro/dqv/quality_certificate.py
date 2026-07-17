@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pathlib import Path
+from typing import Optional
 
 from pydantic import ConfigDict, AnyHttpUrl, Field
 
@@ -29,7 +30,7 @@ class QualityCertificate(RDFModel):
         }
     )
 
-    target: AnyHttpUrl = Field(
+    target: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The relationship between an Annotation and its Target.",
         json_schema_extra={
@@ -37,7 +38,7 @@ class QualityCertificate(RDFModel):
             "rdf_type": "uri"
         }
     )
-    body: AnyHttpUrl = Field(
+    body: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The object of the relationship is a resource that is a body of the Annotation.",
         json_schema_extra={

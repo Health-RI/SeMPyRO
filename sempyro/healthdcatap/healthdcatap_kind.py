@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pydantic import AnyHttpUrl, AnyUrl, ConfigDict, Field, field_validator
 from rdflib import Namespace
@@ -41,7 +41,7 @@ class HEALTHDCATAPKind(VCard):
             "$prefix": "v",
         },
     )
-    hasEmail: AnyUrl = Field(
+    hasEmail: Optional[AnyUrl] = Field(
         default=None,
         description="A email address via which contact can be made.",
         json_schema_extra={
@@ -49,7 +49,7 @@ class HEALTHDCATAPKind(VCard):
             "rdf_type": "uri",
         },
     )
-    contact_page: AnyHttpUrl = Field(
+    contact_page: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A webpage that either allows to make contact or provides information on how to get in touch.",
         json_schema_extra={

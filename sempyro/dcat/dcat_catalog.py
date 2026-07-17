@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field
 from rdflib.namespace import DCAT, FOAF
@@ -31,7 +31,7 @@ class DCATCatalog(DCATDataset):
                                   "$prefix": "dcat"
                               })
 
-    catalog_record: List[Union[AnyHttpUrl, DCATCatalogRecord]] = Field(
+    catalog_record: Optional[List[Union[AnyHttpUrl, DCATCatalogRecord]]] = Field(
         default=None,
         description="A record describing the registration of a single resource (e.g., a dataset, a data service) that "
                      "is part of the catalog.",
@@ -40,7 +40,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    dataset: List[Union[AnyHttpUrl, DCATDataset]] = Field(
+    dataset: Optional[List[Union[AnyHttpUrl, DCATDataset]]] = Field(
         default=None,
         description="A dataset that is listed in the catalog.",
         json_schema_extra={
@@ -48,7 +48,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    service: List[AnyHttpUrl] = Field(
+    service: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A service that is listed in the catalog.",
         json_schema_extra={
@@ -56,7 +56,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    catalog: List[AnyHttpUrl] = Field(
+    catalog: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A catalog that is listed in the catalog.",
         json_schema_extra={
@@ -64,7 +64,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    homepage: AnyHttpUrl = Field(
+    homepage: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A homepage of the catalog (a public Web document usually available in HTML).",
         json_schema_extra={
@@ -72,7 +72,7 @@ class DCATCatalog(DCATDataset):
             "rdf_type": "uri"
         }
     )
-    themes: List[AnyHttpUrl] = Field(
+    themes: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="A knowledge organization system (KOS) used to classify the resources documented in the catalog "
                     "(e.g., datasets and services).",

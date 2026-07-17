@@ -9,6 +9,9 @@ $defs:
     description: Geometry class for GeoSPARQL Geometry specification
     properties:
       dimension:
+        anyOf:
+        - type: integer
+        - type: 'null'
         default:
         description: The topological dimension of this geometric object, which must
           be less than or equal to the coordinate dimension. In non-homogeneous collections,
@@ -16,56 +19,70 @@ $defs:
         rdf_term: http://www.opengis.net/ont/geosparql#dimension
         rdf_type: xsd:integer
         title: Dimension
-        type: integer
       coordinateDimension:
+        anyOf:
+        - type: integer
+        - type: 'null'
         default:
         description: The number of measurements or axes needed to describe the position
           of this Geometry in a coordinate system.
         rdf_term: http://www.opengis.net/ont/geosparql#coordinateDimension
         rdf_type: xsd:integer
         title: Coordinatedimension
-        type: integer
       spatialDimension:
+        anyOf:
+        - type: integer
+        - type: 'null'
         default:
         description: The number of measurements or axes needed to describe the spatial
           position of this Geometry in a coordinate system.
         rdf_term: http://www.opengis.net/ont/geosparql#spatialDimension
         rdf_type: xsd:integer
         title: Spatialdimension
-        type: integer
       hasSpatialResolution:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The spatial resolution of a Geometry
-        format: uri
-        minLength: 1
         rdf_term: http://www.opengis.net/ont/geosparql#hasSpatialResolution
         rdf_type: uri
         title: Hasspatialresolution
-        type: string
       hasMetricSpatialResolution:
+        anyOf:
+        - type: number
+        - type: 'null'
         default:
         description: The spatial resolution of a Geometry in meters.
         rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialResolution
         rdf_type: xsd:double
         title: Hasmetricspatialresolution
-        type: number
       hasSpatialAccuracy:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The positional accuracy of the coordinates of a Geometry
-        format: uri
-        minLength: 1
         rdf_term: http://www.opengis.net/ont/geosparql#hasSpatialAccuracy
         rdf_type: uri
         title: Hasspatialaccuracy
-        type: string
       hasMetricSpatialAccuracy:
+        anyOf:
+        - type: number
+        - type: 'null'
         default:
         description: The positional accuracy of the coordinates of a Geometry in meters.
         rdf_term: http://www.opengis.net/ont/geosparql#hasMetricSpatialAccuracy
         rdf_type: xsd:double
         title: Hasmetricspatialaccuracy
-        type: number
       isEmpty:
+        anyOf:
+        - type: boolean
+        - type: 'null'
         default:
         description: (true) if this geometric object is the empty Geometry. If true,
           then this geometric object represents the empty point set for the coordinate
@@ -73,19 +90,21 @@ $defs:
         rdf_term: http://www.opengis.net/ont/geosparql#isEmpty
         rdf_type: xsd:boolean
         title: Isempty
-        type: boolean
       isSimple:
+        anyOf:
+        - type: boolean
+        - type: 'null'
         default:
         description: (true) if this geometric object has no anomalous geometric points,
           such as self intersection or self tangency.
         rdf_term: http://www.opengis.net/ont/geosparql#isSimple
         rdf_type: xsd:boolean
         title: Issimple
-        type: boolean
       hasSerialization:
         anyOf:
         - type: string
         - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: Connects a Geometry object with its text-based serialization.
         rdf_term: http://www.opengis.net/ont/geosparql#hasSerialization
@@ -108,15 +127,18 @@ $defs:
           minLength: 1
           type: string
         - type: string
+        - type: 'null'
         default:
         description: datatype,see https://www.w3.org/TR/xmlschema-2/#built-in-datatypes
         title: Datatype
       language:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: 'RFC 3066 language tag, see https://datatracker.ietf.org/doc/html/rfc3066.html,and
           also IANA-administrated namespace of language tags: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
         title: Language
-        type: string
       value:
         description: Field value
         title: Value
@@ -137,6 +159,7 @@ $defs:
         anyOf:
         - $ref: '#/$defs/LiteralField'
         - $ref: '#/$defs/Geometry'
+        - type: 'null'
         bind_namespace:
         - locn
         - http://www.w3.org/ns/locn#
@@ -147,15 +170,18 @@ $defs:
         title: Geometry
       bounding_box:
         anyOf:
-        - $ref: '#/$defs/LiteralField'
         - type: string
+        - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: The geographic bounding box of a spatial thing [SDW-BP].
         rdf_term: http://www.w3.org/ns/dcat#bbox
         rdf_type: rdfs_literal
         title: Bounding Box
       centroid:
-        $ref: '#/$defs/LiteralField'
+        anyOf:
+        - $ref: '#/$defs/LiteralField'
+        - type: 'null'
         default:
         description: The geographic center (centroid) of a spatial thing [SDW-BP].
         rdf_term: http://www.w3.org/ns/dcat#centroid
@@ -209,45 +235,52 @@ properties:
     title: Homepage
     type: string
   type:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: The nature or genre of the resource.
-    format: uri
-    minLength: 1
     rdf_term: http://purl.org/dc/terms/type
     rdf_type: uri
     title: Type
-    type: string
   spatial:
+    anyOf:
+    - items:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - $ref: '#/$defs/Location'
+      type: array
+    - type: 'null'
     default:
     description: Spatial characteristics of the resource.
-    items:
-      anyOf:
-      - format: uri
-        minLength: 1
-        type: string
-      - $ref: '#/$defs/Location'
     rdf_term: http://purl.org/dc/terms/spatial
     rdf_type: uri
     title: Spatial
-    type: array
   publisher_note:
     anyOf:
     - type: string
     - $ref: '#/$defs/LiteralField'
+    - type: 'null'
     default:
     description: A description of the publisher activities.
     rdf_term: http://healthdataportal.eu/ns/health#publisherNote
     rdf_type: rdfs_literal
     title: Publisher Note
   publisher_type:
+    anyOf:
+    - format: uri
+      minLength: 1
+      type: string
+    - type: 'null'
     default:
     description: A type of organisation that makes the Dataset available.
-    format: uri
-    minLength: 1
     rdf_term: http://healthdataportal.eu/ns/health#publisherType
     rdf_type: uri
     title: Publisher Type
-    type: string
 required:
 - name
 - identifier

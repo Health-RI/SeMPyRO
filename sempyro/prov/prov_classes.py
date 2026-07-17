@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, AwareDatetime, ConfigDict, Field, NaiveDatetime
 from rdflib import PROV
@@ -36,7 +36,7 @@ class Association(RDFModel):
         }
     )
 
-    hadPlan: AnyHttpUrl = Field(
+    hadPlan: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A plan is an entity that represents a set of actions or steps intended by one or more agents to "
                     "achieve some goals.",
@@ -45,7 +45,7 @@ class Association(RDFModel):
             "rdf_type": "uri"
         }
     )
-    hadRole: AnyHttpUrl = Field(
+    hadRole: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
@@ -54,7 +54,7 @@ class Association(RDFModel):
             "rdf_type": "uri"
         }
     )
-    agent: AnyHttpUrl = Field(
+    agent: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The prov:agent property references an prov:Agent which influenced a resource. "
                     "This property applies to an prov:AgentInfluence, which is given by a subproperty of "
@@ -82,7 +82,7 @@ class InstantaneousEvent(RDFModel):
         }
     )
 
-    atTime: Union[NaiveDatetime, AwareDatetime] = Field(
+    atTime: Optional[Union[NaiveDatetime, AwareDatetime]] = Field(
         default=None,
         description="The PROV data model is implicitly based on a notion of instantaneous events (or just events), "
                     "that mark transitions in the world. Events include generation, usage, or invalidation of entities,"
@@ -93,7 +93,7 @@ class InstantaneousEvent(RDFModel):
             "rdf_type": "xsd:dateTime"
         }
     )
-    hadRole: AnyHttpUrl = Field(
+    hadRole: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
@@ -102,7 +102,7 @@ class InstantaneousEvent(RDFModel):
             "rdf_type": "uri"
         }
     )
-    atLocation: AnyHttpUrl = Field(
+    atLocation: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A location can be an identifiable geographic place (ISO 19112), but it can also be a "
                     "non-geographic place such as a directory, row, or column. As such, there are numerous ways in "
@@ -128,7 +128,7 @@ class EntityInfluence(RDFModel):
         }
     )
 
-    entity: AnyHttpUrl = Field(
+    entity: Optional[AnyHttpUrl] = Field(
         default=None,
         description="The prov:entity property references an prov:Entity which influenced a resource. This property "
                     "applies to an prov:EntityInfluence, which is given by a subproperty of prov:qualifiedInfluence "
@@ -138,7 +138,7 @@ class EntityInfluence(RDFModel):
             "rdf_type": "uri"
         }
     )
-    hadRole: AnyHttpUrl = Field(
+    hadRole: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A role is the function of an entity or agent with respect to an activity, in the context of "
                     "a usage, generation, invalidation, association, start, and end.",
@@ -147,7 +147,7 @@ class EntityInfluence(RDFModel):
             "rdf_type": "uri"
         }
     )
-    influencer: AnyHttpUrl = Field(
+    influencer: Optional[AnyHttpUrl] = Field(
         default=None,
         description="This property is used as part of the qualified influence pattern. Subclasses of prov:Influence "
                     "use these subproperties to reference the resource (Entity, Agent, or Activity) whose influence is "
@@ -157,7 +157,7 @@ class EntityInfluence(RDFModel):
             "rdf_type": "uri"
         }
     )
-    hadActivity: AnyHttpUrl = Field(
+    hadActivity: Optional[AnyHttpUrl] = Field(
         default=None,
         description="An activity is something that occurs over a period of time and acts upon or with entities; "
                     "it may include consuming, processing, transforming, modifying, relocating, using, or generating "
@@ -216,7 +216,7 @@ class Activity(RDFModel):
         }
     )
 
-    generated: List[AnyHttpUrl] = Field(
+    generated: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Generation is the completion of production of a new entity by an activity. This entity did not "
                     "exist before generation and becomes available for usage after this generation.",
@@ -225,7 +225,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    qualifiedAssociation: List[Union[AnyHttpUrl, Association]] = Field(
+    qualifiedAssociation: Optional[List[Union[AnyHttpUrl, Association]]] = Field(
         default=None,
         description="An activity association is an assignment of responsibility to an agent for an activity, "
                     "indicating that the agent had a role in the activity. It further allows for a plan to be "
@@ -236,7 +236,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    wasAssociatedWith: AnyHttpUrl = Field(
+    wasAssociatedWith: Optional[AnyHttpUrl] = Field(
         default=None,
         description="An activity association is an assignment of responsibility to an agent for an activity, "
                     "indicating that the agent had a role in the activity. It further allows for a plan to be "
@@ -247,7 +247,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    qualifiedEnd: End = Field(
+    qualifiedEnd: Optional[End] = Field(
         default=None,
         description="End is when an activity is deemed to have been ended by an entity, known as trigger. "
                     "The activity no longer exists after its end. Any usage, generation, or invalidation involving "
@@ -258,7 +258,7 @@ class Activity(RDFModel):
             "rdf_type": PROV.End
         }
     )
-    wasEndedBy: AnyHttpUrl = Field(
+    wasEndedBy: Optional[AnyHttpUrl] = Field(
         default=None,
         description="End is when an activity is deemed to have been ended by an entity, known as trigger. "
                     "The activity no longer exists after its end. Any usage, generation, or invalidation involving an "
@@ -269,7 +269,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    qualifiedUsage: List[AnyHttpUrl] = Field(
+    qualifiedUsage: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Usage is the beginning of utilizing an entity by an activity. "
                     "Before usage, the activity had not begun to utilize this entity and could not have been affected "
@@ -279,7 +279,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    used: AnyHttpUrl = Field(
+    used: Optional[AnyHttpUrl] = Field(
         default=None,
         description="Usage is the beginning of utilizing an entity by an activity. Before usage, the activity had not "
                     "begun to utilize this entity and could not have been affected by the entity.",
@@ -288,7 +288,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    invalidated: List[AnyHttpUrl] = Field(
+    invalidated: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Invalidation is the start of the destruction, cessation, or expiry of an existing entity by "
                     "an activity. The entity is no longer available for use (or further invalidation) after "
@@ -298,7 +298,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    endedAtTime: Union[AwareDatetime, NaiveDatetime] = Field(
+    endedAtTime: Optional[Union[AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="End is when an activity is deemed to have been ended by an entity, known as trigger. "
                     "The activity no longer exists after its end. Any usage, generation, or invalidation "
@@ -309,7 +309,7 @@ class Activity(RDFModel):
             "rdf_type": "xsd:dateTime"
         }
     )
-    qualifiedStart: Start = Field(
+    qualifiedStart: Optional[Start] = Field(
         default=None,
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving "
@@ -320,7 +320,7 @@ class Activity(RDFModel):
             "rdf_type": PROV.Start
         }
     )
-    wasInformedBy: List[AnyHttpUrl] = Field(
+    wasInformedBy: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Communication is the exchange of an entity by two activities, one activity using the entity "
                     "generated by the other.",
@@ -329,7 +329,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    wasStartedBy: AnyHttpUrl = Field(
+    wasStartedBy: Optional[AnyHttpUrl] = Field(
         default=None,
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving an "
@@ -340,7 +340,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    startedAtTime: Union[AwareDatetime, NaiveDatetime] = Field(
+    startedAtTime: Optional[Union[AwareDatetime, NaiveDatetime]] = Field(
         default=None,
         description="Start is when an activity is deemed to have been started by an entity, known as trigger. "
                     "The activity did not exist before its start. Any usage, generation, or invalidation involving an "
@@ -351,7 +351,7 @@ class Activity(RDFModel):
             "rdf_type": "xsd:dateTime"
         }
     )
-    qualifiedCommunication: List[AnyHttpUrl] = Field(
+    qualifiedCommunication: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Communication is the exchange of an entity by two activities, one activity using the entity "
                     "generated by the other.",
@@ -360,7 +360,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    wasInfluencedBy: List[AnyHttpUrl] = Field(
+    wasInfluencedBy: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Influence is the capacity of an entity, activity, or agent to have an effect on the character, "
                     "development, or behavior of another by means of usage, start, end, generation, invalidation, "
@@ -370,7 +370,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    qualifiedInfluence: List[AnyHttpUrl] = Field(
+    qualifiedInfluence: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Influence is the capacity of an entity, activity, or agent to have an effect on the character, "
                     "development, or behavior of another by means of usage, start, end, generation, invalidation, "
@@ -380,7 +380,7 @@ class Activity(RDFModel):
             "rdf_type": "uri"
         }
     )
-    atLocation: AnyHttpUrl = Field(
+    atLocation: Optional[AnyHttpUrl] = Field(
         default=None,
         description="A location can be an identifiable geographic place (ISO 19112), but it can also be a "
                     "non-geographic place such as a directory, row, or column. As such, there are numerous ways in "

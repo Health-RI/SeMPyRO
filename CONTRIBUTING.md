@@ -38,6 +38,12 @@ tag, the property should accept both types. Therefore, use the union type Union[
 Properties with the range `rdfs:Literal` should have `rdf_type` in `json_schema_extra` equal to `rdfs_literal`, 
 `datetime_literal` or an `xsd` type. If the range is a URI, `rdf_type` should be `uri`.
 
+Any non-required property (i.e. one declared with `Field(default=None, ...)`) must also have its type hint wrapped
+in `Optional[...]`. Pydantic does not validate the default value itself, so a field typed as `Union[AnyHttpUrl, DCATDistribution]`
+with `default=None` would still reject an explicit `None` passed in by a caller (e.g. when unpacking a dict of
+values via `Model(**data)`). Wrapping it as `Optional[Union[AnyHttpUrl, DCATDistribution]]` fixes this. See
+[Health-RI/SeMPyRO#124](https://github.com/Health-RI/SeMPyRO/issues/124).
+
 ### Naming Conventions
 
 - Property names should match those in the application profile, not necessarily the RDF term

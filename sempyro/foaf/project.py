@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 from pydantic import AnyHttpUrl, ConfigDict, Field, field_validator
 from rdflib.namespace import DCTERMS, FOAF
@@ -63,7 +63,7 @@ class Project(RDFModel):
         },
         alias="funder"
     )
-    relation: List[AnyHttpUrl] = Field(
+    relation: Optional[List[AnyHttpUrl]] = Field(
         default=None,
         description="Link to the project datasets",
         json_schema_extra={

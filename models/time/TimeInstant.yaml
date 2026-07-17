@@ -10,14 +10,16 @@ $defs:
       the various elements of a calendar-clock system
     properties:
       timeZone:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The time zone for clock elements in the temporal position
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/time#timeZone
         rdf_type: uri
         title: Timezone
-        type: string
       unitType:
         description: The temporal unit which provides the precision of a date-time
           value or scale of a temporal extent
@@ -37,6 +39,9 @@ $defs:
         title: Hastrs
         type: string
       year:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: Year position in a calendar-clock system. The range of this property
           is not specified, so can be replaced by any specific representation of a
@@ -44,8 +49,10 @@ $defs:
         rdf_term: http://www.w3.org/2006/time#year
         rdf_type: xsd:gYear
         title: Year
-        type: string
       month:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: Month position in a calendar-clock system. The range of this
           property is not specified, so can be replaced by any specific representation
@@ -53,8 +60,10 @@ $defs:
         rdf_term: http://www.w3.org/2006/time#month
         rdf_type: xsd:gMonth
         title: Month
-        type: string
       day:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: Day position in a calendar-clock system. The range of this property
           is not specified, so can be replaced by any specific representation of a
@@ -62,64 +71,77 @@ $defs:
         rdf_term: http://www.w3.org/2006/time#day
         rdf_type: xsd:gDay
         title: Day
-        type: string
       hour:
+        anyOf:
+        - minimum: 0
+          type: integer
+        - type: 'null'
         default:
         description: Hour position in a calendar-clock system
-        minimum: 0
         rdf_term: http://www.w3.org/2006/time#hour
         rdf_type: xsd:nonNegativeInteger
         title: Hour
-        type: integer
       minute:
+        anyOf:
+        - minimum: 0
+          type: integer
+        - type: 'null'
         default:
         description: Minute position in a calendar-clock system
-        minimum: 0
         rdf_term: http://www.w3.org/2006/time#minute
         rdf_type: xsd:nonNegativeInteger
         title: Minute
-        type: integer
       second:
+        anyOf:
+        - type: number
+        - type: 'null'
         default:
         description: Second position in a calendar-clock system.
         rdf_term: http://www.w3.org/2006/time#second
         rdf_type: xsd:decimal
         title: Second
-        type: number
       week:
+        anyOf:
+        - minimum: 0
+          type: integer
+        - type: 'null'
         default:
         description: Week number within the year.
-        minimum: 0
         rdf_term: http://www.w3.org/2006/time#week
         rdf_type: xsd:nonNegativeInteger
         title: Week
-        type: integer
       dayOfYear:
+        anyOf:
+        - minimum: 0
+          type: integer
+        - type: 'null'
         default:
         description: The number of the day within the year
-        minimum: 0
         rdf_term: http://www.w3.org/2006/time#dayOfYear
         rdf_type: xsd:nonNegativeInteger
         title: Dayofyear
-        type: integer
       dayOfWeek:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The day of week, whose value is a member of the class time:DayOfWeek
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/time#dayOfWeek
         rdf_type: uri
         title: Dayofweek
-        type: string
       monthOfYear:
+        anyOf:
+        - format: uri
+          minLength: 1
+          type: string
+        - type: 'null'
         default:
         description: The month of the year, whose value is a member of the class time:MonthOfYear
-        format: uri
-        minLength: 1
         rdf_term: http://www.w3.org/2006/time#monthOfYear
         rdf_type: uri
         title: Monthofyear
-        type: string
     required:
     - unitType
     - hasTRS
@@ -136,21 +158,25 @@ $defs:
       system."
     properties:
       nominalPosition:
+        anyOf:
+        - type: string
+        - type: 'null'
         default:
         description: The (nominal) value indicating temporal position in an ordinal
           reference system
         rdf_term: http://www.w3.org/2006/time#nominalPosition
         rdf_type: xsd:string
         title: Nominalposition
-        type: string
       numericPosition:
+        anyOf:
+        - type: number
+        - type: 'null'
         default:
         description: The (numeric) value indicating position within a temporal coordinate
           system
         rdf_term: http://www.w3.org/2006/time#numericPosition
         rdf_type: xsd:decimal
         title: Numericposition
-        type: number
       hasTRS:
         description: The temporal reference system used by a temporal position or
           extent description
@@ -171,57 +197,71 @@ additionalProperties: false
 description: A temporal entity with zero extent or duration
 properties:
   inXSDDate:
+    anyOf:
+    - format: date
+      type: string
+    - type: 'null'
     default:
     description: Position of an instant, expressed using xsd:date
-    format: date
     rdf_term: http://www.w3.org/2006/time#inXSDDate
     rdf_type: xsd:date
     title: Inxsddate
-    type: string
   inXSDDateTime:
+    anyOf:
+    - format: date-time
+      type: string
+    - type: 'null'
     default:
     deprecated: true
     description: (deprecated) Position of an instant, expressed using xsd:dateTime
-    format: date-time
     rdf_term: http://www.w3.org/2006/time#inXSDDateTime
     rdf_type: xsd:dateTime
     title: Inxsddatetime
-    type: string
   inXSDDateTimeStamp:
+    anyOf:
+    - format: date-time
+      type: string
+    - type: 'null'
     default:
     description: Position of an instant, expressed using xsd:dateTimeStamp, in which
       the time-zone field is mandatory
-    format: date-time
     rdf_term: http://www.w3.org/2006/time#inXSDDateTimeStamp
     rdf_type: xsd:dateTimeStamp
     title: Inxsddatetimestamp
-    type: string
   inXSDgYear:
+    anyOf:
+    - pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+      type: string
+    - type: 'null'
     default:
     description: Position of an instant, expressed using xsd:gYear
-    pattern: -?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#inXSDgYear
     rdf_type: xsd:gYear
     title: Inxsdgyear
-    type: string
   inXSDgYearMonth:
+    anyOf:
+    - pattern: 
+        -?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
+      type: string
+    - type: 'null'
     default:
     description: Position of an instant, expressed using xsd:gYearMonth
-    pattern: 
-      -?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?
     rdf_term: http://www.w3.org/2006/time#inXSDgYearMonth
     rdf_type: xsd:gYearMonth
     title: Inxsdgyearmonth
-    type: string
   inTimePosition:
-    $ref: '#/$defs/TimePosition'
+    anyOf:
+    - $ref: '#/$defs/TimePosition'
+    - type: 'null'
     default:
     description: Position of an instant, expressed as a temporal coordinate or nominal
       val
     rdf_term: http://www.w3.org/2006/time#inTimePosition
     rdf_type: http://www.w3.org/2006/time#TimePosition
   inDateTime:
-    $ref: '#/$defs/GeneralDateTimeDescription'
+    anyOf:
+    - $ref: '#/$defs/GeneralDateTimeDescription'
+    - type: 'null'
     default:
     description: Position of an instant, expressed using a structured description
     rdf_term: http://www.w3.org/2006/time#inDateTime
