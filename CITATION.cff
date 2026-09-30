@@ -8,11 +8,9 @@ abstract: >-
 authors:
   - given-names: Anastasia
     family-names: Nayden
-    email: anastasia.nayden@health-ri.nl
     affiliation: Health-RI
   - given-names: Mark
     family-names: Janse
-    email: mark.janse@health-ri.nl
     affiliation: Health-RI
   - given-names: Alexander
     family-names: Harms
@@ -21,7 +19,6 @@ authors:
   - given-names: Hans-Christian
     name-particle: van der
     family-names: Werf
-    email: hanschristian.vanderwerf@health-ri.nl
     affiliation: Health-RI
   - given-names: Quinten
     family-names: Plevier
@@ -33,7 +30,6 @@ authors:
     affiliation: Health-RI
   - given-names: Patrick
     family-names: Dekker
-    email: patrick.dekker@health-ri.nl
     affiliation: Health-RI
   - name: Health-RI
     website: "https://www.health-ri.nl"
