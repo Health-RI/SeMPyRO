@@ -38,7 +38,6 @@ authors:
   - name: Health-RI
     website: "https://www.health-ri.nl"
 repository-code: "https://github.com/Health-RI/SeMPyRO"
-url: "https://github.com/Health-RI/SeMPyRO/tree/main/docs"
 license: Apache-2.0
 version: 2.2.0
 date-released: "2026-03-06"
