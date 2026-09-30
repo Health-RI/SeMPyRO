@@ -1,0 +1,19 @@
+CITATION.cff
+  s_3af5462d468c00::t_f2d383e4a96998 1-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4af4e49ff8c59146b10658c9aa3b7067626bcffa",
+  "prompts": {},
+  "sessions": {
+    "s_3af5462d468c00": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2bd04617-a327-44fa-a6b8-afd9d02d32ae",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "kburger <burger+github@gmail.com>"
+    }
+  }
+}
