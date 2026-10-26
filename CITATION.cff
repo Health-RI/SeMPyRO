@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: "SeMPyRO"
+abstract: >-
+  SeMPyRO (Semantic Models Python Pydantic RDF Ontology) provides Pydantic
+  models representing the classes of the DCAT-AP v3 data model.
+authors:
+  - given-names: Anastasia
+    family-names: Nayden
+    email: anastasia.nayden@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Mark
+    family-names: Janse
+    email: mark.janse@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Alexander
+    family-names: Harms
+    email: alexander.harms@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Hans-Christian
+    name-particle: van der
+    family-names: Werf
+    email: hanschristian.vanderwerf@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Quinten
+    family-names: Plevier
+    email: quinten.plevier@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Kees
+    family-names: Burger
+    email: kees.burger@health-ri.nl
+    affiliation: Health-RI
+  - given-names: Patrick
+    family-names: Dekker
+    email: patrick.dekker@health-ri.nl
+    affiliation: Health-RI
+  - name: Health-RI
+    website: "https://www.health-ri.nl"
+repository-code: "https://github.com/Health-RI/SeMPyRO"
+license: Apache-2.0
+version: 2.2.0
+date-released: "2026-03-06"
+keywords:
+  - rdf
+  - pydantic
+  - DCAT
+  - DCAT-AP
+  - HealthDCAT-AP
+  - data model

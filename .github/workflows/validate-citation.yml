@@ -1,0 +1,32 @@
+# Validates CITATION.cff against the Citation File Format schema
+# For more information see: https://citation-file-format.github.io/
+
+name: Validate CITATION.cff
+
+on:
+  push:
+    paths:
+      - CITATION.cff
+      - .github/workflows/validate-citation.yml
+  pull_request:
+    paths:
+      - CITATION.cff
+      - .github/workflows/validate-citation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+    - name: Install cffconvert
+      run: pip install cffconvert==2.0.0
+    - name: Validate CITATION.cff
+      run: cffconvert --validate
