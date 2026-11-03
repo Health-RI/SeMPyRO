@@ -66,6 +66,12 @@ pip install sempyro
 If you want to explore them follow [official Jupyter installation guid](https://jupyter.org/install#jupyter-notebook).
 Additionally you may need to install pandas and/or [erdantic](./docs/Defining_extending_a_model#visualization-with-erdantic).
 
+## How to cite
+
+If you use SeMPyRO in your work, please cite it. The citation metadata is in
+[`CITATION.cff`](./CITATION.cff). On GitHub, the **Cite this repository** button
+in the repository sidebar gives the citation in APA and BibTeX format.
+
 ## Licence
 
 [Apache-2.0](./LICENSE)
