@@ -79,9 +79,3 @@ For more information on package content and usage see:
 - [Preparing and uploading data to Fair Data Point with SeMPyRO](./docs/Documentation_DCAT.ipynb) and [Preparing and uploading data to Fair Data Point with SeMPyRO using Health-RI Core v2](./docs/Documentation_Health-RI_Core.ipynb) for an interactive introduction to the functionality.
 
 To push metadata manually to a FAIR Data Point, you can use this Juypter notebook: [Pushing metadata to an FDP](./docs/Push_to_FDP-Health-RI_v2.ipynb).
-
-## Known issues
-
-Method `.get_fields_types()` from the `ModelAnnotationUtil` object returned by `RDFModel.annotate_model()` returns 
-an `AttributeError` when run under Python 3.9. This method does work in Python 3.10 and up. 
-See issue [#43](https://github.com/Health-RI/SeMPyRO/issues/43).
