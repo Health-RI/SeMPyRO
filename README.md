@@ -57,6 +57,8 @@ Current package includes Pydantic classes for the **Health-RI Core model**.
 
 ## Installation
 
+SeMPyRO requires Python 3.10 or later.
+
 To install the package run
 ```commandline
 pip install sempyro
