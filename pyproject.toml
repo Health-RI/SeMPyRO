@@ -9,8 +9,17 @@ description = "SeMPyRO (for Semantic Models Python Pydantic RDF Ontology) is a P
 keywords = ["rdf", "pydantic", "DCAT", "DCAT-AP", "data model"]
 requires-python = ">= 3.9"
 authors = [
-  { name = "Anastasia Nayden", email = "anastasia.nayden@health-ri.nl" },
-  { name = "Mark Janse", email = "mark.janse@health-ri.nl" },
+  { name = "Anastasia Nayden" },
+  { name = "Mark Janse" },
+  { name = "Alexander Harms", email = "alexander.harms@health-ri.nl" },
+  { name = "Hans-Christian van der Werf" },
+  { name = "Quinten Plevier", email = "quinten.plevier@health-ri.nl" },
+  { name = "Kees Burger", email = "kees.burger@health-ri.nl" },
+  { name = "Patrick Dekker" },
+  { name = "Health-RI" },
+]
+maintainers = [
+  { name = "Health-RI", email = "servicedesk@health-ri.nl" },
 ]
 
 classifiers = [
