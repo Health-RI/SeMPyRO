@@ -31,6 +31,10 @@ authors:
   - given-names: Patrick
     family-names: Dekker
     affiliation: Health-RI
+  - given-names: Sean
+    family-names: Berrie
+    email: sean.berrie@health-ri.nl
+    affiliation: Health-RI
   - name: Health-RI
     website: "https://www.health-ri.nl"
 repository-code: "https://github.com/Health-RI/SeMPyRO"

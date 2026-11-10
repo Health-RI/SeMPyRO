@@ -16,6 +16,7 @@ authors = [
   { name = "Quinten Plevier", email = "quinten.plevier@health-ri.nl" },
   { name = "Kees Burger", email = "kees.burger@health-ri.nl" },
   { name = "Patrick Dekker" },
+  { name = "Sean Berrie", email = "sean.berrie@health-ri.nl" },
   { name = "Health-RI" },
 ]
 maintainers = [
